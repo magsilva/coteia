@@ -8,30 +8,29 @@
 </head>
 
 <?php
-include_once("function.inc");
-include_once("cvs/function_cvs.inc");
+include_once( "../../function.inc" );
+include_once( "cvs-api.inc" );
 
 //encontra id_swiki
-$id_swiki = $ident[0];
-if ($ident[1] != ".") {
-	$id_swiki = $ident[0] . $ident[1];
+$ident = $_REQUEST[ "ident" ];
+if ( check_wikipage_id( $ident ) == false ) {
+  show_error( 0 );
 }
 ?>
 <body>
 
 <?php
-include( "toolbar.php" );
+	include( "../../toolbar.php" );
 ?>
 
 <?php
 //variaveis que devem vir de outro script
-$ident = $_REQUEST[ "ident" ];
 $comparar = $_REQUEST[ "compara" ];
 $revisao = $_REQUEST[ "revisao" ];
 $filename = $CVS_MODULE . "/" . $ident . ".html";
 
 // Se a opção "Comparar com versão atual" estiver ativada, mostrar a versão atual.
-if ( $comparar == 1 ) {
+if ( $_REQUEST[ "compare" ] ) {
 ?>
 	<div class="source1">
 	<p><b>Versão Atual</b></p>

@@ -1,6 +1,5 @@
 <?php
-include_once("function.inc");
-global $dbname;
+include_once( "../../function.inc" );
 ?>
 
 <html>
@@ -16,7 +15,7 @@ global $dbname;
 
 <?php
 
-include( "toolbar.php" );
+include( "../../toolbar.php" );
 
 // Encontra id_swiki
 $get_swiki = explode( ".", $ident );

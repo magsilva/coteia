@@ -1,6 +1,6 @@
 <?php
 
-include_once( "config.php.inc" );
+include_once( "../../config.php.inc" );
 
 /**
 * Check if the repository has been checked out. If not, do it now.
@@ -9,6 +9,9 @@ function cvs_check( $module ) {
 	global $CVS_CHECKOUT_DIR;
 
 	$old_dir = getcwd();
+	if ( !is_dir( $CVS_CHECKOUT_DIR ) ) {
+		return false;
+	}
 	chdir( $CVS_CHECKOUT_DIR );
 
 	if ( !is_file( $CVS_CHECKOUT_DIR . "/" . $module . "/CVS" ) ) {
@@ -94,6 +97,9 @@ function cvs_checkout_module( $module ) {
 	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . ":" . $CVS_REPOSITORY;
 	$cvs_cmdline = "";
 	$old_dir = getcwd();
+	if ( !is_dir( $CVS_CHECKOUT_DIR ) ) {
+		return false;
+	}
 	chdir( $CVS_CHECKOUT_DIR );
 
 	// Normalmente isto seria desnecessário, o reposítorio não deveria ter tal arquivo.
@@ -113,6 +119,9 @@ function cvs_update_module( $module ) {
 	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . ":" . $CVS_REPOSITORY;
 	$cvs_cmdline = "";
 	$old_dir = getcwd();
+	if ( !is_dir( $CVS_CHECKOUT_DIR ) ) {
+		return false;
+	}
 	chdir( $CVS_CHECKOUT_DIR );
 
 	// Normalmente isto seria desnecessário, o reposítorio não deveria ter tal arquivo.
@@ -132,8 +141,11 @@ function cvs_checkout_file( $file, $release ) {
 	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . ":" . $CVS_REPOSITORY;
 	$cvs_cmdline = "";
 	$old_dir = getcwd();
+	if ( !is_dir( $CVS_CHECKOUT_DIR ) ) {
+		return false;
+	}
 	chdir( $CVS_CHECKOUT_DIR );
-
+	
 	// Normalmente isto seria desnecessário, o reposítorio não deveria ter tal arquivo.
 	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " checkout -p -l -r " . $release . " " . $file;
 	$pipe = popen( $cvs_cmdline, "r" );
@@ -155,6 +167,9 @@ function cvs_get_revisions( $file ) {
 	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . ":" . $CVS_REPOSITORY;
 	$cvs_cmdline = "";
 	$old_dir = getcwd();
+	if ( !is_dir( $CVS_CHECKOUT_DIR ) ) {
+		return false;
+	}
 	chdir( $CVS_CHECKOUT_DIR );
 
 	// Normalmente isto seria desnecessário, o reposítorio não deveria ter tal arquivo.
