@@ -6,6 +6,7 @@ Arrumar o mecanismo de CVS.
 
 Ócio
 ====
+Mudar as variáveis globais para constantes.
 Reescrever o getrevisao_cvs.php e history.php para utilizar as funções prontas do function_cvs.
 Retirar código redundante de admin/
 Remover códigos redundantes de Javascript (colocar em um arquivo separado).
