@@ -2,140 +2,126 @@
 include_once("function.inc");
 include_once("cvs/function_cvs.inc");
 
-// Evita ; para concatenacao de comandos SQL
-if ( (!isset($ident)) or (stristr($ident,";") ) ) {
-	$st = 1;
-	include("erro.php");
-	exit();
-}
-
 $dbh = db_connect();
-mysql_select_db($dbname,$dbh);
+mysql_select_db( $dbname, $dbh );
   
-if ($salva) {
-	// Encontra id_swiki
-	if (stristr($ident,".")) {
-		$get_swiki = explode(".",$ident);
-		$id_swiki = $get_swiki[0];
-	} else {
-		 $id_swiki = $ident;
+if ( isset( $_REQUEST[ "save" ] ) ) {
+	$id_swiki = extract_swiki_id( $ident );
+	if ( $id_swiki == false ) {
+		$st = 0;
+		include( "erro.php" );
 	}
 
-	$query =  "select indexador from paginas where ((indexador='$indexador') and ((ident like '$id_swiki.%')  or (ident='$id_swiki')))";
-	$result = mysql_query($query,$dbh);
-
-	while ($tupla = mysql_fetch_array($result)) {
-		if (!strcmp(trim($indexador),trim($tupla["indexador"]))) {
-			$st = 3;
-			include("erro.php");
-			exit();
-		}
-	}
-	$k[1] = $key1;
-	$k[2] = $key2;
-	$k[3] = $key3;
-
-	$coweb_tratamento = tratamento($indexador,$cria_conteudo,$titulo,$cria_autor,$k);
-	
-	$indexador = $coweb_tratamento["index"];
-	$conteudo = trim($coweb_tratamento["content"]);
-	$titulo = trim($coweb_tratamento["title"]);
-	$autor = trim($coweb_tratamento["author"]);
-	$keyword[1] = trim($coweb_tratamento["key1"]);
-	$keyword[2] = trim($coweb_tratamento["key2"]);
-	$keyword[3] = trim($coweb_tratamento["key3"]);
-		
-	if (stristr($conteudo,"<note/>")) {
-		$conteudo = note($conteudo);
+	/**
+	* Avoid the duplication of index for a given wikipage within it's home swiki.
+	*/
+	$query = "select count(*) as counter from paginas where indexador='" . 
+		$_REQUEST[ "index" ] . "' and ( ident like '$id_swiki.%' or ident='$id_swiki' )";
+	$result = mysql_query( $query, $dbh );
+	$tuple = mysql_fetch_array( $result );
+	if ( intval( $tuple[ "counter" ] ) > 0 ) {
+		$st = 0;
+		include("erro.php");
 	}
 
-	// Grava no BD sem modificacaoes de links
-	$conteudo_puro = $conteudo;
+	$wikipage_web = prepare_for_web( $_REQUEST[ "index" ], $_REQUEST[ "content" ], $_REQUEST[ "title" ], $_REQUEST[ "author" ], $_REQUEST[ "keyword" ] );
 
-	if (stristr($conteudo,"<lnk>")) {
-		$conteudo = link_interno($ident,$conteudo,$dbh);
+	if ( match_empty_tag( $wikipage[ "content" ], "note" ) ) {
+		$wikipage[ "content" ] = note( $wikipage[ "content" ] ) ;
 	}
 
-	if (stristr($ident,".")) {
-		//links to this page
-		$i = 1;
-		$query_swiki = mysql_query("select ident,titulo from paginas where (((ident like '$id_swiki.%')  or (ident='$id_swiki')) and (conteudo like '%<lnk>$indexador</lnk>%'))",$dbh);
-		while ($tupla = mysql_fetch_array($query_swiki)) {
-			$linksto_id[$i] = $tupla[ "ident" ];
-			$linksto_titulo[$i] = $tupla[ "titulo" ];
-			$i++;
+	if ( match_start_tag( $wikipage[ "content" ], "lnk" ) ) {
+		$wikipage[ "content" ] = link_interno( $wikipage[ "ident" ], $wikipage[ "content" ], $dbh );
+	}
+
+	$wikipage_db = prepare_for_db( $_REQUEST[ "index" ], $_REQUEST[ "content" ], $_REQUEST[ "title" ], $_REQUEST[ "author" ], $_REQUEST[ "keyword" ] );
+
+	if ( strpos( $id_swiki, "." ) != false ) {
+		$i = 0;
+		$query_swiki = mysql_query( "select ident,titulo from paginas where ( ident like '$id_swiki.%' or ident='$id_swiki' ) and ( conteudo like '%" . $_REQUEST[ "$index" ]%" . ')", $dbh );
+		while ( $tuple = mysql_fetch_array( $query_swiki ) ) {
+			if ( match_tag( $tuple[ "titulo" ], "lnk", $_REQUEST[ "$index" ] ) ) {
+				$linksto_id[$i] = $tuple[ "ident" ];
+				$linksto_titulo[$i] = $tuple[ "titulo" ];
+				$i++;
+			}
 		}
 	} else {
-		$linksto_id[1] = "0";
-		$linksto_titulo[1] = "Lista de Swikis";
+		$linksto_id[0] = "0";
+		$linksto_titulo[0] = "Lista de Swikis";
 	}
 
-	//verifica travamento da pagina
-	if ( $lock == "locked" ) {
-		$flag_lock = 1;
-	} else {
-		$flag_lock = 0;
+	$links = "";
+	$i = 0;
+  if ( $linksto_id[0] == "0" ) {
+    $links = $links . "<ref id=\"index.php\">$linksto_titulo[0]</ref>\n";
+		$i++;
 	}
+	for ( ; $i < count( $linksto_id ); $i++ ) {
+		$links = $links . "<ref id=\"mostra.php?ident=$linksto_id[$i]\">$linksto_titulo[$i]</ref>\n";
+	}
+	$wikipage_web[ "links" ] = $links;
+
+	// Verifica travamento da pagina
+	if ( $_REQUEST[ "lock" ] == "locked" ) {
+		$wikipage_web[ "lock" ] = true;
+	} else {
+		$wikipage_web[ "lock" ] = "false";
+	}
+
+	$wikipage_web[ "id_swiki" ] = $id_swiki;
 	
 	$path_xml = $PATH_XML;
 	$arq_xsl = $PATH_XSL;
 	$path_html = $PATH_XHTML;
-	$dtd = "<!DOCTYPE coteia SYSTEM 'coteia.dtd'>";
-	$node = "page";
-	$id = "id";
-	$lock_xml = "<lock>$flag_lock</lock>";
-	$others = "<sw_id>$id_swiki</sw_id>";
-	$kwd[1] = "kwd1";
-	$kwd[2] = "kwd2";
-	$kwd[3] = "kwd3";
-	$aut = "aut";
-	$tit = "tit";
-	$body = "bdy";
 
-	$query_extra = mysql_query("select id_ann,id_chat,id_eclass from swiki where id='$id_swiki'");
- 	$result = mysql_fetch_array($query_extra); 
- 	$annotation = "<ann_folder>$result[id_ann]</ann_folder>";
- 	$chat = "<chat_folder>$result[id_chat]</chat_folder>";
-	$eclass = "<id_eclass>$result[id_eclass]</id_eclass>";
+	$query_extra = mysql_query( "select id_ann, id_chat, id_eclass from swiki where id='$id_swiki'" );
+ 	$result = mysql_fetch_array( $query_extra );
+ 	$wikipage_web[ "annotation "] = $result[ "id_ann"];
+ 	$wikipage_web[ "chat" ]  = $result[ "id_chat" ];
+	$wikipage_web[ "eclass" ] = $result[ "id_eclass" ];
 
-	$result = xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body);
+
+
+	$result = xml_xsl( $wikipage_web, $path_xml, $path_dtd, $path_xsl, $path_html );
 	if ( is_bool( $result ) && $result == TRUE ) {
 		//adiciona arquivo no CVS
 		cvs_add($ident, $CVS_MODULE);
 
 		$nro_ip= getenv("REMOTE_ADDR"); 
 		$d = getdate();
-    		$data=$d["year"]."-".$d["mon"]."-".$d["mday"]." ".$d["hours"].":".$d["minutes"].":".$d["seconds"];
+		$data=$d["year"]."-".$d["mon"]."-".$d["mday"]." ".$d["hours"].":".$d["minutes"].":".$d["seconds"];
 		
-		if ($flag_lock == 0){
+		if ($wikipage_web[ "lock" ] == true ) {
 			$passwd = "NULL";
 		} else {
-			$passwd = "'" . md5( $passwd ) . "'";
+			$passwd = "'" . md5( $_REQUEST[ "passwd" ] ) . "'";
 		}
 
-		$conteudo_puro = addslashes( $conteudo_puro );
-		$titulo = addslashes( $titulo );
-		$keyword[ 1 ] = addslashes( $keyword[ 1 ] );
-		$keyword[ 2 ] = addslashes( $keyword[ 2 ] );
-		$keyword[ 3 ] = addslashes( $keyword[ 3 ] );
-		$autor = addslashes( $autor );
-		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip, data_criacao,data_ultversao,pass, kwd1, kwd2, kwd3,autor) values ('$ident','$indexador','$titulo','$conteudo_puro','$nro_ip','$data','$data',$passwd,'$keyword[1]','$keyword[2]','$keyword[3]','$autor')";
-		$sql = mysql_query($query,$dbh) or die ("Falha ao inserir no Banco de Dados");
+		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip,data_criacao,data_ultversao,pass,kwd1,kwd2,kwd3,autor) values ('$wikipage_db[ident]','$wikipage[index]','$wikipage[title]','$wikipage[content]','$nro_ip','$data','$data',$passwd,'$wikipage_db[keyword1]','$wikipage_db[keyword2]','$wikipage_db[keyword3]','$wikipage_db[autor]')";
+		$sql = mysql_query( $query, $dbh );
+		if ( $sql == false ) {
+			$st = 0;
+			include( "erro.php" );
+		}
 
- 		$query = "insert into gets (id_pag,id_sw,data) values ('$ident','$id_swiki','$data')" or die ("Falha ao inserir no Banco de Dados");
-		$sql = mysql_query($query,$dbh);
+ 		$query = "insert into gets (id_pag,id_sw,data) values ('$wikipage_db[ident]','$id_swiki','$data')" or die ("Falha ao inserir no Banco de Dados");
+		$sql = mysql_query( $query, $dbh );
+		if ( $sql == false ) {
+			$st = 0;
+			include( "erro.php" );
+		}
 	} else {
-		//nao criou arquivo fisico >> erro 
+		// The XML transformation didn't work.
 		$st = 2;
 		include("erro.php" );
-		exit();
 	}
 
 	foreach ( $linksto_id as $ident_pai ) {
 		include( "atualiza.php" );
 	}
 
-	header("Location:mostra.php?ident=$ident");
+	header("Location:mostra.php?ident=$wikipage[ident]");
 } else {
 ?>
 <html>
@@ -172,22 +158,22 @@ include( "toolbar.php" );
 <tr>
 	<td>
 		Título
-		<br /><input type="text" name="titulo" value="<?echo $index?>" SIZE="45" />
+		<br /><input type="text" name="title" value="<?php echo $_REQUEST[ "index" ]; ?>" size="45" />
 	</td>
 </tr>
 <tr>
 	<td>
 		Autor
-		<br /><input type="text" name="cria_autor" size="45" />
+		<br /><input type="text" name="author" size="45" />
 	</td>
 </tr>
 <tr>
 	<td>
 		Palavras-chave:
 		<br />
-		<input type="text" name="key1" size="15" />
-		<input type="text" name="key2" size="15" />
-		<input type="text" name="key3" size="15" />
+		<input type="text" name="keywords[1]" size="15" />
+		<input type="text" name="keywords[2]" size="15" />
+		<input type="text" name="keywords[3]" size="15" />
 	</td>
 </tr>
 </table>
@@ -195,13 +181,13 @@ include( "toolbar.php" );
 
 <div class="content" >
 	<input type="reset" value="Limpa" onClick="return confirm('Are you sure? This will restore the original text\n(in another words, you will lose every change made to the text)')"; />
-	<input type="submit" name="salva" value="Salva" />
+	<input type="submit" name="save" value="Salvar" />
 	<br />
-	<textarea name="cria_conteudo" wrap=virtual rows="20" cols="100" style="width: 100%"></textarea>
+	<textarea name="content" wrap=virtual rows="20" cols="100" style="width: 100%"></textarea>
 </div>
  
-<input type="hidden" name="ident" value="<?php echo $ident;?>" />
-<input type="hidden" name="indexador" value="<?php echo $index;?>" />
+<input type="hidden" name="ident" value="<?php echo $_REQUEST[ "ident" ];?>" />
+<input type="hidden" name="index" value="<?php echo $_REQUEST[ "index" ];?>" />
 </form>
 
 </body>

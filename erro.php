@@ -80,3 +80,7 @@ foreach ( $result as $error_message ) {
 </body>
 
 </html>
+
+<?php
+	exit();
+?>

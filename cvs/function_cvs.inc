@@ -33,7 +33,7 @@ function cvs_update( $id, $module ) {
 	$old_dir = getcwd();
 
 	cvs_check( $module );
-	if ( !is_dir( $CVS_CHECKOUT_DIR . "/" . $module ) {
+	if ( !is_dir( $CVS_CHECKOUT_DIR . "/" . $module ) ) {
 		return;
 	}
 	chdir( $CVS_CHECKOUT_DIR . "/" . $module );
@@ -66,7 +66,7 @@ function cvs_add( $id, $module ) {
 	$old_dir = getcwd();
 
 	cvs_check( $module );
-  if ( !is_dir( $CVS_CHECKOUT_DIR . "/" . $module ) {
+  if ( !is_dir( $CVS_CHECKOUT_DIR . "/" . $module ) ) {
     return;
   }
 	chdir( $CVS_CHECKOUT_DIR . "/" . $module );

@@ -974,14 +974,14 @@ session_unregister("usermail");
  * PAR. ENTRADA: texto
  * PAR. SAIDA: texto traduzido em entidades e XHTML
  */
-function replace( $text ) {
+function replace_html_entities( $text ) {
 	$replace_vars = array(
-/*		"&" => "&amp;",
-		"`" => "'",
-		"\"" => "&quot;",
-		"<" => "&lt;",
-		">" => "&gt;"
-*/	);
+//		"&" => "&amp;",
+//		"`" => "'",
+//		"\"" => "&quot;",
+//		"<" => "&lt;",
+//		">" => "&gt;"
+	);
 
 	foreach ( $replace_vars as $i => $value ) {
 		$text = eregi_replace( $i, $value, $text );
@@ -990,27 +990,43 @@ function replace( $text ) {
 }
 
 /**
-* Prepare the data for processing (trim data mainly).
+* Prepare the data for database's processing.
 */
-function tratamento($index,$conteudo,$titulo,$autor,$kwd) {
-	$index = stripslashes( $index );
-	$conteudo = stripslashes( $conteudo );
-	$titulo = stripslashes( $titulo );
-	$autor = stripslashes( $autor );
+function prepare_for_db( $index, $content, $title, $author, $keywords ) {
+	$data = prepare_for_web( $index, $content, $title, $author, $keywords );
 
-	$texto = replace($conteudo);
-
-	$trat["index"] = $index;
-	$trat["content"] = trim( $texto );
-	$trat["title"] = trim( $titulo );
-	$trat["author"] = trim( $autor );
-
-	for ( $i = 1; $i <= count( $kwd ); $i++ ) {
-		$kwd[ $i ] = stripslashes( $kwd[ $i ] );
-		$trat[ "key" . "$i" ] = trim( $kwd[ $i ] );
+	for ( $i = 0; $i < count( $keywords ); $i++ ) {
+		$data[ "keyword" . $i ] = stripslashes( $data[ "keyword" . $i ] );
 	}
-	return $trat;
+	$data[ "content" ] = stripslashes( $data[ "content" ] );
+	$data[ "title" ] = stripslashes( $data[ "title" ] );
+	$data[ "author" ] = stripslashes( $data[ "author" ] );
+	
+	return $data;
 }
+
+/**
+* Prepare the data for web.
+*/
+function prepare_for_web( $index, $content, $title, $author, $keywords ) {
+	$title = replace_html_entities( $title );
+	$author = replace_html_entities( $author );
+	$content = replace_html_entities( $content );
+	for ( $i = 0; $i < count( $keywords ); $i++ ) {
+		$keywords[ $i ] = replace_html_entities( $keywords[ $i ] );
+	}
+
+	$data[ "index" ] = $index;
+	$data[ "content" ] = trim( $content );
+	$data[ "title" ] = trim( $title );
+	$data[ "author" ] = trim( $author );
+	for ( $i = 0; $i < count( $keywords ); $i++ ) {
+		$data[ "keyword" . $i ] = trim( $keywords[ $i ] );
+	}
+
+	return $data;
+}
+
 
 /*
  * NOME:		arq
@@ -1020,19 +1036,20 @@ function tratamento($index,$conteudo,$titulo,$autor,$kwd) {
  * RETORNO:		--
  * OBSERVACOES:         --
 */
-function arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml) {
+function arq( $id, $xml_document, $path_xml, $path_xsl, $path_html )
+{
 	global $PATH_JAVA, $PATH_XT;
 
-	$arq_xml = $path_xml . "/wikipage" . "$id" . ".xml";
+	$arq_xml = "$path_xml/$id.xml";
 	if ( is_file( $arq_xml ) ) {
 		chmod( $arq_xml, 0700 );
 	}
 	$fp = fopen( $arq_xml , "w+" );
-	fputs( $fp, $xmlfile );
+	fputs( $fp, $xml_document );
 	fclose( $fp );
 
 	// Uso do XT = [path_java] -classpath [classpath_xt] com.jclark.xsl.sax.Driver [xml] [xsl] [html]
-	$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver  com.jclark.xsl.sax.Driver $arq_xml $arq_xsl $path_html/$id.html 2>&1";
+	$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver  com.jclark.xsl.sax.Driver $arq_xml $path_xsl $path_html/$id.html 2>&1";
 	exec( $cmd_line, $var_array, $status );
 	if ( empty( $var_array ) ) {
 		return $status;
@@ -1049,60 +1066,29 @@ function arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml) {
  * RETORNO:		--
  * OBSERVACOES:
 */
-function xml_xsl($id,$conteudo,$titulo,$autor,$key,$arq_xsl,$path_html,$path_xml,$dtd,$node,$ident,$lock,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body) {
-
-	trim($conteudo);  //elimina espaços em branco no começo e fim da variável
-	trim($titulo);    //elimina espaços em branco no começo e fim da variável
- 
-	// Resolve o problema do sinal de menor e maior - conflito com elementos XML
-	// para aceitar estas entidades tem que colocar na textarea como entidades
-	$conteudo = eregi_replace("&amp;lt;","&lt;",$conteudo);
-	$conteudo = eregi_replace("&amp;gt;","&gt;",$conteudo);
-
-	//resolve o problema da entidade de branco- conflito com elementos XML
-	$conteudo = eregi_replace("&amp;nbsp;","&nbsp;",$conteudo);
-
-	$titulo = eregi_replace("&amp;lt;","&lt;",$titulo);
-	$titulo = eregi_replace("&amp;gt;","&gt;",$titulo);
-
-	$count = count($key);
-	$i = 1;
-
-	while($i <= $count) {
-		$keyword = $keyword . "<$kwd[$i]>$key[$i]</$kwd[$i]>";
-		$i++;
-	}
-
-	if ($linksto_id[1] == "0") { 
-		$links = $links . "<ref id=\"index.php\">$linksto_titulo[1]</ref>";
-		for ($i=2;$i <= count($linksto_id);$i++) {
-			$links = $links . "<ref id=\"mostra.php?ident=$linksto_id[$i]\">$linksto_titulo[$i]</ref>";
-		}
-	} else {
-		for ($i=1;$i <= count($linksto_id);$i++) {
-			$links = $links . "<ref id=\"mostra.php?ident=$linksto_id[$i]\">$linksto_titulo[$i]</ref>";
-		}
-	}
-
-	$xmlfile =  <<<END
-<?xml version='1.0' encoding="ISO-8859-1"?>
-$dtd
-<$node>
-<$ident>$id</$ident>
-$lock
-$annotation
-$chat
-$eclass
-$others
-$links
-$keyword
-<$aut>$autor</$aut>
-<$tit>$titulo</$tit>
-<$body>$conteudo</$body>
-</$node>
+function xml_xsl( $wikipage, $path_xml, $path_dtd, $path_xsl, $path_html )
+{
+	$xml_document .=  <<<END
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>{$wikipage[ "ident" ]}</id>
+<lock>{$wikipage[ "lock" ]}</lock>
+<ann_folder>{$wikipage[ "annotation" ]}</ann_folder>
+<chat_folder>{$wikipage[ "chat" ]}</chat_folder>
+<id_eclass>{$wikipage[ "eclass" ]}</id_eclass>
+<sw_id>{$wikipage[ "id_swiki" ]}</sw_id>"
+{$wikipage_web[ "links" ]}
+<keyword1>{$wikipage[ "keyword1" ]}</keyword1>
+<keyword2>{$wikipage[ "keyword2" ]}</keyword2>
+<keyword3>{$wikipage[ "keyword3" ]}</keyword3>
+<author>{$wikipage[ "author" ]}</author>
+<title>{$wikipage[ "title" ]}</title>
+<content>{$wikipage[ "content" ]}</content>
+</page>
 END;
 
-	$feedback = (arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml));
+	$feedback = arq( $wikipage[ "ident" ], $xml_document, $path_xml, $path_xsl, $path_html );
 
 	if ( is_numeric( $feedback ) ) {
 		return TRUE;
@@ -1462,5 +1448,77 @@ function user_exists_in_group($id_user, $id_group)
     return FALSE;
 
 } // fim function user_exists_in_group
+
+/**
+* Extract the swiki identificator from a full wikipage identificator.
+*/
+function extract_parent_wikipage( $ident ) {
+	if ( ! check_wikipage_id( $ident ) ) {
+		return false;
+	}
+
+	$childest_id = strrpos( $ident, "." );
+	$parent_id = $ident; // This holds true if the wikipage is the main swiki's page.
+	if ( $childest_id != false ) {
+		$parent_id = substr( $ident, 0, $childest_id );
+  }
+
+	return $parent_id;
+}
+
+/**
+* Extract the swiki identificator from a full wikipage identificator.
+*/
+function extract_swiki_id( $ident ) {
+	if ( ! check_wikipage_id( $ident ) ) {
+		return false;
+	}
+
+	if ( strpos( ident, "." ) ) {
+		$get_swiki = explode( ".", $ident );
+    $id_swiki = $get_swiki[ 0 ];
+  } else {
+    $id_swiki = $ident;
+  }
+
+	return $id_swiki;
+} 
+
+/**
+* Check if a wikipage identificator is valid.
+*
+* id ::= [0-9]+ ( "." [0-9] )*
+*/
+function check_wikipage_id( $ident ) {
+	return ( preg_match( "/^[\d]+(\.([\d]+))*\$/", $ident ) > 0 ) ? true : false;
+}
+
+/**
+* Check if a string matches the start tag for the given element.
+*/
+function match_start_tag( $content, $type ) {
+	return ( preg_match( "/.*<$type\s.*>.*/", $content ) > 0 ) ? true : false;
+}
+
+/**
+* Check if a string matches the end tag for the given element type.
+*/
+function match_end_tag( $content, $type ) {
+	return ( preg_match( "/.*<\/$type\s*>.*/", $content ) > 0 ) ? true : false;
+}
+
+/**
+* Check if a string matches the tag for the given empty element type.
+*/
+function match_empty_tag( $content, $type ) {
+	return ( preg_match( "/.*<$type\s*\/>.*/", $content ) > 0 ) ? true : false;
+}
+
+/**
+* Check if the content holds a element type with the specified character data.
+*/
+function match_tag( $content, $type, $cdata ) {
+	return ( preg_match( "/.*<$type\s.*>\s*$cdata\s*<\/$type\s*>.*/" ) > 0 ) ? true : false;
+}
 
 ?>
