@@ -1,6 +1,6 @@
 <?php
 
-include_once( "config.php.inc" )
+include_once( "config.php.inc" );
 
 /*
  * NOME:		anota_db_pconnect
@@ -955,14 +955,12 @@ if (mysql_num_rows($query) > 0) {
  * OBSERVACOES:		
  */
 function verifica_session() {
-
 	session_start();
 
 	if (!(session_is_registered("usuario") AND session_is_registered("usermail"))) {
-	header("Location:acessoilegal.php"); //Redireciona para interface de acesso ilegal
-	exit;
+		header("Location:$URL_COWEB/acessoilegal.php"); //Redireciona para interface de acesso ilegal
+		exit;
 	}
-
 }
 
 /*

@@ -1,5 +1,6 @@
 <?php 
-	include("function.inc");
+
+include_once("function.inc");
 
 echo "<!DOCTYPE HTML PUBLIC \"-//W3O//DTD W3 HTML 3.2//EN\">
 <html>

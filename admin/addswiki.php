@@ -1,5 +1,6 @@
 <?
-   include("function.inc");
+
+include_once( "function.inc" );
 
 $sess = new session;
 

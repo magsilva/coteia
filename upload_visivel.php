@@ -1,6 +1,6 @@
 <?
 
-include("function.inc");
+include_once("function.inc");
 
 $dbh = db_connect();
 

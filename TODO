@@ -1,12 +1,5 @@
-Alterar o código de geração do esquema para possuir .htaccess impedindo seu
-acesso. O mesmo vale para o config.php.inc.
-
-Criar um script que altere automaticamente as permissãos dos diretórios
-files, upload e xml e do arquivo log.txt, permitindo a escrita pelo usuário
-do Apache.
-
-
 Retirar código redundante de admin/
+Remover códigos redundantes de Javascript (colocar em um arquivo separado).
 
 Verificar o esquema da base de dados do ChatServer.
 Verificar o esquema da base de dados do serviço de anotações.

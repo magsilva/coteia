@@ -1,7 +1,6 @@
 <HTML>
 <HEAD>
 <META http-equiv=Content-Type content="text/html; charset=windows-1252">
-<META content="MSHTML 5.50.4134.600" name=GENERATOR>
 <LINK REL="SHORTCUT ICON" HREF="imagem/Logo.ico">
 <TITLE>CoTeia</TITLE>
 </HEAD>
@@ -28,7 +27,7 @@ echo "<b>Semestre Atual: $semester&ordm; de $year</b><br><br><ul>";
 //semestre atual
 $sem_atual = $semester.'_'.$year;
 
-include("function.inc");
+include_once("function.inc");
 
 //conexao com BD
 $dbh = db_connect();

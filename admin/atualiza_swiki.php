@@ -1,5 +1,5 @@
 <?
-   include("function.inc");
+include_once("function.inc");
 
   //verifica se existe swiki
   if ($atualiza=="0") header("Location:setswiki.php"); //Redireciona para interface anterior

@@ -1,22 +1,20 @@
 <?
-	include("function.inc");
+	include_once("function.inc");
 ?>
 <HTML>
 <HEAD>
 <TITLE> Recent Changes </TITLE>
 <META http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\"/>
-<META content=\"MSHTML 5.50.4134.600\" name=\"GENERATOR\"/>
 <script language="JavaScript">
-function AbreMapa(id)
-        {
+function AbreMapa(id) {
 	window.open('map.php?id='+id,'janelamap','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=520,height=480');
-        }
-function AbreChat(swiki)
-{
+}
+
+function AbreChat(swiki) {
 	window.open('chat.php?swiki='+swiki,'janela_chat','toolbar=no,directories=no,location=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=700,height=500');
 }
-function Imprime()
-{
+
+function Imprime() {
 	window.print();  
 }
 </script> 
