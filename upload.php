@@ -83,7 +83,7 @@ $titulo = $tupla1[ "titulo" ];
 				sort($a);
 				reset($a);
 				while (list ($key,$val) = each ($a)) {
-					echo "<option value=\"$val\">$val</option>";
+					echo "\t<option value=\"" . rawurlencode( $val ) . "\">$val</option>\n";
 				}
 			?>
 			</select>
