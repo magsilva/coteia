@@ -180,37 +180,26 @@ if ($salva) {
 	</script>
 	<style type="text/css">
 		div.content {
+			position:relative;
 			text-align: left;
-			border-width:0px;
-			margin: 5px;
-			border:solid;
-			margin-top: 10ex;
-			margin-left: 2ex;
-			margin-right: 2ex;
-			float:none;
-			position:fixed;
+			border-style:none;
+			margin-top: 3ex;
+			float:left;
 		}
 		div.metadata {
 			position: relative;
 			text-align: left;
-			border-width:0px;
-			margin: 5px;
-			border:solid;
+			border-style:none;
 			float: left;
-			margin-left: 2ex;
-			margin-right: 2ex;
-			top: -2em;
 		}
 		div.lock {
 			position: relative;
 			text-align: right;
-			border-width:0px;
-			margin: 5px;
-			border:solid;
+			border-style:none;
 			float: right;
-			margin-left: 2ex;
-			margin-right: 2ex;
-			top: -2em;
+		}
+		img {
+			border-style:none;
 		}
 	</style>
 </head>
@@ -241,6 +230,7 @@ if ($salva) {
 
 	<br />Re-enter password
 	<br /><input type="password" size="10" name="repasswd" />
+	<br />
 </div>
 
 <div class="metadata">
@@ -269,11 +259,11 @@ if ($salva) {
 </table>
 </div>
 
-<div class="content">
+<div class="content" >
 	<input type="reset" value="Limpa" />
 	<input type="submit" name="salva" value="Salva" />
 		<br />
-	<textarea name="cria_conteudo" wrap=virtual rows="20" cols="100" />
+	<textarea name="cria_conteudo" wrap=virtual rows="20" cols="100" style="width: 100%"></textarea>
 </div>
  
 <input type="hidden" name="ident" value="<?echo $ident?>"  />
