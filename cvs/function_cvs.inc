@@ -117,4 +117,31 @@ function cvs_update_module( $module ) {
 	return true;
 }
 
+/**
+* Get the content of a given file's release number.
+*/
+function cvs_checkout_file( $file, $release ) {
+	global $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME, $CVS_CHECKOUT_DIR, $CVS_PASSFILE;
+
+	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . ":" . $CVS_REPOSITORY;
+	$cvs_cmdline = "";
+	$old_dir = getcwd();
+	chdir( $CVS_CHECKOUT_DIR );
+
+	// Normalmente isto seria desnecessário, o reposítorio não deveria ter tal arquivo.
+	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " -p -l -r " . $release . " checkout " . $file;
+	$pipe = popen( $cvs_cmdline, "r" );
+	while( $buffer = fgets( $pipe, 1024 ) ) {
+        $content .= $buffer; 
+	}
+	pclose( $pipe );
+
+	chdir( $old_dir );
+	return $content;
+}
+
+
+$cmd_line = "cvs -d :pserver:".$username."@".$host.":".$caminho_repositorio." co -r ".$revisao." ".$ModuloCheckout.$arquivo;
+exec($comando_revisao);
+
 ?>

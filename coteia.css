@@ -5,18 +5,35 @@ div.content {
 	margin-top: 3ex;
 	float:left;
 }
+
 div.metadata {
 	position: relative;
 	text-align: left;
 	border-style:none;
 	float: left;
 }
+
 div.lock {
 	position: relative;
 	text-align: right;
 	border-style:none;
 	float: right;
 }
+
+div.source1 {
+	position: relative;
+	text-align= left;
+	border-style: none;
+	float: left;
+}
+
+div.source2 {
+	position: relative;
+	text-align= left;
+	border-style: none;
+	float: right;
+}
+
 img {
 	border-style:none;
 }
