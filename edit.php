@@ -1,156 +1,146 @@
 <?
 /*
-* Edit.php
-*
-* Funcionalidade: Edicao de paginas ja criadas.
-*
+* Edita páginas ja criadas.
 */
 
-   if ((!isset($ident)) or (stristr($ident,";"))) 
-   #evita ; para concatenacao de comandos SQL
-   {
-   $st = 1;
-   include("erro.php");
-   exit();
-   }
+
+// Evita ; para concatenacao de comandos SQL
+if ((!isset($ident)) or (stristr($ident,";"))) {
+	$st = 1;
+	include( "erro.php" );
+	exit();
+}
   
-   include_once("function.inc");
-   include_once("cvs/function_cvs.inc");
+include_once("function.inc");
+include_once("cvs/function_cvs.inc");
 
-   $dbh = db_connect();
-                 
-   mysql_select_db($dbname,$dbh);
+$dbh = db_connect();
+mysql_select_db($dbname,$dbh);
 
-   $query = "select ident,pass FROM paginas where ident='$ident'";
-   $sql = mysql_query("$query",$dbh);
-
-   if (mysql_num_rows($sql) == '0') {
-		$st = 1;
-		include("erro.php");
-		exit();
-    }
+$query = "select ident,pass FROM paginas where ident='$ident'";
+$sql = mysql_query( "$query", $dbh );
+if (mysql_num_rows($sql) == '0') {
+	$st = 1;
+	include("erro.php");
+	exit();
+}
 
     
-  if ($salva){
-
+if ($salva){
 	while ($tupla = mysql_fetch_array($sql)) {
 		$senha = $tupla[pass];
-    }
-                        
-    if (($senha) && ($passwd))  {
+	}
+	if (($senha) && ($passwd))  {
 		if ((strcasecmp($senha,$passwd)) != "0") {
 			header("Location:senha_incorreta.php");
-            exit();
-        }
-     }
+			exit();
+		}
+	}
 
-		$k[1] = $key1;
-		$k[2] = $key2;
-		$k[3] = $key3;
+	$k[1] = $key1;
+	$k[2] = $key2;
+	$k[3] = $key3;
 		
-		$coweb_tratamento = tratamento(0,$cria_conteudo,$titulo,$cria_autor,$k);
+	$coweb_tratamento = tratamento(0,$cria_conteudo,$titulo,$cria_autor,$k);
 		
-		$conteudo = trim($coweb_tratamento["content"]);
-		$titulo = trim($coweb_tratamento["title"]);
-		$autor = trim($coweb_tratamento["author"]);
-		$keyword[1] = trim($coweb_tratamento["key1"]);
-		$keyword[2] = trim($coweb_tratamento["key2"]);
-		$keyword[3] = trim($coweb_tratamento["key3"]);
+	$conteudo = trim($coweb_tratamento["content"]);
+	$titulo = trim($coweb_tratamento["title"]);
+	$autor = trim($coweb_tratamento["author"]);
+	$keyword[1] = trim($coweb_tratamento["key1"]);
+	$keyword[2] = trim($coweb_tratamento["key2"]);
+	$keyword[3] = trim($coweb_tratamento["key3"]);
 
-		if (stristr($conteudo,"<note/>")) {
-                        $conteudo = note($conteudo);
-                }
+	if (stristr($conteudo,"<note/>")) {
+		$conteudo = note($conteudo);
+	}
 
-		//grava no BD sem modificacaoes de links
-                $conteudo_puro=$conteudo;
+	// Grava no BD sem modificacaoes de links
+	$conteudo_puro = $conteudo;
 
-		if (stristr($conteudo,"<lnk>")) {
-                        $conteudo = link_interno($ident,$conteudo,$dbh);
-		}
+	if (stristr($conteudo,"<lnk>")) {
+		$conteudo = link_interno($ident,$conteudo,$dbh);
+	}
 
-		if (stristr($conteudo,"</upl>")) {
-			$conteudo = img_upload($conteudo);
-		}
+	if (stristr($conteudo,"</upl>")) {
+		$conteudo = img_upload($conteudo);
+	}
 
-		if (stristr($conteudo,"</table>")) {
-			$conteudo = table_pre($conteudo,"table");
-		}
+	if (stristr($conteudo,"</table>")) {
+		$conteudo = table_pre($conteudo,"table");
+	}
 
-		if (stristr($conteudo,"<pre>")) {
-			$conteudo = table_pre($conteudo,"pre");
-		}
+	if (stristr($conteudo,"<pre>")) {
+		$conteudo = table_pre($conteudo,"pre");
+	}
 
-		if (stristr($conteudo,"</ul>")) {
-			$conteudo = table_pre($conteudo,"ul");
-		}
+	if (stristr($conteudo,"</ul>")) {
+		$conteudo = table_pre($conteudo,"ul");
+	}
 
-		if (stristr($conteudo,"</ol>")) {
-			$conteudo = table_pre($conteudo,"ol");
-		}
+	if (stristr($conteudo,"</ol>")) {
+		$conteudo = table_pre($conteudo,"ol");
+	}
 
-		//encontra id_swiki
-		$get_swiki = explode(".",$ident);
-		$id_swiki = $get_swiki[0];  		
+	// Encontra id_swiki
+	$get_swiki = explode(".", $ident);
+	$id_swiki = $get_swiki[0];  		
 		
-		//encontra indexador da pagina - utilizado no linksto
-		$query = "SELECT indexador FROM paginas where ident='$ident'";
-   		$sql = mysql_query("$query",$dbh);
-		$tupla = mysql_fetch_array($sql);
-		$indexador = $tupla[indexador];
+	//encontra indexador da pagina - utilizado no linksto
+	$query = "SELECT indexador FROM paginas where ident='$ident'";
+	$sql = mysql_query("$query",$dbh);
+	$tupla = mysql_fetch_array($sql);
+	$indexador = $tupla[indexador];
 
-		//linksto - estrutura inicial
-	        if (($id_swiki) != ($ident)) {
-        	        $i = 1;
-		} else {
-                	$i = 2;
-                	$linksto_id[1] = "0";
-                	$linksto_titulo[1] = "Lista de Swikis";
-		}
+	//linksto - estrutura inicial
+        if (($id_swiki) != ($ident)) {
+       	        $i = 1;
+	} else {
+               	$i = 2;
+               	$linksto_id[1] = "0";
+               	$linksto_titulo[1] = "Lista de Swikis";
+	}
 
-		$sql_swiki= "select ident,titulo from paginas where (((ident like '$id_swiki.%') or (ident='$id_swiki')) and (conteudo like '%<lnk>$indexador</lnk>%'))";
-                $query_swiki =  mysql_query($sql_swiki,$dbh);
-                        while ($tupla = mysql_fetch_array($query_swiki)) {
-                                $linksto_id[$i] = $tupla[ident];
-                                $linksto_titulo[$i] = $tupla[titulo];
-                        	$i++;
-                        }
+	$sql_swiki= "select ident,titulo from paginas where (((ident like '$id_swiki.%') or (ident='$id_swiki')) and (conteudo like '%<lnk>$indexador</lnk>%'))";
+	$query_swiki =  mysql_query($sql_swiki,$dbh);
+	while ($tupla = mysql_fetch_array($query_swiki)) {
+		$linksto_id[$i] = $tupla[ident];
+		$linksto_titulo[$i] = $tupla[titulo];
+		$i++;
+	}
 
-		//verifica travamento da pagina
-                if ($lock == locked) {
-			if (($senha) || ((!$senha) && ($passwd != ''))) {
+	// Verifica travamento da pagina
+	if ($lock == locked) {
+		if (($senha) || ((!$senha) && ($passwd != ''))) {
 			$flag_lock = 1;
-			} else {
+		} else {
 			$flag_lock = 0;
-			}
-                } else {
-		$flag_lock = 0;
 		}
+	} else {
+		$flag_lock = 0;
+	}
 
-		$cp_java = $PATH_JAVA;
-		$cp_xt = $PATH_XT;
-		$path_xml = $PATH_XML;
-		$arq_xsl = $PATH_XSL;
-		$path_html = $PATH_XHTML;
-		$dtd = "<!DOCTYPE coteia SYSTEM 'coteia.dtd'>";
-		$node = "page";
-		$id = "id";
-		$lock_xml = "<lock>$flag_lock</lock>";
-		$others = "<sw_id>$id_swiki</sw_id>";
-		$kwd[1] = "kwd1";
-		$kwd[2] = "kwd2";
-		$kwd[3] = "kwd3";
-		$aut = "aut";
-		$tit = "tit";
-		$body = "bdy";
+	$path_xml = $PATH_XML;
+	$arq_xsl = $PATH_XSL;
+	$path_html = $PATH_XHTML;
+	$dtd = "<!DOCTYPE coteia SYSTEM 'coteia.dtd'>";
+	$node = "page";
+	$id = "id";
+	$lock_xml = "<lock>$flag_lock</lock>";
+	$others = "<sw_id>$id_swiki</sw_id>";
+	$kwd[1] = "kwd1";
+	$kwd[2] = "kwd2";
+	$kwd[3] = "kwd3";
+	$aut = "aut";
+	$tit = "tit";
+	$body = "bdy";
 
-		$query_extra = mysql_query("select id_ann,id_chat,id_eclass from swiki where id=\"$id_swiki\"");
-        	$result = mysql_fetch_array($query_extra);
-        	$annotation = "<ann_folder>$result[id_ann]</ann_folder>";
-        	$chat = "<chat_folder>$result[id_chat]</chat_folder>";
-		$eclass = "<id_eclass>$result[id_eclass]</id_eclass>";
+	$query_extra = mysql_query("select id_ann,id_chat,id_eclass from swiki where id=\"$id_swiki\"");
+        $result = mysql_fetch_array($query_extra);
+        $annotation = "<ann_folder>$result[id_ann]</ann_folder>";
+        $chat = "<chat_folder>$result[id_chat]</chat_folder>";
+	$eclass = "<id_eclass>$result[id_eclass]</id_eclass>";
 
-if (xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$cp_xt,$cp_java,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body)==TRUE) {
-
+	if (xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body)==TRUE) {
 		//atualiza arquivo no CVS
                 update_cvs($ident, $CVS_MODULE);
 
@@ -160,24 +150,19 @@ if (xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$cp_xt,$cp_java,$p
 
 		//verifica travamento da pagina
                 if ($flag_lock == 1) {
- 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass='$passwd' where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
-		$sql = mysql_query("$query",$dbh);
-
+	 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass='$passwd' where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
+			$sql = mysql_query("$query",$dbh);
 		} else {
- 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass=NULL where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
-		$sql = mysql_query("$query",$dbh);
-
+	 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass=NULL where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
+			$sql = mysql_query("$query",$dbh);
 		}	
-		  } //xml_xsl
-		  else	{
-				//nao criou arquivo fisico >> erro 
-				$st = 2;
-				include("erro.php");
-				exit();
-		} //xml_xsl
-
-header("Location:mostra.php?ident=$ident");
-        
+	} else {
+		//nao criou arquivo fisico >> erro 
+		$st = 2;
+		include("erro.php");
+		exit();
+	} //xml_xsl
+	header("Location:mostra.php?ident=$ident");
 } else {
 ?>
 <HTML>
