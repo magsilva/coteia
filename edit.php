@@ -302,4 +302,8 @@ function validar() {
 </HTML>
 <?
 }
+
+page_close(); // simonef
+
+
 ?>
