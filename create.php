@@ -125,7 +125,7 @@ if ($salva) {
 		if ($flag_lock == 1) {
 			$passwd = "NULL";
 		} else {
-			$passwd = md5( $passwd );
+			$passwd = "'" . md5( $passwd ) . "'";
 		}
 		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip, data_criacao,data_ultversao,pass, kwd1, kwd2, kwd3,autor) values ('$ident','$indexador','$titulo','$conteudo_puro','$nro_ip','$data','$data',$passwd,'$keyword[1]','$keyword[2]','$keyword[3]','$autor')" or die ("Falha ao inserir no Banco de Dados");
 		$sql = mysql_query("$query",$dbh);
