@@ -142,10 +142,7 @@ $CSS_DIR = $FILES_DIR . "/themes/" . $SKIN . "/css";
  */
 set_magic_quotes_runtime( 0 );
 
-/**
-* Version. Please, do not change.
-*/
-$COTEIA_VERSION = "2.0";
+$stylesheets = array( "coteia" );
 
 // I18N support information here
 $language = "en";
@@ -157,4 +154,11 @@ setlocale( LC_ALL, $language );
 $domain = "coteia";
 bindtextdomain( $domain, "$PATH_COWEB/locale" ); 
 textdomain( $domain );
+
+
+/**
+* Version. Please, do not change.
+*/
+$COTEIA_VERSION = "2.0";
+
 ?>

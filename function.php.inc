@@ -286,24 +286,22 @@ function prepare_for_xml( $wikipage_raw )
 *
 * @param id [integer] The wikipage id.
 * @param xml_document [string] The wikipage's data, as processed by @link prepare_xml_document
-* @param xsl_name [string] The name of the stylesheet (XSL) to be used. For example, if you
-* want to use the "test123.xsl", you should pass "test123" as parameter.
+* @param xsl_name [array] The name of the stylesheets (XSL) to be used (string). For example, if
+* you want to use the "test123.xsl", you should pass [ "test123" ] as parameter.
 *
 * @return Returns TRUE if the XML file was correctly processed. Otherwise, returns a message
 * with details with errors' details as reported by the XSLT engine.
 */
-function process_xml_document( $id, $xml_document, $xsl_name )
+function process_xml_document( $id, $xml_document, $xsl_names )
 {
-	global $PATH_JAVA, $XML_DIR, $XHTML_DIR, $PATH_XT, $XSL_DIR, $DEFAULT_FILE_PERMISSION;
+	global $XML_DIR, $XHTML_DIR, $XSL_DIR, $DEFAULT_FILE_PERMISSION;
 
-	$arq_xml   = $XML_DIR   . "/" . $id       . ".xml";
-	$arq_xhtml = $XHTML_DIR . "/" . $id       . ".html";
-	$arq_xsl =   $XSL_DIR   . "/" . $xsl_name . ".xsl";
 
 	if ( is_file( $arq_xml ) ) {
 		// If we are the file's owner, this error can be corrected on the fly, so let's do it.
 		@chmod( $arq_xml, $DEFAULT_FILE_PERMISSION );
 	}
+
 	$fp = @fopen( $arq_xml , "w+" );
 	if ( $fp === false ) {
 		show_error( _( "An error was found when processing the wikipage (couldn't save the wikipage's XML document )." ) );
@@ -311,17 +309,48 @@ function process_xml_document( $id, $xml_document, $xsl_name )
 	fputs( $fp, $xml_document );
 	fclose( $fp );
 
-	// Transform the XML file with the XSL.
+	$xml = $XML_DIR . "/" . $id  . ".xml";
+	foreach ( $xsl_names as $xsl ) {
+		$result = apply_xsl( $xml, $XSL_DIR . "/" . $xsl . ".xsl" );
+		if ( is_array( $result ) ) {
+			$result = implode( $result, "\n" );
+			return $result;
+		}
+		unlink( $xml );
+		$xml = $result;
+	}
+
+	$xhtml = $XHTML_DIR . "/" . $id . ".html";
+	rename ( $xml, $xhtml );
+
+	return true;
+}
+
+
+/**	
+* Process an XML file with the XSL passed as argument.
+*
+* @param xml [string] The XML document's filename.
+* @param xsl [string] The XSL document's filename.
+*
+* @return The filename for the file with the results or an array with the error
+* messages.
+*/
+function apply_xsl( $xml, $xsl )
+{
+	global $PATH_JAVA, $PATH_XT;
+
 	$result = array();
+	$output = tempnam( "/tmp", "coteia" );
 
 	if ( ! function_exists( "xslt_create" ) ) {
 		// XT usage: [path_java] -classpath [classpath_xt] com.jclark.xsl.sax.Driver [xml] [xsl] [html]
-		$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver com.jclark.xsl.sax.Driver $arq_xml $arq_xsl $arq_xhtml 2>&1";
+		$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver com.jclark.xsl.sax.Driver $xml $xsl $output 2>&1";
 		// The command below can also be used (it's the build-in Java XSLT engine).
-		// $cmd_line = "$PATH_JAVA org.apache.xalan.xslt.Process -in $arq_xml -xsl $arq_xsl -out $arq_xhtml 2>&1";
+		// $cmd_line = "$PATH_JAVA org.apache.xalan.xslt.Process -in $xml -xsl $xsl -out $output 2>&1";
 		exec( $cmd_line, $var_array, $status );
 		if ( $status == 0 ) {
-			$result = true;
+			$result = $output;
 		} else {
 			$result = $var_array;
 		}
@@ -330,17 +359,13 @@ function process_xml_document( $id, $xml_document, $xsl_name )
 		xslt_set_encoding( $xh, "ISO-8859-1" );
 		@define( "XSLT_SABOPT_DISABLE_STRIPPING", 1 );
 		@define( "XSLT_SABOPT_DISABLE_ADDING_META", 1 ); 
-		$result = @xslt_process( $xh, $arq_xml, $arq_xsl, $arq_xhtml );
+		$result = @xslt_process( $xh, $xml, $xsl, $output );
 		if ( xslt_errno( $xh ) > 0 ) {
 			$result[] = xslt_error( $xh );
 		} else {
-			$result = true;
+			$result = $output;
 		}
 		xslt_free( $xh );
-	}
-
-	if ( is_array( $result ) ) {
-		$result = implode( $result, "\n" );
 	}
 
 	return $result;
@@ -590,7 +615,7 @@ function compile_wikipage( $wikipage_id )
 
 	$xml_document = prepare_xml_document( $wikipage_xml );
 
-	$result = process_xml_document( $wikipage_id, $xml_document, "coteia" );
+	$result = process_xml_document( $wikipage_id, $xml_document, $stylesheets );
 
 	if ( $result === true ) {
 		//atualiza arquivo no CVS
