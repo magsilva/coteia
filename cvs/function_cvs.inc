@@ -32,11 +32,11 @@ function update_cvs($id, $ModuloCheckout) {
 
 	$caminho_checkout = $caminho . $ModuloCheckout;
 
-	chdir( $caminho_checkout );
+	chdir( $caminho );
 
 	//observacao: esses comandos tambem podem ser executados com popen
 	//coloca o arquivo salvo (ou do qual foi feito um upload) dentro do diretorio de trabalho
-	exec( "cp " . $path_arquivo . " " . $caminho_checkout );
+	copy( $caminho_checkout, $path_arquivo );
 
 	//faz commit do arquivo
 	exec( "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d :pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . ":" . $CVS_REPOSITORY . " commit -m \"\" " . $arquivo );
@@ -69,12 +69,10 @@ function add_cvs( $ident, $ModuloCheckout ) {
 	$comando_checkout = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " checkout " . $ModuloCheckout;
 	exec( $comando_checkout );
 
-	$caminho_checkout = $caminho . $ModuloCheckout;
-
-	chdir( $caminho_checkout );
-
+	$caminho_checkout = $caminho . "/" . $ModuloCheckout;
+	chdir( $caminho );
 	// Coloca o arquivo salvo dentro do diretorio de trabalho.
-	copy( $path_arquivo, $caminho_checkout );
+	copy( $path_arquivo, $caminho_checkout  );
 
 	// Adiciona o arquivo ao repositorio
 	exec( "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " add " . $arquivo );
@@ -111,7 +109,7 @@ function cria_dir($diretorio) {
  * OBSERVACOES:		
  */
 function apaga_dir($nomearq) {
-	exec ("rm -rf $nomearq");
+//	exec ("rm -rf $nomearq");
 	return true;
 }
 
