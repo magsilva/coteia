@@ -59,7 +59,7 @@ if (isset($parametro)) {
 		
 	//cria diretorio para upload
 	$oldumask = umask(0);
-	mkdir($DIR_UPL."/".$id, 0777);
+	mkdir($PATH_UPLOAD."/".$id, 0777);
  	umask($oldumask);
 
 	header("Location:addswiki.php"); 

@@ -1,65 +1,62 @@
 <?
+include_once("function.inc");
+include_once("cvs/function_cvs.inc");
 
-    include_once("function.inc");
-    include_once("cvs/function_cvs.inc");
-
-   if ((!isset($ident)) or (stristr($ident,";"))) 
-   #evita ; para concatenacao de comandos SQL
-   {
-   $st = 1;
-   include("erro.php");
-   exit();
-   }
-
-   $dbh = db_connect();
-                
-   mysql_select_db($dbname,$dbh);
-  
-  if ($salva){
-
-    if (stristr($ident,".")) {
-	//encontra id_swiki
-	$get_swiki = explode(".",$ident);
-	$id_swiki = $get_swiki[0];
-    }
-    else $id_swiki = $ident;
-   
-   $query =  "select indexador from paginas where ((indexador='$indexador') and ((ident like '$id_swiki.%')  or (ident='$id_swiki')))";
-   $result = mysql_query($query,$dbh);
-
-   while ($tupla = mysql_fetch_array($result)) {
-   	if (!strcmp(trim($indexador),trim($tupla[indexador])))
-        {
-	$st = 3;
+// Evita ; para concatenacao de comandos SQL
+if ( (!isset($ident)) or (stristr($ident,";") ) ) {
+	$st = 1;
 	include("erro.php");
 	exit();
-        }//if
-   }//while
+}
+
+$dbh = db_connect();
+                
+mysql_select_db($dbname,$dbh);
   
-   		$k[1] = $key1;
-		$k[2] = $key2;
-		$k[3] = $key3;
+if ($salva) {
+	if (stristr($ident,".")) {
+		// Encontra id_swiki
+		$get_swiki = explode(".",$ident);
+		$id_swiki = $get_swiki[0];
+	} else {
+		 $id_swiki = $ident;
+	}
 
-		$coweb_tratamento = tratamento($indexador,$cria_conteudo,$titulo,$cria_autor,$k);
+	$query =  "select indexador from paginas where ((indexador='$indexador') and ((ident like '$id_swiki.%')  or (ident='$id_swiki')))";
+	$result = mysql_query($query,$dbh);
+
+	while ($tupla = mysql_fetch_array($result)) {
+		if (!strcmp(trim($indexador),trim($tupla[indexador]))) {
+			$st = 3;
+			include("erro.php");
+			exit();
+	        }
+	}
+  
+	$k[1] = $key1;
+	$k[2] = $key2;
+	$k[3] = $key3;
+
+	$coweb_tratamento = tratamento($indexador,$cria_conteudo,$titulo,$cria_autor,$k);
+	
+	$indexador = $coweb_tratamento["index"];
+	$conteudo = trim($coweb_tratamento["content"]);
+	$titulo = trim($coweb_tratamento["title"]);
+	$autor = trim($coweb_tratamento["author"]);
+	$keyword[1] = trim($coweb_tratamento["key1"]);
+	$keyword[2] = trim($coweb_tratamento["key2"]);
+	$keyword[3] = trim($coweb_tratamento["key3"]);
 		
-		$indexador = $coweb_tratamento["index"];
-		$conteudo = trim($coweb_tratamento["content"]);
-		$titulo = trim($coweb_tratamento["title"]);
-		$autor = trim($coweb_tratamento["author"]);
-		$keyword[1] = trim($coweb_tratamento["key1"]);
-		$keyword[2] = trim($coweb_tratamento["key2"]);
-		$keyword[3] = trim($coweb_tratamento["key3"]);
-		
-		if (stristr($conteudo,"<note/>")) {
-                        $conteudo = note($conteudo);
-                }
+	if (stristr($conteudo,"<note/>")) {
+		$conteudo = note($conteudo);
+	}
 
-		 //grava no BD sem modificacaoes de links
-                $conteudo_puro=$conteudo;
+	// grava no BD sem modificacaoes de links
+	$conteudo_puro=$conteudo;
 
-		if (stristr($conteudo,"</table>")) {
-                        $conteudo = table_pre($conteudo,"table");  
-                }
+	if (stristr($conteudo,"</table>")) {
+        	$conteudo = table_pre($conteudo,"table");
+	}
 
 		if (stristr($conteudo,"<pre>")) {
                         $conteudo = table_pre($conteudo,"pre");  
@@ -168,56 +165,48 @@ if (xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$cp_xt,$cp_java,$p
 	            
 } else {
 ?>
-<HTML>
-<HEAD>
-<TITLE> Formulario de Criação </TITLE>
-<META http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\"/>
-<META content=\"MSHTML 5.50.4134.600\" name=\"GENERATOR\"/>
-<script language="javascript">
-function validar() {
-                
-           // Verifica se o campo titulo foi preenchido
-                
-              if (document.create.titulo.value == "") {
-                  alert('O campo título é de preenchimento obrigatório!')
-                  document.create.titulo.value = ""
-                  document.create.titulo.focus();
-                  return false;
-              }
+<html>
 
-           // Verifica se a textarea de conteudo foi preenchida
-  
-              if (document.create.cria_conteudo.value == "") {
-                  alert('O campo de conteúdo é de preenchimento obrigatório!')
-                  document.create.cria_conteudo.value = ""
-                  document.create.cria_conteudo.focus();
-                  return false;
-              }
+<head>
+	<title>Formulario de Criação</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<script language="javascript">
+	function validar() {
+		// Verifica se o campo titulo foi preenchido
+		if (document.create.titulo.value == "") {
+			alert('O campo título é de preenchimento obrigatório!');
+			document.create.titulo.value = "";
+			document.create.titulo.focus();
+			return false;
+		}
+		if (document.create.passwd.value != document.create.repasswd.value) {
+			alert('As senhas digitadas não coincidem!');
+			document.create.passwd.focus();
+			return false;
+		}
+		return true;
+	}
+	</script>
+</head>
 
-	      if (document.create.passwd.value != document.create.repasswd.value) {
-              alert ('As senhas digitadas não coincidem!');
-              document.create.passwd.focus();
-              return false;
-              }
-}
-</script>
-</HEAD>
-<BODY text=#000000 vLink=#0000cc aLink=#ffff00 link=#cc0000 bgColor=#ffffff>
-		<IMG src="<?echo $URL_IMG?>/viewbw.png" border=0>
-		<IMG src="<?echo $URL_IMG?>/editbw.png" border=0>
-		<IMG src="<?echo $URL_IMG?>/historybw.png" border=0>
-		<IMG src="<?echo $URL_IMG?>/indicebw.png" border=0>
-		<img src="<?echo $URL_IMG?>/mapbw.png" border="0"/>
-		<IMG src="<?echo $URL_IMG?>/changesbw.png" border=0>
-		<IMG src="<?echo $URL_IMG?>/uploadbw.png" border=0>
-		<IMG src="<?echo $URL_IMG?>/searchbw.png" border=0>
-		<A href="help.php">
-		<IMG src="<?echo $URL_IMG?>/helpbw.png" border=0></A>
-		<IMG src="<?echo $URL_IMG?>/chatbw.png" border=0>
-		<img src="<?echo $URL_IMG?>/notebw.png" border="0"/>
-		<img src="<?echo $URL_IMG?>/printbw.png" border="0"/>
-<br><br>
-<FORM METHOD=POST ACTION="create.php" name="create" onSubmit="return validar();">
+<body>
+<img src="<?php echo $URL_IMG; ?>/viewbw.png" />
+<img src="<?php echo $URL_IMG; ?>/editbw.png" />
+<img src="<?php echo $URL_IMG; ?>/historybw.png" />
+<img src="<?php echo $URL_IMG; ?>/indicebw.png" />
+<img src="<?php echo $URL_IMG; ?>/mapbw.png" />
+<img src="<?php echo $URL_IMG; ?>/changesbw.png" />
+<img src="<?php echo $URL_IMG; ?>/uploadbw.png" />
+<img src="<?php echo $URL_IMG; ?>/searchbw.png" />
+<a href="help.php"><img src="<?php echo $URL_IMG; ?>/helpbw.png" /></a>
+<img src="<?php echo $URL_IMG; ?>/chatbw.png" />
+<img src="<?php echo $URL_IMG; ?>/notebw.png" />
+<img src="<?php echo $URL_IMG; ?>/printbw.png" />
+
+<br />
+
+<form method="post" action="create.php" name="create" onSubmit="return validar();">
+
 <table width="100%" border="0">
   <tr bgcolor="FFFFCC">
       <td><INPUT TYPE="checkbox" name="lock" value="locked"> - Lock<br><br></td>

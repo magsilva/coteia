@@ -57,7 +57,7 @@ $CVS_CHECKOUT_PATH = "/coteia/";
 $CVS_PASSFILE = $PATH_COWEB . "/.cvspass";
 
 // Endereço (URL) da CoTeia
-$URL_COWEB = "http://coweb.icmc.usp.br/coweb/";
+$URL_COWEB = "http://coweb.icmc.usp.br/coweb";
 
 // Nome do administrador
 $ADMIN = "Carlos Arruda Junior";
@@ -83,7 +83,7 @@ $PATH_XT = $PATH_COWEB . "/libs/xt.jar:" . $PATH_COWEB . "/libs/xp.jar";
 /****************************************************************************/
 
 // Endereço das imagens 
-$URL_IMG = $URL_SERVER . "/images";
+$URL_IMG = "http://coweb.icmc.usp.br/coweb" . "/images";
 
 // Local em que estão armazenados os arquivos
 $PATH_ARQUIVOS = $PATH_COWEB . "/files";
