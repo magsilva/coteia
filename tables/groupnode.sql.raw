@@ -1,6 +1,6 @@
 USE mysql;
 insert into user (host,user,password) values ('$HOST_COWEB','$anota_dbuser', PASSWORD('$anota_dbpword'));
-insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('$HOST_COWEB','$anota_dbname','$anota_dbuser','Y','Y','Y','Y','Y');
+insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('%','$anota_dbname','$anota_dbuser','Y','Y','Y','Y','Y');
 FLUSH PRIVILEGES;
 
 CREATE DATABASE $anota_dbname;

@@ -1,6 +1,6 @@
 USE mysql;
 insert into user (host,user,password) values ('$HOST_COWEB','$ce_dbuser', PASSWORD('$ce_dbpword'));
-insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('$HOST_COWEB','$ce_dbname','$ce_dbuser','Y','Y','Y','Y','Y');
+insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('%','$ce_dbname','$ce_dbuser','Y','Y','Y','Y','Y');
 FLUSH PRIVILEGES;
 
 CREATE DATABASE $ce_dbname;
