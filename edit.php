@@ -76,7 +76,7 @@ if ( $salva ) {
 	$query = "SELECT indexador FROM paginas where ident='$ident'";
 	$sql = mysql_query("$query",$dbh);
 	$tupla = mysql_fetch_array($sql);
-	$indexador = $tupla["indexador"];
+	$indexador = mysql_escape_string( $tupla["indexador"] );
 
 	//linksto - estrutura inicial
 	if (($id_swiki) != ($ident)) {

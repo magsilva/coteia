@@ -1,4 +1,4 @@
-<Directory "$PATH_UPLOAD">
+<Directory $PATH_UPLOAD>
 	Order deny,allow
 	Deny from all
   Options -ExecCGI

@@ -9,7 +9,7 @@ function StatusUpload( ok ) {
 	} else if (ok == 3) {
 		alert( "O arquivo já existe." );
 	} else if (ok == 4) {
-		alert( "Extensão de arquivo inválida.\nExtensões válidas: .bz2, .gz, .pdf, .ps, .txt, .xml" );
+		alert( "Extensão de arquivo inválida. São validos: .bz2, .gz, .pdf, .ps, .txt, .xml" );
 	}
 }
 
