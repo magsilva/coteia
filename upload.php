@@ -16,7 +16,7 @@ $dbh = db_connect();
 # seleciona base de dados
 mysql_select_db($dbname,$dbh);
 
-$ok = 0;
+$ok = 4;
 if ( $act == "upload" ) {
 	$filetypes = array();
 	$filetypes[] = "txt";
@@ -29,8 +29,8 @@ if ( $act == "upload" ) {
 	if ( is_uploaded_file($_FILES['uploads']['tmp_name'] ) ) {
 		$realname = $_FILES['uploads']['name'];
 		foreach ( $filetypes as $filetype ) {
-			if ( preg_match( "/\." . $filetype . "$/", $content ) == 0 ) {
-				$ok = 4;
+			if ( preg_match( "/\." . $filetype . "$/", $content ) > 0 ) {
+				$ok = 0;
 			}
 		}
 		if ( $ok == 0 ) {
