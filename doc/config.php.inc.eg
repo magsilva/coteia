@@ -1,0 +1,110 @@
+<?php
+
+/****************************************************************************/
+/* Parâmetros normalmente configuráveis.                                    */
+/****************************************************************************/
+
+/**
+* Configuração da base de dados principal da CoTeia
+*/
+$dbhost = "localhost";
+$dbname = "coteia";
+$dbuser = "coteia";
+$dbpass = "eimi3a7e";
+
+/**
+* Configuração da base de dados do serviço de chat suportado pela CoTeia.
+*/
+$cs_dbhost = $dbhost;
+$cs_dbname = "coteia_chatserver";
+$cs_dbuser = $dbuser;
+$cs_dbpword = $dbpass;
+$cs_session_tbl = "session";
+
+// Configuração da base de dados do serviço de anotações (opcional)
+$anota_dbhost = $dbhost;
+$anota_dbname = "coteia_groupnote";
+$anota_dbuser = $dbuser;
+$anota_dbpword = $dbpass;
+
+// Configuração da base de dados de usuários (opcional)
+$user_dbhost = $dbhost;
+$user_dbname = "coteia_users";
+$user_dbuser = $dbuser;
+$user_dbpword = $dbpass;
+
+// Configuração da base de dados de cursos do eClass (opcional)
+$ce_dbhost = $dbhost;
+$ce_dbname = "coteia_eclass";
+$ce_dbuser = $dbuser;
+$ce_dbpword = $dbpass;
+
+
+/**
+* Local no servidor em que os arquivos da CoTeia foram instaladas.
+*/
+$PATH_COWEB = "/srv/www/default/html/webTools/CoTeia";
+
+
+/********************************
+* Configurações relativas ao CVS.
+*/
+// IP do servidor de CVS
+$CVS_HOST = $dbhost;
+// Repositório CVS a ser utilizado (caminho no servidor CVS)
+$CVS_REPOSITORY = "/var/lib/coweb";
+// Nome do usuário a ser utilizado
+$CVS_USERNAME = $dbuser;
+// Senha do usuário do CVS
+$CVS_PASSWORD = $dbpass;
+$CVS_MODULE= "coteia";
+// Caminho a ser utilizado para o checkout dos arquivos
+$CVS_CHECKOUT_PATH = "/coteia/";
+// Arquivo que armazenará a senha do repositório CVS
+$CVS_PASSFILE = $PATH_COWEB . "/.cvspass";
+
+$HOST_COWEB = "www.magsilva.dynalias.net";
+
+// Endereço (URL) da CoTeia
+$URL_COWEB = "http://" . $HOST_COWEB . "/webTools/CoTeia";
+
+// Nome do administrador
+$ADMIN = "Marco Aurélio Graciotto Silva";
+
+// Email do administrador
+$ADMIN_MAIL = "magsilva@icmc.usp.br";
+
+// Senha do administrador
+$ADMIN_PASSWORD = "eimi3a7e";
+
+// Caminho do Java (o executável "java"). 
+$PATH_JAVA = "/opt/java/SUN-SDK-1.4.2_03/bin/java";
+
+
+/****************************************************************************/
+/* Parâmetros que geralmente dispensam alteração                            */
+/****************************************************************************/
+
+// Classpath dos bibliotecas para transformação XSLT.
+$PATH_XT = $PATH_COWEB . "/libs/xt.jar:" . $PATH_COWEB . "/libs/xp.jar";
+
+// Endereço das imagens 
+$URL_IMG = $URL_COWEB . "/images";
+
+// Local em que estão armazenados os arquivos
+$PATH_ARQUIVOS = $PATH_COWEB . "/files";
+
+// Local em que estão armazenados os arquivos enviados (upload)
+$PATH_UPLOAD = $PATH_COWEB . "/upload";
+
+// URL para acesso aos arquivos enviados (upload)
+$URL_UPLOAD = $URL_SERVER . "/upload";
+
+// Diretório das páginas geradas pela wiki
+$PATH_XHTML = $PATH_COWEB . "/files";
+
+// Arquivo contendo a folha de estilo a ser aplicada.
+$PATH_XSL = $PATH_COWEB . "/coteia.xsl";
+
+// Diretório em que serão armazenadas as folhas XML.
+$PATH_XML = $PATH_COWEB . "/xml";

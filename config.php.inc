@@ -1,88 +1,91 @@
 <?php
 
-/****************************************************************************/
-/* Parâmetros normalmente configuráveis.                                    */
-/****************************************************************************/
-
 /**
 * Configuração da base de dados principal da CoTeia.
 */
-$dbhost = "localhost";
-$dbname = "coteia";
-$dbuser = "coteia";
-$dbpass = "coteia";
+$dbhost = "";
+$dbname = "";
+$dbuser = "";
+$dbpass = "";
 
 /**
 * Configuração da base de dados do serviço de chat suportada pelo CoTeia.
 */
-$cs_dbhost = "catuaba.icmc.sc.usp.br";
-$cs_dbname = "chatserver";
-$cs_dbuser = "cs";
-$cs_dbpword = "tucan0";
+$cs_dbhost = "";
+$cs_dbname = "";
+$cs_dbuser = "";
+$cs_dbpword = "";
 
-// Configuração da base de dados do serviço de anotações (opcional)
-$anota_dbhost = "coweb.icmc.usp.br";
-$anota_dbname = "groupnote";
-$anota_dbuser = "groupnote";
-$anota_dbpword = "groupnote";
+/**
+* Configuração da base de dados do serviço de anotações suportado pela CoTeia.
+*/
+$anota_dbhost = "";
+$anota_dbname = "";
+$anota_dbuser = "";
+$anota_dbpword = "";
 
-// Configuração da base de dados de usuários (opcional)
-$user_dbhost = "coweb.icmc.usp.br";
-$user_dbname = "users";
-$user_dbuser = "users";
-$user_dbpword = "users";
+/**
+* Configuração da base de dados do suporte à base de usuários compartilhadas
+* utilizável pela CoTeia.
+*/
+$user_dbhost = "";
+$user_dbname = "";
+$user_dbuser = "";
+$user_dbpword = "";
 
-// Configuração da base de dados de cursos do eClass (opcional)
-$ce_dbhost = "catuaba.icmc.usp.br";
-$ce_dbname = "eclassDB";
-$ce_dbuser = "eclass";
-$ce_dbpword = "qazxcde";
+/**
+* Configuração da base de dados de cursos do eClass suportada pela CoTeia.
+*/
+$ce_dbhost = "";
+$ce_dbname = "";
+$ce_dbuser = "";
+$ce_dbpword = "";
 
-// Local em que está armazenada a CoTeia.
+/**
+* Diretório em que está instalada a CoTeia.
+*/
 $PATH_COWEB = "/var/www/html/coweb";
 
-/********************************
-* Configurações relativas ao CVS.
+/**
+* Configurações relativas ao servidor CVS utilizado.
 */
-// IP do servidor de CVS
-$CVS_HOST = "vinho.intermidia.icmc.usp.br";
-// Repositório CVS a ser utilizado (caminho no servidor CVS)
-$CVS_REPOSITORY = "/usr/local/coweb";
-// Nome do módulo.
-$CVS_MODULE = "/coteia";
-// Nome do usuário a ser utilizado
-$CVS_USERNAME = "anonymous";
-// Senha do usuário do CVS
+$CVS_HOST = "";
+$CVS_REPOSITORY = "";
+$CVS_MODULE = "";
+$CVS_USERNAME = "";
 $CVS_PASSWORD = "";
-// Caminho a ser utilizado para o checkout dos arquivos
-$CVS_CHECKOUT_PATH = "/coteia/";
-// Arquivo que armazenará a senha do repositório CVS
-$CVS_PASSFILE = $PATH_COWEB . "/.cvspass";
+$CVS_PASSFILE = $PATH_COWEB . "/.cvspass"; // Esta variável geralmente não precisa ser reconfigurada.
 
-$HOST_COWEB = "coweb.icmc.usp.br";
+/**
+* Host em que está hospedada a CoTeia.
+*/
+$HOST_COWEB = "";
 
-// Endereço (URL) da CoTeia
-$URL_COWEB = "http://" . $HOST_COWEB . "/coweb";
+/**
+* Endereço (URL) da CoTeia.
+*/
+$URL_COWEB = "http://" . $HOST_COWEB . "/coweb"; // Geralmente somente a última string deve ser alterada.
 
-// Nome do administrador
-$ADMIN = "Carlos Arruda Junior";
-
-// Email do administrador
-$ADMIN_MAIL = "credajun@icmc.usp.br";
-
-// Senha do administrador
+/**
+* Informações sobre o administrador.
+*/
+$ADMIN = "";
+$ADMIN_MAIL = "";
 $ADMIN_PASSWORD = "";
 
-// Caminho do Java (o executável "java"). 
+/**
+* Caminho do Java (o executável "java").
+*/
 $PATH_JAVA = "/opt/java/SUN-SDK-1.4.2_03/bin/java";
 
-// Classpath dos bibliotecas para transformação XSLT.
-$PATH_XT = $PATH_COWEB . "/libs/xt.jar:" . $PATH_COWEB . "/libs/xp.jar";
 
 
 /****************************************************************************/
 /* Parâmetros que geralmente dispensam alteração                            */
 /****************************************************************************/
+
+// Classpath dos bibliotecas para transformação XSLT.
+$PATH_XT = $PATH_COWEB . "/libs/xt.jar:" . $PATH_COWEB . "/libs/xp.jar";
 
 // Endereço das imagens 
 $URL_IMG = $URL_COWEB . "/images";

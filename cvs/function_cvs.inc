@@ -11,7 +11,7 @@ include_once( "config.php.inc" );
  * OBSERVACOES:		
  */
 function update_cvs($id, $ModuloCheckout) {
-	global $PATH_ARQUIVOS, $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME, $CVS_CHECKOUT_PATH;
+	global $PATH_ARQUIVOS, $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME;
 
 	//arquivo a ser feito checkout
 	$arquivo = $id . ".html";
@@ -25,7 +25,7 @@ function update_cvs($id, $ModuloCheckout) {
 	// sera armazenado este arquivo. Para isso, eh utilizado um diretorio na maquina local. Podemos
 	// fazer uma pequena rotina pra verificar se o diretorio existe e para cria-lo automaticamente.
 	// Posteriormente ele deve ser excluido.
-	$caminho = cria_dir( $CVS_CHECKOUT_PATH );
+	$caminho = cria_dir( "coteia" );
 	chdir( $caminho );
 
 	$comando_checkout = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " checkout " . $ModuloCheckout;
@@ -48,7 +48,7 @@ function update_cvs($id, $ModuloCheckout) {
 /*
  */
 function add_cvs( $ident, $ModuloCheckout ) {
-	global $PATH_ARQUIVOS, $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME, $CVS_CHECKOUT_PATH;
+	global $PATH_ARQUIVOS, $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME;
 
 	//arquivo a ser feito checkout
 	$arquivo = $ident . ".html";
@@ -62,7 +62,7 @@ function add_cvs( $ident, $ModuloCheckout ) {
 	// sera armazenado este arquivo. Para isso, eh utilizado um diretorio na maquina local. Podemos
 	// fazer uma pequena rotina pra verificar se o diretorio existe e para cria-lo automaticamente.
 	// Posteriormente ele deve ser excluido.
-	$caminho = cria_dir( $CVS_CHECKOUT_PATH );
+	$caminho = cria_dir( "coteia" );
 	chdir( $caminho );
 
 	$comando_checkout = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " checkout " . $ModuloCheckout;
