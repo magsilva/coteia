@@ -1,0 +1,355 @@
+<?php
+/****************************************************************
+/ Programador: Claudia Akemi Izeki
+/ Data de criação: 17 de Dezembro de 2002
+/ Descrição: Script que possui várias funções úteis.
+/****************************************************************/
+
+// Para a conexão com a BD
+$ce_dbhost  = "catuaba.icmc.usp.br";
+
+//teste
+//$ce_dbname   = "eclassDB_Teste";
+//$ce_dbuser = "cizeki";
+//$ce_dbpword = "wfpcujvb";
+
+$ce_dbname  = "eclassDB";
+$ce_dbuser  = "eclass";
+$ce_dbpword = "qazxcde";
+
+// responsável pela conexão com a BD
+function dbConnection(){
+
+	global $ce_dbhost, $ce_dbuser, $ce_dbpword;
+
+        return(mysql_pconnect($ce_dbhost, $ce_dbuser, $ce_dbpword));
+
+} // end dbConnection
+
+// Retorna o número de aulas de um dado curso
+function numDeAulas($curso_id){
+
+	global $ce_dbname;
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+	$comando_sql = "select count(*) from aula_coteia where curso_id=$curso_id";
+	//echo $comando_sql;
+	$res = mysql_query($comando_sql,$dbh_ce);
+	if (mysql_num_rows($res)){
+		$aula = mysql_fetch_array($res);
+		$n = $aula[0];
+		mysql_free_result($res);
+	}
+	return $n;
+} // end numDeAulas
+
+// Retorna os atributos (nome, sigla e semestre) de um dado curso
+function getAttrCurso($curso_id){
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+	$comando_sql = "select nome, sigla, semestre from curso where curso_id=$curso_id";
+	//echo $comando_sql;
+	$res = mysql_query($comando_sql,$dbh_ce);
+	if (mysql_num_rows($res)){
+      	while ($curso = mysql_fetch_array($res)) {
+                  $curso_attr["nome"] = $curso["nome"];
+			$curso_attr["sigla"] = $curso["sigla"];
+			$curso_attr["semestre"] = $curso["semestre"];
+            }
+		mysql_free_result($res);
+	}
+	return $curso_attr;
+} // end getAttrCurso
+
+// Retorna os nomes de professores que ministram um dado curso
+function getProfsOfCurso($curso_id){
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+	$comando_sql = "select p.nome 
+                      from professor as p, profMinistraCurso as m 
+                      where m.prof_id=p.user_id and m.curso_id=$curso_id";
+	//echo $comando_sql;
+	$res = mysql_query($comando_sql,$dbh_ce);
+	if (mysql_num_rows($res)){
+		$i = 0;
+      	while ($prof = mysql_fetch_array($res)) {
+                  $prof_list[$i]["nome"] = $prof[0];
+			$i++;
+            }
+		mysql_free_result($res);
+	}
+	return $prof_list;
+} // end getProfsOfCurso
+
+// Retorna os alunos que cursam um dado curso
+function getAlunosOfCurso($curso_id){
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+	$comando_sql = "select a.nome, a.aluno_id, a.nusp
+                      from aluno as a, cursa as c 
+                      where c.curso_id=$curso_id and c.aluno_id=a.aluno_id";
+	//echo $comando_sql;
+	$res = mysql_query($comando_sql,$dbh_ce);
+	if (mysql_num_rows($res)){
+		$i = 0;
+      	while ($aluno = mysql_fetch_array($res)) {
+                  $aluno_list[$i]["nome"] = $aluno[0];
+                  $aluno_list[$i]["login"] = $aluno[1];
+                  $aluno_list[$i]["nousp"] = $aluno[2];
+			$i++;
+            }
+		mysql_free_result($res);
+	}
+	return $aluno_list;
+} // end getAlunosOfCurso
+
+// Adiciona uma nova aula. 
+// Retorna o id da aula criada, FALSE caso contrário
+function addAula($curso_id, $title, $dataAtual){
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+	$comando_sql = "INSERT INTO aula_coteia VALUES (NULL, $curso_id, '$title', '$dataAtual')";
+
+	//echo $comando_sql;
+	mysql_query($comando_sql,$dbh_ce);
+
+      return mysql_insert_id($dbh_ce);
+} // end addAula
+
+// Adiciona uma tupla na tabela 'assiste'
+function addAssiste($aula_id, $login, $pres){
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+	$comando_sql = "INSERT INTO assiste VALUES ($aula_id, '$login', '$pres')";
+      //echo $comando_sql;
+	mysql_query($comando_sql,$dbh_ce);
+
+} // end addAssiste
+
+
+function getAulasOfCurso($curso_id){
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+      $i = 0;
+      $query = "SELECT w.aula_id, w.aluno_id, w.assistiu 
+                FROM assiste as w, aula_coteia as a
+                WHERE a.curso_id=$curso_id and a.aula_id=w.aula_id";
+	//echo $query;
+      $query_res = mysql_query($query,$dbh_ce);
+      if ($query_res) {
+                while ($aula = mysql_fetch_array($query_res)) {
+                        $aula_list[$i]["aulaid"] = $aula[0];
+                        $aula_list[$i]["alunoid"] = $aula[1];
+			      $aula_list[$i]["assistiu"] = $aula[2];
+                        $i++;
+                }
+                mysql_free_result($query_res);
+	}
+	return $aula_list;
+}
+
+function getAulasDistinctOfCurso($curso_id){
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+      $i = 0;
+      $query = "SELECT DISTINCT w.aula_id
+                FROM assiste as w, aula_coteia as a
+                WHERE a.curso_id=$curso_id and a.aula_id=w.aula_id";
+        //echo $query;
+      $query_res = mysql_query($query,$dbh_ce);
+      if ($query_res) {
+                while ($aula = mysql_fetch_array($query_res)) {
+                        $aula_list[$i]["aulaid"] = $aula[0];
+                        $aula_list[$i]["alunoid"] = $aula[1];
+                              $aula_list[$i]["assistiu"] = $aula[2];
+                        $i++;
+                }
+                mysql_free_result($query_res);
+        }
+        return $aula_list;
+}
+
+
+function get_presentes($aula_id){
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+        $i = 0;
+        $query = "SELECT a.nome 
+                  FROM aluno as a, assiste as w
+                  WHERE w.assistiu = 'yes' AND w.aula_id = $aula_id AND a.aluno_id = w.aluno_id ORDER BY nome";
+        //echo $query;
+        $query_res = mysql_query($query,$dbh_ce);
+        if ($query_res) {
+                while ($pres = mysql_fetch_array($query_res)) {
+                       $pres_list[$i]["nome"] = $pres["nome"];
+		       $i++;
+                }
+                mysql_free_result($query_res);
+         
+	    }
+	return $pres_list;	  
+}
+
+function get_ausentes($aula_id){
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+        $i = 0;
+        $query = "SELECT nome, assistiu, aula_id, aluno.aluno_id, assiste.aluno_id FROM aluno, assiste WHERE assistiu = 'no' AND aula_id = $aula_id AND aluno.aluno_id = assiste.aluno_id ORDER BY nome";
+        $query_res = mysql_query($query,$dbh_ce);
+        if ($query_res) {
+                while ($aus = mysql_fetch_array($query_res)) {
+                       $aus_list[$i]["nome"] = $aus["nome"];
+		       $i++;
+                }
+                mysql_free_result($query_res);
+	}
+	return $aus_list; 	
+}
+
+function calcula_frequencia($t, $curso_id){
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+        $i = 0;
+        $query = "SELECT w.aluno_id, w.assistiu, COUNT(*) 
+                  FROM assiste as w, aula_coteia as a 
+                 WHERE w.assistiu = 'yes' and w.aula_id=a.aula_id and a.curso_id=$curso_id GROUP BY w.aluno_id";
+        //echo $query;
+        $query_res = mysql_query($query,$dbh_ce);
+        if ($query_res) {
+                while ($freq = mysql_fetch_array($query_res)) {
+                        $freq_list[$i]["alunoid"] = $freq["aluno_id"];
+                        $freq_list[$i]["nroaulas"] = $freq["COUNT(*)"];
+			$perc = round(($freq_list[$i]["nroaulas"]/$t)*100, 1);
+			$freq_list[$i]["freqtotal"] = $perc;
+                        $i++;
+                }
+                mysql_free_result($query_res);
+	}
+	return $freq_list;
+}
+
+function freq_aluno($id, $curso_id){
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+        $i = 0;
+        $query = "SELECT w.aula_id, w.aluno_id, w.assistiu 
+                  FROM assiste as w, aula_coteia as a
+                  WHERE w.aluno_id = '$id' and w.aula_id=a.aula_id and a.curso_id=$curso_id ORDER by aula_id";
+        //echo $query;
+        $query_res = mysql_query($query,$dbh_ce);
+        if ($query_res) {
+                while ($freq = mysql_fetch_array($query_res)) {
+                  $freq_list[$i] = $freq["assistiu"];
+                  $i++;
+                }
+                mysql_free_result($query_res);
+          
+        } 
+        return $freq_list;
+}
+
+// Retorna os atributos de um dado aluno
+function getAttrAluno($id){
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+	$comando_sql = "select nome, aluno_id, nusp from aluno where aluno_id='$id'";
+	//echo $comando_sql;
+	$res = mysql_query($comando_sql,$dbh_ce);
+	if (mysql_num_rows($res)){
+      	while ($curso = mysql_fetch_array($res)) {
+                  $curso_attr["nome"] = $curso["nome"];
+			$curso_attr["login"] = $curso["aluno_id"];
+			$curso_attr["nousp"] = $curso["nusp"];
+            }
+		mysql_free_result($res);
+	}
+	return $curso_attr;
+} // end getAttrCurso
+
+function getTitleAula($id){
+
+	$dbh_ce = dbConnection();
+
+    	# seleciona base de dados
+   	mysql_select_db($ce_dbname,$dbh_ce);
+
+      $i = 0;
+      $query = "SELECT titulo
+                FROM aula_coteia 
+                WHERE aula_id=$id";
+      //  echo $query;
+      $query_res = mysql_query($query,$dbh_ce);
+      if ($query_res) {
+                if ($aula = mysql_fetch_array($query_res)) {
+                        $title = $aula[0];
+                }
+                mysql_free_result($query_res);
+        }
+        return $title;
+}
+
+function convert_date($date)
+  {
+    $array_temp = explode("-", $date);
+    $vetor_data[0] = $array_temp[2];
+    $vetor_data[1] = $array_temp[1];
+    $vetor_data[2] = $array_temp[0];
+
+    $str = "$vetor_data[0]-$vetor_data[1]-$vetor_data[2] ";
+
+    return $str;
+} // fim function convert_date
+
+?>

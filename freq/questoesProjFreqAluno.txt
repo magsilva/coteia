@@ -1,0 +1,46 @@
+Data de Criação deste documento: 19/12/2002
+Autora: Claudia Akemi Izeki
+
+Objetivo:
+Implementar scripts na liguagem PHP que tenham a função de chamada e frequência de alunos.
+Esses scripts devem ser chamados de uma aplicação qualquer, como a CoTeia. Neste caso, os
+scripts são invocados através do elemento '<freq/>'.
+Esses scripts foram denominados "freqAlunos".
+
+Infra-estrutura existente ao implementar "freqAlunos":
+A intenção é reaproveitar o código implementado pela Adriane Kaori. A aplicação feita pela
+Adrine pode ser acessada de: http://coweb.icmc.usp.br/coweb/mostra.php?ident=43.9.
+Entretanto, os scripts feitos por ela são limitados porque foi feito apenas para um curso.
+A intenção é generalizar para qualquer curso.
+
+Até aí, tudo bem. A generalização seria muito simples e fácil.
+
+Entretanto, observando e analisando a base de dados utilizada por ela, a "eclassDB", notou-se
+que a base de dados estava inconsistente, pois...
+
+As tabelas da base de dados "eclassDB" são:
+- aluno
+- professor
+- curso
+- aula
+- assiste (do relacionamento "aluno assiste aula")
+- cursa (do relacionamento "aluno cursa curso")
+- ministra (do relacionamento "professor ministra aula")
+- profMinistraCurso (do relacionamento "professor ministra curso")
+
+No script "chamada.php" da Adriane:
+- para obter os alunos do curso: acessa apenas a tabela "aluno".
+-> na nova implementação: acessar as tabelas "aluno", "cursa" e "curso".
+- o curso e professor do curso são estáticos.
+-> na nova implementação: obter esses dados do bd.
+- para inserir a presenca ou ausencia do aluno: acessa a tabela "assiste".
+Campos da tabela "assiste": aluno_id, aula_id, presenca (yes|no).
+Aí é que ocorre a confusão: o id da aula dessa tabela não corresponde ao id da aula da tabela "aula".
+A Adriane não cria uma aula na tabela "aula" do bd "eclassDB". Ela armazena apenas o id da aula 
+(incremental) em um arquivo texto.
+
+Na nova implementação, esse esquema não funciona, pois deveria-se ter um arquivo texto para cada
+curso. Então, poderia-se armazenar as aulas em uma tabela de bd, mas não poderia ser a tabela
+"aula" do eclassDB, pois ela armazena aulas capturadas do sistema eClass.
+
+A solução pensada até agora poderia ser criar uma nova tabela, a "aulaCoTeia".
