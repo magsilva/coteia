@@ -33,6 +33,9 @@ function cvs_update( $id, $module ) {
 	$old_dir = getcwd();
 
 	cvs_check( $module );
+	if ( !is_dir( $CVS_CHECKOUT_DIR . "/" . $module ) {
+		return;
+	}
 	chdir( $CVS_CHECKOUT_DIR . "/" . $module );
 
 	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " update " . basename( $arquivo );
@@ -63,6 +66,9 @@ function cvs_add( $id, $module ) {
 	$old_dir = getcwd();
 
 	cvs_check( $module );
+  if ( !is_dir( $CVS_CHECKOUT_DIR . "/" . $module ) {
+    return;
+  }
 	chdir( $CVS_CHECKOUT_DIR . "/" . $module );
 
 	// Adiciona o arquivo ao repositório.
