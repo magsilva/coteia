@@ -168,23 +168,6 @@ echo "<BR><B>Total de P&aacute;ginas:</B>";
 
 ?>
 <BR>
-<!-- Begin Nedstat Basic code -->
-<!-- Title: Coteia -->
-<!-- URL: http://coweb.icmc.sc.usp.br -->
-<script language="JavaScript" src="http://m1.nedstatbasic.net/basic.js">
-</script>
-<script language="JavaScript">
-<!--
-  nedstatbasic("ABovXgelWMKjq2QRwNF+X+3Vsxug", 0);
-// -->
-</script>
-<noscript>
-<a target="_blank"
-href="http://v1.nedstatbasic.net/stats?ABovXgelWMKjq2QRwNF+X+3Vsxug"><img src="http://m1.nedstatbasic.net/n?id=ABovXgelWMKjq2QRwNF+X+3Vsxug"
-border="0" nosave width="18" height="18"></a>
-</noscript>
-<!-- End Nedstat Basic code -->
-<BR>
 <P>
 <HR>
 <UL>
