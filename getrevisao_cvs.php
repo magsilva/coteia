@@ -57,6 +57,7 @@ if ( $comparar ) {
 }
 echo "<p><b>Versão $revisao</b></p>";
 $tmp = cvs_checkout_file( $filename, $revisao );
+$tmp = eregi_replace( "<html>.*<h2>", "<h2>", $tmp );
 
 //remover caracteres de quebra de linha e tabs da nova string
 $original = "'(\s)'";
