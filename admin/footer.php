@@ -3,7 +3,7 @@
 ?>
 <center>
 <A HREF="<? echo $URL_COWEB; ?>">
-<IMG alt="CoTeia" src="<? echo $URL_IMG;?>/logo.gif" border="0">
+<IMG alt="CoTeia" src="<? echo $URL_IMG;?>/logo.png" border="0">
 </A>
 
 <br>© 2001 CoTeia.  Direitos reservados.

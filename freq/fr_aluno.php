@@ -51,9 +51,9 @@ else
         for ($i=0; $i<16; $i++)
 	{
          if ($listfreq[$i] == 'yes')
-         echo "<td bgcolor=#FFFFFF><p align=center><img src=/coweb/imagem/useron.gif alt=presente></td>\n";
+         echo "<td bgcolor=#FFFFFF><p align=center><img src=/coweb/imagem/useron.png alt=presente></td>\n";
 	 else if ($listfreq[$i] == 'no')
-         echo "<td bgcolor=#FFFFFF><p align=center><img src=/coweb/imagem/useroff.gif alt=ausente></td>\n";
+         echo "<td bgcolor=#FFFFFF><p align=center><img src=/coweb/imagem/useroff.png alt=ausente></td>\n";
          else
          echo "<td bgcolor=#FFFFFF></td>\n";
         } 
@@ -68,9 +68,9 @@ else
       for ($i=16; $i<32; $i++)
 	{
        if ($listfreq[$i] == 'yes')
-         echo "<td bgcolor=#FFFFFF><p align=center><img src=/coweb/imagem/useron.gif alt=presente></td>\n";
+         echo "<td bgcolor=#FFFFFF><p align=center><img src=/coweb/imagem/useron.png alt=presente></td>\n";
 	 else if ($listfreq[$i] == 'no')
-         echo "<td bgcolor=#FFFFFF><p align=center><img src=/coewb/imagem/useroff.gif alt=ausente></td>\n";
+         echo "<td bgcolor=#FFFFFF><p align=center><img src=/coewb/imagem/useroff.png alt=ausente></td>\n";
          else
          echo "<td bgcolor=#FFFFFF></td>\n";
       } 

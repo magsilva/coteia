@@ -131,27 +131,27 @@ apaga_dir($caminho);
 ?>
 <BODY text=#000000 vLink=#0000cc aLink=#ffff00 link=#cc0000 bgColor=#ffffff>
                 <A href="mostra.php?ident=<?echo $ident?>">
-		<IMG src="<?echo $URL_IMG?>/view.gif" border=0></A>
-		<IMG src="<?echo $URL_IMG?>/editbw.gif" border=0>
+		<IMG src="<?echo $URL_IMG?>/view.png" border=0></A>
+		<IMG src="<?echo $URL_IMG?>/editbw.png" border=0>
                 <A href="history.php?ident=<?echo $ident?>">
-		<IMG src="<?echo $URL_IMG?>/history.gif" border=0></A>
+		<IMG src="<?echo $URL_IMG?>/history.png" border=0></A>
 		<A href="mostra.php?ident=<?echo $id_swiki?>">
-		<IMG src="<?echo $URL_IMG?>/indice.gif" border=0></A>
+		<IMG src="<?echo $URL_IMG?>/indice.png" border=0></A>
 		<A href="JavaScript:AbreMapa(<?echo $id_swiki?>)">
-	        <img src="<?echo $URL_IMG?>/map.gif" border="0"/></A>
+	        <img src="<?echo $URL_IMG?>/map.png" border="0"/></A>
 		<A href="changes.php?ident=<?echo $ident?>">
-		<IMG src="<?echo $URL_IMG?>/changes.gif" border=0></A>
+		<IMG src="<?echo $URL_IMG?>/changes.png" border=0></A>
                 <A href="upload.php?ident=<?echo $ident?>">
-		<IMG src="<?echo $URL_IMG?>/upload.gif" border=0></A>
+		<IMG src="<?echo $URL_IMG?>/upload.png" border=0></A>
 		<A href="search.php?ident=<?echo $ident?>">
-		<IMG src="<?echo $URL_IMG?>/search.gif" border=0></A>
+		<IMG src="<?echo $URL_IMG?>/search.png" border=0></A>
 		<A href="help.php">
-		<IMG src="<?echo $URL_IMG?>/help.gif" border=0></A>
+		<IMG src="<?echo $URL_IMG?>/help.png" border=0></A>
 		<A href="JavaScript:AbreChat(<?echo $id_swiki?>)">
-		<img src="<?echo $URL_IMG?>/chat.gif" border="0"/></A>
-		<img src="<?echo $URL_IMG?>/notebw.gif" border="0"/>
+		<img src="<?echo $URL_IMG?>/chat.png" border="0"/></A>
+		<img src="<?echo $URL_IMG?>/notebw.png" border="0"/>
 		<A href="JavaScript:Imprime()">
-		<img src="<?echo $URL_IMG?>/print.gif" border="0"/></A>
+		<img src="<?echo $URL_IMG?>/print.png" border="0"/></A>
 <br><br>
 <!-- geracao da form -->
 <form METHOD=POST ACTION="getrevisao_cvs.php">

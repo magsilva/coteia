@@ -14,18 +14,18 @@ A:visited {text-decoration:none;color: #0000FF}
 --></style>
 </head>
 <BODY text=#000000 vLink=#0000cc aLink=#ffff00 link=#cc0000 bgColor=#ffffff>
-<img src="<?echo $URL_IMG?>/viewbw.gif" border="0"/>
-<img src="<?echo $URL_IMG?>/editbw.gif" border="0"/>
-<img src="<?echo $URL_IMG?>/historybw.gif" border="0"/>
-<img src="<?echo $URL_IMG?>/indicebw.gif" border="0"/>
-<img src="<?echo $URL_IMG?>/mapbw.gif" border="0"/>
-<img src="<?echo $URL_IMG?>/changesbw.gif" border="0"/>
-<img src="<?echo $URL_IMG?>/uploadbw.gif" border="0"/>
-<img src="<?echo $URL_IMG?>/searchbw.gif" border="0"/>
-<img src="<?echo $URL_IMG?>/helpbw.gif" border="0"/>
-<img src="<?echo $URL_IMG?>/chatbw.gif" border="0">
-<img src="<?echo $URL_IMG?>/notebw.gif" border="0"/>
-<img src="<?echo $URL_IMG?>/printbw.gif" border="0"/>
+<img src="<?echo $URL_IMG?>/viewbw.png" border="0"/>
+<img src="<?echo $URL_IMG?>/editbw.png" border="0"/>
+<img src="<?echo $URL_IMG?>/historybw.png" border="0"/>
+<img src="<?echo $URL_IMG?>/indicebw.png" border="0"/>
+<img src="<?echo $URL_IMG?>/mapbw.png" border="0"/>
+<img src="<?echo $URL_IMG?>/changesbw.png" border="0"/>
+<img src="<?echo $URL_IMG?>/uploadbw.png" border="0"/>
+<img src="<?echo $URL_IMG?>/searchbw.png" border="0"/>
+<img src="<?echo $URL_IMG?>/helpbw.png" border="0"/>
+<img src="<?echo $URL_IMG?>/chatbw.png" border="0">
+<img src="<?echo $URL_IMG?>/notebw.png" border="0"/>
+<img src="<?echo $URL_IMG?>/printbw.png" border="0"/>
 <br><br>
 <FONT FACE="sans-serif" COLOR="#FF6633">
 <P><H1>CoTeia - Ajuda</H1></P>
@@ -84,9 +84,9 @@ href="http://www.cc.gatech.edu/gvu/people/Faculty/Mark.Guzdial.html">Mark Guzdia
 	<BR>
 	</DL></UL>
 <FONT SIZE="+1" FACE="Britannic Bold" COLOR="#000000">
-<img src="<?echo $URL_IMG?>/mail.gif" border="0"  width="90" height="115"><p>
+<img src="<?echo $URL_IMG?>/mail.png" border="0"  width="90" height="115"><p>
 Contato: <a href="mailto:<?echo $ADMIN_MAIL;?>"><? echo $ADMIN; ?></a>.
 </FONT><p>
-<h2><center><a href="index.php"><img src="<?echo $URL_IMG?>/home.gif" height="40" border="0"></a></center></h2>
+<h2><center><a href="index.php"><img src="<?echo $URL_IMG?>/home.png" height="40" border="0"></a></center></h2>
 </body>
 </html>

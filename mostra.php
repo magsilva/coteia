@@ -44,18 +44,18 @@ echo "<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">
    <title>Página Não Encontrada</title>
 </head>
 <BODY text=#000000 vLink=#000000 aLink=#ffff00 link=#000080 bgColor=#ffffff>
-<img src='$URL_IMG/viewbw.gif' border='0'/>
-<img src='$URL_IMG/editbw.gif' border='0'/>
-<img src='$URL_IMG/historybw.gif' border='0'/>
-<img src='$URL_IMG/indicebw.gif' border='0'/>
-<img src='$URL_IMG/mapbw.gif' border='0'/>
-<img src='$URL_IMG/changesbw.gif' border='0'/>
-<img src='$URL_IMG/uploadbw.gif' border='0'/>
-<img src='$URL_IMG/searchbw.gif' border='0'/>
-<img src='$URL_IMG/helpbw.gif' border='0'/>
-<img src='$URL_IMG/chatbw.gif' border='0'>
-<img src='$URL_IMG/notebw.gif' border='0'/>
-<img src='$URL_IMG/printbw.gif' border='0'/>
+<img src='$URL_IMG/viewbw.png' border='0'/>
+<img src='$URL_IMG/editbw.png' border='0'/>
+<img src='$URL_IMG/historybw.png' border='0'/>
+<img src='$URL_IMG/indicebw.png' border='0'/>
+<img src='$URL_IMG/mapbw.png' border='0'/>
+<img src='$URL_IMG/changesbw.png' border='0'/>
+<img src='$URL_IMG/uploadbw.png' border='0'/>
+<img src='$URL_IMG/searchbw.png' border='0'/>
+<img src='$URL_IMG/helpbw.png' border='0'/>
+<img src='$URL_IMG/chatbw.png' border='0'>
+<img src='$URL_IMG/notebw.png' border='0'/>
+<img src='$URL_IMG/printbw.png' border='0'/>
 <br><br>
 <br>
 <center>
@@ -65,7 +65,7 @@ echo "<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">
 Desculpe! Esta página não foi encontrada em nosso servidor.
 <br><br>
 Em caso de dúvidas, entre em contato com o <a HREF=\"mailto:credajun@icmc.sc.usp.br\">administrador</a>
-<br><br><center><a href=\"index.php\"><img src=\"$URL_IMG/home.gif\" height=\"40\" border=\"0\"></a></center>
+<br><br><center><a href=\"index.php\"><img src=\"$URL_IMG/home.png\" height=\"40\" border=\"0\"></a></center>
 </font>
 </th>
 </table>

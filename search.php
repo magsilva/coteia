@@ -29,27 +29,27 @@ function Imprime()
 
 ?>
 <BODY text=#000000 vLink=#0000cc aLink=#ffff00 link=#cc0000 bgColor=#ffffff>
-	<IMG alt="View this Page" src="<?echo $URL_IMG?>/viewbw.gif" border=0>
-	<IMG alt="Edit this Page" src="<?echo $URL_IMG?>/editbw.gif" border=0>
+	<IMG alt="View this Page" src="<?echo $URL_IMG?>/viewbw.png" border=0>
+	<IMG alt="Edit this Page" src="<?echo $URL_IMG?>/editbw.png" border=0>
 	<A href="history.php?ident=<?echo $ident?>">
-	<IMG alt="History of this Page" src="<?echo $URL_IMG?>/history.gif" border=0></A>
+	<IMG alt="History of this Page" src="<?echo $URL_IMG?>/history.png" border=0></A>
 	<A href="mostra.php?ident=<?echo $id_swiki?>">
-	<IMG alt="Top of the Swiki" src="<?echo $URL_IMG?>/indice.gif" border=0></A>
+	<IMG alt="Top of the Swiki" src="<?echo $URL_IMG?>/indice.png" border=0></A>
 	<A href="JavaScript:AbreMapa(<?echo $id_swiki?>)">
-	<img alt="Mapa do Site" src="<?echo $URL_IMG?>/map.gif" border="0"/></A>
+	<img alt="Mapa do Site" src="<?echo $URL_IMG?>/map.png" border="0"/></A>
 	<A href="changes.php?ident=<?echo $ident?>">
-	<IMG alt="Recent Changes" src="<?echo $URL_IMG?>/changes.gif" border=0></A>
+	<IMG alt="Recent Changes" src="<?echo $URL_IMG?>/changes.png" border=0></A>
 	<A href="upload.php?ident=<?echo $ident?>">
-	<IMG alt="File Attachments" src="<?echo $URL_IMG?>/upload.gif" border=0></A>
+	<IMG alt="File Attachments" src="<?echo $URL_IMG?>/upload.png" border=0></A>
 	<A href="search.php?ident=<?echo $ident?>">
-	<IMG alt="Search the Swiki" src="<?echo $URL_IMG?>/search.gif" border=0></A>
+	<IMG alt="Search the Swiki" src="<?echo $URL_IMG?>/search.png" border=0></A>
 	<A href="help.php">
-	<IMG alt="Help Guide" src="<?echo $URL_IMG?>/help.gif" border=0></A>
+	<IMG alt="Help Guide" src="<?echo $URL_IMG?>/help.png" border=0></A>
 	<A href="JavaScript:AbreChat(<?echo $id_swiki?>)">
-	<img alt="ChatServer" src="<?echo $URL_IMG?>/chat.gif" border="0"/></A>
-	<img alt="GroupNote" src="<?echo $URL_IMG?>/notebw.gif" border="0"/>
+	<img alt="ChatServer" src="<?echo $URL_IMG?>/chat.png" border="0"/></A>
+	<img alt="GroupNote" src="<?echo $URL_IMG?>/notebw.png" border="0"/>
 	<A href="JavaScript:Imprime()">
-	<img alt="Print this Page" src="<?echo $URL_IMG?>/print.gif" border="0"/></A>
+	<img alt="Print this Page" src="<?echo $URL_IMG?>/print.png" border="0"/></A>
 <br><br>
 <?
 /*

@@ -193,7 +193,7 @@ border="0" nosave width="18" height="18"></a>
 <BR>
 </UL>
 </P>
-<IMG alt="CoTeia" src="<?echo $URL_IMG?>/logo.gif" border="0">
+<IMG alt="CoTeia" src="<?echo $URL_IMG?>/logo.png" border="0">
 <BR><I>CoTeia - Ferramenta de Edição Colaborativa Baseada na Web</I>
 </BODY>
 </HTML>
