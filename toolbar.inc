@@ -8,6 +8,10 @@
 	<img src="<?php echo $URL_IMG?>/edit.png" alt="Edit this Page"/>
 </a>
 
+<a href="add.php?ident=<?php echo $ident; ?>">
+	<img src="<?php echo $URL_IMG?>/add.png" alt="Add data to this Page"/>
+</a>
+
 <a href="history.php?ident=<?php echo $ident?>">
 	<img src="<?php echo $URL_IMG?>/history.png" alt="History of this Page" />
 </a>

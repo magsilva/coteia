@@ -31,6 +31,13 @@
 			<a href="edit.php?ident={id}"><img src="$URL_IMG/edit.png" alt="Edit this Page" /></a>
 		</xsl:if>
 
+		<xsl:if test="lock='1'">
+			<a href="add.php?ident={id}"><img src="$URL_IMG/addlock.png" alt="Add data to this Page (password protected)" /></a>
+		</xsl:if>
+		<xsl:if test="lock != '1'">
+			<a href="add.php?ident={id}"><img src="$URL_IMG/add.png" alt="Add date to this Page" /></a>
+		</xsl:if>
+
 		<a href="history.php?ident={id}"><img src="$URL_IMG/history.png" alt="Edit this Page" /></a>
 
 		<xsl:if test="id != sw_id">

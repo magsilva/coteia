@@ -68,32 +68,78 @@ function coteia_logout()
 	session_destroy();
 }
 
+/**
+* Check if the character data inside an XML element can be replaced by HTML entities.
+* The default is "true".
+*/
+function can_replace_chars_within( $xml_element ) {
+	$result = true;
+  if ( preg_match( "/^(.*:)?pre.*/i", $xml_element ) > 0 ) {
+		$result = false;
+	}
+	return $result;
+}
+
 /*
 * Replace special chars by their respective HTML entity.
 */
 function replace_chars( $text ) {
   $inside_tag = false;
+	$elements = array();
+	$current_element = "";
+	$save_element_name = false;
 
 	$new_text = "";
   for ( $i = 0; $i < strlen( $text ); $i++ ) {
+
     // Detects the possible start of a tag.
-    if ( $inside_tag == false && $text[ $i ] == "<" ) {
-      // Check if it's a element's start tag or tag of empty element or if it's an end tag.
+    if ( $inside_tag == false && $text{ $i } == "<" ) {
+      // Check if it's a element's start tag or tag of empty element or if it's an end tag:
+			// * It'll be an start tag or empty element's tag  if the "<" is not followed by a blank
+			//   space (as defined by the XML standard).
+			// * It'll be and end tag if the "<" if followed by an "/".
+			// Anything different from that is a invallid element definition, will be catched by
+			// the XML parser.
       if ( strlen( trim( $text{ $i + 1 } ) ) || $text{ $i + 1 } == "/" ) {
         $inside_tag = true;
 				$new_text = $new_text . $text{ $i };
-				continue;
-      }
-    }
-    // Detects the possible end of a tag.
-    if ( $inside_tag == true && $text{ $i } == ">" ) {
-      $inside_tag = false;
-			$new_text = $new_text . $text{ $i };
+
+				// Check if it's a start or empty element, if yes check to save it's name.
+				if ( strlen( trim( $text{ $i + 1 } ) ) {
+					$save_element_name = true;
+					array_push( $elements, "" );
+				} else {
+					// We're in a close tag, so clean the current_element:
+					$current_element = "";
+				}
+			}
+			// No futher check, go to the next char.
 			continue;
     }
 
+    // Detects the possible end of a tag.
+    if ( $inside_tag == true }
+			if ( $text{ $i } == ">" ) {
+	      $inside_tag = false;
+				$new_text = $new_text . $text{ $i };
+
+				// If it was an end tag (so, with save_element_name as false), pop the element's name.
+				if ( $save_element_name ) {
+					$save_element_name = false;
+					$current_element = array_pop( $elements );
+				}
+			} else {
+				// We're inside a tag yet, let's keep saving the element's name and attributes.
+				if ( $save_element_name ) {
+					$element = array_pop( $elements );
+					$array_push( $elements, $element . $text{ $i } );
+				}
+			}
+			continue;
+		}
+
     // Replace chars.
-    if ( ! $inside_tag ) {
+    if ( ! $inside_tag && can_replace_chars_within( $current_element ) ) {
       $new_text = $new_text . htmlspecialchars( $text{ $i } );
     } else {
 			$new_text = $new_text . $text{ $i };
