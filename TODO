@@ -1,1 +1,6 @@
-Arrumar as variáveis em freq/ e usar as do ../config.php.inc
+Retirar código redundante de admin/
+
+Verificar o esquema da base de dados do ChatServer.
+Verificar o esquema da base de dados do serviço de anotações.
+Verificar o esquema da base de dados de usuários.
+Verificar o esquema da base de dados de cursos do eClass.
