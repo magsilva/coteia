@@ -1,4 +1,4 @@
-<?
+<?php
 /*
  * NOME:                autentica
  * DESCRICAO:           Autentica administrador e cria variaveis de sessao
@@ -11,10 +11,6 @@
 include_once("function.inc");
 
 $dbh = db_connect();
-
-$id = $_REQUEST[ "id" ];
-$token = $_REQUEST[ "token" ];
-$index = $_REQUEST[ "index" ];
 $retorno = login_swiki( $usuario, $passwd, $id, $dbh );
 
 
@@ -25,7 +21,7 @@ if ( $retorno ) {
 	}
 
 	if ( $token == "0" ) {
-		header( "Location:login_create.php?id=$id&index=$index" );
+		header( "Location:login_create.php?id=$id&amp;index=$index" );
 		exit;
 	}
 } else {
