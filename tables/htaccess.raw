@@ -1,0 +1,6 @@
+<Directory "$PATH_UPLOAD">
+  Options -ExecCGI
+  AllowOverride None
+  RemoveHandler .jsp .php .html .htm
+</Directory>
+

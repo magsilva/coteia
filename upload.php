@@ -8,15 +8,17 @@ $dbh = db_connect();
 mysql_select_db($dbname,$dbh);
 
 $ok = 0;
-if ($act == "upload") {
-	if ((is_uploaded_file($HTTP_POST_FILES['uploads']['tmp_name'])) && (!stristr($HTTP_POST_FILES['uploads']['name'],".php"))  && (!stristr($HTTP_POST_FILES['uploads']['name'],".jsp")) && (!stristr($HTTP_POST_FILES['uploads']['name'],".cgi"))) {
-		$realname = $HTTP_POST_FILES['uploads']['name'];
-		$path = $coursename."/".$realname;
-		if (file_exists($path)) {
+if ( $act == "upload" ) {
+	if ( is_uploaded_file($_FILES['uploads']['tmp_name'] ) {
+		$realname = $_FILES['uploads']['name'];
+		$path = $coursename . "/" . $realname;
+		if ( file_exists( $path ) ) {
+			// cvs update.
 			$ok = 3;
 		}	else {
-			copy($HTTP_POST_FILES['uploads']['tmp_name'],$path);
-			chmod($path, 0444);
+			// cvs add
+			copy( $_FILES['uploads']['tmp_name'], $path );
+			chmod( $path, 0444 );
 			$ok = 1;
 		}
 	} else {
