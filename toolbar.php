@@ -40,7 +40,7 @@
 	<img src="<?php echo $URL_IMG?>/chat.png" alt="ChatServer" />
 </a>
 
-<a href="JavaScript:AbreAnotacao(<?php echo "$id_swiki,$ident,$ident"?>">
+<a href="JavaScript:AbreAnotacao(<?php echo "$id_swiki,$ident,$id_ann"?>">
 	<img src="<?php echo $URL_IMG?>/note.png" alt="GroupNote" />
 </a>
 

@@ -9,55 +9,68 @@
 </xsl:template>
 
 <xsl:template match="page">
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
-	<meta name ="Author" content="{aut}"/>
-	<meta name ="Keywords" content="{kwd1},{kwd2},{kwd3}"/>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta name ="Author" content="{aut}" />
+	<meta name ="Keywords" content="{kwd1},{kwd2},{kwd3}" />
 	<link href="coteia.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="coteia.js"></script>
 	<title><xsl:apply-templates select="tit"/></title>
-	</head>
-	<body>
-		<img src="$URL_IMG/viewbw.png" />
-		<xsl:if test="lock='1'">
-			<a href="edit.php?ident={id}"><img src="$URL_IMG/editlock.png" /></a>
-		</xsl:if>
-		<xsl:if test="lock != '1'">
-			<a href="edit.php?ident={id}"><img src="$URL_IMG/edit.png" /></a>
-		</xsl:if>
-		<a href="history.php?ident={id}">	<img src="$URL_IMG/history.png" /></a>
-		<xsl:if test="id != sw_id">
-			<a href="mostra.php?ident={sw_id}"><img src="$URL_IMG/indice.png" /></a>
-		</xsl:if>
-		<xsl:if test="id = sw_id">
-			<img src="$URL_IMG/indicebw.png" />
-		</xsl:if>
-		<a href="JavaScript:AbreMapa({sw_id})">	<img src="$URL_IMG/map.png" /></a>
-		<a href="changes.php?ident={id}"><img src="$URL_IMG/changes.png" /></a>
-		<xsl:if test="id != sw_id">
-			<a href="upload.php?ident={id}"><img src="$URL_IMG/upload.png" /></a>
-		</xsl:if>
-		<xsl:if test="id = sw_id">
-			<img src="$URL_IMG/uploadbw.png" />
-		</xsl:if>
-		<a href="search.php?ident={id}"><img src="$URL_IMG/search.png" /></a>
-		<a href="help.php"><img src="$URL_IMG/help.png" /></a>
-		<a href="JavaScript:AbreChat({chat_folder})"><img src="$URL_IMG/chat.png" /></a>
-		<img src="$URL_IMG/notebw.png" />
-		<a href="JavaScript:Imprime()"><img src="$URL_IMG/print.png" /></a>
+</head>
+<body>
+	<img src="$URL_IMG/viewbw.png" />
 
-		<h2><xsl:apply-templates select="tit"/></h2>
-		<xsl:for-each select="bdy">
-			<p><xsl:apply-templates select="."/></p>
-		</xsl:for-each>
-		<br/>
-		<hr/>
-		<p><b>Referenciam este documento: </b></p>
-		<ul>
-		<xsl:for-each select="ref">
-			<li><xsl:apply-templates select="."/></li>
-		</xsl:for-each>
-		</ul>
+	<xsl:if test="lock='1'">
+		<a href="edit.php?ident={id}"><img src="$URL_IMG/editlock.png" /></a>
+	</xsl:if>
+	<xsl:if test="lock != '1'">
+		<a href="edit.php?ident={id}"><img src="$URL_IMG/edit.png" /></a>
+	</xsl:if>
+
+	<a href="history.php?ident={id}"><img src="$URL_IMG/history.png" /></a>
+
+	<xsl:if test="id != sw_id">
+		<a href="mostra.php?ident={sw_id}"><img src="$URL_IMG/indice.png" /></a>
+	</xsl:if>
+
+	<xsl:if test="id = sw_id">
+		<img src="$URL_IMG/indicebw.png" />
+	</xsl:if>
+
+	<a href="JavaScript:AbreMapa({sw_id})">	<img src="$URL_IMG/map.png" /></a>
+
+	<a href="changes.php?ident={id}"><img src="$URL_IMG/changes.png" /></a>
+
+	<xsl:if test="id != sw_id">
+		<a href="upload.php?ident={id}"><img src="$URL_IMG/upload.png" /></a>
+	</xsl:if>
+	<xsl:if test="id = sw_id">
+		<img src="$URL_IMG/uploadbw.png" />
+	</xsl:if>
+
+	<a href="search.php?ident={id}"><img src="$URL_IMG/search.png" /></a>
+
+	<a href="help.php"><img src="$URL_IMG/help.png" /></a>
+
+	<a href="JavaScript:AbreChat({chat_folder})"><img src="$URL_IMG/chat.png" /></a>
+
+	<img src="$URL_IMG/notebw.png" />
+	<a href="JavaScript:Imprime()"><img src="$URL_IMG/print.png" /></a>
+
+	<h2><xsl:apply-templates select="tit"/></h2>
+
+	<xsl:for-each select="bdy">
+		<p><xsl:apply-templates select="."/></p>
+	</xsl:for-each>
+
+	<br/>
+	<hr/>
+	<p><b>Referenciam este documento: </b></p>
+	<ul>
+	<xsl:for-each select="ref">
+		<li><xsl:apply-templates select="."/></li>
+	</xsl:for-each>
+	</ul>
 </body>
 </xsl:template>
 

@@ -36,7 +36,9 @@ if ($status == '1') {
 		exit;
 	}
 }
-include( "toolbar.php" );
+
+// Para as páginas geradas
+// include( "toolbar.php" );
 
 $sucesso = @include("$PATH_ARQUIVOS/$ident.html"); 
 
