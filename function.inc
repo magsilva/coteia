@@ -993,10 +993,10 @@ function replace( $text ) {
 * Prepare the data for processing (trim data mainly).
 */
 function tratamento($index,$conteudo,$titulo,$autor,$kwd) {
-	stripslashes( $index );
-	stripslashes( $conteudo );
-	stripslashes( $titulo );
-	stripslashes( $autor );
+	$index = stripslashes( $index );
+	$conteudo = stripslashes( $conteudo );
+	$titulo = stripslashes( $titulo );
+	$autor = stripslashes( $autor );
 
 	$texto = replace($conteudo);
 
