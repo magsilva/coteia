@@ -67,6 +67,7 @@ echo "\nSetting files permissions...";
 if ( !file_exists( $PATH_COWEB . "/log.txt" ) ) {
 	touch( $PATH_COWEB . "/log.txt" );
 }
+chmod( $PATH_COWEB . "/log.txt", 0777 );
 echo "Ok";
 
 echo "\nCreating CVS password...";
