@@ -156,10 +156,10 @@ include( "toolbar.php" );
 	<br /><input type="checkbox" name="lock" value="locked" />
 
 	<br />Password
-	<br /><input type="password" size="10" name="passwd" onBlur="window.document.create.lock.checked=true;return false;" />
+	<br /><input type="password" size="10" name="passwd" onChange="window.document.create.lock.checked=true;return false;" />
 
 	<br />Re-enter password
-	<br /><input type="password" size="10" name="repasswd" />
+	<br /><input type="password" size="10" name="repasswd" onChange="window.document.create.lock.checked=true;return false;" />
 	<br />
 </div>
 

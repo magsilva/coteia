@@ -129,9 +129,9 @@ if ($submit_btn=="submit") {
 		<td><input type="checkbox" name="cbox_pch" />Por <b>Palavras-chave</b></td>
 	</tr>
   <tr>
-		<td><input type="text" name="tit" width="300" onBlur="window.document.pesquisa.cbox_tit.checked=true;return false;" /></td>
-		<td><input type="text" name="con" width="300" onBlur="window.document.pesquisa.cbox_con.checked=true;return false;" /></td>
-		<td><input type="text" name="pch" width="200" onBlur="window.document.pesquisa.cbox_pch.checked=true;return false;" /></td>
+		<td><input type="text" name="tit" width="300" onChange="window.document.pesquisa.cbox_tit.checked=true;return false;" /></td>
+		<td><input type="text" name="con" width="300" onChange="window.document.pesquisa.cbox_con.checked=true;return false;" /></td>
+		<td><input type="text" name="pch" width="200" onChange="window.document.pesquisa.cbox_pch.checked=true;return false;" /></td>
 	</tr>
   </table>
 	<br />
