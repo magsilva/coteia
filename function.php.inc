@@ -216,17 +216,6 @@ function replace_chars( $text )
 */
 function prepare_for_anything( $wikipage_raw )
 {
-	// Strip slashes if magic_quotes_gpc (auto adding slashes) is active.
-	if ( get_magic_quotes_gpc() == 1 ) {
-		$wikipage_raw[ "indexador" ] = stripslashes( $wikipage_raw[ "indexador" ] );
-		$wikipage_raw[ "conteudo" ] = stripslashes( $wikipage_raw[ "conteudo" ] );
-		$wikipage_raw[ "titulo" ] = stripslashes( $wikipage_raw[ "titulo" ] );
-		$wikipage_raw[ "autor" ] = stripslashes( $wikipage_raw[ "autor" ] );
-		$wikipage_raw[ "kwd1" ] = stripslashes( $wikipage_raw[ "kwd1" ] );
-		$wikipage_raw[ "kwd2" ] = stripslashes( $wikipage_raw[ "kwd2" ] );
-		$wikipage_raw[ "kwd3" ] = stripslashes( $wikipage_raw[ "kwd3" ] );
-	}
-
 	$wikipage_raw[ "indexador" ] = trim( $wikipage_raw[ "indexador" ] );
 	$wikipage_raw[ "conteudo" ] = trim( $wikipage_raw[ "conteudo" ] );
 	$wikipage_raw[ "titulo" ] = trim( $wikipage_raw[ "titulo" ] );
@@ -933,30 +922,6 @@ function get_header( $title )
 	return $content;
 }
 
-/**
-* Transform an XML file into XHTML via an XSL sheet
-* 
-* @author       Aidan Lister <aidan@php.net>
-* @version      3.1
-*/
-function xsl_transform( $xml_file, $xsl_file, $params = null )
-{
-	$xml = new DomDocument;
-	$xml->load( $xml_file );
-
-	$xsl = new DomDocument;
-	$xsl->load( $xsl_file );
-
-	$xslt = new XsltProcessor;
-
-	$params = (array)$params;
-	foreach ( $params as $param => $value ) {
-		$xslt->setParameter( null, $param, $value );
-	}
-
-	$xslt->importStylesheet( $xsl );
-	return $xslt->transformToXml( $xml );
-}
 
 /**
 * Check if a XML document compiled with the given parameters is a valid Coteia's XML document.
