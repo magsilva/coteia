@@ -1,11 +1,8 @@
-<?
+<?php
    include_once("function.inc");
-
    $sess = new coweb_session;
-
    $sess->read();
 ?>
-
 
 <html>
 <head>
