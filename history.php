@@ -21,7 +21,7 @@ include_once("cvs/function_cvs.inc");
 $ident = $_REQUEST[ "ident" ];
 $get_swiki = explode( ".", $ident );
 $id_swiki = $get_swiki[ 0 ];
-$revision = cvs_get_revisions( $CVS_MODULE . "/" . $ident . ".html" );
+$revisions = cvs_get_revisions( $CVS_MODULE . "/" . $ident . ".html" );
 ?>
 
 <body>
