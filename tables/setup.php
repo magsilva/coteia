@@ -48,7 +48,7 @@ function login_cvs() {
   fwrite( $pass_file, scramble( $CVS_PASSWORD ) );
   fclose( $pass_file );
 }
-/*
+
 echo "\nSettings directories permissions...";
 setup_dir( $PATH_XML );
 setup_dir( $PATH_XHTML );
@@ -65,12 +65,14 @@ echo "Ok";
 echo "\nCreating CVS password...";
 login_cvs();
 echo "Ok";
-*/
-echo "\nCreating the database schemas...";
+
+echo "\nCreating the database schemas and XSLT stylesheet...";
 foreach (glob("*.raw") as $raw_squema) {
 	replace_vars( $raw_squema );
 }
 echo "Ok";
+
+@copy( "coteia.xsl", "../coteia.xsl" );
 
 
 echo "\nFinished.\n";
