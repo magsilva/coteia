@@ -29,7 +29,7 @@ if ( $act == "upload" ) {
 	if ( is_uploaded_file($_FILES['uploads']['tmp_name'] ) ) {
 		$realname = $_FILES['uploads']['name'];
 		foreach ( $filetypes as $filetype ) {
-			if ( preg_match( "/\." . $filetype . "$/", $content ) > 0 ) {
+			if ( preg_match( "/\." . $filetype . "$/", $realname ) > 0 ) {
 				$ok = 0;
 			}
 		}
@@ -48,8 +48,9 @@ if ( $act == "upload" ) {
 	} else {
 		$ok = 2;
 	}
+	echo "<script>StatusUpload( $ok )</script>";
 }
-echo "<script>StatusUpload( $ok )</script>";
+
 
 
 $query_swiki = "SELECT id_sw from gets where (id_pag='$ident')";
