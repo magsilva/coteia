@@ -28,13 +28,6 @@ $ident = $_REQUEST[ "ident" ];
 $comparar = $_REQUEST[ "compara" ];
 $revisao = $_REQUEST[ "revisao" ];
 
-// checar se o usuario selecionou uma revisao correta ou se deixou na palavra "historico"
-if ($revisao == 0) {
-	echo '<h2>Erro!</h2>';
-	echo '<br /><div align="center">Por favor, selecione uma versão válida na pagina anterior.</center>';
-	exit();
-}
-
 // Se a opção "Comparar com versão atual" estiver ativada, mostrar a versão atual.
 if ( $comparar == 1 ) {
 ?>
