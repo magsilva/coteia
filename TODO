@@ -1,4 +1,5 @@
 Ócio
 ====
+Arrumar o freq/, retirando as URL fixas para http://coweb.icmc.usp.br, substituindo por "$URL_COWEB".
 Retirar código redundante de admin/
 Remover códigos redundantes de Javascript (colocar em um arquivo separado).
