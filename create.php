@@ -52,22 +52,6 @@ if ($salva) {
 	// grava no BD sem modificacaoes de links
 	$conteudo_puro=$conteudo;
 
-	if (stristr($conteudo,"</table>")) {
-        	$conteudo = table_pre($conteudo,"table");
-	}
-
-	if (stristr($conteudo,"<pre>")) {
-		$conteudo = table_pre($conteudo,"pre");  
-	}
-
-	if (stristr($conteudo,"</ul>")) {
-        	$conteudo = table_pre($conteudo,"ul");  
-	}
-
-	if (stristr($conteudo,"</ol>")) {
-		$conteudo = table_pre($conteudo,"ol");  
-	}
-
 	if (stristr($conteudo,"<lnk>")) {
 		$conteudo = link_interno($ident,$conteudo,$dbh);
 	}

@@ -33,22 +33,6 @@ if ($ident_pai!="") {
 		$conteudo = link_interno($ident_pai,$conteudo,$dbh);
 	}
 
-	if (stristr($conteudo,"</table>")) {
-		$conteudo = table_pre($conteudo,"table");
-	}
-
-	if (stristr($conteudo,"<pre>")) {
-		$conteudo = table_pre($conteudo,"pre");
-	}
-
-	if (stristr($conteudo,"</ul>")) {
-		$conteudo = table_pre($conteudo,"ul");
-	}
-
-	if (stristr($conteudo,"</ol>")) {
-		$conteudo = table_pre($conteudo,"ol");
-	}
-
 	if ($senha) {
 		$lock = "<lock>1</lock>";
 	} else {

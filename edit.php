@@ -68,22 +68,6 @@ if ( $salva ) {
 		$conteudo = img_upload($conteudo);
 	}
 
-	if (stristr($conteudo,"</table>")) {
-		$conteudo = table_pre($conteudo,"table");
-	}
-
-	if (stristr($conteudo,"<pre>")) {
-		$conteudo = table_pre($conteudo,"pre");
-	}
-
-	if (stristr($conteudo,"</ul>")) {
-		$conteudo = table_pre($conteudo,"ul");
-	}
-
-	if (stristr($conteudo,"</ol>")) {
-		$conteudo = table_pre($conteudo,"ol");
-	}
-
 	// Encontra identificar da swiki.
 	$get_swiki = explode(".", $ident);
 	$id_swiki = $get_swiki[0];  		

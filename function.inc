@@ -970,134 +970,23 @@ session_unregister("usermail");
 
 /*
  * NOME:		replace
- * DESCRICAO:		converte tags para minusculo(XHTML), cria tags de linha e converte caracteres especias em entidades HTML
- * PAR. ENTRADA:        texto
- * PAR. SAIDA:		texto traduzido em entidades e XHTML
- * RETORNO:		--
- * OBSERVACOES:
+ * DESCRICAO:	Converte tags para minusculo(XHTML) e converte caracteres especias em entidades HTML.
+ * PAR. ENTRADA: texto
+ * PAR. SAIDA: texto traduzido em entidades e XHTML
  */
-function replace($texto) {
-	$open_bold = eregi_replace("<b>","<b>",$texto);
-	$close_bold = eregi_replace("</b>","</b>","$open_bold");
+function replace( $text ) {
+	$replace_vars = (
+		"`" => "'",
+		"\"" => "&quot;",
+    "<" => "&lt;",
+    ">" => "&gt;"
+	);
 
-	$open_italic = eregi_replace("<i>","<i>",$close_bold);
-	$close_italic = eregi_replace("</i>","</i>",$open_italic);
-
-	$open_ul = eregi_replace("<ul>","<ul>",$close_italic);
-	$close_ul = eregi_replace("</ul>","</ul>",$open_ul);
-
-	$open_ol = eregi_replace("<ol>","<ol>",$close_ul);
-	$close_ol = eregi_replace("</ol>","</ol>",$open_ol);
-
-	$open_li = eregi_replace("<li>","<li>",$close_ol);
-	$close_li = eregi_replace("</li>","</li>",$open_li);
-
-	$h1 = eregi_replace("<h1>","<h1>",$close_li);
-	$h1 = eregi_replace("</h1>","</h1>",$h1);
-	$h2 = eregi_replace("<h2>","<h2>",$h1);
-	$h2 = eregi_replace("</h2>","</h2>",$h2);
-	$h3 = eregi_replace("<h3>","<h3>",$h2);
-	$h3 = eregi_replace("</h3>","</h3>",$h3);
-
-	$img = eregi_replace("<img","<img",$h3);
-
-	$open_font = eregi_replace("<font","<font",$img);
-	$close_font = eregi_replace("</font>","</font>",$open_font);
-
-	$open_table = eregi_replace("<table","<table",$close_font);
-	$close_table = eregi_replace("</table>","</table>",$open_table);
-
-	$open_td = eregi_replace("<td>","<td>",$close_table);
-	$close_td = eregi_replace("</td>","</td>",$open_td);
-
-	$open_tr = eregi_replace("<tr>","<tr>",$close_td);
-	$close_tr = eregi_replace("</tr>","</tr>",$open_tr);
-
-	$open_pre = eregi_replace("<pre>","<pre>",$close_tr);
-	$close_pre = eregi_replace("</pre>","</pre>",$open_pre);
-
-	$open_center = eregi_replace("<center>","<center>",$close_pre);
-	$close_center = eregi_replace("</center>","</center>",$open_center);
-
-	$open_link = eregi_replace("<lnk>","<lnk>",$close_center);
-	$close_link = eregi_replace("</lnk>","</lnk>",$open_link);
-
-	$file_upl = eregi_replace("<upl FILE","<upl file",$close_link);
-	$close_upl = eregi_replace("</upl>","</upl>",$file_upl);
-
-	$agenda = eregi_replace("<agenda","<agenda",$close_upl);
-
-	$open_href = eregi_replace("<a href","<a href",$agenda);
-	$close_href = eregi_replace("</a>","</a>",$open_href);
-
-	$string2 = eregi_replace ("<br>","<br/>",$close_href);
-      
-	$texto_single_quot = eregi_replace("'","`",$string2);
-	$texto_quot = eregi_replace("&quot;","\"",$texto_single_quot);
-	$texto_aux = eregi_replace("&lt;","<",$texto_quot);
-	$texto_final = eregi_replace("&gt;",">",$texto_aux);
-
-	return $texto_final;
+	foreach ( $replace_vars as $i => $value ) {
+		$text = eregi_replace( $value, $i, $text );
+	}
+	return $text;
 }
-
-/*
- * NOME:		table_pre
- * DESCRICAO:		
- * PAR. ENTRADA:        texto
- * PAR. SAIDA:		
- * RETORNO:		--
- * OBSERVACOES:
- */
-function table_pre($conteudo,$tipo) {
-  
-$continua=true;
-$texto = " ".$conteudo;
-$p1_ini = "0";
- 
-if ($tipo == "table")
-$tam_tipo = "8";
-else if ($tipo == "pre")
-$tam_tipo = "6";
-else $tam_tipo = "5";
-
-while ($continua == true)
-        {
-        $texto_pos_ini = strpos($texto,"<$tipo");
-        if (!$texto_pos_ini)
-                {
-                $continua=false ;
-                } else
-                {
-                $antes_tabela = substr($texto,$p1_ini,$texto_pos_ini);
-                $texto_pos_fin = strpos($texto,"</$tipo>") ;
-                $texto_fim = $texto_pos_fin + $tam_tipo;
-                $texto_tam = $texto_fim - $texto_pos_ini;
-                $str = substr($texto,$texto_pos_ini,$texto_tam);
-                $str = eregi_replace ("<br/>","",$str); 
-                $str = eregi_replace ("<br />","",$str); 
-                $str = eregi_replace ("<$tipo","<aux",$str); 
-                $str = eregi_replace ("</$tipo>","</aux>",$str);
-
-		//pre-formatado: nao faz parsing e tags sao mostradas na tela
-		if ($tipo == "pre") {
-			$str = eregi_replace ("<","&lt;",$str); 
-			$str = eregi_replace (">","&gt;",$str); 
-
-			$str = eregi_replace ("&lt;aux&gt;","<aux>",$str); 
-			$str = eregi_replace ("&lt;/aux&gt;","</aux>",$str); 
-                }
-
-                $depois_tabela = substr($texto,$texto_fim); 
-                $texto = $antes_tabela.$str.$depois_tabela;
-                }
-}
-
-        $conteudo = eregi_replace ("<aux","<$tipo",$texto);
-        $conteudo = eregi_replace ("</aux>","</$tipo>",$conteudo);
-                        
-        return trim($conteudo);
-                        
-}//function 
 
 /**
 * Prepare the data for processing (trim data mainly).
