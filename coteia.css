@@ -1,6 +1,7 @@
 div.toolbar {
 	position: relative;
 	vertical-align: top;
+	text-align: center;
 }
 
 div.content {
