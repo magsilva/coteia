@@ -1478,4 +1478,13 @@ function user_exists_in_group($id_user, $id_group)
 
 } // fim function user_exists_in_group
 
+/**
+* Check if a wikipage identificator is valid.
+*
+* id ::= [0-9]+ ( "." [0-9] )*
+*/
+function check_wikipage_id( $ident ) {
+  return ( preg_match( "/^[\d]+(\.([\d]+))*\$/", $ident ) > 0 ) ? true : false;
+}
+
 ?>
