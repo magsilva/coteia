@@ -667,24 +667,24 @@ function folder_name_exists ($id_user, $id_group, $id_father, $name,$dbh) {
  * OBSERVACOES:         --
  */
 function create_folder($name, $id_father, $id_owner, $id_group, $access_permission) {
-          
-    global $anota_dbname;
+  global $anota_dbname;
 
-    $id_father = (int)$id_father;
-    $flag      = (int)$flag;
-       
-    // Verifica entrada
-    $id_owner = (int)$id_owner;
-    $id_group = (int)$id_group;
-    if (!$id_owner || !$id_group || $name == "")
-       return -1;   
-       
-    $dbh = anota_db_pconnect();
+	$id_father = (int)$id_father;
+	$flag = (int)$flag;
 
-    # seleciona base de dados
-    mysql_select_db($anota_dbname,$dbh);
-    
-    if ($id_father) { // se possui pai tem que testar se pode criar subpasta...
+	// Verifica entrada
+	$id_owner = (int)$id_owner;
+	$id_group = (int)$id_group;
+	if ( !$id_owner || !$id_group || $name == "") {
+		return -1;   
+	}
+
+	$dbh = anota_db_pconnect();
+
+	# seleciona base de dados
+	mysql_select_db($anota_dbname,$dbh);
+
+	if ($id_father) { // se possui pai tem que testar se pode criar subpasta...
     // Verifica se o usuario pode criar a pasta
 
     $aux = test_user_can_writes_folder($id_father, $id_owner, $id_group,$dbh);
