@@ -1170,101 +1170,89 @@ $n=0;
 
 /*
  * NOME:		link_interno
- * DESCRICAO:		--
+ * DESCRICAO:	Algoritmo para criação de ligações para as páginas filhas (child).
+ * Se id=$ident.x & titulo=tupla[titulo] entao linkar /c.c. [create].
  * PAR. ENTRADA:        --
  * PAR. SAIDA:		--
  * RETORNO:		--
  * OBSERVACOES:
 */
-function link_interno($id,$conteudo,$dbh) {
-
-//algoritmo de linkagem das paginas child
-//se id=$ident.x & titulo=tupla[titulo] entao linkar
-//c.c. [create]
-                
-//algoritmo de manipulacao dos links dentro da textarea
+function link_interno( $id, $conteudo, $dbh ) {
+	$n = "0";
+	$continua = true;
+	$texto = "" . $conteudo;
+	$open_tag = "<lnk>";
+	$close_tag = "</lnk>";
                         
-$n="0";
-$continua=true;
-$texto = " ".$conteudo;
-                        
-  while ($continua == true)
-        {                        
-        $texto_pos_ini = strpos($texto,"<lnk>");
-        if (!$texto_pos_ini)
-                {       
-                $continua=false ;
-                } else
-                        {
-                        $texto_pos_fin = strpos($texto,"</lnk>") ;
-                        $texto_ini = $texto_pos_ini + 5 ;
-                        $texto_tam = $texto_pos_fin - $texto_ini;
-                        $partes_texto[$n] = substr($texto,$texto_ini,$texto_tam);//proprio link
-                        $ini_resto_texto = $texto_pos_fin + 6;
-                        $texto = substr($texto,$ini_resto_texto);
+	while ( $continua == true ) {
+		$texto_pos_ini = strpos( $texto, $open_tag );
+		if ( !$texto_pos_ini ) {
+			$continua = false;
+		} else {
+			$texto_pos_fin = strpos( $texto, $close_tag );
+			$texto_ini = $texto_pos_ini + strlen( $open_tag) + 1;
+			$texto_tam = $texto_pos_fin - $texto_ini;
+			$partes_texto[ $n ] = substr( $texto, $texto_ini, $texto_tam ); //proprio link
+			$ini_resto_texto = $texto_pos_fin + strlen( $close_tag ) + 1;
+			$texto = substr( $texto, $ini_resto_texto );
 
-//algoritmo de comparacao com o BD
-$find=false;
+			//encontra id_swiki
+			$get_swiki = explode( ".", $id );
+			$swiki = $get_swiki[ 0 ];
 
-                //encontra id_swiki
-                $get_swiki = explode(".",$id);
-                $swiki = $get_swiki[0];
+			//encontra paginas dentro de uma mesma swiki
+			$query_comp = "select indexador,ident from paginas  where ((ident like '$swiki.%')  or (ident='$swiki'))";
+			$result_comp = mysql_query( $query_comp, $dbh );
+			while ( $tupla = mysql_fetch_array( $result_comp ) ) {
+				//compara link do textarea com uma pagina do banco de dados
+				if ( !strcmp( trim( $partes_texto[ $n ] ), $tupla[ "indexador" ] ) ) {
+					// Procura por identificador da pagina encontrada
+					$query_find =  "select ident,data_ultversao from paginas where ((indexador='" . $tupla[ "indexador" ] . "') and ((ident like '$swiki.%')  or (ident='$swiki')))";
+					$result_find = mysql_query( $query_find, $dbh );
+					$tupla_find = mysql_fetch_array( $result_find );
+					$pagina = $tupla_find[ "ident" ];
 
-//encontra paginas dentro de uma mesma swiki
-$query_comp =  "select indexador,ident from paginas  where ((ident like '$swiki.%')  or (ident='$swiki'))";
-$result_comp = mysql_query($query_comp,$dbh);
-        
-while (($tupla = mysql_fetch_array($result_comp))  && ($find==false))
-        {
-	//compara link do textarea com uma pagina do banco de dados
-	if (!strcmp(trim($partes_texto[$n]),trim($tupla[indexador])))
-	{
-	//procura por identificador da pagina encontrada
-        $query_find =  "select ident,data_ultversao from paginas where ((indexador='$tupla[indexador]') and ((ident like '$swiki.%')  or (ident='$swiki')))";
-	$result_find = mysql_query($query_find,$dbh);
-	$tupla_find = mysql_fetch_array($result_find); 	 	
-	$pagina = $tupla_find[ident];
-	$find = true;
+					// Acerta o formato da data
+					$datetime = explode( " ", $tupla_find[ "data_ultversao" ] );
+					$date = explode( "-", $datetime[ 0 ] );
+					$data_formato_correto = $date[2] . "-" . $date[1] . "-" . $date[0] . " " . $datetime[1];
 
-        //acerta o formato da data
-        $datetime = explode(" ",$tupla_find[data_ultversao]);
-        $date = explode("-",$datetime[0]);
-        $data_formato_correto = $date[2]."-".$date[1]."-".$date[0]." ".$datetime[1];
-	}//if
-}//while
+					// Já foi encontrada a tupla, pode sair direto do while.
+					break;
+				}
+			}
 
-//encontra a posicao correta na variavel, mesmo depois de inserir a linkagem
+			// Encontra a posicao correta na variavel, mesmo depois de inserir a linkagem.
+			$texto_pos_inicio = strpos( $conteudo, $open_tag . $partes_texto[ $n ] . $close_tag );
+			$texto_inicio = $texto_pos_inicio + strlen( $open_tag) + 1;
+			$texto_pos_final = $texto_inicio + $texto_tam;
 
-		$texto_pos_inicio = strpos($conteudo,"<lnk>$partes_texto[$n]</lnk>");
-		$texto_inicio = $texto_pos_inicio + 5 ;
-		$texto_pos_final = $texto_inicio + $texto_tam;
-
-			if ( $find == true ) {
-				$cont1 = substr_replace($conteudo,"</a>",$texto_pos_final,0);
-				$cont2 = substr_replace($cont1,"<a href=\"mostra.php?ident=$pagina\" onMouseOver=\"window.status='Última Versão: $data_formato_correto'; return true\">",$texto_inicio,0);
+			if ( $tupla != false ) {
+				$cont1 = substr_replace( $conteudo, "</a>", $texto_pos_final, 0 );
+				$cont2 = substr_replace( $cont1, '<a href="mostra.php?ident=' . $pagina . ' onMouseOver="window.status=\'Última versão: ' . $data_formato_correto . '\'; return true">', $texto_inicio, 0 );
 				$texto_final = $cont2;
 			} else {
 				$num = 1;
 
 				// Procura por novo indice
-				$query_search="select count(*) as CONTADOR from paginas where ((ident like '$id.%') and (ident not like '$id.%.%')) ORDER by ident asc";
-				$result_search = mysql_query("$query_search",$dbh);
-				$tupla_cont=mysql_fetch_array($result_search);
+				$query_search = "select count(*) as CONTADOR from paginas where ((ident like '$id.%') and (ident not like '$id.%.%')) ORDER by ident asc";
+				$result_search = mysql_query( $query_search, $dbh );
+				$tupla_cont = mysql_fetch_array( $result_search );
 				$nro_pages = $tupla_cont[ "CONTADOR" ];
 
 				$num = $nro_pages + 1;
 				//indice de novas paginas
-				$partes_texto[$n] = rawurlencode($partes_texto[$n]);
-				$cont1 = substr_replace($conteudo,"[create]</a>",$texto_pos_final,0);
-				$cont2 =substr_replace($cont1,"<a href=\"create.php?ident=$id.$num&amp;index=$partes_texto[$n]\">",$texto_inicio+$texto_tam,0);
+				$partes_texto[ $n ] = rawurlencode( $partes_texto[ $n ] );
+				$cont1 = substr_replace( $conteudo, "[create]</a>", $texto_pos_final, 0 );
+				$cont2 = substr_replace( $cont1, '<a href="create.php?ident=' . $id . '.' . $num . '&amp;index=' . $partes_texto[$n] . '">', $texto_inicio + $texto_tam, 0 );
 				$texto_final = $cont2;
 			}
 			$n++; //incrementa a variavel de links
 			$conteudo = $texto_final;
 		}
 	}
-	return trim($texto_final);
-}//function link_interno
+	return trim( $texto_final );
+}
 
 
 /*
