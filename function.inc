@@ -1357,7 +1357,7 @@ if ($find==true)
 	//indice de novas paginas
         $partes_texto[$n] = rawurlencode($partes_texto[$n]);
         $cont1 = substr_replace($conteudo,"[create]</a>",$texto_pos_final,0);
-        $cont2 =substr_replace($cont1,"<a href=\"create.php?ident=$id.$num&amp;index=$partes_texto[$n]\" onmouseover=\"window.status='CoTeia'; return true\">",$texto_inicio+$texto_tam,0);
+        $cont2 =substr_replace($cont1,"<a href=\"create.php?ident=$id.$num&index=$partes_texto[$n]\" onmouseover=\"window.status='CoTeia'; return true\">",$texto_inicio+$texto_tam,0);
         $texto_final = $cont2;
                                 
         }//else

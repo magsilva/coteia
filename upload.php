@@ -95,7 +95,7 @@ $titulo = $tupla1[titulo];
 	<td>
 		<img src="<?php echo $URL_IMG;?>/files2upload.png" /><b>Upload</b>
 		<div align="center">
-			<form enctype="multipart/form-data" method="post" action="<?php echo "upload.php?ident=$ident&amp;act=upload";?>" target="base">
+			<form enctype="multipart/form-data" method="post" action="<?php echo "upload.php?ident=$ident&act=upload";?>" target="base">
 				<input type="hidden" name="coursename" value="<?php echo "$PATH_UPLOAD/$id_sw";?>" />
 				<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
 				<br />
