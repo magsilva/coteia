@@ -33,7 +33,7 @@ if ( mysql_num_rows( $wikipage_result ) == 0 ) {
 }
 $wikipage_tuple = mysql_fetch_array( $wikipage_result );
     
-if ( isset( $_REQUEST[ "save" ] ) {
+if ( isset( $_REQUEST[ "save" ] ) ) {
 	// Check password (if there is one to check against).
 	$password = $wikipage_tuple[ "pass" ];
 	if ( $password != NULL ) {
