@@ -975,11 +975,11 @@ session_unregister("usermail");
  * PAR. SAIDA: texto traduzido em entidades e XHTML
  */
 function replace( $text ) {
-	$replace_vars = (
+	$replace_vars = array(
 		"`" => "'",
 		"\"" => "&quot;",
-    "<" => "&lt;",
-    ">" => "&gt;"
+		"<" => "&lt;",
+		">" => "&gt;"
 	);
 
 	foreach ( $replace_vars as $i => $value ) {
