@@ -2,3 +2,4 @@
 ====
 Retirar código redundante de admin/
 Remover códigos redundantes de Javascript (colocar em um arquivo separado).
+Alterar a chamada xml_xsl para receber os parâmetros a serem aplicados via uma array associativa.

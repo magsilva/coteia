@@ -17,9 +17,4 @@ Adicionar o código relativo ao tratamento de novas tags.
 +                }
 
 function.php.inc
-Funções auxiliares por ventura utilizadas.
-
-
-Todo:
-- Ver as diferenças entre a CoTeia original (tag v1_0_0) e a CoTeia modificada da Simone
-- Alterar a chamada xml_xsl para receber os parâmetros a serem aplicados via uma array associativa (key->value).
+Funções auxiliares porventura utilizadas.
