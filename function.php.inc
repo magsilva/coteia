@@ -288,13 +288,15 @@ function prepare_for_xml( $wikipage_raw )
 * @param xml_document [string] The wikipage's data, as processed by @link prepare_xml_document
 * @param xsl_name [array] The name of the stylesheets (XSL) to be used (string). For example, if
 * you want to use the "test123.xsl", you should pass [ "test123" ] as parameter.
+* @param format [string] The final output format. It sets the last xslt to be applied in the
+* document processing pipeline.
 *
 * @return Returns TRUE if the XML file was correctly processed. Otherwise, returns a message
 * with details with errors' details as reported by the XSLT engine.
 */
-function process_xml_document( $id, $xml_document, $xsl_names )
+function process_xml_document( $id, $xml_document, $xsl_names, $format )
 {
-	global $XML_DIR, $XHTML_DIR, $XSL_DIR, $DEFAULT_FILE_PERMISSION;
+	global $XML_DIR, $OUTPUT_DIR, $XSL_DIR, $DEFAULT_FILE_PERMISSION;
 
 	$xml = $XML_DIR . "/" . $id  . ".xml";
 
@@ -310,6 +312,7 @@ function process_xml_document( $id, $xml_document, $xsl_names )
 	fputs( $fp, $xml_document );
 	fclose( $fp );
 
+	$xsl_names[] = $format;
 	$xml_temp = $xml;
 	foreach ( $xsl_names as $xsl ) {
 		$result = apply_xsl( $xml_temp, $XSL_DIR . "/" . $xsl . ".xsl" );
@@ -323,8 +326,9 @@ function process_xml_document( $id, $xml_document, $xsl_names )
 		$xml = $result;
 	}
 
-	$xhtml = $XHTML_DIR . "/" . $id . ".html";
-	rename ( $xml, $xhtml );
+	@mkdir( $OUTPUT_DIR . "/" . $format );
+	$output = $OUTPUT_DIR . "/" . $format . "/" . $id . "." . $format;
+	rename ( $xml, $output );
 
 	return true;
 }
@@ -552,12 +556,14 @@ function prepare_wikipage_link( $links )
 * will be processed using an XSLT).
 *
 * @param wikipage_id [integer] The wikipage's identifier.
+* @param format [string] The output format. Actually this sets the final XSLT
+* to be applied.
 *
 * @return Returns false if the wikipage couldn't (1) be retrieved from database.
 * If the XML processing failed, it returns a string with the error messages
 * received from @link process_xml_document. If successfull, returns TRUE.
 */
-function compile_wikipage( $wikipage_id )
+function compile_wikipage( $wikipage_id, $format )
 {
 	global $CVS_MODULE, $STYLESHEETS;
 
@@ -619,7 +625,7 @@ function compile_wikipage( $wikipage_id )
 
 	$xml_document = prepare_xml_document( $wikipage_xml );
 
-	$result = process_xml_document( $wikipage_id, $xml_document, $STYLESHEETS );
+	$result = process_xml_document( $wikipage_id, $xml_document, $STYLESHEETS, $format );
 
 	if ( $result === true ) {
 		//atualiza arquivo no CVS
@@ -812,12 +818,14 @@ function show_error()
 * Update a wikipage view (XHTML) if the current XHTML is outdated.
 *
 * @param wikipage_id [integer] Wikipage identifier.
+* @param format [string] The output format to be used. Actually, this sets the
+* XSLT to be applied.
 *
 * @return Returns TRUE if the page has been successfuly updated, FALSE otherwise.
 */
-function update_wikipage( $wikipage_id )
+function update_wikipage( $wikipage_id, $format )
 {
-	global $XHTML_DIR, $XML_DIR, $XSL_DIR;
+	global $OUTPUT_DIR, $XML_DIR, $XSL_DIR;
 
 	if ( check_wikipage_id( $wikipage_id ) == false ) {
 		return false;
@@ -826,15 +834,14 @@ function update_wikipage( $wikipage_id )
 	// You may set $update to true if you're debugging the application.
 	$update = true;
 	$result = true;
-	$wikipage_html = $XHTML_DIR . "/" . $wikipage_id . ".html";
-
+	$wikipage_output = $OUTPUT_DIR . "/" . $format . "/" . $wikipage_id . "." .$format;
 
 	// If the file doesn't exist, an update is necessary.
 	if ( $update !== true ) {
-		if ( !is_file( $wikipage_html ) ) {
+		if ( !is_file( $wikipage_output ) ) {
 			$update = true;
 		} else {
-			$ctime = filectime( $wikipage_html );
+			$ctime = filectime( $wikipage_output );
 		}
 	}
 
@@ -860,13 +867,13 @@ function update_wikipage( $wikipage_id )
 
 	// If the XSLT transform sheet was updated, the file must be updated too.
 	if ( $update !== true ) {
-		if ( $ctime < filectime( $XSL_DIR . "/" . "coteia" . ".xsl" ) ) {
+		if ( $ctime < filectime( $XSL_DIR . "/" . $format . ".xsl" ) ) {
 			$update = true;
 		}
 	}
 
 	if ( $update === true ) {
-		$result = compile_wikipage( $wikipage_id );
+		$result = compile_wikipage( $wikipage_id, $format );
 	}
 
 	return $result;

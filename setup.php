@@ -22,11 +22,11 @@ printf( "\nDirectory permissions: %o", $DEFAULT_DIR_PERMISSION );
 setup_dir( $PATH_COWEB );
 setup_dir( $PATH_COWEB . "/" . $XML_DIR );
 setup_dir( $PATH_COWEB . "/" . $UPLOADS_DIR );
-setup_dir( $PATH_COWEB . "/" . $XHTML_DIR );
+setup_dir( $PATH_COWEB . "/" . $OUTPUT_DIR );
 setup_dir( $PATH_COWEB . "/" . $IMAGES_DIR );
 setup_dir( $PATH_COWEB . "/" . $XSL_DIR );
 setup_dir( $PATH_COWEB . "/" . $CSS_DIR );
-$restrict_dirs = array( "$PATH_COWEB/doc", "$PATH_COWEB/libs", "$PATH_COWEB/$XML_DIR", "$PATH_COWEB/$UPLOADS_DIR", "$PATH_COWEB/$XHTML_DIR", "$PATH_COWEB/$XSL_DIR" );
+$restrict_dirs = array( "$PATH_COWEB/doc", "$PATH_COWEB/libs", "$PATH_COWEB/$XML_DIR", "$PATH_COWEB/$UPLOADS_DIR", "$PATH_COWEB/$OUTPUT_DIR", "$PATH_COWEB/$XSL_DIR" );
 foreach ( $restrict_dirs as $current ) {
 	$htaccess = fopen( $current . "/.htaccess", "w+" );
 	fwrite( $htaccess, "\nDeny from all" );

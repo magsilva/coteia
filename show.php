@@ -54,6 +54,11 @@ if ( isset( $_REQUEST[ "swiki_id" ] ) || isset( $_REQUEST[ "index" ] ) ) {
 	$swiki_id = extract_swiki_id( $wikipage_id );
 }
 
+$format = $DEFAULT_OUTPUT_FORMAT;
+if ( isset( $_REQUEST[ "format" ] ) ) {
+	$format = $DEFAULT_OUTPUT_FORMAT;
+}
+
 
 /**
 * Start to process the request.
@@ -106,10 +111,10 @@ if ( mysql_num_rows( $result ) == 0 ) {
 }
 mysql_free_result( $result );
 
-$result = update_wikipage( $wikipage_id );
+$result = update_wikipage( $wikipage_id, $format );
 
 if ( $result !== true ) {
 	show_error( _( "An error was found in this wikipage. Please, contact the system administrator." ) );
 }
 
-@include( $XHTML_DIR . "/" . $wikipage_id . ".html" );
+@include( $OUTPUT_DIR . "/" . $format . "/" . $wikipage_id . "." . $format );
