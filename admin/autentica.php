@@ -10,8 +10,7 @@
  
 include_once("function.inc");
 
-$dbh = db_connect();
-$retorno = autentica( $usuario, $passwd, $dbh );
+$retorno = autentica( $usuario, $passwd  );
 if ( $retorno ) {
 	$sess = new coweb_session;
 	$sess->start(900);

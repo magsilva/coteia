@@ -3,7 +3,7 @@
 include_once( "config.php.inc" );
 
 /*
-* Connects in the SGBD and selects the CoTeia's database.
+* Connect in the SGBD and selects the CoTeia's database.
 */
 function coteia_connect()
 {
@@ -22,72 +22,55 @@ function coteia_connect()
 	return $db_handler;
 }
 
-
-
 /*
- * NOME:		autentica
- * DESCRICAO:		Autentica administrador e cria variaveis de sessao
- * PAR. ENTRADA:	$usuario - usuario & $passwd - senha & $dbh - handler do banco
- * PAR. SAIDA:		--
- * RETORNO:		TRUE em caso de sucesso, FALSE em caso de erro
- * OBSERVACOES:		--
- */
-function autentica($usuario,$senha,$dbh){
-   
-      global $dbname;
+*	Authenticate the administrator and sets session variable.
+*/
+function autentica( $username, $password )
+{
+	$db_handler = coteia_connect();
 
-      # seleciona base de dados
-      mysql_select_db($dbname,$dbh);
 
-      $query = mysql_query("select login,email from admin where login='$usuario' AND pass= PASSWORD('$senha')");
-      # verifica se o usuário é valido
-      if (mysql_num_rows($query) > 0) {
- 
-            $result  = mysql_fetch_array($query); 
-            $usuario = $result["login"];
-            $usermail = $result["email"];
- 
-            session_start(); //Inicializa a sessão
-            session_register("usuario","usermail"); //Registra as variáveis na sessão
- 
-            return true;
-     }
-     else return false;
+	$query = "select login,email from admin where login='$username' AND pass=md5('$password')";
+	$result = mysql_query( $query );
 
+	if ( mysql_num_rows( $query ) == 0 ) {
+		return false;
+	}
+	
+  $tuple = mysql_fetch_array( $result ); 
+	$valid_user = $result[ "login" ];
+	$valid_email = $result[ "email" ];
+
+	session_start();
+	session_register( "valid_user", "valid_email" );
+	return true;
 }               
 
 /*
- * NOME:		login_swiki
- * DESCRICAO:		
- * PAR. ENTRADA:	$usuario - usuario & $passwd - senha & $dbh - handler do banco
- * PAR. SAIDA:		--
- * RETORNO:		TRUE em caso de sucesso, FALSE em caso de erro
- * OBSERVACOES:		--
- */
-function login_swiki($usuario,$passwd,$id,$dbh) {
-
-	global $dbname;
+* Authenticate a user into a given swiki.
+*/
+function login_swiki( $username, $password, $swiki_id )
+{
+	$db_handler = coteia_connect();
 
 	// SQL que verifica se o usuário está cadastrado
-	$sql  = "SELECT id,username FROM swiki WHERE id='$id' AND username='$usuario' AND password=md5('$passwd')";
-	$select_db = mysql_select_db($dbname,$dbh);
-	$query = mysql_query($sql);
+	$query  = "select id,username from swiki where id='$id' and username='$usuario' and password=md5('$passwd')";
+	$result = mysql_query( $query );
 
 	// Verifica se o usuário é valido
-	if (mysql_num_rows($query) > 0) {
-		$result  = mysql_fetch_array($query);
-        $coduser = $result["id"];
-        $namuser = $result["username"];
-                
-        session_start("login"); //Inicializa a sessão
-        session_name();
-        session_destroy();
-        session_register("namuser","coduser"); //Registra as variáveis na sessão
-                
-		return true;
-	} else {
+	if ( mysql_num_rows( $result ) == 0 ) {
 		return false;
-	} 
+	}
+
+	$tuple = mysql_fetch_array( $result );
+	$valid_userid = $result["id"];
+	$valid_username = $result["username"];
+
+	session_start( "login" );
+	session_name();
+	session_destroy();
+	session_register( "valid_userid", "valid_username" );
+	return true;
 }
 
 /*

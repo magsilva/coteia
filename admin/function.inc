@@ -878,21 +878,6 @@ function ce_db_pconnect() {
 
 }
 
-/*
- * NOME:		db_connect
- * DESCRICAO:		Realiza a conexao com o DBMS MySQL
- * PAR. ENTRADA:	--
- * PAR. SAIDA:		--
- * RETORNO:		Retorna o handler da base de dados
- * OBSERVACOES:		
- */
-function db_connect(){
-
-	global $dbhost, $dbuser, $dbpass;
-
-	return(mysql_connect($dbhost, $dbuser, $dbpass));
-
-}
 
 /*
  * NOME:                autentica
