@@ -11,3 +11,4 @@ Reescrever o getrevisao_cvs.php e history.php para utilizar as funções prontas d
 Retirar código redundante de admin/
 Remover códigos redundantes de Javascript (colocar em um arquivo separado).
 Alterar a chamada xml_xsl para receber os parâmetros a serem aplicados via uma array associativa.
+Colocar os arquivos enviados (upload) e xml em controle de versão.

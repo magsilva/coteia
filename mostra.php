@@ -1,14 +1,3 @@
-<html>
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<meta http-equiv="Pragma" content="no-cache" />
-	<title>Página Não Encontrada</title>
-	<link href="coteia.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-
 <?php
 /*
 * Exibe no browser o arquivo que é passado como parametro.
