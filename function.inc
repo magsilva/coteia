@@ -1018,14 +1018,15 @@ function tratamento($index,$conteudo,$titulo,$autor,$kwd) {
 function arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml) {
 	global $PATH_JAVA, $PATH_XT;
 
-	$arq_xml = tempnam( "$path_xml", "coweb" );
-	chmod( "$arq_xml", 0755 );
-	$fp = fopen("$arq_xml","w+");
-	fputs($fp,$xmlfile);
-	fclose ($fp);
+	$arq_xml = "$path_xml" . "/" . "wikipage" . "$id" . ".xml" );
+	chmod( $arq_xml, 0755 );
+	$fp = fopen( $arq_xml , "w+" );
+	fputs( $fp, $xmlfile );
+	fclose( $fp );
 
 	// Uso do XT = [path_java] -classpath [classpath_xt] com.jclark.xsl.sax.Driver [xml] [xsl] [html]
 	$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver  com.jclark.xsl.sax.Driver $arq_xml $arq_xsl $path_html/$id.html";
+	echo $cmd_line;
 	exec( $cmd_line, $var_array, $status );
 	return $status;
 }
