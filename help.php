@@ -5,7 +5,7 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<title>Ajuda</title>
 	<link href="coteia.css" rel="stylesheet" type="text/css" />
 </head>
@@ -18,11 +18,11 @@ include( "toolbar.php" );
 
 <br />
 
-<h1>Ajuda</h1
+<h1>Ajuda</h1>
 
 <h2>Índice</h2>
 
-<br/ ><a href="#intro1">CoTeia - O que é?</a>
+<br /><a href="#intro1">CoTeia - O que é?</a>
 <br /><a href="#intro2">Ferramentas</a>
 <br /><a href="#sintaxe">Sintaxe</a>
 <br /><a href="#sintaxe1">HTML básico</a>
@@ -32,7 +32,7 @@ include( "toolbar.php" );
 <br /><a href="#erros">Críticas</a>
 
 <a name="intro1"></a><h3>CoTeia - O que é?</h3>
-<p>A CoTeia é uma ferramenta colaborativa e assíncrona para a edição de páginas Web. Implantada no <a href="http:/www.icmc.usp.br/">Instituto de Ciências Matemáticas e de Computação</a> no início do ano de 2000, foram encontradas, através de sua utilização, algumas limitações.<p>
+<p>A CoTeia é uma ferramenta colaborativa e assíncrona para a edição de páginas Web. Implantada no <a href="http:/www.icmc.usp.br/">Instituto de Ciências Matemáticas e de Computação</a> no início do ano de 2000, foram encontradas, através de sua utilização, algumas limitações.</p>
 
 <p>Assim, viu-se a possibilidade de construir-se uma nova infra-estrutura, totalmente independente da <a href="http://coweb.cc.gatech.edu/csl/9/">versão original</a>, que foi implementada pela equipe de <a 
 href="http://www.cc.gatech.edu/gvu/people/Faculty/Mark.Guzdial.html">Mark Guzdial</a>, coordenador do <a href="http://coweb.cc.gatech.edu/csl/1">Laboratório de Software Colaborativo</a> do Instituto de Tecnologia da Georgia , Atlanta, EUA.</p>
@@ -79,44 +79,42 @@ href="http://www.cc.gatech.edu/gvu/people/Faculty/Mark.Guzdial.html">Mark Guzdia
 	<dt>&lt;IMG SRC="<i>caminho</i>" ALIGN="<i>alinhamento</i>" ALT="<i>comentário</i>"<b>/</b>&gt;</dt>
 	<dd>Imagem</dd>
 
-	<dt>&lt;FONT FACE="<I>tipo</I>" COLOR="<I>cor</I>" SIZE="<I>tamanho</I>"&gt;<I>texto</I>&lt;/FONT&gt;</dt>
+	<dt>&lt;FONT FACE="<i>tipo</i>" COLOR="<i>cor</i>" SIZE="<i>tamanho</i>"&gt;<i>texto</i>&lt;/FONT&gt;</dt>
 	<dd>Fonte</dd>
 
-	<dt>&lt;TABLE BORDER="<I>tamanho do rebordo da tabela</I>" WIDTH="<I>espaço acupado pela tabela, em pixels ou percentagem</I>"&lt;TR WIDTH="<I>largura</I>" ALIGN="<I>alinhamento horizontal</I>"&gt;&lt;TD WIDTH="<I>largura</I>" ALIGN="<I>alinhamento horizontal</I>"&gt;<I>texto</I>&lt;/TD&gt;&lt;/TR&gt;&lt;/TABLE&gt;</dt>
+	<dt>&lt;TABLE BORDER="<i>tamanho do rebordo da tabela</i>" WIDTH="<i>espaço acupado pela tabela, em pixels ou percentagem</i>"&lt;TR WIDTH="<i>largura</i>" ALIGN="<i>alinhamento horizontal</i>"&gt;&lt;TD WIDTH="<i>largura</i>" ALIGN="<i>alinhamento horizontal</i>"&gt;<i>texto</i>&lt;/TD&gt;&lt;/TR&gt;&lt;/TABLE&gt;</dt>
 	<dd>Tabela: TR=cada linha e TD=cada célula)</dd>
 
-	<dt>&lt;A HREF="<I>destino</I>" TARGET="local de abertura"&gt;<I>texto</I>&lt;/A&gt;</dt>
+	<dt>&lt;A HREF="<i>destino</i>" TARGET="local de abertura"&gt;<i>texto</i>&lt;/A&gt;</dt>
 	<dd>Link</dd>
 
-	<dt>&lt;A HREF="mailto:<I>destino(s)</I>"&gt;<I>texto</I>&lt;/A&gt;</dt>
+	<dt>&lt;A HREF="mailto:<i>destino(s)</i>"&gt;<i>texto</i>&lt;/A&gt;</dt>
 	<dd>Email</dd>
 
-	<dt>&lt;A NAME="<I>&acirc;ncora</I>"/&gt;</dt>
+	<dt>&lt;A NAME="<i>&acirc;ncora</i>"/&gt;</dt>
 	<dd>Âncora</dd>
 </dl>
 
 <a name="sintaxe2"></a><h4>Criação de links</h4>
 <dl>
 	<dt>Criação de links</dt>
-	<dd>&lt;LNK&gt;<I>link</I>&lt;/LNK&gt; (evite colocar espaços entre o <I>link</I> e as tags &lt;LNK&gt; e &lt;/LNK&gt;)</dd>
+	<dd>&lt;LNK&gt;<i>link</i>&lt;/LNK&gt; (evite colocar espaços entre o <i>link</i> e as tags &lt;LNK&gt; e &lt;/LNK&gt;)</dd>
 </dl>
 
-<a name="sintaxe3"><h4>Referência a arquivos - Upload</h4>
+<a name="sintaxe3"></a><h4>Referência a arquivos - Upload</h4>
 <dl>
 	<dt>Referência</dt>
-	<dd>&lt;UPL FILE="nome do arquivo"&gt;<I>texto</I>&lt;/UPL&gt;</dd>
+	<dd>&lt;UPL FILE="nome do arquivo"&gt;<i>texto</i>&lt;/UPL&gt;</dd>
 </dl>
 
-<a name="lock"><h4>Lock</h4>
+<a name="lock"></a><h4>Lock</h4>
 <p>Funcionalidade de bloqueio de hiperdocumentos: permite ao usuário associar senhas aos documentos, impedindo que os mesmos sejam modificados sem o conhecimento da senha especificada.</p>
 
 <br />
-
-<img src="<?php echo $URL_IMG;?>/mail.gif" /><p>
-Contato: <a href="mailto:<?php echo $ADMIN_MAIL;?>"><?php echo $ADMIN; ?></a>.
+<img src="<?php echo $URL_IMG;?>/mail.gif" alt="Email" />Contato: <a href="mailto:<?php echo $ADMIN_MAIL;?>"><?php echo $ADMIN; ?></a>.
 
 <div align="center">
-	<a href="index.php"><img src="<?php echo $URL_IMG;?>/home.png" /></a>
+	<a href="index.php"><img src="<?php echo $URL_IMG;?>/home.png" alt="Home" /></a>
 </div>
 
 </body>
