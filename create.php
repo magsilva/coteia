@@ -25,7 +25,7 @@ if ($salva) {
 	$result = mysql_query($query,$dbh);
 
 	while ($tupla = mysql_fetch_array($result)) {
-		if (!strcmp(trim($indexador),trim($tupla[indexador]))) {
+		if (!strcmp(trim($indexador),trim($tupla["indexador"]))) {
 			$st = 3;
 			include("erro.php");
 			exit();
@@ -61,9 +61,9 @@ if ($salva) {
 		$i = 1;
 		$query_swiki = mysql_query("select ident,titulo from paginas where (((ident like '$id_swiki.%')  or (ident='$id_swiki')) and (conteudo like '%<lnk>$indexador</lnk>%'))",$dbh);
 		while ($tupla = mysql_fetch_array($query_swiki)) {
-			$linksto_id[$i] = $tupla[ident];
-	        	$linksto_titulo[$i] = $tupla[titulo];
-	        	$i++;
+			$linksto_id[$i] = $tupla[ "ident" ];
+			$linksto_titulo[$i] = $tupla[ "titulo" ];
+			$i++;
 		}
 	} else {
 		$linksto_id[1] = "0";
@@ -130,13 +130,9 @@ if ($salva) {
 		include("erro.php" );
 		exit();
 	}
-	
-	if (stristr($ident,".")) {
-		$pos_lstdot = strrpos($ident,".");
-		$ident_pai = substr($ident,0,$pos_lstdot);
-		include("atualiza.php");
-		//atualiza pagina pai
-		cvs_update($ident_pai, $CVS_MODULE);
+
+	foreach ( $linksto_id as $linkto_id ) {
+		atualiza_pagina( $linkto_id );
 	}
 
 	header("Location:mostra.php?ident=$ident");

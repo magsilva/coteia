@@ -80,6 +80,8 @@ function atualiza_pagina( $ident ) {
 
 		$feedback = xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$tag_id,$lock,$annotation,$chat,$eclass,$others,$linksto_id_atua,$linksto_titulo_atua,$kwd,$aut,$tit,$body);
 
+		cvs_update( $ident, $CVS_MODULE);
+
 		if ( $feedback==0 ) {
 			return TRUE;
 		} else {
