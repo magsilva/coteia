@@ -1430,7 +1430,7 @@ function annotationLogin($id)  {
 	$resultado = mysql_query( $comando_sql, $dbh );
 
 	while ( $tupla = mysql_fetch_array( $resultado ) ) {
-		$login = $tupla[annotation_login];
+		$login = $tupla[ "annotation_login" ];
 	}   
 
 	if ($login == 'S') {
