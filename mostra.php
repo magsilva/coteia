@@ -61,9 +61,13 @@ if (!$sucesso) {
 	<br />
 	Em caso de dúvidas, entre em contato com o <a HREF="mailto:<?php echo $ADMIN_MAIL; ?>">administrador</a>.
 	<br />
-	<a href="index.php"><img src="$URL_IMG/home.png" /></a>
+	<a href="index.php"><img src="<?php echo $URL_IMG; ?>/home.png" /></a>
 </div>
 
 </body>
 
 </html>
+<?php
+}
+?>
+

@@ -8,13 +8,13 @@
 function init($p, $annotates, $id_pasta, $id_usuario, $id_grupo, $sw_id)
 {
   global $data;
-  $img_expand   = "imagem/tree_expand.png";
-  $img_collapse = "imagem/tree_collapse.png";
-  $img_line     = "imagem/tree_vertline.png";
-  $img_split    = "imagem/tree_split.png";
-  $img_end      = "imagem/tree_end.png";
-  $img_leaf     = "imagem/tree_leaf.png";
-  $img_spc      = "imagem/tree_space.png";
+  $img_expand   = $URL_IMG . "/tree_expand.png";
+  $img_collapse = $URL_IMG . "/tree_collapse.png";
+  $img_line     = $URL_IMG . "/tree_vertline.png";
+  $img_split    = $URL_IMG . "/tree_split.png";
+  $img_end      = $URL_IMG . "/tree_end.png";
+  $img_leaf     = $URL_IMG . "/imagem/tree_leaf.png";
+  $img_spc      = $URL_IMG . "/imagem/tree_space.png";
 
   $maxlevel =0;
   $cnt      = 0;

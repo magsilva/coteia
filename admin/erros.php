@@ -53,7 +53,7 @@ function deluser(url){
 	if (($msgs == 1) && ($sess_val == "admin")){
 		echo "<tr>
         <td valing=\"middle\" class=\"left-nobold\">
-		<img src=\"../imagem/checked.png\">&nbsp;&nbsp;&nbsp;
+		<img src=\"$URL_IMG/checked.png\">&nbsp;&nbsp;&nbsp;
 	    <a href=javascript:deluser('erros.php?par=1');>Limpar Arquivo</a></td>
         </tr>";
 	} 
