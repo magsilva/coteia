@@ -96,8 +96,7 @@ function verifica_session() {
 	session_start();
 
 	if (!(session_is_registered("usuario") AND session_is_registered("usermail"))) {
-		header("Location:$URL_COWEB/acessoilegal.php"); //Redireciona para interface de acesso ilegal
-		exit;
+		show_error( 0 );
 	}
 }
 
