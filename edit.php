@@ -95,12 +95,12 @@ if ( $salva ) {
 	$indexador = $tupla[indexador];
 
 	//linksto - estrutura inicial
-        if (($id_swiki) != ($ident)) {
-       	        $i = 1;
+	if (($id_swiki) != ($ident)) {
+		$i = 1;
 	} else {
-               	$i = 2;
-               	$linksto_id[1] = "0";
-               	$linksto_titulo[1] = "Lista de Swikis";
+		$i = 2;
+		$linksto_id[1] = "0";
+		$linksto_titulo[1] = "Lista de Swikis";
 	}
 
 	$sql_swiki= "select ident,titulo from paginas where (((ident like '$id_swiki.%') or (ident='$id_swiki')) and (conteudo like '%<lnk>$indexador</lnk>%'))";
@@ -149,9 +149,11 @@ if ( $salva ) {
 
 		// If the user has cleaned the wikipage's log flag, remove the password.
 		if ( $flag_lock == 0 ) {
-			$passwd = NULL;
+			$passwd = "NULL";
+		} else {
+			$passwd = "'" . $passwd . "'";
 		}
- 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass='$passwd' where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
+ 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass=$passwd where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
 		$sql = mysql_query("$query",$dbh);
 	} else {
 		// Could not apply the XT, log the error.
