@@ -50,7 +50,7 @@ if ($salva) {
 	}
 
 	// grava no BD sem modificacaoes de links
-	$conteudo_puro=$conteudo;
+	$conteudo_puro= addslashes( $conteudo );
 
 	if (stristr($conteudo,"<lnk>")) {
 		$conteudo = link_interno($ident,$conteudo,$dbh);
