@@ -1,7 +1,7 @@
 <?php
 
 include_once( "../config.php.inc" );
-include_once( "cvs_utils.php.inc" );
+include_once( "cvs_util.php.inc" );
 
 function recurse_chmod($path2dir, $mode){
    $dir = new dir($path2dir);
@@ -38,8 +38,12 @@ setup_dir( $PATH_XHTML );
 setup_dir( $PATH_UPLOAD );
 setup_dir( $PATH_ARQUIVOS );
 
+if ( !file_exists( $PATH_COWEB . "/log.txt" ) ) {
+	touch( $PATH_COWEB . "/log.txt" );
+}
 
-print <<<END
+$sql_squema_file = fopen( "coteia.sql", "w");
+$sql_squema = <<<END
 USE mysql;
 insert into user (host,user,password) values ('$dbhost','$dbuser', PASSWORD('$dbpass'));
 insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('$dbhost','$dbname','$dbuser','Y','Y','Y','Y','Y');
@@ -126,4 +130,6 @@ CREATE TABLE backup (
 
 insert into admin values (NULL, 'admin' , '$ADMIN_MAIL' ,'admin', MD5('$ADMIN_PASSWORD'));
 END;
+fwrite( $sql_squema_file, $sql_squema );
+fclose( $sql_squema_file );
 ?>
