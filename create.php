@@ -49,6 +49,9 @@ if ($salva) {
 		$conteudo = note($conteudo);
 	}
 
+	// Grava no BD sem modificacaoes de links
+	$conteudo_puro = $conteudo;
+
 	if (stristr($conteudo,"<lnk>")) {
 		$conteudo = link_interno($ident,$conteudo,$dbh);
 	}
@@ -117,6 +120,7 @@ if ($salva) {
 		$keyword[ 3 ] = addslashes( $keyword[ 3 ] );
 		$autor = addslashes( $autor );
 		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip, data_criacao,data_ultversao,pass, kwd1, kwd2, kwd3,autor) values ('$ident','$indexador','$titulo','$conteudo_puro','$nro_ip','$data','$data',$passwd,'$keyword[1]','$keyword[2]','$keyword[3]','$autor')";
+		echo $query;
 		$sql = mysql_query($query,$dbh) or die ("Falha ao inserir no Banco de Dados");
 
  		$query = "insert into gets (id_pag,id_sw,data) values ('$ident','$id_swiki','$data')" or die ("Falha ao inserir no Banco de Dados");
