@@ -133,6 +133,7 @@ function replace_html_entities( $text ) {
 //		">" => "&gt;"
 	);
 
+
 	foreach ( $replace_vars as $i => $value ) {
 		$text = eregi_replace( $i, $value, $text );
 	}
@@ -421,7 +422,7 @@ function extract_swiki_id( $ident ) {
 		return false;
 	}
 
-	if ( strpos( ident, "." ) ) {
+	if ( strpos( $ident, "." ) ) {
 		$get_swiki = explode( ".", $ident );
     $id_swiki = $get_swiki[ 0 ];
   } else {
@@ -466,6 +467,11 @@ function match_empty_tag( $content, $type ) {
 */
 function match_tag( $content, $type, $cdata ) {
 	return ( preg_match( "/.*<$type\s.*>\s*$cdata\s*<\/$type\s*>.*/", $content ) > 0 ) ? true : false;
+}
+
+function show_error( $st, $message ) {
+  $st = 0;
+  include( "erro.inc" );
 }
 
 ?>
