@@ -15,7 +15,7 @@
 	<meta name ="Palavra-Chave" content="{kwd1},{kwd2},{kwd3}"/>
 	<script language="JavaScript">
 	function abre(name_file,swiki) {
-		window.open('$URL_COWEB'/checkout.php?arq='+name_file+'&amp;swiki='+swiki,'janelachk','toolbar=no,directories=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=500,height=430');
+		window.open('$URL_COWEB/checkout.php?arq='+name_file+'&amp;swiki='+swiki,'janelachk','toolbar=no,directories=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=500,height=430');
 	}
 	function AbreChat(chat_folder) {
 		window.open('$URL_COWEB/chat.php?id='+chat_folder,'janelachat','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=360,height=250');
