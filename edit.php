@@ -145,7 +145,6 @@ if ( $salva ) {
 		$keyword[ 2 ] = addslashes( $keyword[ 2 ] );
 		$keyword[ 3 ] = addslashes( $keyword[ 3 ] );
 		$autor = addslashes( $autor );
-		$passwd = addslashes( $passwd );
  		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass=$passwd where ident='$ident'";
 		$sql = mysql_query($query,$dbh) or die ("Falha ao inserir no Banco de Dados");
 	} else {
