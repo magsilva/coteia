@@ -81,7 +81,7 @@ return true;
 //abre lista_arquivos
 
 $a = array();
-$fd = opendir("$DIR_UPLOAD/$id_sw/"); 
+$fd = opendir("$PATH_UPLOAD/$id_sw/"); 
 	while($entry = readdir($fd)) {
         	if (!eregi("\.$",$entry)) {  
 		array_push($a,$entry);   
@@ -105,7 +105,7 @@ echo "<option>---------------------------------------------------------</option>
 </td></tr>
 <tr><td><img src=\"$PATH_IMG/files2upload.gif\"><b>&nbsp;&nbsp;Upload</b>
 <form enctype=multipart/form-data method=POST action=\"upload_visivel.php?ident=$ident&act=upload\" target=\"base\"> 
-<input type=hidden name=coursename value=$DIR_UPLOAD/$id_sw> 
+<input type=hidden name=coursename value=$PATH_UPLOAD/$id_sw> 
 <input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"10000000\">
 <p><center><input type=file size=40 name=uploads></center></p>
 <p><center><input type=submit name=fazer_upload value=Upload></center></p>";

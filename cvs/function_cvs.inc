@@ -28,10 +28,10 @@ $parent = "/coteia/";
  */
 function update_cvs($id,$ModuloCheckout) {
 
-global $PATH_FILES, $host, $caminho_repositorio, $username, $parent;
+global $PATH_ARQUIVOS, $host, $caminho_repositorio, $username, $parent;
 
 //caminho completo do arquivo a ser feito checkout
-$path_arquivo = $PATH_FILES.$id.".html";
+$path_arquivo = $PATH_ARQUIVOS . $id . ".html";
 
 //arquivo a ser feito checkout
 $arquivo = $id.".html";
@@ -76,10 +76,10 @@ return true;
  */
 function add_cvs($ident,$ModuloCheckout) {
 
-global $PATH_FILES, $host, $caminho_repositorio, $username, $parent;
+global $PATH_ARQUIVOS, $host, $caminho_repositorio, $username, $parent;
 
 //caminho completo do arquivo a ser feito checkout
-$path_arquivo = $PATH_FILES.$ident.".html";
+$path_arquivo = $PATH_ARQUIVOS.$ident.".html";
 
 //arquivo a ser feito checkout
 $arquivo = $ident.".html";
@@ -126,15 +126,10 @@ return true;
  * OBSERVACOES:		
  */
 function cria_dir($diretorio) {
-
-$nomedir = tempnam($diretorio, "cvs");
-
-exec("rm -rf $nomedir");
-
-mkdir($nomedir,0700);
-
-return ($nomedir);
-
+	$nomedir = tempnam($diretorio, "cvs");
+	exec("rm -rf $nomedir");
+	mkdir($nomedir,0700);
+	return ($nomedir);
 }
 
 /*
@@ -146,11 +141,8 @@ return ($nomedir);
  * OBSERVACOES:		
  */
 function apaga_dir($nomearq) {
-
-exec ("rm -rf $nomearq");
-
-return true;
-
+	exec ("rm -rf $nomearq");
+	return true;
 }
 
 ?>

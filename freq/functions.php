@@ -6,36 +6,16 @@
 / Descrição: Script que possui várias funções úteis.
 /****************************************************************/
 
-//$numDeAulas = numDeAulas(4);
-//echo "n: $numDeAulas";
 
-//$curso = getAttrCurso(4);
-//echo 'Nome: '.$curso["nome"].' Sigla: '.$curso["sigla"].' Semestre: '.$curso["semestre"];
-
-//$profs = getProfsOfCurso(4);
-//for ($i=0; $i<count($profs); $i++){
-//	echo 'prof: '.$profs[$i]["nome"].'<br>';
-//}
-
-//$alunos = getAlunosOfCurso(4);
-//for ($i=0; $i<count($alunos); $i++){
-//	echo 'aluno: '.$alunos[$i]["nome"].' - '.$alunos[$i]["login"].'<br>';
-//}
-
-//$id_aula = addAula(2, "Aula2", ("d-m-Y"));
-// 'id aula: '.$id_aula;
-
-//$id = addAssiste(30, 'cizeki', 'yes');
-//echo 'id: '.$id;
+include_once( "../config.php.inc" );
 
 // responsável pela conexão com a BD
 function dbConnection(){
-	include "Constantes.inc";
-
   	global $conexao_id;
-      $conexao_id = mysql_pconnect($HOST, $USER, $PASS) or die("Não foi possível conectar ao servidor MySql");
+
+    $conexao_id = mysql_pconnect($ce_dbhost, $ce_dbuser, $ce_dbpword) or die("Não foi possível conectar ao servidor MySql");
 	
-      mysql_select_db($DB, $conexao_id) or die("Não foi possível selecionar o banco de dados");
+      mysql_select_db($ce_dbname, $conexao_id) or die("Não foi possível selecionar o banco de dados");
 
     //echo "conexao_id: $conexao_id";
 } // end dbConnection
