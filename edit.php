@@ -138,8 +138,8 @@ if ( $salva ) {
 		} else {
 			$passwd = "'" . md5( $passwd ) . "'";
 		}
- 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass=$passwd where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
-		$sql = mysql_query("$query",$dbh);
+ 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass=$passwd where ident='$ident'";
+		$sql = mysql_query("$query",$dbh) or die ("Falha ao inserir no Banco de Dados");
 	} else {
 		// Could not apply the XT, log the error.
 		$st = 2;
@@ -151,9 +151,8 @@ if ( $salva ) {
 ?>
 <html>
 <?php
-
-$query = "SELECT titulo,conteudo,kwd1,kwd2,kwd3,autor,pass FROM paginas where ident='$ident'";
-$sql = mysql_query("$query",$dbh);
+$query = "SELECT titulo,conteudo,kwd1,kwd2,kwd3,autor,pass FROM paginas where ident='" . $ident . "'";
+$sql = mysql_query($query,$dbh);
 while ($tupla = mysql_fetch_array($sql)) {
 	$conteudo = $tupla[ "conteudo" ];
 	$kwd1 = $tupla[ "kwd1" ];
@@ -163,7 +162,6 @@ while ($tupla = mysql_fetch_array($sql)) {
 	$tit = $tupla[ "titulo" ];
 	$senha = $tupla[ "pass" ];
 }
-
 ?>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
