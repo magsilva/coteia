@@ -42,27 +42,27 @@ if ( $submit_btn == "submit" ) {
 					// Acerta o formato da data.
 					$datetime = explode(" ",$tuplaB[ "data_ultversao" ] );
 					$date = explode("-",$datetime[0]);
-					$data_formato_correto = $date[2]."-".$date[1]."-".$date[0]." ".$datetime[1];
+					$data_formato_correto = $date[2] . "-" . $date[1] . "-" . $date[0] . " " . $datetime[1];
 					$tituloB = $tuplaB[ "titulo" ];
 					$idB = $tuplaB[ "ident" ];
-					echo '<br />\t[$data_formato_correto] - <a href="mostra.php?ident=$idB">$tituloB</a>';
+					echo "<br />\t[$data_formato_correto] - <a href=\"mostra.php?ident=$idB\">$tituloB</a>";
 				}
 			}
 		}
 	} else {
 		// Buscar as paginas de 1 swiki ordenadas por data  $select é a numero de identificacao do swiki.
 		$sql = "SELECT paginas.data_ultversao, paginas.titulo, paginas.ident FROM paginas, gets WHERE gets.id_sw=$changes_select AND gets.id_pag =paginas.ident ORDER BY paginas.data_ultversao DESC";
-		$result = mysql_query($sql,$dbh);
-		$num_rows = mysql_num_rows($result);
-		if ($num_rows != "0") {
-			while ($tupla = mysql_fetch_array($result)) {
+		$result = mysql_query( $sql, $dbh );
+		$num_rows = mysql_num_rows( $result );
+		if ( $num_rows != "0" ) {
+			while ( $tupla = mysql_fetch_array( $result ) ) {
 				// Acerta o formato da data
-				$datetime = explode(" ",$tupla["data_ultversao"]);
+				$datetime = explode( " ", $tupla["data_ultversao"] );
 				$date = explode("-",$datetime[0]);
-				$data_formato_correto = $date[2]."-".$date[1]."-".$date[0]." ".$datetime[1];
+				$data_formato_correto = $date[2] . "-" . $date[1] . "-" . $date[0] . " " . $datetime[1];
 				$titulo = $tupla[ "titulo" ];
 				$id = $tupla[ "ident" ];
-				echo '<br />[$data_formato_correto] - <a href="mostra.php?ident=$id">$titulo</a>';
+				echo "<br />[$data_formato_correto] - <a href=\"mostra.php?ident=$id\">$titulo</a>";
 			}
 		} else {
 			echo "Não existem páginas criadas.";
@@ -80,9 +80,9 @@ if ( $submit_btn == "submit" ) {
 				$titulo = $tupla[ "titulo" ];
 				$id_titulo = $tupla[ "id" ];
 				if ( $id_titulo != $id_swiki ) {
-					echo '<option value="$id_titulo">Em $titulo</option>';
+					echo "<option value=\"$id_titulo\">Em $titulo</option>";
 				} else {
-					echo '<option value="$id_titulo" selected>Em $titulo</option>';
+					echo "<option value=\"$id_titulo\" selected>Em $titulo</option>";
 				}
 			}
 		?>
