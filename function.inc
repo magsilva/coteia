@@ -1018,8 +1018,10 @@ function tratamento($index,$conteudo,$titulo,$autor,$kwd) {
 function arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml) {
 	global $PATH_JAVA, $PATH_XT;
 
-	$arq_xml = "$path_xml" . "/" . "wikipage" . "$id" . ".xml" );
-	chmod( $arq_xml, 0755 );
+	$arq_xml = $path_xml . "/wikipage" . "$id" . ".xml";
+	if ( is_file( $arq_xml ) ) {
+		chmod( $arq_xml, 0700 );
+	}
 	$fp = fopen( $arq_xml , "w+" );
 	fputs( $fp, $xmlfile );
 	fclose( $fp );
