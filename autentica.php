@@ -27,11 +27,6 @@ if ( $retorno ) {
 	if ( $token == "0" ) {
 		header( "Location:login_create.php?id=$id&index=$index" );
 		exit;
-	} else {
-		if ($token == '0') {
-			header("Location:login_create.php?id=$id&index=$index");
-			exit;
-		}
 	}
 } else {
 	echo '<br /><div align="center">Área Restrita.<br /><br /><a href="javascript:window.close()">Fechar janela</a></div>';
