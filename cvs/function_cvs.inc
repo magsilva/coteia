@@ -48,38 +48,32 @@ function update_cvs($id, $ModuloCheckout) {
 /*
  */
 function add_cvs( $ident, $ModuloCheckout ) {
-	global $PATH_ARQUIVOS, $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME;
+	global $PATH_ARQUIVOS, $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME, $CVS_CHECKOUT_DIR;
 
-	//arquivo a ser feito checkout
-	$arquivo = $ident . ".html";
-
-	//caminho completo do arquivo a ser feito checkout
-	$path_arquivo = $PATH_ARQUIVOS . "/" . $arquivo;
+	// Arquivo a ser feito checkout.
+	$arquivo = $PATH_ARQUIVOS . "/" . $ident . ".html";
 
 	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . "/" .  $CVS_REPOSITORY;
+	$cvs_cmdline = "";
+	$old_dir = getcwd();
+	chdir( $CVS_CHECKOUT_DIR . "/" $ModuloCheckout );
 
-	// para adicionar um arquivo ao repositorio, deve-se primeiro fazer um checkout do local onde
-	// sera armazenado este arquivo. Para isso, eh utilizado um diretorio na maquina local. Podemos
-	// fazer uma pequena rotina pra verificar se o diretorio existe e para cria-lo automaticamente.
-	// Posteriormente ele deve ser excluido.
-	$caminho = cria_dir( "coteia" );
-	chdir( $caminho );
+	// Normalmente isto seria desnecessário, o reposítorio não deveria ter tal arquivo.
+	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " update " . basename( $arquivo );
 
-	$comando_checkout = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " checkout " . $ModuloCheckout;
-	exec( $comando_checkout );
+	exec( $cvs_cmdline );
 
-	$caminho_checkout = $caminho . "/" . $ModuloCheckout;
-	chdir( $caminho );
-	// Coloca o arquivo salvo dentro do diretorio de trabalho.
-	copy( $path_arquivo, $caminho_checkout  );
 
-	// Adiciona o arquivo ao repositorio
-	exec( "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " add " . $arquivo );
+	// Adiciona o arquivo ao repositório.
+	copy( $path_arquivo, "." );
+	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " add " . basename( $arquivo );
+	exec( $cvs_cmdline );
 
-	// Faz commit do arquivo
-	exec( "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " commit -m \"\" " . $arquivo );
- 
-	apaga_dir($caminho);
+	// Faz commit do arquivo no repositório.
+	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " commit -m \"\" " . basename( $arquivo );
+	exec( $cvs_cmdline );
+
+	chdir( $old_dir );
 
 	return true;
 }
@@ -97,19 +91,6 @@ function cria_dir($diretorio) {
 	exec("rm -rf $nomedir");
 	mkdir($nomedir,0700);
 	return ($nomedir);
-}
-
-/*
- * NOME:	        apaga_dir
- * DESCRICAO:		-- 
- * PAR. ENTRADA:	--
- * PAR. SAIDA:		--
- * RETORNO:		--
- * OBSERVACOES:		
- */
-function apaga_dir($nomearq) {
-	exec ("rm -rf $nomearq");
-	return true;
 }
 
 ?>
