@@ -51,7 +51,7 @@ function coteia_login( $username, $password, $wikipage )
 		$_SESSION[ "role" ] = "guest";
 	} else {
 		$role_tuple = mysql_fetch_array( $role_result );
-		$_SESSION[ "role" ] = $role_tuple[ "role" ]
+		$_SESSION[ "role" ] = $role_tuple[ "role" ];
 	}
 	mysql_free_result( $role_result );
 
@@ -61,11 +61,11 @@ function coteia_login( $username, $password, $wikipage )
 /*
 * Logout an user from CoTeia.
 */
-function logout()
+function coteia_logout()
 {
 	session_commit();
 	session_unset();
-	session_destroy()
+	session_destroy();
 }
 
 /*
@@ -143,7 +143,7 @@ function replace_html_entities( $text ) {
 * Prepare the data for database's processing.
 */
 function prepare_for_db( $index, $content, $title, $author, $keyword ) {
-	/ Strip slashes if magic_quotes_gpc (auto adding slashes) is active.
+	// Strip slashes if magic_quotes_gpc (auto adding slashes) is active.
 	if ( get_magic_quotes_gpc() == 1 ) {
 		$index = stripslashes( $index );
 		$content = stripslashes( $content );
@@ -191,16 +191,10 @@ function prepare_for_web( $index, $content, $title, $author, $keyword ) {
 	return $data;
 }
 
-
 /*
- * NOME:		arq
- * DESCRICAO:		aplicacao XML/XSL(via XT) e manipulacao de arquivos.
- * PAR. ENTRADA:        --
- * PAR. SAIDA:		--
- * RETORNO:		--
- * OBSERVACOES:         --
+* Execute the XML processing via XSLT and save the data.
 */
-function arq( $id, $xml_document, $path_xml, $path_xsl, $path_html )
+function process_xml_document( $id, $xml_document, $path_xml, $path_xsl, $path_html )
 {
 	global $PATH_JAVA, $PATH_XT;
 
@@ -222,14 +216,9 @@ function arq( $id, $xml_document, $path_xml, $path_xsl, $path_html )
 }
 
 /*
- * NOME:		xml_xsl
- * DESCRICAO:		--
- * PAR. ENTRADA:        --
- * PAR. SAIDA:		--
- * RETORNO:		--
- * OBSERVACOES:
+* Prepare XML document for processing.
 */
-function xml_xsl( $wikipage, $path_xml, $path_dtd, $path_xsl, $path_html )
+function prepare_xml_document( $wikipage, $path_xml, $path_dtd, $path_xsl, $path_html )
 {
 	$xml_document .=  <<<END
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -251,78 +240,15 @@ function xml_xsl( $wikipage, $path_xml, $path_dtd, $path_xsl, $path_html )
 </page>
 END;
 
-	$feedback = arq( $wikipage[ "ident" ], $xml_document, $path_xml, $path_xsl, $path_html );
-
-	return $feedback;
+	return process_xml_document( $wikipage[ "ident" ], $xml_document, $path_xml, $path_xsl, $path_html );
 }
 
 /*
- * NOME:		img_upload
- * DESCRICAO:		--
- * PAR. ENTRADA:        --
- * PAR. SAIDA:		--
- * RETORNO:		--
- * OBSERVACOES:
+* Create the links from a wikipage.
+*
+* If id=$ident.x and titulo=tupla[titulo], create a link  /c.c. [create].
 */
-function img_upload($conteudo) {
-
-$continua=true;
-$texto = " ".$conteudo;
-$n=0;
-
-  while ($continua == true)
-        {
-        $texto_pos_ini = strpos($texto,"<upl");
-	if (!$texto_pos_ini)
-                {
-                $continua=false;
-                } else
-                        {
-                        $texto_pos_fin = strpos($texto,"</upl>");
-                        $texto_final = $texto_pos_fin + 6;
-			$tam_upl = $texto_final - $texto_pos_ini;
-			$texto_aux[$n] = substr($texto,0,$texto_pos_ini);
-			$upload[$n] = substr($texto,$texto_pos_ini,$tam_upl);
-			$texto = substr($texto,$texto_final);
-
-	if (stristr($upload[$n],".pdf")) {
-		$upload[$n] = eregi_replace("<upl","<upl id=\"1\"",$upload[$n]);
-	}
-	else if (stristr($upload[$n],".htm")) {
-		$upload[$n] = eregi_replace("<upl","<upl id=\"2\"",$upload[$n]);
-	}
-	else if (stristr($upload[$n],".doc")) {
-		$upload[$n] = eregi_replace("<upl","<upl id=\"3\"",$upload[$n]);
-	}
-	else if (stristr($upload[$n],".ppt")) {
-		$upload[$n] = eregi_replace("<upl","<upl id=\"4\"",$upload[$n]);
-	}
-	else if (stristr($upload[$n],".zip")) {
-		$upload[$n] = eregi_replace("<upl","<upl id=\"5\"",$upload[$n]);
-	}
-	else {
-		$upload[$n] = eregi_replace("<upl","<upl id=\"6\"",$upload[$n]);
-	}
-		$conteudo_final = $conteudo_final.$texto_aux[$n].$upload[$n];
-		$n++;
-		}//else
-    }//while
-
-        $conteudo_final = trim($conteudo_final.$texto);
-        return $conteudo_final;
-
-}
-
-/*
- * NOME:		link_interno
- * DESCRICAO:	Algoritmo para criação de ligações para as páginas filhas (child).
- * Se id=$ident.x & titulo=tupla[titulo] entao linkar /c.c. [create].
- * PAR. ENTRADA:        --
- * PAR. SAIDA:		--
- * RETORNO:		--
- * OBSERVACOES:
-*/
-function link_interno( $id, $conteudo, $dbh ) {
+function prepare_links( $id, $conteudo, $dbh ) {
 	$n = "0";
 	$continua = true;
 	$texto = "" . $conteudo;
