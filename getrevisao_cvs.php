@@ -38,7 +38,7 @@ if ( $comparar == 1 ) {
 
 <?php
 	$tmp = cvs_checkout_file( $filename, "HEAD" );
-	$tmp = eregi_replace( "<html>.*<h2>", "<h2>", $tmp );
+	$tmp = preg_replace( "'<html>.*?<h2>'si", "<h2>", $tmp, 1 );
 
 	$original = "'(\s)'";
 	$conteudo = preg_replace( $original, "\\1", $tmp );
@@ -58,7 +58,7 @@ if ( $comparar ) {
 }
 echo "<p><b>Versão $revisao</b></p>";
 $tmp = cvs_checkout_file( $filename, $revisao );
-$tmp = eregi_replace( "<html>.*<h2>", "<h2>", $tmp );
+$tmp = preg_replace( "'<html>.*?<h2>'si", "<h2>", $tmp, 1 );
 
 //remover caracteres de quebra de linha e tabs da nova string
 $original = "'(\s)'";

@@ -26,15 +26,27 @@ if ($status == '1') {
 	}
 }
 
-// Para as páginas geradas
-// include( "toolbar.php" );
-
 $sucesso = @include("$PATH_ARQUIVOS/$ident.html"); 
 
 if (!$sucesso) {
 ?>
 
+<html>
 
+<head>
+	<title>Erro - Página não encontrada</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link href="coteia.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<?php
+include( "toolbar.php" );
+?>
+
+<br />
+<br />
 <div align="center">
 	Desculpe! A página requisitada não foi encontrada.
 	<br />
