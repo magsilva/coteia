@@ -26,13 +26,15 @@ if (mysql_num_rows($sql) == '0') {
 }
 
     
-if ($salva){
-	// Verifica a senha.
+if ( $salva ) {
+	// Retrieve password.
 	while ($tupla = mysql_fetch_array($sql)) {
-		$senha = $tupla[pass];
+		$senha = $tupla[ "pass" ];
 	}
-	if (($senha) && ($passwd))  {
-		if ((strcasecmp($senha,$passwd)) != "0") {
+
+	// Check password (if there is one to check against).
+	if ( $senha != NULL ) {
+		if ( (strcasecmp($senha,$passwd)) != "0" ) {
 			header("Location:senha_incorreta.php");
 			exit();
 		}
@@ -110,12 +112,8 @@ if ($salva){
 	}
 
 	// Verifica travamento da pagina
-	if ($lock == locked) {
-		if (($senha) || ((!$senha) && ($passwd != ''))) {
-			$flag_lock = 1;
-		} else {
-			$flag_lock = 0;
-		}
+	if ( $lock == "locked" ) {
+		$flag_lock = 1;
 	} else {
 		$flag_lock = 0;
 	}
@@ -149,9 +147,9 @@ if ($salva){
 		$d = getdate();
 		$data=$d["year"]."-".$d["mon"]."-".$d["mday"]." ".$d["hours"].":".$d["minutes"].":".$d["seconds"];
 
-		//verifica travamento da pagina
-		if ($flag_lock == 1) {
-			$passwd="NULL";
+		// If the user has cleaned the wikipage's log flag, remove the password.
+		if ( $flag_lock == 0 ) {
+			$passwd = NULL;
 		}
  		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass='$passwd' where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
 		$sql = mysql_query("$query",$dbh);
@@ -201,10 +199,10 @@ include( "toolbar.php" );
   <br /><input type="checkbox" name="lock" value="locked" <?php if ($senha) echo checked; ?> />
 
   <br />Password
-  <br /><input type="password" size="10" name="passwd" onBlur="form.edit.lock.checked=true;return false;" />
+  <br /><input type="password" size="10" name="passwd" onChange="form.edit.lock.checked=true;return false;" />
 
   <br />Re-enter password
-  <br /><input type="password" size="10" name="repasswd" onBlur="form.edit.lock.checked=true;return false;" />
+  <br /><input type="password" size="10" name="repasswd" onChange="form.edit.lock.checked=true;return false;" />
   <br />
 </div>
  

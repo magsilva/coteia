@@ -7,9 +7,10 @@
 </head>
 
 <body>
-<?		
+<?php		
 include_once("function.inc");
 include( "toolbar.php" );
+?>
 
 <br />
 
