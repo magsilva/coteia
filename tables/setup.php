@@ -17,6 +17,20 @@ function recursive_chmod( $path2dir, $mode ) {
 	$dir->close();
 }
 
+function replace_vars( $squema ) {
+	extract($GLOBALS);
+
+	$sql_squema = "\$translated_squema = <<<END\n";
+	$sql_squema .= file_get_contents( $squema );
+	$sql_squema .= "END;\n";
+	eval( $sql_squema );
+
+	$sql_squema_file = fopen( $squema . ".sql", "w" );
+	fwrite( $sql_squema_file, $translated_squema );
+	fclose( $sql_squema_file );
+}
+
+
 function setup_dir( $dir ) {
 	if ( !file_exists( $dir ) ) {
 		mkdir( $dir, 0777 );
@@ -35,107 +49,30 @@ function login_cvs() {
   fclose( $pass_file );
 }
 
+echo "\nSettings directories permissions...";
 setup_dir( $PATH_XML );
 setup_dir( $PATH_XHTML );
 setup_dir( $PATH_UPLOAD );
 setup_dir( $PATH_ARQUIVOS );
+echo "Ok";
 
+echo "\nSetting files permissions...";
 if ( !file_exists( $PATH_COWEB . "/log.txt" ) ) {
 	touch( $PATH_COWEB . "/log.txt" );
 }
+echo "Ok";
 
+echo "\nCreating CVS password...";
 login_cvs();
+echo "Ok";
 
-$sql_squema_file = fopen( "coteia.sql", "w");
-$sql_squema = <<<END
-USE mysql;
-insert into user (host,user,password) values ('$dbhost','$dbuser', PASSWORD('$dbpass'));
-insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('$dbhost','$dbname','$dbuser','Y','Y','Y','Y','Y');
-FLUSH PRIVILEGES;
+echo "\nCreating the database schemas...";
+foreach (glob("*.raw") as $raw_squema) {
+	replace_vars( $raw_squema );
+}
+echo "Ok";
 
-CREATE DATABASE $dbname;
-
-USE $dbname;
-
-CREATE TABLE admin (
-	id int not null auto_increment,
-	nome varchar(100),
-	email varchar(25),
-	login varchar(20) not null,
-	pass text,
-	primary key (id)
-);
-
-CREATE TABLE sessions (
-	id int(10) not null auto_increment, 
-	sess_key varchar(6) not null,
-	val varchar(250) not null,
-	ip varchar(35) not null,
-	sec_expire varchar(50),
-	access int(25) not null default '0',
-	primary key (id)
-);
-
-CREATE TABLE swiki (
-	id int auto_increment not null,
-	status enum('0','1','2','3') default '0',
-	visivel enum('S','N') default 'S',
-	semestre varchar(10),
-	titulo varchar(80),
-	username varchar(10),
-	password text,
-	log_adm varchar(8),
-	admin varchar(40),
-	admin_mail varchar(60),
-	data datetime,
-	annotation_login enum('S','N') default 'N',
-	id_chat int,
-	id_ann int,
-	id_eclass int default 0,
-	primary key (id)
-);
-
-CREATE TABLE gets (
-	id_pag varchar(20) not null ,
-	id_sw int not null ,
-	data datetime,
-	primary key (id_pag,id_sw)
-);
-
-CREATE TABLE paginas (
-	ident char(20) not null,
-	indexador varchar(150),
-	titulo varchar(150),
-	conteudo text,
-	ip varchar(15),
-	data_criacao datetime,
-	data_ultversao datetime,
-	pass text,
-	kwd1 varchar(30),
-	kwd2 varchar(30),
-	kwd3 varchar(30),
-	autor text,
-	primary key (ident)
-);
-
-CREATE TABLE backup (
-	ident varchar(20),
-	indexador varchar(80),
-	titulo varchar(80),
-	conteudo text,
-	ip varchar(15),
-	data datetime,
-	pass text,
-	kwd1 varchar(30),
-	kwd2 varchar(30),
-	kwd3 varchar(30),
-	autor text
-);
-
-insert into admin values (NULL, 'admin' , '$ADMIN_MAIL' ,'admin', MD5('$ADMIN_PASSWORD'));
-END;
-fwrite( $sql_squema_file, $sql_squema );
-fclose( $sql_squema_file );
 
 echo "\nFinished.\n";
+
 ?>
