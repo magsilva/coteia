@@ -121,7 +121,7 @@ function ValidaForm()
 	</td>
 </tr>
 <tr>
-	<td>
+	<td valign="middle" colspan="2">
 		<input type="submit" name="continua" value="Submit"/>
 	</td>
 </tr>
