@@ -19,7 +19,7 @@ function update_cvs($id, $ModuloCheckout) {
 	//caminho completo do arquivo a ser feito checkout
 	$path_arquivo = $PATH_ARQUIVOS . "/" . $arquivo;
 
-	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . $CVS_REPOSITORY;
+	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . "/" . $CVS_REPOSITORY;
 
 	// para adicionar um arquivo ao repositorio, deve-se primeiro fazer um checkout do local onde
 	// sera armazenado este arquivo. Para isso, eh utilizado um diretorio na maquina local. Podemos
@@ -56,7 +56,7 @@ function add_cvs( $ident, $ModuloCheckout ) {
 	//caminho completo do arquivo a ser feito checkout
 	$path_arquivo = $PATH_ARQUIVOS . "/" . $arquivo;
 
-	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . $CVS_REPOSITORY;
+	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . "/" .  $CVS_REPOSITORY;
 
 	// para adicionar um arquivo ao repositorio, deve-se primeiro fazer um checkout do local onde
 	// sera armazenado este arquivo. Para isso, eh utilizado um diretorio na maquina local. Podemos

@@ -1,84 +1,83 @@
 <?php
 
-/****************************************************************************/
-/* Parâmetros normalmente configuráveis.                                    */
-/****************************************************************************/
-
 /**
-* Configuração da base de dados principal da CoTeia
+* Configuração da base de dados principal da CoTeia.
 */
 $dbhost = "localhost";
 $dbname = "coteia";
 $dbuser = "coteia";
-$dbpass = "eimi3a7e";
+$dbpass = "";
 
 /**
-* Configuração da base de dados do serviço de chat suportado pela CoTeia.
+* Configuração da base de dados do serviço de chat suportada pelo CoTeia.
 */
 $cs_dbhost = $dbhost;
 $cs_dbname = "coteia_chatserver";
 $cs_dbuser = $dbuser;
 $cs_dbpword = $dbpass;
-$cs_session_tbl = "session";
 
-// Configuração da base de dados do serviço de anotações (opcional)
+/**
+* Configuração da base de dados do serviço de anotações suportado pela CoTeia.
+*/
 $anota_dbhost = $dbhost;
-$anota_dbname = "coteia_groupnote";
+$anota_dbname = "coteia_groupnode";
 $anota_dbuser = $dbuser;
 $anota_dbpword = $dbpass;
 
-// Configuração da base de dados de usuários (opcional)
+/**
+* Configuração da base de dados do suporte à base de usuários compartilhadas
+* utilizável pela CoTeia.
+*/
 $user_dbhost = $dbhost;
 $user_dbname = "coteia_users";
 $user_dbuser = $dbuser;
 $user_dbpword = $dbpass;
 
-// Configuração da base de dados de cursos do eClass (opcional)
+/**
+* Configuração da base de dados de cursos do eClass suportada pela CoTeia.
+*/
 $ce_dbhost = $dbhost;
 $ce_dbname = "coteia_eclass";
 $ce_dbuser = $dbuser;
 $ce_dbpword = $dbpass;
 
+/**
+* Diretório em que está instalada a CoTeia.
+*/
+$PATH_COWEB = "/srw/www/html/coteia";
 
 /**
-* Local no servidor em que os arquivos da CoTeia foram instaladas.
+* Configurações relativas ao servidor CVS utilizado.
 */
-$PATH_COWEB = "/srv/www/default/html/webTools/CoTeia";
-
-
-/********************************
-* Configurações relativas ao CVS.
-*/
-// IP do servidor de CVS
 $CVS_HOST = $dbhost;
-// Repositório CVS a ser utilizado (caminho no servidor CVS)
-$CVS_REPOSITORY = "/var/lib/coweb";
-// Nome do usuário a ser utilizado
+$CVS_REPOSITORY = "coteia";
+$CVS_MODULE = "html";
 $CVS_USERNAME = $dbuser;
-// Senha do usuário do CVS
 $CVS_PASSWORD = $dbpass;
-$CVS_MODULE= "coteia";
-// Caminho a ser utilizado para o checkout dos arquivos
-$CVS_CHECKOUT_PATH = "/coteia/";
-// Arquivo que armazenará a senha do repositório CVS
-$CVS_PASSFILE = $PATH_COWEB . "/.cvspass";
+$CVS_PASSFILE = $PATH_COWEB . "/.cvspass"; // Esta variável geralmente não precisa ser reconfigurada.
 
-$HOST_COWEB = "www.magsilva.dynalias.net";
+/**
+* Host em que está hospedada a CoTeia.
+*/
+$HOST_COWEB = $dbhost;
 
-// Endereço (URL) da CoTeia
-$URL_COWEB = "http://" . $HOST_COWEB . "/webTools/CoTeia";
+/**
+* Endereço (URL) da CoTeia.
+*/
+$URL_COWEB = "http://" . $HOST_COWEB . "/coweb"; // Geralmente somente a última string deve ser alterada.
 
-// Nome do administrador
-$ADMIN = "Marco Aurélio Graciotto Silva";
+/**
+* Informações sobre o administrador.
+*/
+$ADMIN = $dbuser;
+$ADMIN_MAIL = "admin@somewhere.com";
+$ADMIN_PASSWORD = $dbpass;
 
-// Email do administrador
-$ADMIN_MAIL = "magsilva@icmc.usp.br";
-
-// Senha do administrador
-$ADMIN_PASSWORD = "eimi3a7e";
-
-// Caminho do Java (o executável "java"). 
+/**
+* Caminho do Java (o executável "java").
+*/
 $PATH_JAVA = "/opt/java/SUN-SDK-1.4.2_03/bin/java";
+
 
 
 /****************************************************************************/

@@ -44,7 +44,7 @@ $ce_dbpword = "";
 /**
 * Diretório em que está instalada a CoTeia.
 */
-$PATH_COWEB = "/var/www/html/coweb";
+$PATH_COWEB = "";
 
 /**
 * Configurações relativas ao servidor CVS utilizado.
@@ -76,7 +76,7 @@ $ADMIN_PASSWORD = "";
 /**
 * Caminho do Java (o executável "java").
 */
-$PATH_JAVA = "/opt/java/SUN-SDK-1.4.2_03/bin/java";
+$PATH_JAVA = "";
 
 
 
