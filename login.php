@@ -19,7 +19,7 @@ if ( isset( $_REQUEST[ "login" ] ) {
 
 	if ( $result ) {
 		if ( $token == "1" ) {
-			header( "Location:mostra.php?ident=$id" ); 
+			header( "Location:show.php?ident=$id" ); 
 			exit;
 		}
 

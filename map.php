@@ -26,11 +26,11 @@ $cnt=0;
 $sql = mysql_query("SELECT ident,indexador FROM paginas WHERE ident='$id' or ident like '$id.%'",$dbh);
 
 while ($tupla = mysql_fetch_array($sql)) {
-	$level = substr_count("$tupla[ident]",".");
+	$level = substr_count( $tupla["ident" ], "." );
 	$level = $level + 1;
 	$tree[$cnt][0]= $level;
-	$tree[$cnt][1]="$tupla[indexador]";
-	$tree[$cnt][2]="mostra.php?ident="."$tupla[ident]";
+	$tree[$cnt][1]= $tupla[ "indexador" ];
+	$tree[$cnt][2]= "show.php?ident=" . $tupla[ "ident" ];
 	$tree[$cnt][3]=0;
 	if ($tree[$cnt][0] > $maxlevel) {
 		$maxlevel=$tree[$cnt][0];

@@ -365,7 +365,7 @@ function link_interno( $id, $conteudo, $dbh ) {
 
 			if ( $tupla != false ) {
 				$cont1 = substr_replace( $conteudo, "</a>", $texto_pos_final, 0 );
-				$cont2 = substr_replace( $cont1, '<a href="mostra.php?ident=' . $pagina . ' onMouseOver="window.status=\'Última versão: ' . $data_formato_correto . '\'; return true">', $texto_inicio, 0 );
+				$cont2 = substr_replace( $cont1, '<a href="show.php?ident=' . $pagina . ' onMouseOver="window.status=\'Última versão: ' . $data_formato_correto . '\'; return true">', $texto_inicio, 0 );
 				$texto_final = $cont2;
 			} else {
 				$num = 1;

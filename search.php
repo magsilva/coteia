@@ -67,7 +67,7 @@ if ($submit_btn=="submit") {
 					$tituloB = $tuplaB[titulo];
 					$idB = $tuplaB[ident];
 					$count++;
-					echo "<li><a href=\"mostra.php?ident=$idB\">$tituloB</a></li>";
+					echo "<li><a href=\"show.php?ident=$idB\">$tituloB</a></li>";
 				}
 				echo "<br />";
 			}
@@ -92,7 +92,7 @@ if ($submit_btn=="submit") {
 			$titulo = $tupla[titulo];
 			$id = $tupla[ident];
 			$count++;
-			echo "<li><a href=\"mostra.php?ident=$id\">$titulo</a>";
+			echo "<li><a href=\"show.php?ident=$id\">$titulo</a>";
 		}
 		echo "<br /><br />Resultado da Busca:  $count página(s).";
 	}

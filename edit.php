@@ -73,7 +73,7 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 	$parent_id = $ident;
 	include( "update_wikipage.inc" );
 
-	header("Location:mostra.php?ident=$ident");
+	header("Location:show.php?ident=$ident");
 } else {
 ?>
 

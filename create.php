@@ -81,7 +81,7 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 		$i++;
 	}
 	for ( ; $i < count( $linksto_id ); $i++ ) {
-		$links = $links . "<ref id=\"mostra.php?ident=$linksto_id[$i]\">$linksto_title[$i]</ref>\n";
+		$links = $links . "<ref id=\"show.php?ident=$linksto_id[$i]\">$linksto_title[$i]</ref>\n";
 	}
 	$wikipage_web[ "links" ] = $links;
 
@@ -153,7 +153,7 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 		include( "update_wikipage.inc" );
 	}
 
-	header("Location:mostra.php?ident=" . $wikipage_web["ident"] );
+	header("Location:show.php?ident=" . $wikipage_web["ident"] );
 } else {
 	$wikipage_index = $_REQUEST[ "index" ];
 	if ( get_magic_quotes_gpc() == 1 ) {

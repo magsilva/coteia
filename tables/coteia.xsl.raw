@@ -33,7 +33,7 @@
 		<a href="history.php?ident={id}"><img src="$URL_IMG/history.png" alt="Edit this Page" /></a>
 
 		<xsl:if test="id != sw_id">
-			<a href="mostra.php?ident={sw_id}"><img src="$URL_IMG/indice.png" alt="Top of the Swiki" /></a>
+			<a href="show.php?ident={sw_id}"><img src="$URL_IMG/indice.png" alt="Top of the Swiki" /></a>
 		</xsl:if>
 		<xsl:if test="id = sw_id">
 			<a href="index.php"><img src="$URL_IMG/indice.png" alt="CoTeia's Main Page" /></a>

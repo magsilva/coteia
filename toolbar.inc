@@ -1,6 +1,6 @@
 <div class="toolbar">
 
-<a href="mostra.php?ident=<?php echo $ident; ?>">
+<a href="show.php?ident=<?php echo $ident; ?>">
 	<img src="<?php echo $URL_IMG?>/view.png" alt="View this Page" />
 </a>
 
@@ -12,7 +12,7 @@
 	<img src="<?php echo $URL_IMG?>/history.png" alt="History of this Page" />
 </a>
 
-<a href="mostra.php?ident=<?php echo $id_swiki?>">
+<a href="show.php?ident=<?php echo $id_swiki?>">
 	<img src="<?php echo $URL_IMG?>/indice.png" alt="Top of the Swiki" />
 </a>
 

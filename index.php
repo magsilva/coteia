@@ -78,7 +78,7 @@ while ($tupla = mysql_fetch_array($sql)) {
 			if ($status == '1') {
 				echo "\t<li><a href=\"login.php?id=$ident&token=1\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
 			} else {
-				echo "\t<li><a href=\"mostra.php?ident=$ident\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
+				echo "\t<li><a href=\"show.php?ident=$ident\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
 			}
 		} else {
 			$final_url = rawurlencode($final);
@@ -129,7 +129,7 @@ while ($tupla = mysql_fetch_array($sql)) {
 			if ($status == '1') {
 				echo "\t<li><a href=\"login.php?id=$ident&token=1\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
 			} else {
-				echo "\t<li><a href=\"mostra.php?ident=$ident\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
+				echo "\t<li><a href=\"show.php?ident=$ident\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
 			}
 		} else {
 			$final_url = rawurlencode($final);

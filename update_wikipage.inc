@@ -76,7 +76,7 @@ if ( $parent_linksto_id[0] == "0" ) {
 	$i++;
 }
 for ( ; $i < count( $parent_linksto_id ); $i++ ) {
-	$parent_links = $parent_links . "<ref id=\"mostra.php?ident=$parent_linksto_id[$i]\">$parent_linksto_title[$i]</ref>\n";
+	$parent_links = $parent_links . "<ref id=\"show.php?ident=$parent_linksto_id[$i]\">$parent_linksto_title[$i]</ref>\n";
 }
 $parent_wikipage[ "links" ] = $parent_links;
 

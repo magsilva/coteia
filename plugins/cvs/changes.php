@@ -44,7 +44,7 @@ if ( $submit_btn == "submit" ) {
 					$data_formato_correto = $date[2] . "-" . $date[1] . "-" . $date[0] . " " . $datetime[1];
 					$tituloB = $tuplaB[ "titulo" ];
 					$idB = $tuplaB[ "ident" ];
-					echo "<br />\t[$data_formato_correto] - <a href=\"mostra.php?ident=$idB\">$tituloB</a>";
+					echo "<br />\t[$data_formato_correto] - <a href=\"show.php?ident=$idB\">$tituloB</a>";
 				}
 			}
 		}
@@ -61,7 +61,7 @@ if ( $submit_btn == "submit" ) {
 				$data_formato_correto = $date[2] . "-" . $date[1] . "-" . $date[0] . " " . $datetime[1];
 				$titulo = $tupla[ "titulo" ];
 				$id = $tupla[ "ident" ];
-				echo "<br />[$data_formato_correto] - <a href=\"mostra.php?ident=$id\">$titulo</a>";
+				echo "<br />[$data_formato_correto] - <a href=\"show.php?ident=$id\">$titulo</a>";
 			}
 		} else {
 			echo "Não existem páginas criadas.";

@@ -110,7 +110,7 @@ $titulo = $tupla1[ "titulo" ];
 <tr>
 	<td>
 		<div align="center">
-			<a href="mostra.php?ident=<?php echo $ident;?>" target="_parent"><img src="<?php echo $URL_IMG;?>/back.png" />Voltar</a>
+			<a href="show.php?ident=<?php echo $ident;?>" target="_parent"><img src="<?php echo $URL_IMG;?>/back.png" />Voltar</a>
 		</div>
 	</td>
 </tr>
