@@ -37,7 +37,7 @@ if ( $salva ) {
 	// Check password (if there is one to check against).
 	$password = $wikipage_tuple[ "pass" ];
 	if ( $password != NULL ) {
-		if ( strcasecmp( $password, md5( $_REQUEST[ "password" ]  != 0 ) {
+		if ( strcasecmp( $password, md5( $_REQUEST[ "password" ] ) ) != 0 ) {
 			$st = 4;
 			include( "err.inc" );
 		}
@@ -128,7 +128,7 @@ include( "toolbar.php" );
 
 <div class="lock">
   Lock
-  <br /><input type="checkbox" name="lock" value="locked" <?php if ( $wikipage_tuple[ "password" != "NULL" ) echo checked; ?> />
+  <br /><input type="checkbox" name="lock" value="locked" <?php if ( $wikipage_tuple[ "password" ] != "NULL" ) echo checked; ?> />
 
   <br />Password
   <br /><input type="password" size="10" name="password" onChange="window.document.edit.lock.checked=true;return false;" />
