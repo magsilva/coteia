@@ -11,8 +11,8 @@
 <xsl:template match="page">
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
-	<meta name ="Autor" content="{aut}"/>
-	<meta name ="Palavra-Chave" content="{kwd1},{kwd2},{kwd3}"/>
+	<meta name ="Author" content="{aut}"/>
+	<meta name ="Keywords" content="{kwd1},{kwd2},{kwd3}"/>
 	<script language="JavaScript">
 	function abre(name_file,swiki) {
 		window.open('$URL_COWEB/checkout.php?arq='+name_file+'&amp;swiki='+swiki,'janelachk','toolbar=no,directories=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=500,height=430');
@@ -36,33 +36,33 @@
 	<title><xsl:apply-templates select="tit"/></title>
 	</head>
 	<body>
-		<img src="imagem/viewbw.gif" />
+		<img src="$URL_IMG/viewbw.gif" />
 		<xsl:if test="lock='1'">
-			<a href="edit.php?ident={id}"><img src="imagem/editlock.gif" /></a>
+			<a href="edit.php?ident={id}"><img src="$URL_IMG/editlock.gif" /></a>
 		</xsl:if>
 		<xsl:if test="lock != '1'">
-			<a href="edit.php?ident={id}"><img src="imagem/edit.gif" /></a>
+			<a href="edit.php?ident={id}"><img src="$URL_IMG/edit.gif" /></a>
 		</xsl:if>
-		<img src="imagem/historybw.gif" />
+		<img src="$URL_IMG/historybw.gif" />
 		<xsl:if test="id != sw_id">
-			<a href="mostra.php?ident={sw_id}"><img src="imagem/indice.gif" /></a>
+			<a href="mostra.php?ident={sw_id}"><img src="$URL_IMG/indice.gif" /></a>
 		</xsl:if>
 		<xsl:if test="id = sw_id">
-			<img src="imagem/indicebw.gif" />
+			<img src="$URL_IMG/indicebw.gif" />
 		</xsl:if>
-		<a href="JavaScript:AbreMapa({sw_id})">	<img src="imagem/map.gif" /></a>
-		<a href="changes.php?ident={id}"><img src="imagem/changes.gif" /></a>
+		<a href="JavaScript:AbreMapa({sw_id})">	<img src="$URL_IMG/map.gif" /></a>
+		<a href="changes.php?ident={id}"><img src="$URL_IMG/changes.gif" /></a>
 		<xsl:if test="id != sw_id">
-			<a href="upload.php?ident={id}"><img src="imagem/upload.gif" /></a>
+			<a href="upload.php?ident={id}"><img src="$URL_IMG/upload.gif" /></a>
 		</xsl:if>
 		<xsl:if test="id = sw_id">
-			<img src="imagem/uploadbw.gif" />
+			<img src="$URL_IMG/uploadbw.gif" />
 		</xsl:if>
-		<a href="search.php?ident={id}"><img src="imagem/search.gif" /></a>
-		<a href="help.php"><img src="imagem/help.gif" /></a>
-		<a href="JavaScript:AbreChat({chat_folder})"><img src="imagem/chat.gif" /></a>
-		<img src="imagem/notebw.gif" />
-		<a href="JavaScript:Imprime()"><img src="imagem/print.gif" /></a>
+		<a href="search.php?ident={id}"><img src="$URL_IMG/search.gif" /></a>
+		<a href="help.php"><img src="$URL_IMG/help.gif" /></a>
+		<a href="JavaScript:AbreChat({chat_folder})"><img src="$URL_IMG/chat.gif" /></a>
+		<img src="$URL_IMG/notebw.gif" />
+		<a href="JavaScript:Imprime()"><img src="$URL_IMG/print.gif" /></a>
 
 		<h2><xsl:apply-templates select="tit"/></h2>
 		<xsl:for-each select="bdy">
@@ -287,22 +287,22 @@
 <a href="JavaScript:abre('{@file}','{/page/sw_id}')">
 <xsl:apply-templates/>
 <xsl:if test="@id = '1'">
-<img src="imagem/pdf.gif" />
+<img src="$URL_IMG/pdf.gif" />
 </xsl:if>
 <xsl:if test="@id = '2'">
-<img src="imagem/web.gif" />
+<img src="$URL_IMG/web.gif" />
 </xsl:if>
 <xsl:if test="@id = '3'">
-<img src="imagem/doc.gif" />
+<img src="$URL_IMG/doc.gif" />
 </xsl:if>
 <xsl:if test="@id = '4'">
-<img src="imagem/ppt.gif" />
+<img src="$URL_IMG/ppt.gif" />
 </xsl:if>
 <xsl:if test="@id = '5'">
-<img src="imagem/zip.gif" />
+<img src="$URL_IMG/zip.gif" />
 </xsl:if>
 <xsl:if test="@id = '6'">
-<img src="imagem/download.gif" />
+<img src="$URL_IMG/download.gif" />
 </xsl:if>
 </a>
 </xsl:template>
@@ -318,8 +318,8 @@
 
 <xsl:template match="freq">
 <a href="JavaScript:frequencia('{/page/id_eclass}')">
-<img src="imagem/useron.gif" />
-<img src="imagem/useroff.gif" />
+<img src="$URL_IMG/useron.gif" />
+<img src="$URL_IMG/useroff.gif" />
 </a>
 <xsl:apply-templates/>
 </xsl:template>
@@ -327,14 +327,14 @@
 <xsl:template match="note">
 <a href="JavaScript:AbreAnotacao('{/page/id}{@id}','{/page/id}','{/page/ann_folder}')">
 <xsl:apply-templates/>
-<img src="imagem/note_interno.gif" align="middle"/>
+<img src="$URL_IMG/note_interno.gif" align="middle"/>
 </a>    
 </xsl:template>
 
 <xsl:template match="agenda">
 <a href="JavaScript:agenda('{@id}')">
 <font style="text-decoration: underline; color: blue;">Horários</font>
-<img src="imagem/iconenorisk.jpg" />
+<img src="$URL_IMG/iconenorisk.jpg" />
 </a>
 <xsl:apply-templates/>
 </xsl:template>
