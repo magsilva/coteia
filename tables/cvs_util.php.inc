@@ -1,3 +1,5 @@
+<?php
+
 /*
  Code based upon jhbuild (Copyright (C) 2001-2003  James Henstridge)
 
@@ -15,8 +17,6 @@
  along with this program; if not, write to the Free Software
  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-
-<?php
 
 # table used to scramble passwords in ~/.cvspass files
 $cvs_crypt_table = array( 

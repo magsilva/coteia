@@ -4,15 +4,20 @@ include_once( "../config.php.inc" );
 include_once( "cvs_util.php.inc" );
 
 function recursive_chmod( $path2dir, $mode ) {
-   $dir = new dir( $path2dir );
-   while( ( $file = $dir->read() ) !== false ) {
-       if( is_dir( $dir->path . $file ) ) {
-           recursive_chmod( $dir->path.$file, $mode );
-       } else {
-           chmod( $file, $mode );
-       }
-   }
-   $dir->close();
+	echo $path2dir;
+	$dir = dir( $path2dir );
+	while( ( $file = $dir->read() ) !== false ) {
+		$full_file = $dir->path . "/" . $file;
+		echo "\n" . $full_file;
+		if ( is_dir( $full_file ) ) {
+			if ( $file != "." && $file != ".." ) {
+				recursive_chmod( $full_file, $mode );
+			}
+		} else {
+			chmod( $full_file, $mode );
+		}
+	}
+	$dir->close();
 }
 
 function setup_dir( $dir ) {
@@ -28,9 +33,9 @@ function login_cvs() {
 
   $pass_file = fopen( $CVS_PASSFILE, "w" );
   fwrite( $pass_file, ":pserver:".$CVS_USERNAME."@".$CVS_HOST.":".$CVS_REPOSITORY );
-  fwrite( " " );
-  fwrite( scramble( $CVS_PASSWORD ) );
-  fclose( $passfile );
+  fwrite( $pass_file, " " );
+  fwrite( $pass_file, scramble( $CVS_PASSWORD ) );
+  fclose( $pass_file );
 }
 
 setup_dir( $PATH_XML );
@@ -134,4 +139,6 @@ insert into admin values (NULL, 'admin' , '$ADMIN_MAIL' ,'admin', MD5('$ADMIN_PA
 END;
 fwrite( $sql_squema_file, $sql_squema );
 fclose( $sql_squema_file );
+
+echo "\nFinished.\n";
 ?>
