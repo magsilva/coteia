@@ -1,0 +1,17 @@
+Para agora
+==========
+Verificar o porquê das anotações não funcionarem.
+Alterar o INSERT para UPDATE nos scripts SQL (criação de usuário).
+Alterar o código, removendo a necessidade de uso de "register_globals = on".
+Rever o tamanho dos campos de login e senha.
+
+Catalogar as mensagens de erro.
+Padronizar as mensagens de erro.
+Verificar o tratamento de todas as strings recebidas pelos formulários.
+
+Ócio
+====
+Mudar as variáveis globais para constantes.
+Retirar código redundante de admin/
+Alterar a chamada xml_xsl para receber os parâmetros a serem aplicados via uma array associativa.
+Colocar os arquivos enviados (upload) e xml em controle de versão.
