@@ -131,8 +131,8 @@ if ($salva) {
 		exit();
 	}
 
-	foreach ( $linksto_id as $linkto_id ) {
-		atualiza_pagina( $linkto_id );
+	foreach ( $linksto_id as $ident_pai ) {
+		include( "atualiza.php" );
 	}
 
 	header("Location:mostra.php?ident=$ident");

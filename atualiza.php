@@ -3,11 +3,11 @@
 * Atualiza a página-pai da página recém-alterada (com a alteracao de determinada página, sua
 * página pai pode ou não sofrer alterações.
 */
-function atualiza_pagina( $ident ) {
+if ( ! is_null( $ident_pai ) ) {
 	$dbh = db_connect();
 	mysql_select_db($dbname,$dbh);
 
-	$query = "select * from paginas where ident='$ident'";  
+	$query = "select * from paginas where ident='$ident_pai'";  
 	$result = mysql_query($query,$dbh);
 
 	while ($tupla = mysql_fetch_array($result)){
@@ -19,16 +19,16 @@ function atualiza_pagina( $ident ) {
 		$autor = $tupla[ "autor" ];
 		$senha = $tupla[ "pass" ];
 
-		if ( stristr( $ident, "." ) ) {
+		if ( stristr( $ident_pai, "." ) ) {
 			//encontra id_swiki
- 			$get_swiki = explode( ".", $ident );
+ 			$get_swiki = explode( ".", $ident_pai );
 			$id_swiki = $get_swiki[ 0 ];
 		} else {
-			$id_swiki = $ident;
+			$id_swiki = $ident_pai;
 		}
 
 		if ( stristr( $conteudo, "<lnk>" ) ) {
-			$conteudo = link_interno($ident,$conteudo,$dbh);
+			$conteudo = link_interno($ident_pai,$conteudo,$dbh);
 		}
 
 		if ($senha) {
@@ -38,13 +38,13 @@ function atualiza_pagina( $ident ) {
 		}
 	
 		// Links to this page.
-		$query_swiki =  mysql_query( "select indexador from paginas where ident='$ident'", $dbh );
+		$query_swiki =  mysql_query( "select indexador from paginas where ident='$ident_pai'", $dbh );
 		$tupla = mysql_fetch_array( $query_swiki );
 		$indexador_atual_links=$tupla[ "indexador" ];
 
 		$linksto_id_atua = array();
 		$linksto_titulo_atual = array();
-		if ( stristr( $ident, "." ) ) {
+		if ( stristr( $ident_pai, "." ) ) {
 			$i = 1;
 		} else {
 			$i = 2;
@@ -78,9 +78,9 @@ function atualiza_pagina( $ident ) {
 		$chat = "<chat_folder>" . $result["id_chat"] . "</chat_folder>";
 		$eclass = "<id_eclass>" . $result["id_eclass"] . "</id_eclass>";
 
-		$feedback = xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$tag_id,$lock,$annotation,$chat,$eclass,$others,$linksto_id_atua,$linksto_titulo_atua,$kwd,$aut,$tit,$body);
+		$feedback = xml_xsl($ident_pai,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$tag_id,$lock,$annotation,$chat,$eclass,$others,$linksto_id_atua,$linksto_titulo_atua,$kwd,$aut,$tit,$body);
 
-		cvs_update( $ident, $CVS_MODULE);
+		cvs_update( $ident_pai, $CVS_MODULE);
 
 		if ( $feedback==0 ) {
 			return TRUE;
