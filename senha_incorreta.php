@@ -26,8 +26,8 @@ echo "<img src=\"$PATH_IMG/viewbw.gif\" border=\"0\"/>
 <font face="Arial" size="3">
 <strong>
 <p>Senha Incorreta !!</p>
-<p>Em caso de d&uacute;vidas, entre em contato com o <a href="mailto:
-<?echo $ADMIN; ?>">administrador</a>.</p>
+<p>Em caso de d&uacute;vidas, entre em contato com o
+ <a href="mailto:<?echo $ADMIN_MAIL;?>"><? echo $ADMIN; ?></a>.</p>
 <br><br>
 <p><a href="javascript:history.go(-1)">voltar</a></strong></p></font></center>
 </body>

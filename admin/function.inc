@@ -1,59 +1,6 @@
 <?php
 
-/****************************************************************************
- * Variaveis Globais                                                        *
- ****************************************************************************/
-
-// especificacoes da base de dados
-$dbhost = "localhost";
-$dbname = "cowebBD";
-$dbuser = "coweb";
-$dbpass = "coweb";
-
-// especificacoes da base de dados do chat
-$cs_dbhost = "catuaba.icmc.sc.usp.br";
-$cs_dbname = "chatserver";
-$cs_dbuser = "cs";
-$cs_dbpword = "tucan0";
-
-// nomes das tabelas
-$cs_session_tbl = "session";
-
-// especificacoes da base de dados das anotacoes
-$anota_dbhost = "coweb.icmc.usp.br";
-$anota_dbname   = "groupnote";
-$anota_dbuser = "groupnote";
-$anota_dbpword = "groupnote";
-
-// especificacoes da base de dados de usuarios
-$user_dbhost = "coweb.icmc.usp.br";
-$user_dbname   = "users";
-$user_dbuser = "users";
-$user_dbpword = "users";
-
-// especificacoes da base de dados de cursos do eclass
-$ce_dbhost = "catuaba.icmc.usp.br";
-$ce_dbname = "eclassDB";
-$ce_dbuser = "eclass";
-$ce_dbpword = "qazxcde";
-
-//constantes
-
-$URL_SERVER = "http://coweb.icmc.usp.br/coweb/";
-//ex. de $URL_SERVER = "http://localhost/coteia/";
-$ADMIN = "Carlos Arruda Junior";
-//ex. de $ADMIN = "Carlos Arruda Junior";
-$ADMIN_MAIL = "credajun@icmc.usp.br";
-//ex. de $ADMIN_MAIL = "credajun@icmc.usp.br";
-$PATH_IMG = "/coweb/imagem";
-//ex. de $PATH_IMG = "/coweb/imagem" 
-$DIR_UPL = "/var/www/html/coweb/upload";
-//Win:ex. de $DIR_UPL = "C:\Arquiv~1\Apache~1\Apache2\htdocs\coteia\upload"; 
-//Linux:ex. de $DIR_UPL = "/var/www/html/coc/upload" 
-
-/****************************************************************************
- * Funcoes                                                                  *
- ****************************************************************************/
+include_once( "../config.php.inc" );
 
 /*
  * NOME:		cs_db_pconnect

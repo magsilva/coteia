@@ -85,7 +85,7 @@ href="http://www.cc.gatech.edu/gvu/people/Faculty/Mark.Guzdial.html">Mark Guzdia
 	</DL></UL>
 <FONT SIZE="+1" FACE="Britannic Bold" COLOR="#000000">
 <img src="<?echo $PATH_IMG?>/mail.gif" border="0"  width="90" height="115"><p>
-Contato: <a href="<?echo $ADMIN?>">administrador</a>.
+Contato: <a href="mailto:<?echo $ADMIN_MAIL;?>"><? echo $ADMIN; ?></a>.
 </FONT><p>
 <h2><center><a href="index.php"><img src="<?echo $PATH_IMG?>/home.gif" height="40" border="0"></a></center></h2>
 </body>
