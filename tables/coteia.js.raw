@@ -16,16 +16,13 @@ function StatusUpload( ok ) {
 *
 * Recebe como parâmetro um elemento SELECT do DOM.
 */
-function AbreArq( swiki, arquivos ) {
-	IndiceArq = arquivos.options.selectedIndex;
-	if ( IndiceArq >= 0 ) {
-		window.open( "checkout.php?swiki=" + swiki + "&arq=" + arquivos.options[IndiceArq].value,"janela","toolbar=no,directories=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=500,height=430" );
-		return true;
-	}
-	if ( IndiceArq == -1 ) {
+function CheckChoosenFile( repository ) {
+	choosenFile = repository.options.selectedIndex;
+	if ( choosenFile == -1 ) {
 		alert( "Por favor, selecione um arquivo." );
+		return false;
 	}
-	return false;
+	return true;
 }
 
 /**

@@ -44,7 +44,7 @@
 
 		<a href="changes.php?ident={id}"><img src="$URL_IMG/changes.png" alt="Recent Changes" /></a>
 
-		<a href="upload.php?ident={id}"><img src="$URL_IMG/upload.png" alt="File Attachments" /></a>
+		<a href="repository.php?ident={id}"><img src="$URL_IMG/upload.png" alt="File Attachments" /></a>
 
 		<a href="search.php?ident={id}"><img src="$URL_IMG/search.png" alt="Search the Swiki" /></a>
 

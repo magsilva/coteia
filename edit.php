@@ -14,8 +14,7 @@ $dbh = coteia_connect();
 // Check if the ident is valid (and extract the swiki id if it's valid).
 $id_swiki = extract_swiki_id( $_REQUEST[ "ident" ] );
 if ( $id_swiki == false ) {
-	$st = 0;
-	include( "err.inc" );
+	show_error( 0 );
 }
 
 // Check if there's a wikipage with the given "ident".
