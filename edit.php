@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 * Edita páginas ja criadas.
 */
@@ -165,127 +165,143 @@ if ($salva){
 	header("Location:mostra.php?ident=$ident");
 } else {
 ?>
-<HTML>
-<?
+<html>
+<?php
 
-   $query = "SELECT titulo,conteudo,kwd1,kwd2,kwd3,autor,pass FROM paginas where ident='$ident'";
-   $sql = mysql_query("$query",$dbh);
-  		while ($tupla = mysql_fetch_array($sql)){
-			$conteudo = $tupla[conteudo];
-			$kwd1 = $tupla[kwd1];
-			$kwd2 = $tupla[kwd2];
-			$kwd3 = $tupla[kwd3];
-			$autor = $tupla[autor];
-			$tit = $tupla[titulo];
-			$senha = $tupla[pass];
+$query = "SELECT titulo,conteudo,kwd1,kwd2,kwd3,autor,pass FROM paginas where ident='$ident'";
+$sql = mysql_query("$query",$dbh);
+while ($tupla = mysql_fetch_array($sql)) {
+	$conteudo = $tupla[conteudo];
+	$kwd1 = $tupla[kwd1];
+	$kwd2 = $tupla[kwd2];
+	$kwd3 = $tupla[kwd3];
+	$autor = $tupla[autor];
+	$tit = $tupla[titulo];
+	$senha = $tupla[pass];
+}
+$conteudo = eregi_replace("<br/>","","$conteudo");	
+$cont = eregi_replace("<br />","","$conteudo");	
+
+?>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+	<title>Formulário de Edição</title>
+	<script language="javascript">
+		function Imprime() {
+			window.print();
 		}
-    $conteudo = eregi_replace("<br/>","","$conteudo");	
-    $cont = eregi_replace("<br />","","$conteudo");	
+		function validar() {
+			// Verifica se o campo titulo foi preenchido
+			if (document.edit.titulo.value == "") {
+				alert('O campo Título é de preenchimento obrigatório!');
+				document.edit.titulo.value = "";
+				document.edit.titulo.focus();
+				return false;
+			}
 
+			// Verifica se a textarea de conteudo foi preenchida
+			if (document.edit.cria_conteudo.value == "") {
+				alert('O campo de conteúdo é de preenchimento obrigatório!');
+				document.edit.cria_conteudo.value = "";
+				document.edit.cria_conteudo.focus();
+				return false;
+			}
+			// Verifica se o campo password foi preenchido quando existir senha
+<?php
+			if ($senha) {
+				echo "if (document.edit.passwd.value == \"\") {
+					alert('O campo de password é de preenchimento obrigatório!');
+					document.edit.passwd.value = \"\";
+					document.edit.passwd.focus();
+					return false;
+				}";
+			} else {
+				echo "if (document.edit.passwd.value != document.edit.repasswd.value) {	
+					alert ('As senhas digitadas não coincidem!');
+					document.edit.passwd.focus();
+					return false;
+				}";
+			}
 ?>
-<HEAD>
-<META http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\"/>
-<META content=\"MSHTML 5.50.4134.600\" name=\"GENERATOR\"/>
-<TITLE> Formulário de Edição </TITLE>
-<script language="javascript">
-function Imprime()
-{
-	window.print();  
+		}
+	</script>
+	<link href="coteia.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<a href="mostra.php?ident=<?php echo $ident; ?>">
+	<img src="<?php echo $URL_IMG; ?>/view.png" />
+</a>
+<img src="<?php echo $URL_IMG; ?>/editbw.png" />
+<img src="<?php echo $URL_IMG; ?>/historybw.png" />
+<img src="<?php echo $URL_IMG; ?>/indicebw.png" />
+<img src="<?php echo $URL_IMG; ?>/mapbw.png" />
+<img src="<?php echo $URL_IMG; ?>/changesbw.png" />
+<img src="<?php echo $URL_IMG; ?>/uploadbw.png" />
+<img src="<?php echo $URL_IMG; ?>/searchbw.png" />
+<a href="help.php">
+	<img src="<?php echo $URL_IMG; ?>/help.png" />
+</a>
+<img src="<?php echo $URL_IMG; ?>/chatbw.png" />
+<img src="<?php echo $URL_IMG; ?>/notebw.png" />
+<a href="JavaScript:Imprime()">
+	<img src="<?php echo $URL_IMG; ?>/print.png" />
+</a>
+<br />
+
+<form method="POST" name="edit" ACTION="edit.php" onSubmit="return validar();">
+<div class="lock">
+  Lock
+  <br /><input type="checkbox" name="lock" value="locked" <?php if ($senha) echo CHECKED; ?> />
+
+  <br />Password
+  <br /><input type="password" size="10" name="passwd" onBlur="window.document.create.lock.checked=true;return
+ false;" />
+
+  <br />Re-enter password
+  <br /><input type="password" size="10" name="repasswd" />
+  <br />
+</div>
+ 
+<div class="metadata">
+<table>
+<tr>
+	<td>
+	Título
+	<br /><input type="text" name="titulo" value="<?php echo $tit;?>" SIZE="45" />
+	</td>
+</tr>
+<tr>
+	<td>
+	Autor
+	<br /><input type="text" name="cria_autor" value=<?php echo $autor; ?> size="45" />
+	</td>
+</tr>
+<tr>
+	<td>
+	Palavras-chave:
+	<br />
+	<input type="text" name="key1" size="15" value="<?php echo $kwd1; ?>" />
+	<input type="text" name="key2" size="15" value="<?php echo $kwd1; ?>" />
+	<input type="text" name="key3" size="15" value="<?php echo $kwd1; ?>" />
+	</td>
+</tr>
+</table>
+</div>
+
+<div class="content" >
+	<input type="reset" value="Limpa" />
+	<input type="submit" name="salva" value="Salva" />
+	<br />
+	<textarea name="cria_conteudo" wrap=virtual rows="20" cols="100" style="width: 100%"><?php echo $cont; ?></textarea>
+</div>
+<input type="hidden" name="ident" value="<?php echo $ident; ?>" />
+</form>
+
+</body>
+
+</html>
+<?php
 }
-function validar() {
-
-           // Verifica se o campo titulo foi preenchido
-
-              if (document.edit.titulo.value == "") {
-                  alert('O campo título é de preenchimento obrigatório!')
-                  document.edit.titulo.value = ""
-                  document.edit.titulo.focus();
-                  return false;
-              }
-
-           // Verifica se a textarea de conteudo foi preenchida
-
-              if (document.edit.cria_conteudo.value == "") {
-                  alert('O campo de conteúdo é de preenchimento obrigatório!')
-                  document.edit.cria_conteudo.value = ""
-                  document.edit.cria_conteudo.focus();
-                  return false;
-              }
-
-<? 
-	//Verifica se o campo password foi preenchido qdo existir senha
-
-		if ($senha) echo "if (document.edit.passwd.value == \"\") {
-		alert('O campo de password é de preenchimento obrigatório!')
-		document.edit.passwd.value = \"\"
-		document.edit.passwd.focus();
-		return false;
-		}"; else echo "if (document.edit.passwd.value != document.edit.repasswd.value) {	
-	      alert ('As senhas digitadas não coincidem!');
-              document.edit.passwd.focus();
-	      return false; 
-	      }";
-?>
-}
-</script>
-</HEAD>
-<BODY text=#000000 vLink=#0000cc aLink=#ffff00 link=#cc0000 bgColor=#ffffff>
-		<A href="mostra.php?ident=<?echo $ident?>">
-		<IMG src="<?echo $URL_IMG?>/view.png" border=0></A>
-		<IMG src="<?echo $URL_IMG?>/editbw.png" border=0>
-		<IMG src="<?echo $URL_IMG?>/historybw.png" border=0>
-		<IMG src="<?echo $URL_IMG?>/indicebw.png" border=0>
-		<img src="<?echo $URL_IMG?>/mapbw.png" border="0"/>
-		<IMG src="<?echo $URL_IMG?>/changesbw.png" border=0>
-		<IMG src="<?echo $URL_IMG?>/uploadbw.png" border=0>
-		<IMG src="<?echo $URL_IMG?>/searchbw.png" border=0>
-		<A href="help.php">
-		<IMG src="<?echo $URL_IMG?>/help.png" border=0></A>
-		<IMG src="<?echo $URL_IMG?>/chatbw.png" border=0>
-		<img src="<?echo $URL_IMG?>/notebw.png" border="0"/>
-		<A href="JavaScript:Imprime()">
-		<img src="<?echo $URL_IMG?>/print.png" border="0"/></A>
-<br><br>
-<FORM method="POST" name="edit" ACTION="edit.php" onSubmit="return validar();">
-<table width="760" border="0">
-  <tr bgcolor="FFFFCC">
-      <td><INPUT TYPE="checkbox" name="lock" value="locked" <?if ($senha) echo CHECKED;?>> - <b>Lock</b></td>
-  </tr>
-  <tr bgcolor="FFFFCC">
-      <td><INPUT TYPE="password" size="10" name="passwd" onBlur="window.document.edit.lock.checked=true;return false;"> - Password</td>
-  </tr>
-  <?if (!$senha)  echo "<tr bgcolor=\"FFFFCC\"><td><INPUT TYPE=\"password\" size=\"10\" name=\"repasswd\"> - Reenter Password</td></tr>"
-  ?>
-  <tr><td>
-                <font color="#000055" size="5" align="center">T&iacute;tulo
-                <INPUT TYPE="text" NAME="titulo" VALUE="<?echo $tit ?>" SIZE="45"></font><br><br>   
-        </td></tr>
-  <tr> 
-	  <td>
-		<font color="#000055" size="5" align="center">Autor
-		<INPUT TYPE="text" NAME="cria_autor" VALUE="<?echo $autor?>" SIZE="45"></font><br><br>
-	</td></tr>
-   <tr><td>
-		<font color="#000055" size="5" align="center">Palavras Chave
-		</td></tr><tr><td>
-		<INPUT TYPE="text" NAME="key1" VALUE="<?echo $kwd1?>" SIZE="15">
-		<INPUT TYPE="text" NAME="key2" VALUE="<?echo $kwd2?>" SIZE="15">
-		<INPUT TYPE="text" NAME="key3" VALUE="<?echo $kwd3?>" SIZE="15">
-		</font><br><br>
-	</td></tr>
-  <tr>
-    <td><font color="#000055" size="6" align="center">Conteúdo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="reset" value="Limpa" >&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="submit" name="salva" value="Salva" ></td>
-  </tr>
-  <tr><td> 	
-	<TEXTAREA  NAME="cria_conteudo" type="text" WRAP="virtual" ROWS="20" COLS="100"><?echo $cont?></TEXTAREA></font>
-	<br><br>  
-  </td></tr>
- </table>
-<INPUT TYPE="hidden" name="ident" value="<?echo $ident?>"  >
-</FORM>
-</BODY>
-</HTML>
-<?
-}
-
 ?>

@@ -175,30 +175,7 @@ if ($salva) {
 		return true;
 	}
 	</script>
-	<style type="text/css">
-		div.content {
-			position:relative;
-			text-align: left;
-			border-style:none;
-			margin-top: 3ex;
-			float:left;
-		}
-		div.metadata {
-			position: relative;
-			text-align: left;
-			border-style:none;
-			float: left;
-		}
-		div.lock {
-			position: relative;
-			text-align: right;
-			border-style:none;
-			float: right;
-		}
-		img {
-			border-style:none;
-		}
-	</style>
+	<link href="coteia.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
