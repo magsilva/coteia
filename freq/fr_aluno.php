@@ -6,7 +6,7 @@
 /****************************************************************/
 
 //echo 'curso: '.$curso_id.' id:'.$id;
-include "functions.php";
+include_once( "functions.php" );
 $list = array();
 $list = getAulasOfCurso($curso_id);
 $n = count($list);

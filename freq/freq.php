@@ -6,7 +6,7 @@
 /****************************************************************/
 
 //$curso_id = 4;
-include "functions.php";
+include_once( "functions.php" );
 $numDeAulas = numDeAulas($curso_id);
 $t = $numDeAulas;
 

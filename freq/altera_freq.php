@@ -7,7 +7,7 @@
 /****************************************************************/
 //$curso_id = 4;
 
-include "functions.php";
+include_once( "functions.php" );
 $numDeAulas = numDeAulas($curso_id);
 
 // 2 - Verifique os dados (nome, sigla e semestre) do curso dado o seu id.

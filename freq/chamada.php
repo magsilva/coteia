@@ -7,7 +7,7 @@
 / numa dada aula
 /****************************************************************/
 
-include "functions.php";
+include_once( "functions.php" );
 
 //$curso_id = 4;
 // 1 - Verifique quantas aulas do dado curso foram cadastradas.
