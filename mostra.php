@@ -17,7 +17,7 @@ mysql_select_db($dbname,$dbh);
 
 $sql = mysql_query("SELECT status FROM swiki WHERE id='$id_swiki'");
 $tupla = mysql_fetch_array($sql);
-$status = $tupla[status];
+$status = $tupla[ $status ];
 if ($status == '1') {
 	session_start("login");
 	if( !(session_is_registered("namuser") AND session_is_registered("coduser"))) {

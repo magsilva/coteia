@@ -61,7 +61,7 @@ function ValidaForm()
 	<td><input type="password" name="passwd" size="25" /></td>
 </tr>
 <tr>
-	<td valign="middle">Visibilidade</td>
+	<td valign="middle">Visível</td>
 	<td>
 		<select name="vis">
 			<option value="S" selected>Sim</option>
@@ -121,9 +121,6 @@ function ValidaForm()
 	</td>
 </tr>
 <tr>
-	<td valign="middle">
-		<input type="reset" name="apaga" value="Limpa" />
-	</td>
 	<td>
 		<input type="submit" name="continua" value="Submit"/>
 	</td>
