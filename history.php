@@ -37,8 +37,10 @@ include( "toolbar.php" );
 	<br />
 	<select name="revisao">
 	<?php
-		for ( $i = 0; $i < count( $revision ); $i++ ) {
-//			print "\t<option value=\"$i\">Em $revision[ $i ]</option>\n";
+		foreach ( array_keys( $revisions ) as $revision ) {
+			echo "\t<option value=\"$revision\">";
+			echo $revisions[ $revision ];
+			echo "</option>\n";
 		}
 	?>
 	</select>

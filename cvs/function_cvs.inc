@@ -160,7 +160,8 @@ function cvs_get_revisions( $file ) {
 
 	$output = array();
 	for ( $i = 0; $i < count( $revisions ); $i++ ) {
-		$output[ $revision[ $i ] ] = $dates[ $i ];
+    $dates[ $i ] = str_replace( ";", "", $dates[ $i ] );
+		$output[ $revisions[ $i ] ] = $dates[ $i ];
 	}
 
 	chdir( $old_dir );
