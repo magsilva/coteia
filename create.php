@@ -12,79 +12,96 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 		include( "erro.php" );
 	}
 
+	// We need these vars sometimes, so let's keep it ready for using.
+	$wikipage_index = $_REQUEST[ "index" ];
+	if ( get_magic_quotes_gpc() == 1 ) {
+		$wikipage_index = stripslashes(	$wikipage_index );
+	}
+	$wikipage_index_db = mysql_escape_string(	$wikipage_index );
+
+
 	/**
 	* Avoid the duplication of index for a given wikipage within it's home swiki.
+	* This should be at server side, with index as secundary key.
 	*/
-	$query = "select count(*) as counter from paginas where indexador='" . 
-		$_REQUEST[ "index" ] . "' and ( ident like '$id_swiki.%' or ident='$id_swiki' )";
+	$query = "select count(*) as counter from paginas where indexador='$wikipage_index_db' and ( ident like '$id_swiki.%' or ident='$id_swiki' )";
 	$result = mysql_query( $query, $dbh );
 	$tuple = mysql_fetch_array( $result );
 	if ( intval( $tuple[ "counter" ] ) > 0 ) {
 		$st = 0;
 		include("erro.php");
 	}
+	mysql_free_result( $result );
 
+	// Prepare data for xml processing.
 	$wikipage_web = prepare_for_web( $_REQUEST[ "index" ], $_REQUEST[ "content" ], $_REQUEST[ "title" ], $_REQUEST[ "author" ], $_REQUEST[ "keyword" ] );
+	$wikipage_web[ "id_swiki" ] = $id_swiki;
+	$wikipage_web[ "ident" ] = $_REQUEST[ "ident" ];
 
+	// Prepare annotations.
 	if ( match_empty_tag( $wikipage[ "content" ], "note" ) ) {
 		$wikipage[ "content" ] = note( $wikipage[ "content" ] ) ;
 	}
 
+	// Prepare wikilinks.
 	if ( match_start_tag( $wikipage[ "content" ], "lnk" ) ) {
 		$wikipage[ "content" ] = link_interno( $wikipage[ "ident" ], $wikipage[ "content" ], $dbh );
 	}
 
-	$wikipage_db = prepare_for_db( $_REQUEST[ "index" ], $_REQUEST[ "content" ], $_REQUEST[ "title" ], $_REQUEST[ "author" ], $_REQUEST[ "keyword" ] );
-
+	// Prepare backtrack references.
 	if ( strpos( $id_swiki, "." ) != false ) {
+		// If the wikipage isn't the swiki's main page.
 		$i = 0;
-		$query_swiki = mysql_query( "select ident,titulo from paginas where ( ident like '$id_swiki.%' or ident='$id_swiki' ) and ( conteudo like '%" . $_REQUEST[ "$index" ]%" . ')", $dbh );
+		$query_swiki = mysql_query( "select ident,titulo from paginas where ( ident like '$id_swiki.%' or ident='$id_swiki' ) and conteudo like '%$wikipage_index_db%'", $dbh );
 		while ( $tuple = mysql_fetch_array( $query_swiki ) ) {
-			if ( match_tag( $tuple[ "titulo" ], "lnk", $_REQUEST[ "$index" ] ) ) {
+			if ( match_tag( $tuple[ "titulo" ], "lnk", $wikipage_index ) ) {
 				$linksto_id[$i] = $tuple[ "ident" ];
-				$linksto_titulo[$i] = $tuple[ "titulo" ];
+				$linksto_title[$i] = $tuple[ "titulo" ];
 				$i++;
 			}
 		}
+		mysql_free_result( $query_swiki );
 	} else {
+		// Else the wikipage is the swiki's main page.
 		$linksto_id[0] = "0";
-		$linksto_titulo[0] = "Lista de Swikis";
+		$linksto_title[0] = "Lista de Swikis";
 	}
 
 	$links = "";
 	$i = 0;
   if ( $linksto_id[0] == "0" ) {
-    $links = $links . "<ref id=\"index.php\">$linksto_titulo[0]</ref>\n";
+    $links = $links . "<ref id=\"index.php\">$linksto_title[0]</ref>\n";
 		$i++;
 	}
 	for ( ; $i < count( $linksto_id ); $i++ ) {
-		$links = $links . "<ref id=\"mostra.php?ident=$linksto_id[$i]\">$linksto_titulo[$i]</ref>\n";
+		$links = $links . "<ref id=\"mostra.php?ident=$linksto_id[$i]\">$linksto_title[$i]</ref>\n";
 	}
 	$wikipage_web[ "links" ] = $links;
 
-	// Verifica travamento da pagina
+	// Prepare page's locking mechanism.
 	if ( $_REQUEST[ "lock" ] == "locked" ) {
 		$wikipage_web[ "lock" ] = true;
 	} else {
 		$wikipage_web[ "lock" ] = "false";
 	}
 
-	$wikipage_web[ "id_swiki" ] = $id_swiki;
-	$wikipage_web[ "ident" ] = $_REQUEST[ "ident" ];
-	
-	$path_xml = $PATH_XML;
-	$arq_xsl = $PATH_XSL;
-	$path_html = $PATH_XHTML;
-
+	// Augment page with data for CoTeia's third-party components.
 	$query_extra = mysql_query( "select id_ann, id_chat, id_eclass from swiki where id='$id_swiki'" );
  	$result = mysql_fetch_array( $query_extra );
  	$wikipage_web[ "annotation "] = $result[ "id_ann"];
  	$wikipage_web[ "chat" ]  = $result[ "id_chat" ];
 	$wikipage_web[ "eclass" ] = $result[ "id_eclass" ];
+	mysql_free_result( $query_extra );
 
+	// Variables needed for XML transformation.
+	$path_xml = $PATH_XML;
+	$arq_xsl = $PATH_XSL;
+	$path_html = $PATH_XHTML;
 
-
+	// The XML transformation.
 	$result = xml_xsl( $wikipage_web, $path_xml, $path_dtd, $path_xsl, $path_html );
+
+	// Check if everything has gone ok.
 	if ( is_bool( $result ) && $result == TRUE ) {
 		//adiciona arquivo no CVS
 		cvs_add($ident, $CVS_MODULE);
@@ -92,26 +109,35 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 		$nro_ip= getenv("REMOTE_ADDR"); 
 		$d = getdate();
 		$data=$d["year"]."-".$d["mon"]."-".$d["mday"]." ".$d["hours"].":".$d["minutes"].":".$d["seconds"];
-		
+	
+		// Prepare data for database insertion.
+		$wikipage_db = prepare_for_db( $_REQUEST[ "index" ], $_REQUEST[ "content" ], $_REQUEST[ "title" ], $_REQUEST[ "author" ], $_REQUEST[ "keyword" ] );
+
 		if ($wikipage_web[ "lock" ] == true ) {
-			$passwd = "NULL";
+			$wikipage_db[ "password" ] = "NULL";
 		} else {
-			$passwd = "'" . md5( $_REQUEST[ "passwd" ] ) . "'";
+			$wikipage_password = $_REQUEST[ "password" ];
+			if ( get_magic_quotes_gpc() == 1 ) {
+				$wikipage_password = stripslashes( $wikipage_password );
+			}
+			$wikipage_db[ "password" ] = md5( $wikipage_password );
 		}
 
-		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip,data_criacao,data_ultversao,pass,kwd1,kwd2,kwd3,autor) values ('$wikipage_db[ident]','$wikipage[index]','$wikipage[title]','$wikipage[content]','$nro_ip','$data','$data',$passwd,'$wikipage_db[keyword1]','$wikipage_db[keyword2]','$wikipage_db[keyword3]','$wikipage_db[autor]')";
+		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip,data_criacao,data_ultversao,pass,kwd1,kwd2,kwd3,autor) values ('$wikipage_db[ident]','$wikipage[index]','$wikipage[title]','$wikipage[content]','$nro_ip','$data','$data',$wikipage_db[password],'$wikipage_db[keyword1]','$wikipage_db[keyword2]','$wikipage_db[keyword3]','$wikipage_db[author]')";
 		$sql = mysql_query( $query, $dbh );
 		if ( $sql == false ) {
 			$st = 0;
 			include( "erro.php" );
 		}
+		mysql_free_result( $sql );
 
- 		$query = "insert into gets (id_pag,id_sw,data) values ('$wikipage_db[ident]','$id_swiki','$data')" or die ("Falha ao inserir no Banco de Dados");
+ 		$query = "insert into gets (id_pag,id_sw,data) values ('$wikipage_db[ident]','$id_swiki','$data')";
 		$sql = mysql_query( $query, $dbh );
 		if ( $sql == false ) {
 			$st = 0;
 			include( "erro.php" );
 		}
+		mysql_free_result( $sql );
 	} else {
 		// The XML transformation didn't work.
 		$st = 2;
@@ -119,11 +145,15 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 	}
 
 	foreach ( $linksto_id as $ident_pai ) {
-		include( "atualiza.php" );
+		include( "atualiza.inc" );
 	}
 
 	header("Location:mostra.php?ident=$wikipage[ident]");
 } else {
+	$wikipage_index = $_REQUEST[ "index" ];
+	if ( get_magic_quotes_gpc() == 1 ) {
+		$wikipage_index = stripslashes( $wikipage_index );
+	}
 ?>
 <html>
 
@@ -147,10 +177,10 @@ include( "toolbar.php" );
 	<br /><input type="checkbox" name="lock" value="locked" />
 
 	<br />Password
-	<br /><input type="password" size="10" name="passwd" onChange="window.document.create.lock.checked=true;return false;" />
+	<br /><input type="password" size="10" name="password" onChange="window.document.create.lock.checked=true;return false;" />
 
 	<br />Re-enter password
-	<br /><input type="password" size="10" name="repasswd" onChange="window.document.create.lock.checked=true;return false;" />
+	<br /><input type="password" size="10" name="repassword" onChange="window.document.create.lock.checked=true;return false;" />
 	<br />
 </div>
 
@@ -159,7 +189,7 @@ include( "toolbar.php" );
 <tr>
 	<td>
 		Título
-		<br /><input type="text" name="title" value="<?php echo $_REQUEST[ "index" ]; ?>" size="45" />
+		<br /><input type="text" name="title" value="<?php $wikipage_index; ?>" size="45" />
 	</td>
 </tr>
 <tr>
