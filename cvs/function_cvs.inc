@@ -7,11 +7,11 @@
 //caminho completo do arquivo 
 $PATH_FILES = "/var/www/html/coweb/files/";
 //IP do servidor
-$host = "143.107.231.206";
+$host = "";
 //caminho do repositorio no servidor
-$caminho_repositorio = "/usr/local/coweb";
+$caminho_repositorio = "";
 //username no repositorio
-$username = "anonymous";
+$username = "";
 //caminho dos arquivos para checkout
 $parent = "/coteia/";
 

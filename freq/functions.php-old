@@ -6,16 +6,10 @@
 /****************************************************************/
 
 // Para a conexão com a BD
-$ce_dbhost  = "catuaba.icmc.usp.br";
-
-//teste
-//$ce_dbname   = "eclassDB_Teste";
-//$ce_dbuser = "cizeki";
-//$ce_dbpword = "wfpcujvb";
-
-$ce_dbname  = "eclassDB";
-$ce_dbuser  = "eclass";
-$ce_dbpword = "qazxcde";
+$ce_dbhost  = "";
+$ce_dbname  = "";
+$ce_dbuser  = "";
+$ce_dbpword = "";
 
 // responsável pela conexão com a BD
 function dbConnection(){

@@ -5,22 +5,22 @@
  ****************************************************************************/
 
 // especificacoes da base de dados
-$dbhost = "localhost";
-$dbname = "cowebBD";
-$dbuser = "coweb";
-$dbpass = "coweb";
+$dbhost = "";
+$dbname = "";
+$dbuser = "";
+$dbpass = "";
 
 // especificacoes da base de dados das anotacoes
-$anota_dbhost = "coweb.icmc.usp.br";
-$anota_dbname   = "groupnote";
-$anota_dbuser = "groupnote";
-$anota_dbpword = "groupnote";
+$anota_dbhost = "";
+$anota_dbname   = "";
+$anota_dbuser = "";
+$anota_dbpword = "";
 
 // especificacoes da base de dados de usuarios
-$user_dbhost = "coweb.icmc.usp.br";
-$user_dbname   = "users";
-$user_dbuser = "users";
-$user_dbpword = "users";
+$user_dbhost = "";
+$user_dbname   = "";
+$user_dbuser = "";
+$user_dbpword = "";
 
 //constantes
 
@@ -29,8 +29,8 @@ $PATH_ARQUIVOS = "/var/www/html/coweb/files";
 //LINUX:ex. de $PATH_ARQUIVOS = "/xxx/files"
 $URL_SERVER = "http://coweb.icmc.usp.br/";
 //ex. de $URL_SERVER = "http://coweb.icmc.usp.br/"
-$ADMIN = "credajun@icmc.usp.br";
-//ex. de $ADMIN = "credajun@icmc.usp.br"
+$ADMIN = "";
+//ex. de $ADMIN = "johndoo@somewhere.com"
 $PATH_IMG = "/coweb/imagem";
 //WIN:ex. de $PATH_IMG = "imagem" 
 //LINUX:ex. de $PATH_IMG = "/xxx/imagem" 

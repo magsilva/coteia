@@ -6,9 +6,9 @@
 /****************************************************************/
 
 // Para a conexão com a BD
-$DB   = "eclassDB";
-$HOST = "catuaba.icmc.usp.br";
-$USER = "eclass";
-$PASS = "qazxcde";
+$DB   = "";
+$HOST = "";
+$USER = "";
+$PASS = "";
 
 ?>

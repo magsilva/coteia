@@ -5,45 +5,45 @@
  ****************************************************************************/
 
 // especificacoes da base de dados
-$dbhost = "localhost";
-$dbname = "cowebBD";
-$dbuser = "coweb";
-$dbpass = "coweb";
+$dbhost = "";
+$dbname = "";
+$dbuser = "";
+$dbpass = "";
 
 // especificacoes da base de dados do chat
-$cs_dbhost = "catuaba.icmc.sc.usp.br";
-$cs_dbname = "chatserver";
-$cs_dbuser = "cs";
-$cs_dbpword = "tucan0";
+$cs_dbhost = "";
+$cs_dbname = "";
+$cs_dbuser = "";
+$cs_dbpword = "";
 
 // nomes das tabelas
 $cs_session_tbl = "session";
 
 // especificacoes da base de dados das anotacoes
-$anota_dbhost = "coweb.icmc.usp.br";
-$anota_dbname   = "groupnote";
-$anota_dbuser = "groupnote";
-$anota_dbpword = "groupnote";
+$anota_dbhost = "";
+$anota_dbname   = "";
+$anota_dbuser = "";
+$anota_dbpword = "";
 
 // especificacoes da base de dados de usuarios
-$user_dbhost = "coweb.icmc.usp.br";
-$user_dbname   = "users";
-$user_dbuser = "users";
-$user_dbpword = "users";
+$user_dbhost = "";
+$user_dbname   = "";
+$user_dbuser = "";
+$user_dbpword = "";
 
 // especificacoes da base de dados de cursos do eclass
-$ce_dbhost = "catuaba.icmc.usp.br";
-$ce_dbname = "eclassDB";
-$ce_dbuser = "eclass";
-$ce_dbpword = "qazxcde";
+$ce_dbhost = "";
+$ce_dbname = "";
+$ce_dbuser = "";
+$ce_dbpword = "";
 
 //constantes
 
 $URL_SERVER = "http://coweb.icmc.usp.br/coweb/";
 //ex. de $URL_SERVER = "http://localhost/coteia/";
-$ADMIN = "Carlos Arruda Junior";
+$ADMIN = "";
 //ex. de $ADMIN = "Carlos Arruda Junior";
-$ADMIN_MAIL = "credajun@icmc.usp.br";
+$ADMIN_MAIL = "";
 //ex. de $ADMIN_MAIL = "credajun@icmc.usp.br";
 $PATH_IMG = "/coweb/imagem";
 //ex. de $PATH_IMG = "/coweb/imagem" 
