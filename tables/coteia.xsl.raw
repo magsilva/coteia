@@ -18,6 +18,8 @@
 	<title><xsl:apply-templates select="tit"/></title>
 </head>
 <body>
+
+<div class="toolbar">
 	<img src="$URL_IMG/viewbw.png" alt="View this Page (disabled)" />
 
 	<xsl:if test="lock='1'">
@@ -54,21 +56,22 @@
 	</a>
 
 	<a href="JavaScript:Imprime()"><img src="$URL_IMG/print.png" alt="GroupNote" /></a>
+</div>
 
-	<h2><xsl:apply-templates select="tit"/></h2>
+<h2><xsl:apply-templates select="tit"/></h2>
 
-	<xsl:for-each select="bdy">
-		<p><xsl:apply-templates select="."/></p>
-	</xsl:for-each>
+<xsl:for-each select="bdy">
+	<p><xsl:apply-templates select="."/></p>
+</xsl:for-each>
 
-	<br/>
-	<hr/>
-	<p><b>Referenciam este documento: </b></p>
-	<ul>
-	<xsl:for-each select="ref">
-		<li><xsl:apply-templates select="."/></li>
-	</xsl:for-each>
-	</ul>
+<br/>
+<hr/>
+<p><b>Referenciam este documento: </b></p>
+<ul>
+<xsl:for-each select="ref">
+	<li><xsl:apply-templates select="."/></li>
+</xsl:for-each>
+</ul>
 </body>
 </xsl:template>
 

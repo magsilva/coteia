@@ -1,5 +1,14 @@
-<?
+<html>
 
+<head>
+	<title>Upload - CoTeia</title>
+	<script type="text/javascript" src="coteia.js"></script>
+	<link href="coteia.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<?php
 include_once("function.inc");
 
 $dbh = db_connect();
@@ -9,7 +18,7 @@ mysql_select_db($dbname,$dbh);
 
 $ok = 0;
 if ( $act == "upload" ) {
-	if ( is_uploaded_file($_FILES['uploads']['tmp_name'] ) {
+	if ( is_uploaded_file($_FILES['uploads']['tmp_name'] ) ) {
 		$realname = $_FILES['uploads']['name'];
 		$path = $coursename . "/" . $realname;
 		if ( file_exists( $path ) ) {
@@ -37,15 +46,6 @@ $tupla1 = mysql_fetch_array($sql_swiki1);
 $titulo = $tupla1[titulo];
 
 ?>
-<html>
-
-<head>
-	<title>Upload - CoTeia</title>
-	<script type="text/javascript" src="coteia.js"></script>
-	<link href="coteia.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
 
 <table width="70%" bgcolor="#E1F0FF" bordercolor="#C0C0C0" align="center" border="1">
 <tr>
@@ -86,7 +86,7 @@ $titulo = $tupla1[titulo];
 			?>
 			</select>
 			<br />
-			<input type="button" name="abrir_arquivo" value="Abrir arquivo" OnClick="AbreArq();" />
+			<input type="button" name="abrir_arquivo" value="Abrir arquivo" onClick="return AbreArq(document.checkout.lista_arquivos);" />
 			</form>
 		</div>
 	</td>
