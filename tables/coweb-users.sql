@@ -1,13 +1,3 @@
--- MySQL dump 8.23
---
--- Host: coweb.icmc.usp.br    Database: users
----------------------------------------------------------
--- Server version	3.23.58
-
---
--- Table structure for table `t_group`
---
-
 CREATE TABLE t_group (
   id int(11) NOT NULL auto_increment,
   name varchar(40) NOT NULL default '',
@@ -15,10 +5,6 @@ CREATE TABLE t_group (
   modification_datetime datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (id)
 ) TYPE=MyISAM;
-
---
--- Table structure for table `t_user`
---
 
 CREATE TABLE t_user (
   id int(11) NOT NULL auto_increment,
@@ -43,12 +29,3 @@ CREATE TABLE t_user_group (
   creation_datetime datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (id_group,id_user)
 ) TYPE=MyISAM;
-
---
--- Table structure for table `teste`
---
-
-CREATE TABLE teste (
-  id int(11) default NULL
-) TYPE=MyISAM;
-

@@ -1,13 +1,3 @@
--- MySQL dump 8.23
---
--- Host: catuaba.icmc.usp.br    Database: eclassDB
----------------------------------------------------------
--- Server version	3.23.56
-
---
--- Table structure for table `aluno`
---
-
 CREATE TABLE aluno (
   aluno_id char(16) NOT NULL default '',
   nome char(60) NOT NULL default '',
@@ -15,20 +5,12 @@ CREATE TABLE aluno (
   PRIMARY KEY  (aluno_id)
 ) TYPE=MyISAM;
 
---
--- Table structure for table `assiste`
---
-
 CREATE TABLE assiste (
   aula_id int(11) default NULL,
   aluno_id char(16) default NULL,
   assistiu char(3) default NULL,
   UNIQUE KEY assiste (aula_id,aluno_id)
 ) TYPE=MyISAM;
-
---
--- Table structure for table `aula`
---
 
 CREATE TABLE aula (
   aula_id int(11) NOT NULL auto_increment,
@@ -40,10 +22,6 @@ CREATE TABLE aula (
   PRIMARY KEY  (aula_id)
 ) TYPE=MyISAM;
 
---
--- Table structure for table `aula_coteia`
---
-
 CREATE TABLE aula_coteia (
   aula_id int(11) NOT NULL auto_increment,
   curso_id int(11) default NULL,
@@ -52,19 +30,11 @@ CREATE TABLE aula_coteia (
   PRIMARY KEY  (aula_id)
 ) TYPE=MyISAM;
 
---
--- Table structure for table `cursa`
---
-
 CREATE TABLE cursa (
   curso_id int(11) default NULL,
   aluno_id char(16) default NULL,
   UNIQUE KEY cursa (curso_id,aluno_id)
 ) TYPE=MyISAM;
-
---
--- Table structure for table `curso`
---
 
 CREATE TABLE curso (
   curso_id int(11) NOT NULL auto_increment,
@@ -79,19 +49,11 @@ CREATE TABLE curso (
   PRIMARY KEY  (curso_id)
 ) TYPE=MyISAM;
 
---
--- Table structure for table `diaSemana`
---
-
 CREATE TABLE diaSemana (
   id int(11) NOT NULL auto_increment,
   diaSemana varchar(20) NOT NULL default '',
   PRIMARY KEY  (id)
 ) TYPE=MyISAM;
-
---
--- Table structure for table `duracao`
---
 
 CREATE TABLE duracao (
   id int(11) NOT NULL auto_increment,
@@ -99,19 +61,11 @@ CREATE TABLE duracao (
   PRIMARY KEY  (id)
 ) TYPE=MyISAM;
 
---
--- Table structure for table `horario`
---
-
 CREATE TABLE horario (
   id int(11) NOT NULL auto_increment,
   horario time NOT NULL default '00:00:00',
   PRIMARY KEY  (id)
 ) TYPE=MyISAM;
-
---
--- Table structure for table `ministra`
---
 
 CREATE TABLE ministra (
   aula_id int(11) default NULL,
@@ -119,19 +73,11 @@ CREATE TABLE ministra (
   UNIQUE KEY ministra (aula_id,user_id)
 ) TYPE=MyISAM;
 
---
--- Table structure for table `profMinistraCurso`
---
-
 CREATE TABLE profMinistraCurso (
   prof_id varchar(16) NOT NULL default '',
   curso_id int(11) NOT NULL default '0',
   PRIMARY KEY  (prof_id,curso_id)
 ) TYPE=MyISAM;
-
---
--- Table structure for table `professor`
---
 
 CREATE TABLE professor (
   user_id char(16) NOT NULL default '',
@@ -140,19 +86,11 @@ CREATE TABLE professor (
   PRIMARY KEY  (user_id)
 ) TYPE=MyISAM;
 
---
--- Table structure for table `sala`
---
-
 CREATE TABLE sala (
   id int(11) NOT NULL auto_increment,
   sala varchar(10) NOT NULL default '',
   PRIMARY KEY  (id)
 ) TYPE=MyISAM;
-
---
--- Table structure for table `whenWhereDoCurso`
---
 
 CREATE TABLE whenWhereDoCurso (
   curso_id int(11) NOT NULL default '0',
@@ -161,4 +99,3 @@ CREATE TABLE whenWhereDoCurso (
   horario_id int(11) default NULL,
   duracao_id int(11) default NULL
 ) TYPE=MyISAM;
-
