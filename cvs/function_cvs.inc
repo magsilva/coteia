@@ -2,52 +2,27 @@
 
 include_once( "config.php.inc" );
 
-/*
- * NOME:	        update_cvs
- * DESCRICAO:		-- 
- * PAR. ENTRADA:	--
- * PAR. SAIDA:		--
- * RETORNO:		--
- * OBSERVACOES:		
- */
-function update_cvs($id, $ModuloCheckout) {
-	global $PATH_ARQUIVOS, $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME;
+/**
+* Check if the repository has been checked out. If not, do it now.
+*/
+function cvs_check( $module ) {
+	global $CVS_CHECKOUT_DIR;
 
-	//arquivo a ser feito checkout
-	$arquivo = $id . ".html";
+	$old_dir = getcwd();
+	chdir( $CVS_CHECKOUT_DIR );
 
-	//caminho completo do arquivo a ser feito checkout
-	$path_arquivo = $PATH_ARQUIVOS . "/" . $arquivo;
-
-	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . "/" . $CVS_REPOSITORY;
-
-	// para adicionar um arquivo ao repositorio, deve-se primeiro fazer um checkout do local onde
-	// sera armazenado este arquivo. Para isso, eh utilizado um diretorio na maquina local. Podemos
-	// fazer uma pequena rotina pra verificar se o diretorio existe e para cria-lo automaticamente.
-	// Posteriormente ele deve ser excluido.
-	$caminho = cria_dir( "coteia" );
-	chdir( $caminho );
-
-	$comando_checkout = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " checkout " . $ModuloCheckout;
-	exec($comando_checkout);
-
-	$caminho_checkout = $caminho . "/" . $ModuloCheckout;
-	chdir( $caminho );
-
-	//coloca o arquivo salvo (ou do qual foi feito um upload) dentro do diretorio de trabalho
-	copy( $path_arquivo, $caminho_checkout );
-
-        // Faz commit do arquivo
-        exec( "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " commit -m \"\" " . $arquivo );
-
-	apaga_dir($caminho);
-
+	if ( !is_file( $CVS_CHECKOUT_DIR . "/CVS" ) {
+		cvs_checkout_module( $module );
+	}
+		
+	chdir( $old_dir );
 	return true;
 }
 
 /*
- */
-function add_cvs( $ident, $ModuloCheckout ) {
+* Update a file.
+*/
+function cvs_update( $id, $module ) {
 	global $PATH_ARQUIVOS, $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME, $CVS_CHECKOUT_DIR;
 
 	// Arquivo a ser feito checkout.
@@ -56,13 +31,39 @@ function add_cvs( $ident, $ModuloCheckout ) {
 	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . "/" .  $CVS_REPOSITORY;
 	$cvs_cmdline = "";
 	$old_dir = getcwd();
+
+	cvs_check( $module );
 	chdir( $CVS_CHECKOUT_DIR . "/" $ModuloCheckout );
 
-	// Normalmente isto seria desnecessário, o reposítorio não deveria ter tal arquivo.
 	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " update " . basename( $arquivo );
-
 	exec( $cvs_cmdline );
 
+	// Adiciona o arquivo ao repositório.
+	copy( $path_arquivo, "." );
+
+	// Faz commit do arquivo no repositório.
+	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " commit -m \"\" " . basename( $arquivo );
+	exec( $cvs_cmdline );
+
+	chdir( $old_dir );
+	return true;
+}
+
+/*
+* Add a new file to the CVS repository.
+*/
+function cvs_add( $id, $module ) {
+	global $PATH_ARQUIVOS, $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME, $CVS_CHECKOUT_DIR;
+
+	// Arquivo a ser feito checkout.
+	$arquivo = $PATH_ARQUIVOS . "/" . $id . ".html";
+
+	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . "/" .  $CVS_REPOSITORY;
+	$cvs_cmdline = "";
+	$old_dir = getcwd();
+
+	cvs_check( $module );
+	chdir( $CVS_CHECKOUT_DIR . "/" $module );
 
 	// Adiciona o arquivo ao repositório.
 	copy( $path_arquivo, "." );
@@ -79,18 +80,41 @@ function add_cvs( $ident, $ModuloCheckout ) {
 }
 
 /*
- * NOME:	        cria_dir
- * DESCRICAO:		-- 
- * PAR. ENTRADA:	--
- * PAR. SAIDA:		--
- * RETORNO:		--
- * OBSERVACOES:		
- */
-function cria_dir($diretorio) {
-	$nomedir = tempnam($diretorio, "cvs");
-	exec("rm -rf $nomedir");
-	mkdir($nomedir,0700);
-	return ($nomedir);
+* Checkout the entire code.
+*/
+function cvs_checkout_module( $module ) {
+	global $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME, $CVS_CHECKOUT_DIR;
+
+	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . "/" .  $CVS_REPOSITORY;
+	$cvs_cmdline = "";
+	$old_dir = getcwd();
+	chdir( $CVS_CHECKOUT_DIR );
+
+	// Normalmente isto seria desnecessário, o reposítorio não deveria ter tal arquivo.
+	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " checkout " . $module;
+	exec( $cvs_cmdline );
+
+	chdir( $old_dir );
+	return true;
+}
+
+/**
+* Update the entire code.
+*/
+function cvs_update_module( $module ) {
+	global $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME, $CVS_CHECKOUT_DIR;
+
+	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . "/" .  $CVS_REPOSITORY;
+	$cvs_cmdline = "";
+	$old_dir = getcwd();
+	chdir( $CVS_CHECKOUT_DIR );
+
+	// Normalmente isto seria desnecessário, o reposítorio não deveria ter tal arquivo.
+	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " update " . $module;
+	exec( $cvs_cmdline );
+
+	chdir( $old_dir );
+	return true;
 }
 
 ?>
