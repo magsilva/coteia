@@ -124,7 +124,7 @@ if ( $salva ) {
 	$eclass = "<id_eclass>" . $result["id_eclass"] . "</id_eclass>";
 
 	$result = xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body);
-	if ( $result == TRUE ) {
+	if ( is_bool( $result ) && $result  == TRUE ) {
 		//atualiza arquivo no CVS
 		cvs_update($ident, $CVS_MODULE);
 
@@ -143,7 +143,6 @@ if ( $salva ) {
 	} else {
 		// Could not apply the XT, log the error.
 		$st = 2;
-		$error_message = $result;
 		include("erro.php");
 		exit();
 	}

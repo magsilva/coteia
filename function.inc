@@ -1027,9 +1027,9 @@ function arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml) {
 	fclose( $fp );
 
 	// Uso do XT = [path_java] -classpath [classpath_xt] com.jclark.xsl.sax.Driver [xml] [xsl] [html]
-	$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver  com.jclark.xsl.sax.Driver $arq_xml $arq_xsl $path_html/$id.html";
+	$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver  com.jclark.xsl.sax.Driver $arq_xml $arq_xsl $path_html/$id.html 2>&1";
 	exec( $cmd_line, $var_array, $status );
-	if ( is_null( $var_array ) {
+	if ( empty( $var_array ) ) {
 		return $status;
 	} else {
 		return $var_array;

@@ -31,13 +31,12 @@ fclose( $fp );
 
 <?php
 include( "toolbar.php" );
+
+if ($st == 2) {
 ?>
 
-<div align="center">
-<?php
-	if ($st == 2) {
-?>
-<p>Falha na estrutura XML</p>
+<h2>Falha na estrutura XML</h2>
+
 <p>Lembre-se: <b>Sempre</b> utilize XML bem-formado, com elementos válidos.</p>
 <p>As tags (marcações) podem estar incorretas quanto a:</p
 <ul>
@@ -45,30 +44,39 @@ include( "toolbar.php" );
 	<li>aninhamento (não é permitido o uso de tags aninhadas).</li>
 </ul>
 <br />
-<p><strong><a href="javascript:history.go(-1)">Voltar</a></strong></p>
+<p>Detalhamento dos erros encontrados:</p>
+<div align="center">
+<div style="background-color: #FEFBA7; border-width: 1; border-color: black; border-style: solid; width: 60%">
 <?php
-	} else {
+foreach ( $result as $error_message ) {
+	echo "\n", $error_message, "<br />";
+}
 ?>
-<p>Falha na estrutura de edição/criação de documentos CoTeia!</p>
-<p><b>Possíveis problemas:</b></p>
+</div>
+</div>
+
+<?php
+} else {
+?>
+<h2>Falha na estrutura de edição/criação de wikipage</h2>
+
+<p>Possíveis problemas:</p>
 <ul>
 	<li>Identificador inválido</li>
-	<li>Página existente (não pode ser recriada)</li>
+	<li>Página já existente (e que não pode ser recriada)</li>
 </ul>
 
-<br />
-<hr />
-<p>Erros encontrados:</p>
-<?php echo $error_message; ?>
+<?php
+}
+?>
+
 
 <br />
-<p><strong><a href="javascript:history.go(-1)">Voltar</a></strong></p>
-
+<br />
+<div align="center">
+	<p><strong><a href="javascript:history.go(-1)">Voltar</a></strong></p>
 </div>
 
 </body>
 
 </html>
-<?php
-}
-?>

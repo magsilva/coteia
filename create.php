@@ -120,7 +120,6 @@ if ($salva) {
 	} else {
 		//nao criou arquivo fisico >> erro 
 		$st = 2;
-		$error_message = $result;
 		include("erro.php" );
 		exit();
 	}
