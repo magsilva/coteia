@@ -1,5 +1,5 @@
 USE mysql;
-insert into user (host,user,password) values ('$HOST_COWEB','$user_dbuser', PASSWORD('$user_dbpword'));
+insert into user (host,user,password) values ('%','$user_dbuser', PASSWORD('$user_dbpword'));
 insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('%','$user_dbname','$user_dbuser','Y','Y','Y','Y','Y');
 FLUSH PRIVILEGES;
 
