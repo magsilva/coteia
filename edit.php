@@ -163,8 +163,6 @@ while ($tupla = mysql_fetch_array($sql)) {
 	$tit = $tupla[ "titulo" ];
 	$senha = $tupla[ "pass" ];
 }
-$conteudo = eregi_replace("<br/>","","$conteudo");	
-$cont = eregi_replace("<br />","","$conteudo");	
 
 ?>
 <head>
@@ -219,7 +217,7 @@ include( "toolbar.php" );
 	<input type="reset" value="Limpa" />
 	<input type="submit" name="salva" value="Salva" />
 	<br />
-	<textarea name="cria_conteudo" wrap=virtual rows="20" cols="100" style="width: 100%"><?php echo $cont; ?></textarea>
+	<textarea name="cria_conteudo" wrap=virtual rows="20" cols="100" style="width: 100%"><?php echo $conteudo; ?></textarea>
 </div>
 <input type="hidden" name="ident" value="<?php echo $ident; ?>" />
 </form>
