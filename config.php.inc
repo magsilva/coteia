@@ -49,6 +49,8 @@ $PATH_COWEB = "/var/www/html/coweb";
 $CVS_HOST = "vinho.intermidia.icmc.usp.br";
 // Repositório CVS a ser utilizado (caminho no servidor CVS)
 $CVS_REPOSITORY = "/usr/local/coweb";
+// Nome do módulo.
+$CVS_MODULE = "/coteia";
 // Nome do usuário a ser utilizado
 $CVS_USERNAME = "anonymous";
 // Senha do usuário do CVS

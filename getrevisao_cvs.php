@@ -1,98 +1,92 @@
-<HTML>
-<HEAD>
-<TITLE> Historico </TITLE>
-<META http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\"/>
-<META content=\"MSHTML 5.50.4134.600\" name=\"GENERATOR\"/>
-<script language="JavaScript">
-function AbreMapa(id)
-	{
-	window.open('map.php?id='+id,'janelamap','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=520,height=480');
-	}
-function AbreChat(swiki)
-	{
-	window.open('chat.php?swiki='+swiki,'janela_chat','toolbar=no,directories=no,location=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=700,height=500');
-	}
-function Imprime()
-	{
-	window.print();  
-	}
-</script> 
-</HEAD>
-<?
+<html>
+
+<head>
+	<title>Histórico</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+	<script language="JavaScript">
+		function AbreMapa(id)	{
+			window.open('map.php?id='+id,'janelamap','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=520,height=480');
+		}
+		function AbreChat(swiki) {
+			window.open('chat.php?swiki='+swiki,'janela_chat','toolbar=no,directories=no,location=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=700,height=500');
+		}
+		function Imprime() {
+			window.print();
+		}
+	</script> 
+</head>
+
+<?php
 include_once("function.inc");
 include_once("cvs/function_cvs.inc");
 
-        //encontra id_swiki
-        $id_swiki = $ident[0];
-                         
-        if ($ident[1]!="."){
-                $id_swiki = $ident[0].$ident[1];
-	}
-?>  
-<BODY text=#000000 vLink=#0000cc aLink=#ffff00 link=#cc0000 bgColor=#ffffff>
-		<A href="mostra.php?ident=<?echo $ident?>">
-		<IMG src="<?echo $URL_IMG?>/view.png" border=0></A>
-		<IMG src="<?echo $URL_IMG?>/editbw.png" border=0>
-                <A href="history.php?ident=<?echo $ident?>">
-		<IMG src="<?echo $URL_IMG?>/history.png" border=0></A>
-		<A href="mostra.php?ident=<?echo $id_swiki?>">
-		<IMG src="<?echo $URL_IMG?>/indice.png" border=0></A>
-		<A href="JavaScript:AbreMapa(<?echo $id_swiki?>)">
-	        <img src="<?echo $URL_IMG?>/map.png" border="0"/></A>
-		<A href="changes.php?ident=<?echo $ident?>">
-		<IMG src="<?echo $URL_IMG?>/changes.png" border=0></A>
-                <A href="upload.php?ident=<?echo $ident?>">
-		<IMG src="<?echo $URL_IMG?>/upload.png" border=0></A>
-		<A href="search.php?ident=<?echo $ident?>">
-		<IMG src="<?echo $URL_IMG?>/search.png" border=0></A>
-		<A href="help.php">
-		<IMG src="<?echo $URL_IMG?>/help.png" border=0></A>
-		<A href="JavaScript:AbreChat(<?echo $id_swiki?>)">
-		<img src="<?echo $URL_IMG?>/chat.png" border="0"/></A>
-		<img src="<?echo $URL_IMG?>/notebw.png" border="0"/>
-		<A href="JavaScript:Imprime()">
-		<img src="<?echo $URL_IMG?>/print.png" border="0"/></A>
-<br><br>
-<?
-
+//encontra id_swiki
+$id_swiki = $ident[0];
+if ($ident[1] != ".") {
+	$id_swiki = $ident[0] . $ident[1];
+}
+?>
+<body>
+		<a href="mostra.php?ident=<?php echo $ident; ?>">
+			<img src="<?php echo $URL_img?>/view.png" />
+		</a>
+		<img src="<?php echo $URL_img?>/editbw.png" />
+		<a href="history.php?ident=<?php echo $ident?>">
+			<img src="<?php echo $URL_img?>/history.png" />
+		</a>
+		<a href="mostra.php?ident=<?php echo $id_swiki?>">
+			<img src="<?php echo $URL_img?>/indice.png" />
+		</a>
+		<a href="JavaScript:AbreMapa(<?php echo $id_swiki?>)">
+			<img src="<?php echo $URL_img?>/map.png" />
+		</a>
+		<a href="changes.php?ident=<?php echo $ident?>">
+			<img src="<?php echo $URL_img?>/changes.png" />
+		</a>
+		<a href="upload.php?ident=<?php echo $ident?>">
+			<img src="<?php echo $URL_img?>/upload.png" />
+		</a>
+		<a href="search.php?ident=<?php echo $ident?>">
+			<img src="<?php echo $URL_img?>/search.png" />
+		</a>
+		<a href="help.php">
+			<img src="<?php echo $URL_img?>/help.png" />
+		</a>
+		<a href="JavaScript:AbreChat(<?php echo $id_swiki?>)">
+			<img src="<?php echo $URL_img?>/chat.png" />
+		</a>
+		<img src="<?php echo $URL_img?>/notebw.png" />
+		<a href="JavaScript:Imprime()">
+			<img src="<?php echo $URL_img?>/print.png"/>
+		</a>
+<br />
+<?php 
 //variaveis que devem vir de outro script
 $ident = $HTTP_POST_VARS["ident"];
 $comparar = $HTTP_POST_VARS["compara"];
 
-//arquivo a ser feito checkout
-$arquivo = $ident.".html";
-
-//nro da revisao
+$arquivo = $ident . ".html";
 $revisao = $HTTP_POST_VARS["revisao"];
-
-$ModuloCheckout = "html/";
-
-$username = "anonymous";
+$ModuloCheckout = $CVS_MODULE;
+$username = $CVS_USERNAME;
 
 // checar se o usuario selecionou uma revisao correta ou se deixou na palavra "historico"
-
 if ($revisao == 0) {
+	echo '<H2>ERRO!</H2><BR/><CENTER>Por favor, selecione uma versão válida na pagina anterior.';
+	echo "</CENTER>";
+} else {
+	// para adicionar um arquivo ao repositorio, deve-se primeiro fazer um checkout do local onde
+	// sera armazenado este arquivo. Para isso, eh utilizado um diretorio na maquina local. Podemos
+	// fazer uma pequena rotina pra verificar se o diretorio existe e para cria-lo automaticamente.
+	// Posteriormente ele deve ser excluido.
+	$caminho = cria_dir($parent);
+	$caminho .= "/"; 
+	chdir($caminho);
 
- echo '<H2>ERRO!</H2><BR><FONT FACE="ARIAL" SIZE="3"><CENTER>Por favor, selecione uma versao valida na pagina anterior.';
- echo "</CENTER>";
+	$caminho_checkout = $caminho.$ModuloCheckout;
 
-}
-
-else {
-
-// para adicionar um arquivo ao repositorio, deve-se primeiro fazer um checkout do local onde
-// sera armazenado este arquivo. Para isso, eh utilizado um diretorio na maquina local. Podemos
-// fazer uma pequena rotina pra verificar se o diretorio existe e para cria-lo automaticamente.
-// Posteriormente ele deve ser excluido.
-
-$caminho = cria_dir($parent);
-$caminho .= "/"; 
-chdir($caminho);
-
-$caminho_checkout = $caminho.$ModuloCheckout;
-
-//observacao: esses comandos tambem podem ser executados com popen
-//coloca o arquivo salvo (ou do qual foi feito um upload) dentro do diretorio de trabalho
+	//observacao: esses comandos tambem podem ser executados com popen
+	//coloca o arquivo salvo (ou do qual foi feito um upload) dentro do diretorio de trabalho
 
 $comando_revisao = "cvs -d :pserver:".$username."@".$host.":".$caminho_repositorio." co -r ".$revisao." ".$ModuloCheckout.$arquivo;
 exec($comando_revisao);
@@ -148,7 +142,7 @@ if ($compara == 1) {
 </TD>
 <TD WIDTH="50%" BGCOLOR="#FFFFFF" VALIGN="top">
 
-<?php
+<?php php
 }
 
 

@@ -152,7 +152,7 @@
 if (xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$cp_xt,$cp_java,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body)==TRUE) {
 
 		//atualiza arquivo no CVS
-                update_cvs($ident,"html/");
+                update_cvs($ident, $CVS_MODULE);
 
 		$nro_ip= getenv("REMOTE_ADDR"); 
 		$d = getdate();

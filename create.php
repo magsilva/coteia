@@ -117,7 +117,7 @@ if ($salva) {
 
 	if (xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body)==TRUE) {
 		//adiciona arquivo no CVS
-                add_cvs($ident,"html/");
+                add_cvs($ident, $CVS_MODULE);
 
 		$nro_ip= getenv("REMOTE_ADDR"); 
 		$d = getdate();
@@ -147,7 +147,7 @@ if ($salva) {
                  
 	        include("atualiza.php");
 		//atualiza pagina pai
-       	        update_cvs($ident_pai,"html/");
+       	        update_cvs($ident_pai, $CVS_MODULE);
        }
 
 	header("Location:mostra.php?ident=$ident");
