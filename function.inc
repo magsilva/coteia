@@ -976,12 +976,12 @@ session_unregister("usermail");
  */
 function replace( $text ) {
 	$replace_vars = array(
-		"&" => "&amp;",
+/*		"&" => "&amp;",
 		"`" => "'",
 		"\"" => "&quot;",
 		"<" => "&lt;",
 		">" => "&gt;"
-	);
+*/	);
 
 	foreach ( $replace_vars as $i => $value ) {
 		$text = eregi_replace( $i, $value, $text );

@@ -119,9 +119,9 @@ if ( $salva ) {
 
 	$query_extra = mysql_query("select id_ann,id_chat,id_eclass from swiki where id=\"$id_swiki\"");
 	$result = mysql_fetch_array($query_extra);
-	$annotation = "<ann_folder>$result[id_ann]</ann_folder>";
-	$chat = "<chat_folder>$result[id_chat]</chat_folder>";
-	$eclass = "<id_eclass>$result[id_eclass]</id_eclass>";
+	$annotation = "<ann_folder>" . $result[ "id_ann" ] . "</ann_folder>";
+	$chat = "<chat_folder>" . $result["id_chat"] . "</chat_folder>";
+	$eclass = "<id_eclass>" . $result["id_eclass"] . "</id_eclass>";
 
 	if (xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body)==TRUE) {
 		//atualiza arquivo no CVS
