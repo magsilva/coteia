@@ -99,7 +99,7 @@ if ($salva) {
 	$eclass = "<id_eclass>$result[id_eclass]</id_eclass>";
 
 	$result = xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body);
-	if ( $result == TRUE ) {
+	if ( is_bool( $result ) && $result == TRUE ) {
 		//adiciona arquivo no CVS
 		cvs_add($ident, $CVS_MODULE);
 
