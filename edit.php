@@ -303,7 +303,4 @@ function validar() {
 <?
 }
 
-page_close(); // simonef
-
-
 ?>
