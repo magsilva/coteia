@@ -1,178 +1,80 @@
 <?php
 /**
+* CoTeia's main page.
+*
+* Show the visible swikis and some usage statistics.
+*
 * Copyright (C) 2001, 2002, 2003 Carlos Roberto E. de Arruda Jr
+* Changed by Marco Aurélio Graciotto Silva (2004).
+*
 * This code is licenced under the GNU General Public License (GPL).
 */
+
+include_once( "function.php.inc" );
+
+echo get_header( _( "CoTeia's Main Page" ) );
 ?>
-
-<?php
-/*
-* Tela inicial da CoTeia, aonde sao mostradas as swikis existentes.
-*/
-include_once("function.inc");
-?>
-
-<html>
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<link rel="Shortcut icon" href="<?php echo $URL_IMG; ?>/logo.ico" />
-	<link href="coteia.css" rel="stylesheet" type="text/css" />
-	<title>CoTeia</title>
-</head>
-
 <body>
 
-<h2>CoTeia</h2>
+<h1><img src="<?php echo $IMAGES_DIR; ?>/logo.png" alt="<?php echo _( "CoTeia - Web Based Collaborative Edition Tool" ); ?>" /> CoTeia</h1>
+<hr align="right" />
+
 <?php
 $today = getdate(); 
-$month = $today['mon']; 
-$mday = $today['mday']; 
 $year = $today['year']; 
-if ($month <= '6') {
+if ( $today['mon'] <= '6') {
 	$semester = 1;
 } else {
 	$semester = 2;
 }
 
-echo "<b>Semestre Atual: $semester&ordm; de $year</b><br /><ul>\n";
+echo "\n<h2>" . sprintf( _( "Current semester: %d of %d" ), $semester, $year ) . "</h2>";
 
-//semestre atual
-$sem_atual = $semester . '_' . $year;
-
-// Conexao com BD
+echo "\n<ul>";
 $dbh = coteia_connect();
-# seleciona base de dados
-$sql = mysql_query("SELECT id,status,titulo,id_chat,admin,admin_mail,visivel FROM swiki where (semestre='$sem_atual' || semestre='T') order by titulo",$dbh);	
-while ($tupla = mysql_fetch_array($sql)) {
-	if ($tupla["visivel"]=='S') {
-		if (!empty($tupla["titulo"])) {
-			$final = $tupla["titulo"];
-		}
-		$session_id = $tupla["id_chat"];
-		$admin = $tupla["admin"];
-		$admail = $tupla["admin_mail"];
-
-		$ident = $tupla["id"];
-		$status = $tupla["status"];
-		$sql_aux = mysql_query("SELECT id_sw FROM gets",$dbh);
+$sem_atual = $semester . '_' . $year;
+$query = "SELECT id,titulo,admin,admin_mail,visivel FROM swiki where (semestre='$sem_atual' || semestre='T') order by titulo";
+$result = mysql_query( $query );
+while ( $tuple = mysql_fetch_array( $result ) ) {
+	if ( $tuple[ "visivel" ] == 'S' ) {
+		$title = $tuple[ "titulo" ];
+		$admin = $tuple[ "admin" ];
+		$email = $tuple[ "admin_mail" ];
+		$wikipage_id = $tuple[ "id" ];
 		
-		//$ident recebe o número de paginas ja criadas na swiki (relacionadas na tabela GETS)
-		$query_cont = "SELECT COUNT(*) as CONTADOR from gets where id_sw='$ident'";
-		$sql_cont = mysql_query("$query_cont",$dbh);
-		$tupla_cont = mysql_fetch_array($sql_cont);
-		$nro_paginas = $tupla_cont["CONTADOR"];
-
-		$token = false;
-		while ( ($tupla_aux = mysql_fetch_array( $sql_aux ) ) && ( $token == false ) ) {
-			$comp = $tupla_aux[ "id_sw" ];
-			if ( $ident == $comp ) {
-				$token=true;
-			}	else {
-				$token=false;
-			}
-		}
-
-		if ($token==true) {
-			if ($status == '1') {
-				echo "\t<li><a href=\"login.php?id=$ident&token=1\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
-			} else {
-				echo "\t<li><a href=\"show.php?ident=$ident\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
-			}
-		} else {
-			$final_url = rawurlencode($final);
-			if ($status == '1') {
-				echo "\t<li>$final<a href=\"login.php?id=$ident&token=0&index=$final_url\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">[create]</a></li>\n";
-			} else {
-				echo "\t<li>$final<a href=\"create.php?ident=$ident&index=$final_url\" onmouseover=\"window.status='$final'; return true\" onmouseout=\"window.status=' '; return true\">[create]</a></li>\n";
-			}
-		}
+		echo "\n\t<li><a href=\"show.php?wikipage_id=$wikipage_id\">$title</a>";
+		echo _( " (Admin: " ) . "<a href=\"mailto:$email\">$admin</a>)</li>";
 	}
 }
+mysql_free_result( $result );
+echo "\n</ul>\n";
 
-echo "</ul><br /><b>Outras Entradas:</b><br /><ul>\n";
 
-$sql = mysql_query("SELECT id,status,titulo,id_chat,admin,admin_mail,visivel FROM swiki where (semestre<>'$sem_atual' && semestre<>'T') order by titulo",$dbh);	
 
-while ($tupla = mysql_fetch_array($sql)) {
-	if ($tupla["visivel"]=='S') {
-		if (!empty($tupla["titulo"])) {
-			$final = $tupla["titulo"];
-		}
+$query = "SELECT id,titulo,admin,admin_mail,visivel FROM swiki where (semestre<>'$sem_atual' && semestre<>'T') order by titulo";
+$result = mysql_query( $query );
 
-		$session_id = $tupla["id_chat"];
-		$admin = $tupla["admin"];
-		$admail = $tupla["admin_mail"];
+if ( mysql_num_rows( $result ) != 0 ) {
+	echo "\n<h2>" . _( "Previous semesters" ) . "</h2>";
+	echo "\n<ul>";
 
-		$ident = $tupla["id"];
-		$status = $tupla["status"];
-		$sql_aux = mysql_query("SELECT id_sw FROM gets",$dbh);
 
-		//$ident recebe o número de paginas ja criadas na swiki (relacionadas na tabela GETS)
-		$query_cont = "SELECT COUNT(*) as CONTADOR from gets where id_sw='$ident'";
-		$sql_cont = mysql_query("$query_cont",$dbh);
-		$tupla_cont = mysql_fetch_array($sql_cont);
-		$nro_paginas = $tupla_cont["CONTADOR"];
+	while ( $tuple = mysql_fetch_array( $result ) ) {
+		if ( $tuple[ "visivel" ] == 'S' ) {
+			$title = $tuple[ "titulo" ];
+			$admin = $tuple[ "admin" ];
+			$email = $tuple[ "admin_mail" ];
+			$wikipage_id = $tuple[ "id" ];
 
-		$token = false;
-		while (($tupla_aux = mysql_fetch_array($sql_aux)) && ($token == false)) {
-			$comp = $tupla_aux["id_sw"];
-			if ($ident==$comp) {
-				$token=true; 
-			} else {
-				$token=false;
-			}
-		}
-
-		if ($token==true) {
-			if ($status == '1') {
-				echo "\t<li><a href=\"login.php?id=$ident&token=1\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
-			} else {
-				echo "\t<li><a href=\"show.php?ident=$ident\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
-			}
-		} else {
-			$final_url = rawurlencode($final);
-			if ($status == '1') {
-				echo "\t<li>$final<a href=\"login.php?id=$ident&token=0&index=$final_url onmouseover=\"window.status='$final'; return true\" onmouseout=\"window.status=' '; return true\">[create]</a></li>\n";
-			} else {
-				echo "\t<li>$final<a href=\"create.php?ident=$ident&index=$final_url\" onmouseover=\"window.status='$final'; return true\" onmouseout=\"window.status=' '; return true\">[create]</a></li>\n";
-			}
+			echo "\n\t<li><a href=\"show.php?wikipage_id=$wikipage_id\">$title</a>";
+			echo _( " (Admin: " ) . "<a href=\"mailto:$email\">$admin</a>)</li>";
 		}
 	}
+	echo "\n</ul>";
 }
-
-echo "</ul><br /><b>Total de Entradas:</b>";
-
-$query_cont = "SELECT COUNT(*) as CONTADOR from swiki where visivel='S'";  
-$sql_cont = mysql_query($query_cont,$dbh); 	
-$tupla_cont = mysql_fetch_array($sql_cont); 	 	
-$nro_swvs = $tupla_cont["CONTADOR"];
-
-$query_cont = "SELECT COUNT(*) as CONTADOR from swiki where visivel='N'";  
-$sql_cont = mysql_query($query_cont,$dbh); 	
-$tupla_cont = mysql_fetch_array($sql_cont); 	 	
-$nro_swnvs = $tupla_cont["CONTADOR"];
-
-echo " $nro_swvs [+ $nro_swnvs]";
-
-echo "<br /><b>Total de Páginas:</b>";
-
-$query_cont = "SELECT COUNT(*) as CONTADOR from paginas";  
-$sql_cont = mysql_query($query_cont,$dbh);
-$tupla_cont = mysql_fetch_array($sql_cont);
-$nro_pgs = $tupla_cont["CONTADOR"];
-
-echo " $nro_pgs<br />";
+mysql_free_result( $result );
 
 ?>
-
-<br />
-<hr />
-<b><a href="help.php" onmouseover="window.status='Ajuda - Coteia'; return true" onmouseout="window.status=' '; return true">Help</a></b>
-
-<br />
-<img alt="CoTeia" src="<?php echo $URL_IMG;?>/logo.png" />
-<br /><i>CoTeia - Ferramenta de Edição Colaborativa Baseada na Web</i>
 
 </body>
 

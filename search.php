@@ -1,133 +1,143 @@
-<html>
+<?php
+/**
+* Search wikipages.
+*
+* Copyright (C) Carlos de Arruda Júnior
+* Modified by Marco Aurélio Graciotto Silva
+*
+*
+* This code is licenced under the GNU General Public License (GPL).
+*/
 
-<head>
-	<title>Search</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<link href="coteia.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="coteia.js"></script>
+include_once( "function.php.inc" );
+
+// Check parameters
+if ( ! isset( $_REQUEST[ "wikipage_id" ] ) ) {
+	show_error( _( "Missing parameter: 'wikipage_id'" ), 0 );
+}
+$wikipage_id = $_REQUEST[ "wikipage_id" ];
+if ( check_wikipage_id( $wikipage_id ) === false ) {
+	show_error( _( "The parameter 'wikipage_id' is invalid." ), 0 );
+}
+$swiki_id = extract_swiki_id( $wikipage_id );
+
+if ( isset( $_REQUEST[ "submit" ] ) ) {
+	if ( ! isset( $_REQUEST[ "target_swiki_id" ] ) ) {
+		show_error( _( "Missing parameter: 'target_swiki_id'" ), 0 );
+	}
+	$target_swiki_id = $_REQUEST[ "target_swiki_id" ];
+	if ( check_swiki_id( $target_swiki_id ) === false ) {
+		show_error( _( "The parameter 'target_swiki_id' is invalid." ), 0 );
+	}
+
+	if ( isset( $_REQUEST[ "title" ] ) ) {
+		$title = trim( $_REQUEST[ "title" ] );
+	}
+
+	if ( !isset( $_REQUEST[ "content" ] ) ) {
+		$content = trim( $_REQUEST[ "content" ] );
+	}
+
+	if ( !isset( $_REQUEST[ "keywords" ] ) ) {
+		$keywords = trim( $_REQUEST[ "keywords" ] );
+	}
+}
+
+
+// Sending data
+echo get_header( _( "Search" ) );
+
+?>
 </head>
 
 <body>
 
 <?php
-/*
-* Funcionalidade: Pesquisa por paginas CoWeb.
-* Opções de Busca: Titulo, Conteudo e Palavra-Chave.
-*/
-include_once("function.inc");
 
-//encontra id_swiki
-$get_swiki = explode(".",$ident);
-$id_swiki = $get_swiki[0];  
+include( "toolbar.php.inc" );
 
-include( "toolbar.inc" );
+coteia_connect();
 
-if ($submit_btn=="submit") {
-	$dbh = coteia_connect();
+if ( isset( $_REQUEST[ "submit" ] ) ) {
+	echo "\n<h1>" . _( "Search results" ) . "</h1>";
 
-	$src[1] = $tit;
-	$src[2] = $con;
-	$src[3] = $pch;
-
-	$search_tratamento = tratamento(0,0,0,0,$src);
-	$tit = trim($search_tratamento["key1"]);
-	$con = trim($search_tratamento["key2"]);
-	$pch = trim($search_tratamento["key3"]);
-
-	if ( $search_select == 0 ) { 
-		/*
-		* Buscar todas as paginas de todos os swikis por titulo, conteudo ou palavra-chave.
-		* Busca swikis e paginas por titulo.
-		*/
-		$count = 0;
-		$resultA = mysql_query("SELECT id,titulo FROM swiki order by titulo",$dbh);
-		while ($tuplaA = mysql_fetch_array($resultA) ) {
-			$tituloA = $tuplaA[titulo];
-			$idA = $tuplaA[id];
-			$sql = "SELECT DISTINCT paginas.titulo, paginas.ident FROM paginas,gets,swiki WHERE gets.id_sw = $idA AND gets.id_pag=paginas.ident ";
-			if ($cbox_tit) {
-				$sql = $sql . "AND paginas.titulo LIKE \"%$tit%\"";
-			}
-			if ($cbox_con) {
-				$sql = $sql . "AND paginas.conteudo LIKE \"%$con%\"";
-			}
-			if ($cbox_pch) {
-				$sql = $sql . "AND (paginas.kwd1=\"$pch\" OR paginas.kwd2=\"$pch\" OR paginas.kwd3=\"$pch\")";
-			}
-			$resultB = mysql_query($sql,$dbh);
-			$num_rows = mysql_num_rows($resultB);
-			if ($num_rows != "0") {
-				echo "<br />Em <b>$tituloA</b>:<br />";
-				while ($tuplaB = mysql_fetch_array($resultB)){
-					$tituloB = $tuplaB[titulo];
-					$idB = $tuplaB[ident];
-					$count++;
-					echo "<li><a href=\"show.php?ident=$idB\">$tituloB</a></li>";
-				}
-				echo "<br />";
-			}
-		}
-		echo "<br />Resultado da Busca:  $count página(s).";
-	} else {
-		/* Buscar pagina de uma swiki por título, ou conteúdo, ou palavra-chave. */
-		$sql = "SELECT DISTINCT paginas.titulo, paginas.ident FROM paginas,gets WHERE gets.id_sw = $search_select AND gets.id_pag=paginas.ident";
-		if ($cbox_tit) {
-			$sql = $sql."AND paginas.titulo LIKE \"%$tit%\"";
-		}
-		if ($cbox_con) {
-			$sql = $sql."AND paginas.conteudo LIKE \"%$con%\"";
-		}
-		if ($cbox_pch) {
-			$sql = $sql."AND (paginas.kwd1=\"$pch\"OR paginas.kwd2=\"$pch\" OR paginas.kwd3=\"$pch\")";
-		}
-		$result = mysql_query($sql,$dbh);
-		echo "<br />";
-		$count = 0;
-		while ($tupla = mysql_fetch_array($result)) {
-			$titulo = $tupla[titulo];
-			$id = $tupla[ident];
-			$count++;
-			echo "<li><a href=\"show.php?ident=$id\">$titulo</a>";
-		}
-		echo "<br /><br />Resultado da Busca:  $count página(s).";
+	$count = 0;
+	$query = "select id,titulo from swiki";
+	// Search all the swikis
+	if ( $target_swiki_id != "0" ) {
+		$query .= " where id='$target_swiki_id'";
 	}
+	$query .= " order by titulo";
+	$result = mysql_query( $query );
+	while ( $tuple = mysql_fetch_array( $result ) ) {
+		$title = $tuple[ "titulo" ];
+		$id = $tuple[ "id" ];
+		$query2 = "select distinct paginas.titulo,paginas.ident from paginas,gets,swiki where gets.id_sw='$id' and gets.id_pag=paginas.ident";
+		if ( isset( $title ) ) {
+			$query2 .= " and paginas.titulo LIKE \"%" . mysql_escape_string( $title ) . "%\"";
+		}
+		if ( isset( $content ) ) {
+			$query2 .= " and paginas.conteudo LIKE \"%" . mysql_escape_string( $content ) . "%\"";
+		}
+		if ( isset( $keywords ) ) {
+			$query2 .= " and (paginas.kwd1=\"" . mysql_escape_string( $keywords ) . "\" or paginas.kwd2=\"" . mysql_escape_string( $keywords ) . "\" or paginas.kwd3=\"" . mysql_escape_string( $keywords ) . "\")";
+		}
+		$result2 = mysql_query( $query2 );
+		if ( mysql_num_rows( $result2 ) > 0 ) {
+			echo "\n<h2>$title</h2>";
+			echo "\n<ul>";
+			while ( $tuple2 = mysql_fetch_array( $result2 ) ) {
+				$title2 = $tuple2[ "titulo" ];
+				$id2 = $tuple2[ "ident" ];
+				$count++;
+				echo "\n\t<li><a href=\"show.php?wikipage_id=$id2\">$title2</a></li>";
+			}
+			echo "\n</ul>";
+			echo "\n<br />";
+		}
+	}
+	echo "<br />" . _( "Pages found: ") . $count;
 } else {
 ?>
-<form method="post" action="search.php" name="pesquisa">
+<h1><?php echo _( "Search" ); ?></h1>
 
-<select name="search_select">
-	<option value="0">Em todas as Swikis</option>
-	<?php
-		$dbh = coteia_connect();
+<p><?php echo _( "You can search, a specific or all the swikis, by title, content or keywords." ); ?></p>
 
-		$sql = mysql_query("SELECT id,titulo FROM swiki order by titulo",$dbh);
-		while ($tupla = mysql_fetch_array($sql)){
-			$titulo = $tupla[titulo];
-			$id_titulo = $tupla[id];
-			if ($id_titulo!=$id_swiki) {
-				echo "<option value=\"$id_titulo\">Em $titulo</option>";
-			} else {
-				echo "<option value=\"$id_titulo\" selected>Em $titulo</option>";
+<form method="post" action="search.php">
+	<input type="hidden" name="swiki_id" value="<?php echo $swiki_id;?>">
+	<input type="hidden" name="wikipage_id" value="<?php echo $wikipage_id;?>">
+
+	<br />
+	<?php echo _( "Swiki" ); ?>
+	<select name="target_swiki_id">
+
+		<option value="0"><?php echo _( "Any swiki" ); ?></option>
+		<?php
+			$query = "select id,titulo from swiki order by titulo";
+			$result = mysql_query( $query );
+			while ( $tuple = mysql_fetch_array( $result ) ) {
+				$title = $tuple[ "titulo" ];
+				$id = $tuple[ "id" ];
+				echo "<option value=\"$id\"";
+				if ( $id == $swiki_id ) {
+					echo " selected";
+				}
+				echo ">" . $title . "</option>";
 			}
-		}
-	?>
+		?>
 	</select>
 	<br />
-	<table border="1">
-	<tr>
-		<td><input type="checkbox" name="cbox_tit" />Por <b>Título</b> da página</td>
-		<td><input type="checkbox" name="cbox_con" />Por <b>Conteúdo</b> da página</td>
-		<td><input type="checkbox" name="cbox_pch" />Por <b>Palavras-chave</b></td>
-	</tr>
-  <tr>
-		<td><input type="text" name="tit" width="300" onChange="window.document.pesquisa.cbox_tit.checked=true;return false;" /></td>
-		<td><input type="text" name="con" width="300" onChange="window.document.pesquisa.cbox_con.checked=true;return false;" /></td>
-		<td><input type="text" name="pch" width="200" onChange="window.document.pesquisa.cbox_pch.checked=true;return false;" /></td>
-	</tr>
-  </table>
+	<?php echo _( "Title" ); ?>
+	<input type="text" name="title" width="30"  />
 	<br />
-  <input type="submit" name="submit_btn" value="submit" />
-	<input type="hidden" name="ident" value="<?php echo $ident;?>">  
+	<?php echo _( "Content" ); ?>
+	<input type="text" name="content" width="30" />
+	<br />
+	<?php echo _( "Keyword" ); ?>
+	<input type="text" name="keywords" width="20" />
+	<br />
+	<br />
+  <input type="submit" name="submit" value="<?php echo _( "Search" ); ?>" />
 </form>
 <?
 }

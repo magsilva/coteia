@@ -1,2 +1,531 @@
-22-5-2004 16:48:50 |  |  | err.inc |  :  | 
-23-5-2004 12:24:59 |  |  | update_wikipage.inc | 0 :  | 
+
+Fri, 10 Dec 2004 19:06:39 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/edit.php|The requested swiki is invalid. Please contact the system's administrator.
+Fri, 10 Dec 2004 19:16:00 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/edit.php|It wasn't possible to update the wikipage. Please, try again. If the error persist, contact the system administrator.
+Fri, 10 Dec 2004 19:18:15 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/edit.php|It wasn't possible to update the wikipage. Please, try again. If the error persist, contact the system administrator.
+Fri, 10 Dec 2004 19:18:30 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/edit.php|It wasn't possible to update the wikipage. Please, try again. If the error persist, contact the system administrator.
+Fri, 10 Dec 2004 19:20:00 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/edit.php|It wasn't possible to update the wikipage. Please, try again. If the error persist, contact the system administrator.
+Fri, 10 Dec 2004 19:20:36 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/edit.php|It wasn't possible to update the wikipage. Please, try again. If the error persist, contact the system administrator.
+Fri, 10 Dec 2004 19:21:09 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/edit.php|It wasn't possible to update the wikipage. Please, try again. If the error persist, contact the system administrator.
+Fri, 10 Dec 2004 19:22:56 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/edit.php|The requested swiki is invalid. Please contact the system's administrator.
+Wed, 15 Dec 2004 01:02:13 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/show.php|The swiki the wikipage supposedly belongs to couldn't be found.
+Wed, 15 Dec 2004 01:02:16 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/show.php|The swiki the wikipage supposedly belongs to couldn't be found.
+Wed, 15 Dec 2004 01:09:28 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/edit.php|The parameter 'swiki_id' is missing.
+Wed, 15 Dec 2004 01:12:39 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/show.php|Wikipage doesn't exist
+Wed, 15 Dec 2004 01:13:30 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/show.php|Wikipage doesn't exist
+Wed, 15 Dec 2004 01:13:46 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/CoTeia2/show.php|Wikipage doesn't exist
+Wed, 15 Dec 2004 16:14:11 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|There is a wikipage with the requested index already. You may edit the page and modify its content at <a href="edit.php?wikipage_id=".
+Wed, 15 Dec 2004 16:15:48 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|There is a wikipage with the requested index already. You may edit the page and modify its content at <a href="edit.php?wikipage_id=".
+Wed, 15 Dec 2004 16:15:59 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|There is a wikipage with the requested index already. You may edit the page and modify its content at <a href="edit.php?wikipage_id=".
+Wed, 15 Dec 2004 16:18:41 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|There is a wikipage with the requested index already.
+Wed, 15 Dec 2004 16:18:49 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|There is a wikipage with the requested index already.
+Wed, 15 Dec 2004 16:20:41 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|The parameter 'swiki_id' is missing.
+Wed, 15 Dec 2004 16:22:19 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|Incorrect password. Please, try again.
+Wed, 15 Dec 2004 16:22:23 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|Incorrect password. Please, try again.
+Wed, 15 Dec 2004 16:23:22 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|Incorrect password. Please, try again.
+Wed, 15 Dec 2004 16:23:29 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|Incorrect password. Please, try again.
+Wed, 15 Dec 2004 16:27:45 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|Incorrect password. Please, try again.
+Wed, 15 Dec 2004 16:32:47 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|It wasn't possible to update the wikipage. Please, try again. If the error persist, contact the system administrator.
+Wed, 15 Dec 2004 16:32:54 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|It wasn't possible to update the wikipage. Please, try again. If the error persist, contact the system administrator.
+Wed, 15 Dec 2004 16:42:39 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (X11; U; Linux i686; pt-BR; rv:1.7.3) Gecko/20040930|/~magsilva/Tools/CoTeia2/edit.php|It wasn't possible to update the wikipage. Please, try again. If the error persist, contact the system administrator.
+Thu, 16 Dec 2004 02:22:19 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/Tools/CoTeia2/edit.php|It wasn't possible to update the wikipage. Please, try again. If the error persist, contact the system administrator.
+Thu, 16 Dec 2004 02:22:25 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/Tools/CoTeia2/edit.php|It wasn't possible to update the wikipage. Please, try again. If the error persist, contact the system administrator.
+Thu, 16 Dec 2004 02:22:52 +0000|143.107.183.157|marcoags.labes.icmc.usp.br|Mozilla/5.0 (compatible; Konqueror/3.2; Linux) (KHTML, like Gecko)|/~magsilva/Tools/CoTeia2/edit.php|It wasn't possible to update the wikipage. Please, try again. If the error persist, contact the system administrator.
+Wed, 19 Jan 2005 11:31:43 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia2/edit.php|There is a wikipage with the requested index already.
+Wed, 19 Jan 2005 11:32:04 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia2/edit.php|There is a wikipage with the requested index already.
+Wed, 26 Jan 2005 11:45:23 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Incorrect password. Please, try again.
+Wed, 26 Jan 2005 11:45:27 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Incorrect password. Please, try again.
+Wed, 26 Jan 2005 11:45:31 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Incorrect password. Please, try again.
+Mon, 14 Feb 2005 11:54:34 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|1
+Mon, 14 Feb 2005 11:56:08 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|1
+Mon, 14 Feb 2005 11:56:42 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|1
+Mon, 14 Feb 2005 11:57:01 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|1
+Mon, 14 Feb 2005 11:58:39 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 18, Column 1not well-formed (invalid token)(4)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab <ab
+a</bdy>
+</page>
+Mon, 14 Feb 2005 11:59:25 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 18, Column 1: not well-formed (invalid token)(4)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab <ab
+a</bdy>
+</page>
+Mon, 14 Feb 2005 12:00:16 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 18, Column 1: not well-formed (invalid token)Error code: 4)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab <ab
+a</bdy>
+</page>
+Mon, 14 Feb 2005 12:00:53 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 18, Column 1: not well-formed (invalid token) (Error code: 4)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab <ab
+a</bdy>
+</page>
+Mon, 14 Feb 2005 12:02:13 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 18, Column 1: not well-formed (invalid token) (Error code: 4)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab <ab
+a</bdy>
+</page>
+Mon, 14 Feb 2005 12:02:26 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 18, Column 1: not well-formed (invalid token) (Error code: 4)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab <ab
+a</bdy>
+</page>
+Mon, 14 Feb 2005 12:02:38 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 18, Column 1: not well-formed (invalid token) (Error code: 4)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab <ab
+a</bdy>
+</page>
+Mon, 14 Feb 2005 12:02:49 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 18, Column 1: not well-formed (invalid token) (Error code: 4)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab <ab
+a</bdy>
+</page>
+Mon, 14 Feb 2005 12:03:00 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 18, Column 1: not well-formed (invalid token) (Error code: 4)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab <ab
+a</bdy>
+</page>
+Mon, 14 Feb 2005 12:05:10 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 18, Column 1: not well-formed (invalid token) (Error code: 4)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab <ab
+a</bdy>
+</page>
+Mon, 14 Feb 2005 12:07:49 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 19, Column 33: mismatched tag (Error code: 7)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab ab
+a
+Marco Aurélio Graciotto <Silva></bdy>
+</page>
+Mon, 14 Feb 2005 12:09:58 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 19, Column 33: mismatched tag (Error code: 7)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab ab
+a
+Marco Aurélio Graciotto <Silva></bdy>
+</page>
+Mon, 14 Feb 2005 12:14:55 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 19, Column 31: mismatched tag (Error code: 7)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab ab
+a <ab>
+Marco Aurélio Graciotto Silva</bdy>
+</page>
+Mon, 14 Feb 2005 12:16:13 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|1
+Mon, 14 Feb 2005 12:16:51 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 19, Column 31: mismatched tag (Error code: 7)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab ab
+a ab cd <ef>
+Marco Aurélio Graciotto Silva</bdy>
+</page>
+Mon, 14 Feb 2005 12:19:32 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 19, Column 31: mismatched tag (Error code: 7)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab ab
+<a>
+Marco Aurélio Graciotto Silva</bdy>
+</page>
+Mon, 14 Feb 2005 12:20:20 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 18, Column 31: mismatched tag (Error code: 7)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab ab <baba>
+Marco Aurélio Graciotto Silva</bdy>
+</page>
+Mon, 14 Feb 2005 12:21:36 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 18, Column 31: mismatched tag (Error code: 7)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab ab baba <Bebe>
+Marco Aurélio Graciotto Silva</bdy>
+</page>
+Mon, 14 Feb 2005 14:49:56 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Unsupported action: edit
+Mon, 14 Feb 2005 14:50:53 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Unsupported action: edit
+Mon, 14 Feb 2005 14:51:08 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Unsupported action: edit
+Mon, 14 Feb 2005 14:51:51 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Unsupported action: edit
+Mon, 14 Feb 2005 14:52:21 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Unsupported action: edit
+Mon, 14 Feb 2005 14:54:07 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 19, Column 15: mismatched tag (Error code: 7)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>2.2.1</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>2</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>2</sw_id>
+<ref id="show.php?wikipage_id=2">Sandbox</ref>
+<ref id="show.php?wikipage_id=2.2">Python</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author>Marco</author>
+<tit>Teste3</tit>
+<bdy>ateste2 ab ab baba
+Marco Aurélio Graciotto Silva
+<Teste> 1 2 3</bdy>
+</page>
+Mon, 14 Feb 2005 15:00:07 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 31, Column 7: mismatched tag (Error code: 7)
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE coteia SYSTEM "coteia.dtd">
+<page>
+<id>14.97</id>
+<lock>0</lock>
+<ann_folder>-2</ann_folder>
+<chat_folder>14</chat_folder>
+<id_eclass>0</id_eclass>
+<sw_id>14</sw_id>
+<ref id="show.php?wikipage_id=14">Wiki/RE</ref>
+<kwd1></kwd1>
+<kwd2></kwd2>
+<kwd3></kwd3>
+<author></author>
+<tit>Hidrogênio</tit>
+<bdy><h2>Metas</h2>
+<ul>
+	<li>Voltar ao modelo anterior de processamento da CoTeia, com o processamento do documentos antes do armazenamento de seus dados na base de dados MySQL</li>
+	<li>Garantir que erros de sintaxe impeçam o correto funcionamento da CoTeia.</li>
+</ul>
+
+<h2>Atividades<h2>
+<ol>
+	<li>Criação de uma nova função para verificar a validade do documento XML.</li>
+	<li>Execuçao da nova função antes de salvar os dados.</li>
+	<li>Encontrado erro na execução da função (bug 27). Suspeita: modelo de threading do Apache</li>
+	<li>Criação de um novo pacote do Apache (2.0.52) para Conectiva Linux 10. Erros de compilação demandaram mais de uma hora e meia para conserto apropriado.</li>
+	<li>Enquanto o pacote era compilado, descobriu-se uma falha no processamento dos dados da CoTeia que poderia ser a real causa do bug 27. O &quot;edit.php&quot; foi revisado e parcialmente reescrito.</li>
+	<li>A função &quot;prepare_for_db&quot; do &quot;functions.php.inc&quot; foi reescrita, adequando-se a nova estrutura de dados que ela recebe como parâmetro.</li>
+	<li>Testou-se o novo código. O problema desapareceu.</li>
+</ol></bdy>
+</page>
+Mon, 14 Feb 2005 15:08:57 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 16, Column 13: mismatched tag (Error code: 7)
+Mon, 14 Feb 2005 15:10:26 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 16, Column 13: mismatched tag (Error code: 7)
+Mon, 14 Feb 2005 15:11:40 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 16, Column 13: mismatched tag (Error code: 7)
+Mon, 14 Feb 2005 15:41:14 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 18, Column 7: not well-formed (invalid token) (Error code: 4)
+Tue, 15 Feb 2005 15:43:55 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 30, Column 32: mismatched tag (Error code: 7)
+Tue, 15 Feb 2005 17:31:30 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/history.php|Missing parameter: 'wikipage_id'
+Tue, 15 Feb 2005 17:59:03 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 32, Column 105: mismatched tag (Error code: 7)
+Wed, 16 Feb 2005 10:28:57 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Wed, 16 Feb 2005 14:04:37 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Incorrect password. Please, try again.
+Wed, 16 Feb 2005 14:19:12 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/show.php|The parameter 'wikipage_id' is invalid.
+Wed, 16 Feb 2005 14:28:59 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 24, Column 6: mismatched tag (Error code: 7)
+Thu, 17 Feb 2005 09:02:23 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Thu, 17 Feb 2005 14:30:13 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 37, Column 0: not well-formed (invalid token) (Error code: 4)
+Thu, 17 Feb 2005 17:23:58 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Thu, 17 Feb 2005 22:33:35 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Fri, 18 Feb 2005 05:26:52 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Fri, 18 Feb 2005 09:31:14 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Fri, 18 Feb 2005 16:29:14 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/repository.php|The parameter 'swiki_id' is invalid.
+Fri, 18 Feb 2005 16:29:21 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/repository.php|The parameter 'swiki_id' is invalid.
+Fri, 18 Feb 2005 16:33:00 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/repository.php|The parameter 'swiki_id' is invalid.
+Fri, 18 Feb 2005 16:35:35 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The parameter 'swiki_id' is invalid.
+Fri, 18 Feb 2005 16:36:46 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The parameter 'wikipage_id' is invalid.
+Fri, 18 Feb 2005 16:37:23 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The parameter 'wikipage_id' is invalid.
+Fri, 18 Feb 2005 16:43:55 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The parameter 'wikipage_id' is missing.
+Fri, 18 Feb 2005 16:44:01 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The parameter 'wikipage_id' is missing.
+Fri, 18 Feb 2005 16:46:01 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The parameter 'wikipage_id' is missing.
+Fri, 18 Feb 2005 16:49:53 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The parameter 'wikipage_id' is invalid.
+Fri, 18 Feb 2005 16:50:17 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The requested file couldn't be found.
+Fri, 18 Feb 2005 16:52:56 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The requested file couldn't be found.
+Fri, 18 Feb 2005 17:42:33 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 36, Column 2: mismatched tag (Error code: 7)
+Sat, 19 Feb 2005 07:46:41 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Sat, 19 Feb 2005 12:20:46 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Sun, 20 Feb 2005 00:42:44 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Sun, 20 Feb 2005 13:24:17 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Mon, 21 Feb 2005 09:14:38 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Mon, 21 Feb 2005 09:33:55 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 34, Column 2: mismatched tag (Error code: 7)
+Mon, 21 Feb 2005 10:00:48 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The requested file couldn't be found.
+Mon, 21 Feb 2005 10:01:40 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The requested file couldn't be found.
+Mon, 21 Feb 2005 10:03:27 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The requested file couldn't be found.
+Mon, 21 Feb 2005 10:07:01 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The requested file couldn't be found.
+Mon, 21 Feb 2005 10:07:19 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The requested file couldn't be found.
+Mon, 21 Feb 2005 10:07:43 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The requested file couldn't be found.
+Mon, 21 Feb 2005 10:08:09 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The requested file couldn't be found.
+Mon, 21 Feb 2005 10:08:44 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The requested file couldn't be found.
+Mon, 21 Feb 2005 10:09:21 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The requested file couldn't be found.
+Mon, 21 Feb 2005 10:14:46 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The requested file couldn't be found.
+Mon, 21 Feb 2005 10:16:55 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/checkout.php|The requested file couldn't be found.
+Mon, 21 Feb 2005 16:27:31 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Mon, 21 Feb 2005 17:35:26 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 97, Column 353: mismatched tag (Error code: 7)
+Mon, 21 Feb 2005 17:41:36 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 104, Column 3: mismatched tag (Error code: 7)
+Mon, 21 Feb 2005 17:42:13 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 105, Column 3: mismatched tag (Error code: 7)
+Mon, 21 Feb 2005 17:44:38 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 19, Column 3: mismatched tag (Error code: 7)
+Mon, 21 Feb 2005 18:05:56 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:07:30 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:08:41 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:13:58 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:14:16 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:14:53 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:16:12 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 1: unbound prefix (Error code: 27)
+Mon, 21 Feb 2005 18:17:00 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:17:58 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:20:47 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:22:03 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:23:01 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 20, Column 10: mismatched tag (Error code: 7)
+Mon, 21 Feb 2005 18:23:30 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:26:22 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:27:03 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:28:26 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:31:48 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:32:48 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:33:15 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:33:45 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:35:56 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:37:16 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 18:39:54 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 17, Column 18: not well-formed (invalid token) (Error code: 4)
+Mon, 21 Feb 2005 21:56:46 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Tue, 22 Feb 2005 10:04:26 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Tue, 22 Feb 2005 15:01:04 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Tue, 22 Feb 2005 15:38:22 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 34, Column 2: mismatched tag (Error code: 7)
+Tue, 22 Feb 2005 16:55:59 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 186, Column 7: mismatched tag (Error code: 7)
+Tue, 22 Feb 2005 16:56:52 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|Line 186, Column 7: mismatched tag (Error code: 7)
+Tue, 22 Feb 2005 20:52:41 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Tue, 22 Feb 2005 22:55:52 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Wed, 23 Feb 2005 10:28:30 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.
+Wed, 23 Feb 2005 13:03:23 +0000|127.0.0.1|localhost.localdomain|Mozilla/5.0 (compatible; Konqueror/3.3; Linux) KHTML/3.3.2 (like Gecko)|/~magsilva/Tools/CoTeia/edit.php|There is a wikipage with the requested index already.

@@ -1,47 +1,44 @@
 <?php
-/*
-* index.php
+/**
+* CoTeia's main page.
 *
-* Funcionalidade: Permitir ao usuario que insira seu login e sua senha.
-* Passa parametros (login e senha) para admin.php e prossegue ou cancela a operacao de login.
 *
+* Copyright (C) 2001, 2002, 2003 Carlos Roberto E. de Arruda Jr
+* Changed by Marco Aurélio Graciotto Silva (2004).
+*
+* This code is licenced under the GNU General Public License (GPL).
 */
 
-include("header.php");
+
+include_once( "header.php.inc" );
+
+echo get_header( _( "Main menu" ) );
 ?>
+</head>
 
-<html>
+<body>
 
-<head>
+<div align="center">
 
-<script>
-function verifica_campos(admin) {
-	if (admin.usuario.value == "") {
-		alert('Campo de Login precisa ser preenchido!');
-		return false;
-	}
-	return true;	
-}
-</script>
+<table border="1" cellspacing="0" cellpadding="5" class="box-table">
+<tr>
+	<th valign="middle" class="table-header"><?php echo _( "Available actions" ); ?></th>
+</tr>
+<tr>
+	<td valign="middle" nowrap="nowrap">
+		<a href="setswiki.php"><?php echo _( "Update swiki" ); ?></a><br />
+		<a href="addswiki.php"><?php echo _( "Add swiki" ); ?></a><br />
+		<a href="delswiki.php"><?php echo _( "Remove swiki" ); ?></a><br />
+		<a href="useradmin.php"><?php echo _( "Users" ); ?></a><br />
+		<a href="wikipageadmin.php"><?php echo _( "Wikipages" ); ?></a><br />
+		<a href="errors.php"><?php echo _( "Check errors" ); ?></a><br />
+		<a href="logout.php"><?php echo _( "Logout" ); ?></a><br />
+	</td>
+</tr>
+</table>
 
-<form name="form_admin" method="post" action="autentica.php" onSubmit="return verifica_campos(document.form_admin);">
-	<div align="center">
-	<table border="1" cellspacing="0" cellpadding="2" class="box-table">
-	<tr>
-		<th>Login:</th>
-		<td><input class="login" type="text" size="15" name="usuario" /></td>
-	</tr>
-	<tr>
-		<th>Password:</th>
-		<td><input class="login" type="password" size="15" name="passwd" /></td>
-	</tr>
-	<tr>
-		<td colspan="2"><input class="login" type="submit" name="entra" value="Login" /></td>
-	</tr>
-	</table>
-	</div>
-</form>
+</div>
 
-<?php
-	include("footer.php");
-?>
+</body>
+
+</html>

@@ -1,8 +1,0 @@
-About generated HTML pages:
---------------------------
-
-Every page content must be XML 1.1 complaint (as much as possible). That means:
-- Close every tag (<br> -> <br />).
-
-Accessibility:
-- Add labes for every form's input control.

@@ -1,65 +1,42 @@
 <?
-   include_once("function.inc");
+/**
+* Set/Change swiki's configuration.
+*
+*
+* Copyright (C) 2001, 2002, 2003 Carlos Roberto E. de Arruda Jr
+* Changed by Marco Aurélio Graciotto Silva (2004).
+*
+* This code is licenced under the GNU General Public License (GPL).
+*/
 
-   $sess = new coweb_session;
 
-   $sess->read();
-?>
-<html>
-<head>
-<script LANGUAGE="JavaScript">
-function ValidaForm() 
-{
- 
-    if (document.formadmin.atualiza.value == 0) {
-        alert('Selecione uma Swiki !');
-        document.formadmin.atualiza.focus();
-        return false;
-    }   
-    
-  return true;
-}    
-</script>
-<?
-        include("header.php");
-?>
-<center>
-<form method="post" action="atualiza_swiki.php" name="formadmin" onSubmit="return 
-ValidaForm();">
-<table border="1" cellspacing="0" cellpadding="5" class="box-table">
-    <tr>
-    <td valign="middle" colspan="2" class="table-header">Atualizar Swiki</td>
-    </tr>
-	<tr>
-	<td valign="middle">Swiki:</td>
-	<td>
-        <select name="atualiza">
-        <option value="0" selected>Escolha Swiki</option></font>
-        <?
-	    $dbh = db_connect();
+include_once( "header.php.inc" );
 
-		# seleciona base de dados
-		mysql_select_db($dbname,$dbh);
-      
-        
-        $sql = mysql_query("SELECT id,titulo FROM swiki order by titulo"); 
-        
-        while ($tupla = mysql_fetch_array($sql)){
-	    $titulo = $tupla[titulo];
-            $id_titulo = $tupla[id];
-            echo "<option value=$id_titulo>$titulo</option>";
-        }
-        ?>
-        </select></td></tr>
-        <tr>
-	<td valign="middle" colspan="2">
-        <input type="submit" name="continua" value="Continua"></td>
-        </tr>
-	<tr>
-        <td valign="middle" colspan="2" class="table-footer">
-	<a href="main.php">Menu Principal</a></td>
-        </tr>
-	</table></form></center><br>
-<?
-        include("footer.php");
+echo get_header( _( "Set swiki configuration" ) );
 ?>
+</head>
+
+<h1><?php echo _( "Set swiki configuration" ); ?></h1>
+
+<form method="post" action="update_swiki.php" name="formadmin">
+<select name="swiki_id">
+	<option value="0" selected><?php echo _( "Choose a swiki" ); ?></option>
+	<?php
+		coteia_connect();
+		$query = "select id,titulo from swiki order by titulo"; 
+		$result = mysql_query( $query );
+		while ( $tuple = mysql_fetch_array( $result ) ) {
+			$title = $tuple[ "titulo" ];
+			$id = $tuple[ "id" ];
+			echo "\t<option value=\"$id\">$title</option>";
+		}
+	?>
+</select>
+
+<br /><br />
+<input type="submit" name="submit" value="<?php echo _( "Continue" ); ?>">
+</form>
+
+</body>
+
+</html>

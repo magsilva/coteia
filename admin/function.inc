@@ -1,6 +1,6 @@
 <?php
 
-include_once( "../config.php.inc" );
+include_once( "../config.php" );
 
 /*
  * NOME:		cs_db_pconnect
@@ -878,72 +878,23 @@ function ce_db_pconnect() {
 
 }
 
-
 /*
- * NOME:                autentica
- * DESCRICAO:           Autentica administrador e cria variaveis de sessao
- * PAR. ENTRADA:        $usuario - usuario & $passwd - senha & $dbh - handler do banco
- * PAR. SAIDA:          --
- * RETORNO:             TRUE em caso de sucesso, FALSE em caso de erro
- * OBSERVACOES:         --
+ * NOME:		db_connect
+ * DESCRICAO:		Realiza a conexao com o DBMS MySQL
+ * PAR. ENTRADA:	--
+ * PAR. SAIDA:		--
+ * RETORNO:		Retorna o handler da base de dados
+ * OBSERVACOES:		
  */
-function autentica($usuario,$senha,$dbh){
+function db_connect(){
 
-      global $dbname;
+	global $dbhost, $dbuser, $dbpass;
 
-      # seleciona base de dados
-      mysql_select_db($dbname,$dbh);
-
-      $query = mysql_query("select login,email from admin where login='$usuario' AND pass=md5('$senha')");
-
-      # verifica se o usuário é valido
-      if (mysql_num_rows($query) > 0) {
-
-            return true;
-
-     }
-     else return false;
+	return(mysql_connect($dbhost, $dbuser, $dbpass));
 
 }
 
-class coweb_session {
 
-var $key;
-var $timeout;
-
-/*
- * NOME:                start
- * DESCRICAO:           Inicializa a sessao gerando uma chave de sessao
- * PAR. ENTRADA:        --
- * PAR. SAIDA:          --
- * RETORNO:             Chave de sessao ou ID
- * OBSERVACOES:         
- */
-function start($timeout = "") {
-
-//cria um array com todas as letras do alfabeto
-$letters = range("a","z");
-$key = "";
-
-//gera a chave de sessao no formato #a#aa#
-for($i = 0; $i < 6; $i++) {
-if(($i == 0) || ($i == 2) || ($i == 5))
-$key .= rand(0,9);
-if(($i == 1) || ($i == 3) || ($i == 4))
-$key .= $letters[rand(0,25)];
-}
-
-//armazena a chave de sessao em um metodo da classe session
-$this->key = $key;
-
-//verifica se o usuario definiu um timeout e armazena esse valor
-if($timeout == "")
-$this->timeout = 300; // five minutes
-else
-$this->timeout = $timeout;
-
-return 0;
-} 
 
 /*
  * NOME:                register
@@ -1106,6 +1057,6 @@ $delete = setcookie('sess_key' ,$this->key, time()-3600);
 
 } 
 
-} 
+
 
 ?>

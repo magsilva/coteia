@@ -5,8 +5,13 @@
 
     $sess->read();
 
-    $dbh = coteia_connect();
+    global $dbname;
+	
+    $dbh = db_connect();
 
+    # seleciona base de dados
+    mysql_select_db($dbname,$dbh);
+ 
 	$query = mysql_query("select nome,login,email from admin where id='$id'",$dbh);
 	while ($tupla = mysql_fetch_array($query)) {
 		$euser_nome = $tupla["nome"];
