@@ -86,7 +86,7 @@ if ( isset( $parametro ) ) {
 		if ($passwd == "") {
 			$query = "update swiki set titulo='$new_swiki',admin='$admin',admin_mail='$admail',username='$usuario',password=NULL,status='$status',visivel='$vis',semestre='$sem',id_eclass='$eclass',annotation_login='$ann_log' where (id='$atualiza')" or die ("Falha ao inserir no Banco de Dados");
 		} else {
-			$query = "update swiki set titulo='$new_swiki',admin='$admin',admin_mail='$admail',username='$usuario',password=md5('$passwd'),status='$status',visivel='$vis',semestre='$sem',id_eclass='$eclass',annotation_log='$ann_log' where (id='$atualiza')" or die ("Falha ao inserir no Banco de Dados");
+			$query = "update swiki set titulo='$new_swiki',admin='$admin',admin_mail='$admail',username='$usuario',password=md5('$passwd'),status='$status',visivel='$vis',semestre='$sem',id_eclass='$eclass',annotation_login='$ann_log' where (id='$atualiza')" or die ("Falha ao inserir no Banco de Dados");
 		}
 
 		$sql = mysql_query($query,$dbh);
