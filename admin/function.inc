@@ -28,16 +28,13 @@ function cs_db_pconnect(){
  *                      usuarios inconvenientes
  */
 function cs_session_create($session_name, $moderator, $dbh){
- 
-        global $cs_dbname, $cs_session_tbl;
+	global $cs_dbname;
 
 	$select_db = mysql_select_db($cs_dbname, $dbh);
+	$query = "INSERT INTO session VALUES (null, " . quotes($session_name) . " , now(), " . quotes($moderator) . ", now())";
+	$query_res = mysql_query($query,$dbh);
 
-	$query = "INSERT INTO $cs_session_tbl VALUES (null, ".quotes($session_name).", now(), ".quotes($moderator).", now())";
-        $query_res = mysql_query($query,$dbh);
-        
-        return mysql_insert_id($dbh);
- 
+	return mysql_insert_id($dbh); 
 }
   
 /*
@@ -49,30 +46,26 @@ function cs_session_create($session_name, $moderator, $dbh){
  * RETORNO:             Retorna TRUE se a operacao for bem sucedida e FALSE caso contrario
  * OBSERVACOES:         --
  */
-function cs_session_delete($session_id, $dbh){
-        
-        global $cs_dbname, $cs_session_tbl, $cs_msg_tbl, $cs_access_tbl;
+function cs_session_delete($session_id, $dbh) {
+	global $cs_dbname, $cs_msg_tbl, $cs_access_tbl;
  
 	$select_db = mysql_select_db($cs_dbname,$dbh);
+	$query = "DELETE FROM session WHERE session_id = $session_id";
+	$query_res = mysql_query($query, $dbh);
+	if ($query_res) {
+		$query = "DELETE FROM $cs_msg_tbl WHERE session_id = $session_id";
+		$query_res = mysql_query($query, $dbh);
+		if ($query_res) {
+			$query = "DELETE FROM $cs_access_tbl WHERE session_id = $session_id";
+			$query_res = mysql_query($query, $dbh);
+		}
+	}
 
-        $query = "DELETE FROM $cs_session_tbl WHERE session_id = $session_id";
-        $query_res = mysql_query($query, $dbh);
- 
-        if ($query_res) {
-                $query = "DELETE FROM $cs_msg_tbl WHERE session_id = $session_id";
-                $query_res = mysql_query($query, $dbh);
- 
-                if ($query_res) {
-                        $query = "DELETE FROM $cs_access_tbl WHERE session_id = $session_id";
-                        $query_res = mysql_query($query, $dbh);
-                }
-        }
-        
-        if ($query_res){
-                return TRUE;
-        } else {
-                return FALSE;
-        }
+	if ($query_res){
+		return TRUE;
+	} else {
+		return FALSE;
+	}
 }
  
 /*

@@ -3,12 +3,24 @@ Requisitos:
 - Cliente CVS
 - Acesso a um servidor MySQL e CVS
 
+Obtendo o código via CVS;
+ cvs -d :pserver:anonymous@magsilva.dynalias.net:/var/lib/cvs login
+ cvs -d :pserver:anonymous@magsilva.dynalias.net:/var/lib/cvs checkout CoTeia
+
+Obtendo o código sem os metadados do CVS:
+  cvs -d :pserver:anonymous@magsilva.dynalias.net:/var/lib/cvs export -r HEAD CoTeia
 
 Instalação:
-- Copie a CoTeia para um diretório disponibilizável por seu servidor Apache.
+- Copie a CoTeia para um diretório disponibilizável por seu servidor Apache e que possua o PHP ativado.
 - Configure o PHP utilizado pelo Apache (arquivo "/etc/php.ini"), habilitando
 a diretiva "register_globals".
-- Modifique o arquivo "config.php.inc"
+- Modifique o arquivo "config.php.inc" da CoTeia.
+
+
+
+
+
+
 - Execute o script "tables/tables.php"
 - Execute o schema SQL gerado ("tables/tables.txt") no MySQL.
 

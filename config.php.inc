@@ -4,22 +4,21 @@
 /* Parâmetros normalmente configuráveis.                                    */
 /****************************************************************************/
 
-/*********************************
-* Configuração das bases de dados.
+/**
+* Configuração da base de dados principal da CoTeia.
 */
-
-// Configuração da base de dados principal da CoTeia
 $dbhost = "localhost";
 $dbname = "coteia";
 $dbuser = "coteia";
 $dbpass = "coteia";
 
-// Configuração da base de dados do serviço de chat
+/**
+* Configuração da base de dados do serviço de chat suportada pelo CoTeia.
+*/
 $cs_dbhost = "catuaba.icmc.sc.usp.br";
 $cs_dbname = "chatserver";
 $cs_dbuser = "cs";
 $cs_dbpword = "tucan0";
-$cs_session_tbl = "session";
 
 // Configuração da base de dados do serviço de anotações (opcional)
 $anota_dbhost = "coweb.icmc.usp.br";
