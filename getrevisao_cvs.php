@@ -32,7 +32,7 @@ $revisao = $_REQUEST[ "revisao" ];
 if ($revisao == 0) {
 	echo '<h2>Erro!</h2>';
 	echo '<br /><div align="center">Por favor, selecione uma versão válida na pagina anterior.</center>';
-`	exit();
+	exit();
 }
 
 // Se a opção "Comparar com versão atual" estiver ativada, mostrar a versão atual.

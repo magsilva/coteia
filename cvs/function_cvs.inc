@@ -140,8 +140,31 @@ function cvs_checkout_file( $file, $release ) {
 	return $content;
 }
 
+/**
+* Return a array with the versions of the given file.
+*/
+function cvs_get_revisions( $file ) {
+	global $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME, $CVS_CHECKOUT_DIR, $CVS_PASSFILE;
 
-$cmd_line = "cvs -d :pserver:".$username."@".$host.":".$caminho_repositorio." co -r ".$revisao." ".$ModuloCheckout.$arquivo;
-exec($comando_revisao);
+	$cvs_root = ":pserver:" . $CVS_USERNAME . "@" . $CVS_HOST . ":" . $CVS_REPOSITORY;
+	$cvs_cmdline = "";
+	$old_dir = getcwd();
+	chdir( $CVS_CHECKOUT_DIR );
+
+	// Normalmente isto seria desnecessário, o reposítorio não deveria ter tal arquivo.
+	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " -l log " . $file . "| grep ^revision | cut -f 2 -d ' '";
+	exec( $cvs_cmdline, $revisions );
+
+	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " -l log " . $file . "| grep ^date | cut -f 2-3 -d ' '";
+	exec( $cvs_cmdline, $dates );
+
+	$output = array();
+	for ( $i = 0; $i < count( $revisions ); $i++ ) {
+		$output[ $revision[ $i ] ] = $dates[ $i ];
+	}
+
+	chdir( $old_dir );
+	return $output;
+}
 
 ?>
