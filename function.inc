@@ -208,7 +208,7 @@ function arq( $id, $xml_document, $path_xml, $path_xsl, $path_html )
 	$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver  com.jclark.xsl.sax.Driver $arq_xml $path_xsl $path_html/$id.html 2>&1";
 	exec( $cmd_line, $var_array, $status );
 	if ( empty( $var_array ) ) {
-		return $status;
+		return true;
 	} else {
 		return $var_array;
 	}
@@ -246,11 +246,7 @@ END;
 
 	$feedback = arq( $wikipage[ "ident" ], $xml_document, $path_xml, $path_xsl, $path_html );
 
-	if ( is_numeric( $feedback ) ) {
-		return TRUE;
-	} else {
-		return $feedback;
-	}
+	return $feedback;
 }
 
 /*
