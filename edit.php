@@ -223,7 +223,7 @@ include( "toolbar.php" );
 </div>
 
 <div class="content" >
-	<input type="reset" value="Limpa" />
+	<input type="reset" value="Limpa" onClick="return confirm('Are you sure? This will restore the original text\n(in another words, you will lose every change made to the text)')"; />
 	<input type="submit" name="salva" value="Salva" />
 	<br />
 	<textarea name="cria_conteudo" wrap=virtual rows="20" cols="100" style="width: 100%"><?php echo $conteudo; ?></textarea>
