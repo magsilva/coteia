@@ -4,26 +4,27 @@ div.toolbar {
 	text-align: center;
 }
 
-div.content {
-	position:relative;
-	text-align: left;
-	border-style:none;
-	margin-top: 3ex;
-	float:left;
-}
-
 div.metadata {
 	position: relative;
 	text-align: left;
-	border-style:none;
+	border-style: none;
 	float: left;
 }
 
 div.lock {
 	position: relative;
 	text-align: right;
-	border-style:none;
+	border-style: none;
 	float: right;
+}
+
+div.content {
+	position: relative;
+	border-style: none;
+	margin-top: 3ex;
+	float: left;
+	vertical-align: bottom;
+	width: 100%;
 }
 
 div.source1 {

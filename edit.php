@@ -184,24 +184,6 @@ include( "toolbar.php" );
 ?>
 
 <form method="post" name="edit" action="edit.php" onSubmit="return validar(this);">
-<div class="lock">
-  Lock
-  <br /><input type="checkbox" name="lock" value="locked" <?php if ( $senha != NULL ) echo checked; ?> />
-
-  <br />Password
-  <br /><input type="password" size="10" name="passwd" onChange="window.document.edit.lock.checked=true;return false;" />
-
-<?php
-	if ( $senha == NULL ) {
-?>
-  <br />Re-enter password
-  <br /><input type="password" size="10" name="repasswd" onChange="window.document.edit.lock.checked=true;return false;" />
-<?php
-	}
-?>
-
-
-</div>
  
 <div class="metadata">
 <table>
@@ -229,6 +211,24 @@ include( "toolbar.php" );
 </table>
 </div>
 
+<div class="lock">
+  Lock
+  <br /><input type="checkbox" name="lock" value="locked" <?php if ( $senha != NULL ) echo checked; ?> />
+
+  <br />Password
+  <br /><input type="password" size="10" name="passwd" onChange="window.document.edit.lock.checked=true;return false;" />
+
+<?php
+	if ( $senha == NULL ) {
+?>
+  <br />Re-enter password
+  <br /><input type="password" size="10" name="repasswd" onChange="window.document.edit.lock.checked=true;return false;" />
+<?php
+	}
+?>
+</div>
+
+<br />
 <div class="content" >
 	<input type="reset" value="Limpa" onClick="return confirm('Are you sure? This will restore the original text\n(in another words, you will lose every change made to the text)')"; />
 	<input type="submit" name="salva" value="Salva" />
