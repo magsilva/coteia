@@ -156,6 +156,13 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 		}
 	}
 
+	// Handle the case the wikipage's content is sent via an upload file.
+	if ( isset( $_FILES[ "filename" ] ) ) {
+		if ( is_uploaded_file( $_FILES['filename']['tmp_name'] ) ) {
+			$_REQUEST[ "content" ] =  file_get_contents( $_FILES["filename"] );
+		}
+	}
+
 	// Check were to insert the new data (above or below).
 	if ( isset( $_REQUEST[ "position" ] ) ) {
 	  if ( $_REQUEST[ "position" ] == "bottom" ) {
@@ -255,8 +262,6 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 } else {
 
 echo get_header( _( "Edit wikipage" ) );
-
-include( "toolbar.php.inc" );
 ?>
 	<script language="javascript" type="text/javascript" src="plugins/htmlarea/tiny_mce.js"></script>
 	<script language="javascript" type="text/javascript">
@@ -267,6 +272,11 @@ include( "toolbar.php.inc" );
 </head>
 
 <body>
+
+<?php
+include( "toolbar.php.inc" );
+?>
+
 
 <form method="post" name="edit" action="edit.php" onSubmit="return validar(this);">
  
@@ -344,6 +354,7 @@ include( "toolbar.php.inc" );
 <div class="content" >
 	<input type="reset" value="<?php echo _( "Reset" ); ?>" onClick="return confirm('<?php echo _( "Are you sure? This will restore the original text\n(in another words, you will lose every change made to the text)." ); ?>');" />
 	<input type="submit" name="save" value="<?php echo _( "Save" ); ?>" />
+	<input type="file" size="40" name="filename" />
 	<br />
 	<textarea name="content" wrap=virtual rows="15" cols="100" style="width: 100%"><?php echo $wikipage_raw[ "conteudo" ]; ?></textarea>
 </div>
