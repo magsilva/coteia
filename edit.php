@@ -258,6 +258,13 @@ echo get_header( _( "Edit wikipage" ) );
 
 include( "toolbar.php.inc" );
 ?>
+	<script language="javascript" type="text/javascript" src="plugins/htmlarea/tiny_mce.js"></script>
+	<script language="javascript" type="text/javascript">
+		tinyMCE.init({
+			mode : "textareas"
+		});
+	</script>
+</head>
 
 <body>
 
