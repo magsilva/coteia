@@ -1,7 +1,11 @@
+Agora
+=====
+Pegar o esquema da base de dados do ChatServer.
+Colocar as variáveis do esquema da base de dados do serviço de anotações.
+Colocar as variáveis do esquema da base de dados de usuários.
+Colocar as variáveis do esquema da base de dados de cursos do eClass.
+
+Ócio
+====
 Retirar código redundante de admin/
 Remover códigos redundantes de Javascript (colocar em um arquivo separado).
-
-Verificar o esquema da base de dados do ChatServer.
-Verificar o esquema da base de dados do serviço de anotações.
-Verificar o esquema da base de dados de usuários.
-Verificar o esquema da base de dados de cursos do eClass.

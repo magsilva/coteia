@@ -163,15 +163,10 @@ if (xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$cp_xt,$cp_java,$p
  		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass='$passwd' where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
 		$sql = mysql_query("$query",$dbh);
 
-                //$query_back = "insert into backup (ident,indexador,titulo,conteudo,ip, data, pass,kwd1,kwd2,kwd3 ,autor) values ('$ident','$indexador','$titulo','$conteudo_puro','$nro_ip','$data','$passwd','$keyword[1]','$keyword[2]','$keyword[3]','$autor')";
-                //$sql_back = mysql_query("$query_back",$dbh);
-
 		} else {
  		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass=NULL where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
 		$sql = mysql_query("$query",$dbh);
 
-                //$query_back = "insert into backup (ident,indexador,titulo,conteudo,ip, data, pass,kwd1,kwd2,kwd3 ,autor) values ('$ident','$indexador','$titulo','$conteudo_puro','$nro_ip','$data',NULL,'$keyword[1]','$keyword[2]','$keyword[3]','$autor')";
-                //$sql_back = mysql_query("$query_back",$dbh);
 		}	
 		  } //xml_xsl
 		  else	{
