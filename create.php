@@ -123,7 +123,7 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 		if ($wikipage_web[ "lock" ] == true ) {
 			$wikipage_db[ "password" ] = "NULL";
 		} else {
-			$wikipage_password = $_REQUEST[ "password" ];
+			$wikipage_password = "" . $_REQUEST[ "password" ];
 			if ( get_magic_quotes_gpc() == 1 ) {
 				$wikipage_password = stripslashes( $wikipage_password );
 			}
@@ -150,10 +150,10 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 	}
 
 	foreach ( $linksto_id as $ident_pai ) {
-		include( "atualiza.inc" );
+		include( "update_wikipage.inc" );
 	}
 
-	header("Location:mostra.php?ident=$wikipage[ident]");
+	header("Location:mostra.php?ident=" . $wikipage_web["ident"] );
 } else {
 	$wikipage_index = $_REQUEST[ "index" ];
 	if ( get_magic_quotes_gpc() == 1 ) {
