@@ -979,11 +979,12 @@ function replace( $text ) {
 		"`" => "'",
 		"\"" => "&quot;",
 		"<" => "&lt;",
-		">" => "&gt;"
+		">" => "&gt;",
+		"&" => ""
 	);
 
 	foreach ( $replace_vars as $i => $value ) {
-		$text = eregi_replace( $value, $i, $text );
+		$text = eregi_replace( $i, $value, $text );
 	}
 	return $text;
 }

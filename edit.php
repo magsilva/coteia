@@ -53,6 +53,7 @@ if ( $salva ) {
 	$keyword[2] = trim($coweb_tratamento["key2"]);
 	$keyword[3] = trim($coweb_tratamento["key3"]);
 
+	echo $conteudo;
 	if (stristr($conteudo,"<note/>")) {
 		$conteudo = note($conteudo);
 	}
@@ -76,7 +77,7 @@ if ( $salva ) {
 	$query = "SELECT indexador FROM paginas where ident='$ident'";
 	$sql = mysql_query("$query",$dbh);
 	$tupla = mysql_fetch_array($sql);
-	$indexador = $tupla[indexador];
+	$indexador = $tupla["indexador"];
 
 	//linksto - estrutura inicial
 	if (($id_swiki) != ($ident)) {
@@ -90,8 +91,8 @@ if ( $salva ) {
 	$sql_swiki= "select ident,titulo from paginas where (((ident like '$id_swiki.%') or (ident='$id_swiki')) and (conteudo like '%<lnk>$indexador</lnk>%'))";
 	$query_swiki =  mysql_query($sql_swiki,$dbh);
 	while ($tupla = mysql_fetch_array($query_swiki)) {
-		$linksto_id[$i] = $tupla[ident];
-		$linksto_titulo[$i] = $tupla[titulo];
+		$linksto_id[$i] = $tupla["ident"];
+		$linksto_titulo[$i] = $tupla["titulo"];
 		$i++;
 	}
 
@@ -154,13 +155,13 @@ if ( $salva ) {
 $query = "SELECT titulo,conteudo,kwd1,kwd2,kwd3,autor,pass FROM paginas where ident='$ident'";
 $sql = mysql_query("$query",$dbh);
 while ($tupla = mysql_fetch_array($sql)) {
-	$conteudo = $tupla[conteudo];
-	$kwd1 = $tupla[kwd1];
-	$kwd2 = $tupla[kwd2];
-	$kwd3 = $tupla[kwd3];
-	$autor = $tupla[autor];
-	$tit = $tupla[titulo];
-	$senha = $tupla[pass];
+	$conteudo = $tupla[ "conteudo" ];
+	$kwd1 = $tupla[ "kwd1" ];
+	$kwd2 = $tupla[ "kwd2" ];
+	$kwd3 = $tupla[ "kwd3" ];
+	$autor = $tupla[ "autor" ];
+	$tit = $tupla[ "titulo" ];
+	$senha = $tupla[ "pass" ];
 }
 $conteudo = eregi_replace("<br/>","","$conteudo");	
 $cont = eregi_replace("<br />","","$conteudo");	
@@ -179,7 +180,7 @@ $cont = eregi_replace("<br />","","$conteudo");
 include( "toolbar.php" );
 ?>
 
-<form method="POST" name="edit" ACTION="edit.php" onSubmit="return validar(this);">
+<form method="POST" name="edit" action="edit.php" onSubmit="return validar(this);">
 <div class="lock">
   Lock
   <br /><input type="checkbox" name="lock" value="locked" <?php if ($senha) echo checked; ?> />
