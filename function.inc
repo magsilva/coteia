@@ -1009,7 +1009,7 @@ function replace($texto) {
 	$open_font = eregi_replace("<font","<font",$img);
 	$close_font = eregi_replace("</font>","</font>",$open_font);
 
-	$open_table = eregi_replace("<table","<table",$open_font);
+	$open_table = eregi_replace("<table","<table",$close_font);
 	$close_table = eregi_replace("</table>","</table>",$open_table);
 
 	$open_td = eregi_replace("<td>","<td>",$close_table);
@@ -1035,7 +1035,7 @@ function replace($texto) {
 	$open_href = eregi_replace("<a href","<a href",$agenda);
 	$close_href = eregi_replace("</a>","</a>",$open_href);
 
-	$string2 = eregi_replace ("<br>","<br/>",$string1);
+	$string2 = eregi_replace ("<br>","<br/>",$close_href);
       
 	$texto_single_quot = eregi_replace("'","`",$string2);
 	$texto_quot = eregi_replace("&quot;","\"",$texto_single_quot);
@@ -1109,7 +1109,7 @@ while ($continua == true)
 */
 function tratamento($index,$conteudo,$titulo,$autor,$kwd) {
 	$conteudo = stripslashes($conteudo);
-	$texto_final = replace($conteudo);
+	$texto = replace($conteudo);
 
 	$trat["index"] = $index;
 	$trat["content"] = trim( $texto );
@@ -1120,7 +1120,6 @@ function tratamento($index,$conteudo,$titulo,$autor,$kwd) {
 		$trat[ "key" . "$i" ] = trim( $kwd[ $i ] );
 	}
 	return $trat;
-
 }
 
 /*
