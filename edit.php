@@ -199,7 +199,7 @@ include( "toolbar.php" );
 <tr>
 	<td>
 	Autor
-	<br /><input type="text" name="cria_autor" value=<?php echo $autor; ?> size="45" />
+	<br /><input type="text" name="cria_autor" value="<?php echo $autor; ?>" size="45" />
 	</td>
 </tr>
 <tr>
