@@ -12,7 +12,7 @@
 include_once("function.inc");
 
 if ( isset( $_REQUEST[ "upload" ] ) ) {
-	$ok = 0;
+	$ok = 4;
 	$filetypes = array();
 	$filetypes[] = "txt";
 	$filetypes[] = "pdf";
@@ -23,8 +23,8 @@ if ( isset( $_REQUEST[ "upload" ] ) ) {
 	$filetypes[] = "bz2";
 	if ( is_uploaded_file( $_FILES[ "uploads"][ "tmp_name" ] ) ) {
 		foreach ( $filetypes as $filetype ) {
-			if ( preg_match( "/\." . $filetype . "$/", $content ) == 0 ) {
-				$ok = 4;
+			if ( preg_match( "/\." . $filetype . "$/", $_FILES[ "uploads" ][ "name" ] ) > 0 ) {
+				$ok = 0;
 			}
 		}
 
