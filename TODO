@@ -1,11 +1,10 @@
 Para agora
 ==========
-Documentar melhor sobre como expandir a CoTeia.
-Criar uma página específica para a CoTeia (self-hosted?).
 Verificar o porquê das anotações não funcionarem.
 
 Ócio
 ====
+Mudar as senhas das páginas wiki para MD5 ou coisa semelhante.
 Mudar as variáveis globais para constantes.
 Retirar código redundante de admin/
 Alterar a chamada xml_xsl para receber os parâmetros a serem aplicados via uma array associativa.
