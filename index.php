@@ -1,4 +1,11 @@
 <?php
+/**
+* Copyright (C) 2001, 2002, 2003 Carlos Roberto E. de Arruda Jr
+* This code is licenced under the GNU General Public License (GPL).
+*/
+?>
+
+<?php
 /*
 * Tela inicial da CoTeia, aonde sao mostradas as swikis existentes.
 */
@@ -9,7 +16,7 @@ include_once("function.inc");
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<link rel="Shortcut icon" href="<?php echo $URL_IMG; ?>/Logo.ico" />
+	<link rel="Shortcut icon" href="<?php echo $URL_IMG; ?>/logo.ico" />
 	<link href="coteia.css" rel="stylesheet" type="text/css" />
 	<title>CoTeia</title>
 </head>

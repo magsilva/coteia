@@ -1,4 +1,11 @@
 <?php
+/**
+* Copyright (C) 2001, 2002, 2003 Carlos Roberto E. de Arruda Jr
+* This code is licenced under the GNU General Public License (GPL).
+*/
+?>
+
+<?php
 include_once("function.inc");
 include_once("cvs/function_cvs.inc");
 
