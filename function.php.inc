@@ -433,9 +433,9 @@ function prepare_links_callback( $matches ) {
 	$wikipage_index = $matches[5];
 	if ( count( $matches[2] ) != 0 ) {
 		$swiki_name = preg_replace( "\s*swiki=(.*)", "$1", $matches[2] );
-		$links = search_wikipage_link( $wikipage_index, $callback_hint, $swiki_name );
+		$links = find_wikipage_link( $wikipage_index, $callback_hint, $swiki_name );
 	} else {
-		$links = search_wikipage_link( $wikipage_index, $callback_hint );
+		$links = find_wikipage_link( $wikipage_index, $callback_hint );
 	}
  return prepare_wikipage_link( $links );
 }
@@ -445,7 +445,7 @@ function prepare_links_callback( $matches ) {
 	global $callback_hint;
 
 	$wikipage_index = trim( $matches[2] );
-	$links = search_wikipage_link( $wikipage_index, $callback_hint );
+	$links = find_wikipage_link( $wikipage_index, $callback_hint );
 	return prepare_wikipage_link( $links );
 }
 
@@ -464,7 +464,7 @@ function prepare_links_callback( $matches ) {
 * wikipage's data (wikipage_id, index, title, ctime, and author). If no
 * wikipage is found, returns and empty array.
 */
-function search_wikipage_link()
+function find_wikipage_link()
 {
   if ( func_num_args() < 2 || func_num_args() > 3 ) {
     trigger_error( "Invalid number of arguments" );
@@ -527,7 +527,7 @@ function search_wikipage_link()
 * Prepare the HTML code that will replace the "lnk" element within
 * a wikipage.
 *
-* @param links [array] The array returned by @link search_wikipage_link.
+* @param links [array] The array returned by @link find_wikipage_link.
 *
 * @return [string] The HTML code that will link to the $links.
 */
@@ -575,11 +575,11 @@ function compile_wikipage( $wikipage_id )
 	$wikipage_raw = mysql_fetch_array( $result );
 	mysql_free_result( $result );
 
-	$wikipage_xml = prepare_for_xml( $wikipage_raw );
-
 	//	$tuple[ "conteudo" ] = note( $tuple[ "conteudo" ] );
 	$wikipage_raw[ "conteudo" ] = prepare_links( $wikipage_id, $wikipage_raw[ "conteudo" ] );
 	$wikipage_raw[ "conteudo" ] = plugin_upload( $wikipage_raw[ "conteudo" ] );
+
+	$wikipage_xml = prepare_for_xml( $wikipage_raw );
 
 	// Prepare swiki and wikipages identificators.
 	$swiki_id = extract_swiki_id( $wikipage_id );
