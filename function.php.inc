@@ -310,14 +310,16 @@ function process_xml_document( $id, $xml_document, $xsl_names )
 	fputs( $fp, $xml_document );
 	fclose( $fp );
 
-
+	$xml_temp = $xml;
 	foreach ( $xsl_names as $xsl ) {
-		$result = apply_xsl( $xml, $XSL_DIR . "/" . $xsl . ".xsl" );
+		$result = apply_xsl( $xml_temp, $XSL_DIR . "/" . $xsl . ".xsl" );
 		if ( is_array( $result ) ) {
 			$result = implode( $result, "\n" );
 			return $result;
 		}
-		unlink( $xml );
+		if ( $xml_temp != $xml ) {
+			unlink( $xml_temp );
+		}
 		$xml = $result;
 	}
 
@@ -613,6 +615,7 @@ function compile_wikipage( $wikipage_id )
 	$wikipage_xml[ "annotation" ] = $tuple[ "id_ann" ];
 	$wikipage_xml[ "chat" ] = $tuple[ "id_chat" ];
 	$wikipage_xml[ "eclass" ] = $tuple[ "id_eclass" ];
+
 
 	$xml_document = prepare_xml_document( $wikipage_xml );
 
