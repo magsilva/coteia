@@ -23,7 +23,7 @@ if ( isset( $_REQUEST[ "upload" ] ) ) {
 	$filetypes[] = "bz2";
 	if ( is_uploaded_file( $_FILES[ "uploads"][ "tmp_name" ] ) ) {
 		foreach ( $filetypes as $filetype ) {
-			if ( preg_match( "/\." . $filetype . "$/", $_FILES[ "uploads" ][ "name" ] ) > 0 ) {
+			if ( preg_match( "/\." . $filetype . "$/i", $_FILES[ "uploads" ][ "name" ] ) > 0 ) {
 				$ok = 0;
 			}
 		}
