@@ -466,7 +466,7 @@ function match_tag( $content, $type, $cdata ) {
 /**
 * Handle errors found.
 */
-function show_error( $st, $message ) {
+function show_error( $error_code, $message ) {
   include( "err.inc" );
 }
 
