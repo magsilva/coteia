@@ -45,57 +45,74 @@ $titulo = $tupla1[titulo];
 
 <body>
 
-<img src="<?php echo $URL_IMG/Manager.png;?>" /> 
-<h2>CoTeia</h2>
+<table width="70%" bgcolor="#E1F0FF" bordercolor="#C0C0C0" align="center" border="1">
+<tr>
+	<td>
+		<img src="<?php echo "$URL_IMG/Manager.png";?>" />
+		<b>CoTeia</b>
+	</td>
+</tr>
+<tr>
+	<td>
+		<img src="<?php echo "$URL_IMG/Dir_open.png";?>" />
+		<b><?php echo "Swiki: $titulo";?></b>
+	</td>
+</tr>
+<tr>
+	<td>
+		<img src="<?php echo $URL_IMG;?>/Cvs.png" /><b>Lista de Arquivos</b>
+		<div align="center">
+			<form name="checkout">
+			<br />
+			<select name="lista_arquivos" size="10" style="width: 60%">
+			<?php
+				// Abre lista_arquivos
+				$a = array();
+				$fd = opendir( "$PATH_UPLOAD/$id_sw/" );
+				while( $entry = readdir($fd) ) {
+					if (!eregi("\.$",$entry)) {
+						array_push($a,$entry);
+					}
+				}
+				closedir($fd);
+				// Ordena em ordem alfabetica
+				sort($a);
+				reset($a);
+				while (list ($key,$val) = each ($a)) {
+					echo "<option value=\"$val\">$val</option>";
+				}
+			?>
+			</select>
+			<br />
+			<input type="button" name="abrir_arquivo" value="Abrir arquivo" OnClick="AbreArq();" />
+			</form>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<img src="<?php echo $URL_IMG;?>/files2upload.png" /><b>Upload</b>
+		<div align="center">
+			<form enctype="multipart/form-data" method="post" action="<?php echo "upload.php?ident=$ident&amp;act=upload";?>" target="base">
+				<input type="hidden" name="coursename" value="<?php echo "$PATH_UPLOAD/$id_sw";?>" />
+				<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
+				<br />
+				<input type="file" size="40" name="uploads" />
+				<br />
+				<input type="submit" name="fazer_upload" value="Upload" />
+			</form>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<div align="center">
+			<a href="mostra.php?ident=<?php echo $ident;?>" target="_parent"><img src="<?php echo $URL_IMG;?>/back.png" />Voltar</a>
+		</div>
+	</td>
+</tr>
 
-<hr />
-<br />
-<img src="<?php echo $URL_IMG/Dir_open.png;?>" />
-<h2><?php echo "$Swiki: $titulo";?></h2>
-
-<div align="center">
-	<img src="<?php echo $URL_IMG;?>/Cvs.png" /><b>Lista de Arquivos</b>
-
-	<form name=checkout>
-	<br />
-	<select name=lista_arquivos size=5>
-	<?php
-		// Abre lista_arquivos
-		$a = array();
-		$fd = opendir( "$PATH_UPLOAD/$id_sw/" );
-		while( $entry = readdir($fd) ) {
-			if (!eregi("\.$",$entry)) {
-				array_push($a,$entry);
-			}
-		}
-		closedir($fd);
-
-		// Ordena em ordem alfabetica
-		sort($a);
-		reset($a);
-
-		while (list ($key,$val) = each ($a)) {
-			echo "<option value=\"$val\">$val</option>";
-		}
-	?>
-	</select>
-
-	<input type="button" name="abrir_arquivo" value="Abrir arquivo" OnClick=AbreArq();>
-	</form>
-</div>
-
-<br />
-<img src="<?php echo $URL_IMG;?>/files2upload.png"><b>Upload</b>
-<form enctype="multipart/form-data" method="post" action="<?php echo "upload.php?ident=$ident&act=upload";?>" target="base"> 
-	<input type="hidden" name="coursename" value="<?php echo "$PATH_UPLOAD/$id_sw";?>" />
-	<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
-	<br />
-	<input type="file" size="40" name="uploads" />
-	<input type="submit" name="fazer_upload" value="Upload" />
-</form>
-
-
-<a href="mostra.php?ident=<?php echo $ident;?>" target="_parent"><img src="<?php echo $URL_IMG;?>/back.png" />Voltar</a>
+</table>
 
 </body>
 
