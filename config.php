@@ -142,7 +142,7 @@ $CSS_DIR = $FILES_DIR . "/themes/" . $SKIN . "/css";
  */
 set_magic_quotes_runtime( 0 );
 
-$stylesheets = array( "coteia" );
+$STYLESHEETS = array( "coteia" );
 
 // I18N support information here
 $language = "en";

@@ -285,20 +285,21 @@ function process_xml_document( $id, $xml_document, $xsl_names )
 {
 	global $XML_DIR, $XHTML_DIR, $XSL_DIR, $DEFAULT_FILE_PERMISSION;
 
+	$xml = $XML_DIR . "/" . $id  . ".xml";
 
-	if ( is_file( $arq_xml ) ) {
+	if ( is_file( $xml ) ) {
 		// If we are the file's owner, this error can be corrected on the fly, so let's do it.
-		@chmod( $arq_xml, $DEFAULT_FILE_PERMISSION );
+		@chmod( $xml, $DEFAULT_FILE_PERMISSION );
 	}
 
-	$fp = @fopen( $arq_xml , "w+" );
+	$fp = @fopen( $xml , "w+" );
 	if ( $fp === false ) {
 		show_error( _( "An error was found when processing the wikipage (couldn't save the wikipage's XML document )." ) );
 	}
 	fputs( $fp, $xml_document );
 	fclose( $fp );
 
-	$xml = $XML_DIR . "/" . $id  . ".xml";
+
 	foreach ( $xsl_names as $xsl ) {
 		$result = apply_xsl( $xml, $XSL_DIR . "/" . $xsl . ".xsl" );
 		if ( is_array( $result ) ) {
@@ -545,7 +546,7 @@ function prepare_wikipage_link( $links )
 */
 function compile_wikipage( $wikipage_id )
 {
-	global $CVS_MODULE;
+	global $CVS_MODULE, $STYLESHEETS;
 
 	if ( check_wikipage_id( $wikipage_id ) == false ) {
 		return false;
@@ -561,11 +562,11 @@ function compile_wikipage( $wikipage_id )
 	$wikipage_raw = mysql_fetch_array( $result );
 	mysql_free_result( $result );
 
+	$wikipage_xml = prepare_for_xml( $wikipage_raw );
+
 	//	$tuple[ "conteudo" ] = note( $tuple[ "conteudo" ] );
 	$wikipage_raw[ "conteudo" ] = prepare_links( $wikipage_id, $wikipage_raw[ "conteudo" ] );
 	$wikipage_raw[ "conteudo" ] = plugin_upload( $wikipage_raw[ "conteudo" ] );
-
-	$wikipage_xml = prepare_for_xml( $wikipage_raw );
 
 	// Prepare swiki and wikipages identificators.
 	$swiki_id = extract_swiki_id( $wikipage_id );
@@ -604,7 +605,7 @@ function compile_wikipage( $wikipage_id )
 
 	$xml_document = prepare_xml_document( $wikipage_xml );
 
-	$result = process_xml_document( $wikipage_id, $xml_document, $stylesheets );
+	$result = process_xml_document( $wikipage_id, $xml_document, $STYLESHEETS );
 
 	if ( $result === true ) {
 		//atualiza arquivo no CVS
