@@ -34,7 +34,7 @@ function wikipage2cvs( $wikipage_id )
 	global $PATH_COWEB, $OUTPUT_DIR;
 	$format = "html";
 
-	$filename = $PATH_COWEB . "/" . $OUTPUT_DIR . "/" . $format . "/" . $id . "." . $format;
+	$filename = $OUTPUT_DIR . "/" . $format . "/" . $wikipage_id . "." . $format;
 
 	return $filename;	
 }
@@ -143,15 +143,14 @@ function cvs_checkout( $module, $filename )
 	chdir( $CVS_CHECKOUT_DIR );
 	$cvs_root = cvs_get_root();
 
-	if ( !is_filename( $CVS_CHECKOUT_DIR . "/" . $module . "/" . $filename ) ) {
+	if ( !is_file( $CVS_CHECKOUT_DIR . "/" . $module . "/" . $filename ) ) {
 		// Checkout the module, if necessary
 		$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' checkout '$module/$filename' 2>&1";
-		exec( $cmdline, $output, $retval );
 	} else {
 		// Update the local repository.
 		$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' update '$module/$filename' 2>&1";
-		exec( $cmdline, $output, $retval );
 	}
+	exec( $cmdline, $output, $retval );
 
 	if ( $retval != 0 ) {
 		$result = false;
@@ -174,16 +173,20 @@ function cvs_checkout( $module, $filename )
 * @returns <code>false</code> if it cannot update the file.
 * @returns <code>true</code> if the update is sucessful.
 */
-function cvs_update( $module, $filename, $comment = " " )
+function cvs_update( $module, $srcFilename, $destFilename = " ", $comment = " " )
 {
 	global $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_BIN;
 
-	if ( cvs_check( $filename ) == false ) {
+	if ( $destFilename === " " ) {
+		$destFilename = basename( $srcFilename );
+	}
+
+	if ( cvs_checkout( $module, $destFilename ) == false ) {
 		return false;
 	}
 
 	// Add the file to the local repository.
-	copy( $filename, $CVS_CHECKOUT_DIR . "/" . $module . "/" . $filename );
+	copy( $srcFilename, $CVS_CHECKOUT_DIR . "/" . $module . "/" . $destFilename );
 
 	// Commit the changes made in $filename within the local repository.
 	$cvs_root = cvs_get_root();
@@ -191,7 +194,7 @@ function cvs_update( $module, $filename, $comment = " " )
 	chdir( $CVS_CHECKOUT_DIR );
 	$output = array();
 	$retval = 0;
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' commit -m '$comment' '$module/$filename' 2>&1";
+	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' commit -m '$comment' '$module/$destFilename' 2>&1";
 	exec( $cmdline, $output, $retval );
 	if ( $retval != 0 ) {
 		chdir( $old_dir );
@@ -210,7 +213,7 @@ function cvs_update( $module, $filename, $comment = " " )
 * @returns <code>false</code> if the file wasn't successfully added. The root cause can be:
 *          the file already exists in the repository; another error happened.
 */
-function cvs_add( $module, $filename, $comment = " " )
+function cvs_add( $module, $srcFilename, $destFilename = " ", $comment = " " )
 {
 	global $PATH_COWEB, $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_BIN;
 
@@ -218,7 +221,11 @@ function cvs_add( $module, $filename, $comment = " " )
 	$retval = 0;
 	$cvs_root = cvs_get_root();
 
-	if ( cvs_checkout( $module, $filename ) == true ) {
+	if ( $destFilename === " " ) {
+		$destFilename = basename( $srcFilename );
+	}
+
+	if ( cvs_checkout( $module, $destFilename ) == false ) {
 		return false;
 	}
 
@@ -226,10 +233,10 @@ function cvs_add( $module, $filename, $comment = " " )
 	chdir( $CVS_CHECKOUT_DIR );
 
 	// Copy the file to the local repository.
-	copy( $filename, $CVS_CHECKOUT_DIR . "/" . $module . "/" . $filename );
+	copy( $srcFilename, $CVS_CHECKOUT_DIR . "/" . $module . "/" . $destFilename );
 
 	// Mark the file as added.
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' add '$module/$filename' 2>&1";
+	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' add '$module/$destFilename' 2>&1";
 	exec( $cmdline, $output, $retval );
 	if ( $retval != 0 ) {
 		chdir( $old_dir );
@@ -237,7 +244,7 @@ function cvs_add( $module, $filename, $comment = " " )
 	}
 
 	// Commit the changes.
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' commit -m '$comment' '$module/$filename' 2>&1";
+	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' commit -m '$comment' '$module/$destFilename' 2>&1";
 	unset( $output );
 	exec( $cmdline, $output, $retval );
 	if ( $retval != 0 ) {

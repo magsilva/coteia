@@ -568,7 +568,7 @@ function prepare_wikipage_link( $links )
 */
 function compile_wikipage( $wikipage_id, $format )
 {
-	global $CVS_MODULE, $STYLESHEETS;
+	global $CVS_WIKIPAGE_MODULE, $STYLESHEETS;
 
 	if ( check_wikipage_id( $wikipage_id ) == false ) {
 		return false;
@@ -636,10 +636,10 @@ function compile_wikipage( $wikipage_id, $format )
 		//atualiza arquivo no CVS
 		$result = false;
 		$filename = wikipage2cvs( $wikipage_id );
-		$result = cvs_update( $CVS_MODULE, $filename );
+		$result = cvs_update( $CVS_WIKIPAGE_MODULE, $filename );
 		// If we cannot update the file, try to add it.
 		if ( $result === false ) {
-			$result = cvs_add( $CVS_MODULE, $filename );
+			$result = cvs_add( $CVS_WIKIPAGE_MODULE, $filename );
 		}
 	} else {
 		return $result;
