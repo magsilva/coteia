@@ -136,6 +136,12 @@ $XSL_DIR = $FILES_DIR . "/themes/" . $SKIN . "/xsl";
 */
 $CSS_DIR = $FILES_DIR . "/themes/" . $SKIN . "/css";
 
+
+/**
+ * Unset magic_quotes_runtime.
+ */
+set_magic_quotes_runtime( 0 );
+
 /**
 * Version. Please, do not change.
 */
