@@ -986,6 +986,9 @@ function replace( $text ) {
 	foreach ( $replace_vars as $i => $value ) {
 		$text = eregi_replace( $i, $value, $text );
 	}
+
+	$text = nl2br( $text );
+
 	return $text;
 }
 

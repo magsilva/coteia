@@ -18,7 +18,7 @@ include_once("function.inc");
 <hr />
 <br />
 
-<a href="<?php echo $URL_UPLOAD . "/" . $swiki . "/" . $arq;?>"><?php echo $arq;?></a>
+<a href="<?php echo $URL_UPLOAD . "/" . $swiki . "/" . rawurlencode( $arq );?>"><?php echo $arq;?></a>
 
 </body>
  
