@@ -33,8 +33,8 @@ if ( $wikipage_id === false ) {
 }
 
 if ( $action == "retrieve" ) {
-	$filename = $CVS_MODULE . "/" . $wikipage_id . ".html";
-	$revision = cvs_check_revision( $filename, $_REQUEST[ "revision" ] );
+	$filename = wikipage2cvs( $wikipage_id );
+	$revision = cvs_check_revision( $MODULE, $filename, $_REQUEST[ "revision" ] );
 	if ( $revision === false ) {
 		show_error( _( "The parameter 'revision' is invalid" ) );
 	}
@@ -57,13 +57,14 @@ include( dirname(__FILE__) . "/../../toolbar.php.inc" );
 * Execute action.
 */
 if ( $action == "retrieve" ) {
+	$filename = wikipage2cvs( $wikipage_id );
 	if ( $compare ) {
-		$content1 = cvs_checkout_file( $filename, "HEAD" );
+		$content1 = cvs_checkout_file( $MODULE, $filename, "HEAD" );
 		$content1 = preg_replace( "'<html>.*?<h2>'si", "<h2>", $content1, 1 );
 		$content1 = eregi_replace( "</body>", "", $content1 );
 		$content1 = eregi_replace( "</html>", "", $content1 );
 	}
-	$content2 = cvs_checkout_file( $filename, $revision );
+	$content2 = cvs_checkout_file( $MODULE, $filename, $revision );
 	$content2 = preg_replace( "'<html>.*?<h2>'si", "<h2>", $content2, 1 );
 	$content2 = eregi_replace( "</body>", "", $content2 );
 	$content2 = eregi_replace( "</html>", "", $content2 );
@@ -93,7 +94,8 @@ if ( $action == "list" ) {
 	/**
 	* Retrieving known revisions for the wikipage.
 	*/
-	$revisions = cvs_get_revisions( $CVS_MODULE . "/" . $wikipage_id . ".html" );
+	$filename = wikipage2cvs( $wikipage_id );
+	$revisions = cvs_get_revisions( $CVS_MODULE, $filename );
 ?>
 
 <br />

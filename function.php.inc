@@ -276,6 +276,7 @@ function prepare_for_xml( $wikipage_raw )
 	$wikipage_xml[ "keyword1" ] = replace_chars( $wikipage_raw[ "kwd1" ] );
 	$wikipage_xml[ "keyword2" ] = replace_chars( $wikipage_raw[ "kwd2" ] );
 	$wikipage_xml[ "keyword3" ] = replace_chars( $wikipage_raw[ "kwd3" ] );
+	$wikipage_xml[ "raw_content" ] = $wikipage_raw[ "conteudo_original" ];
 
 	return $wikipage_xml;
 }
@@ -582,6 +583,8 @@ function compile_wikipage( $wikipage_id, $format )
 	$wikipage_raw = mysql_fetch_array( $result );
 	mysql_free_result( $result );
 
+	$wikipage_raw[ "conteudo_original" ] = "<![CDATA[" . $wikipage_raw[ "conteudo" ] . "]]>";
+
 	//	$tuple[ "conteudo" ] = note( $tuple[ "conteudo" ] );
 	$wikipage_raw[ "conteudo" ] = prepare_links( $wikipage_id, $wikipage_raw[ "conteudo" ] );
 	$wikipage_raw[ "conteudo" ] = plugin_upload( $wikipage_raw[ "conteudo" ] );
@@ -627,19 +630,20 @@ function compile_wikipage( $wikipage_id, $format )
 	$xml_document = prepare_xml_document( $wikipage_xml );
 
 	$result = process_xml_document( $wikipage_id, $xml_document, $STYLESHEETS, $format );
-/*
+
 	if ( $result === true ) {
 		//atualiza arquivo no CVS
 		$result = false;
-		$result = cvs_update( $wikipage_id, $CVS_MODULE);
+		$filename = wikipage2cvs( $wikipage_id );
+		$result = cvs_update( $CVS_MODULE, $filename );
 		// If we cannot update the file, try to add it.
 		if ( $result === false ) {
-			$result = cvs_add( $wikipage_id, $CVS_MODULE );
+			$result = cvs_add( $CVS_MODULE, $filename );
 		}
 	} else {
 		return $result;
 	}
-*/
+
 	return $result;
 }
 
@@ -1067,6 +1071,7 @@ END;
 <author>{$wikipage[ "author" ]}</author>
 <tit>{$wikipage[ "title" ]}</tit>
 <bdy>{$wikipage[ "content" ]}</bdy>
+<rawbdy>{$wikipage[ "raw_content" ]}</rawbdy>
 </page>
 END;
 

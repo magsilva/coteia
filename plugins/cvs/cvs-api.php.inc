@@ -31,9 +31,10 @@ $cvs_crypt_table = array(
 */
 function wikipage2cvs( $wikipage_id )
 {
-	global $PATH_COWEB, $XHTML_DIR;
+	global $PATH_COWEB, $OUTPUT_DIR;
+	$format = "html";
 
-	$filename = $PATH_COWEB . "/" . $XHTML_DIR . "/" . $id . ".html";
+	$filename = $PATH_COWEB . "/" . $OUTPUT_DIR . "/" . $format . "/" . $id . "." . $format;
 
 	return $filename;	
 }
@@ -211,7 +212,7 @@ function cvs_update( $module, $filename, $comment = " " )
 */
 function cvs_add( $module, $filename, $comment = " " )
 {
-	global $PATH_COWEB, $XHTML_DIR, $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_BIN;
+	global $PATH_COWEB, $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_BIN;
 
 	$output = array();
 	$retval = 0;
