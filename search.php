@@ -3,7 +3,7 @@
 <head>
 	<title>Search</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-`	<link href="coteia.css" rel="stylesheet" type="text/css" />
+	<link href="coteia.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="coteia.js"></script>
 </head>
 
