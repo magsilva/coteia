@@ -1,24 +1,3 @@
-<?
-//st = 1 => erro de identificador ao criar nova pagina
-//st = 2 => nao criou arquivo fisico
-//st = 3 => erro de indexador ao criar nova pagina
-
-include_once("function.inc");
-
-$d = getdate();
-$data=$d["mday"]."-".$d["mon"]."-".$d["year"]." ".$d["hours"].":".$d["minutes"].":".$d["seconds"];
-
-$ip = $REMOTE_ADDR;
-$host = getHostByAddr($REMOTE_ADDR);
-$pagina = $PHP_SELF;
-$browser = $HTTP_USER_AGENT; 
-
-$log = $data." | ".$ip." | ".$host." | ".$pagina." | ".$st." : ".$ident." | ".$browser."\n";
-$fp = fopen( "log.txt","a" );
-fputs( $fp, $log );
-fclose( $fp );
-?>
-
 <html>
 
 <head>
@@ -30,45 +9,78 @@ fclose( $fp );
 <body>
 
 <?php
+include_once( "function.inc" );
 include( "toolbar.inc" );
 
-if ($st == 4) {
+$date = gmdate( "r" );
+$ip = $_SERVER[ "REMOTE_ADDR" ];
+$hostname = @gethostbyaddr( $ip );
+$page = $_SERVER[ "PHP_SELF" ];
+$browser = $_SERVER[ "HTTP_USER_AGENT" ];
+
+$log_entry =
+	 $date
+	. "|" . $ip
+	. "|" . $hostname
+	. "|" . $browser
+	. "|" . $page
+	. "|" . $error_code
+	. "|" . $ident
+	. "\n";
+$fp = fopen( "log.txt","a" );
+fputs( $fp, $log );
+fclose( $fp );
+
+
+//st = 1 => erro de identificador ao criar nova pagina
+//st = 2 => nao criou arquivo fisico
+//st = 3 => erro de indexador ao criar nova pagina
+//st = 4 => senha incorreta
+
+switch ( $error_code ) {
+	case 4:
 ?>
-<div align="center">
-<b>Senha incorreta!</b>
-<p>Em caso de dúvidas, entre em contato com o <a href="mailto:<?php echo $ADMIN_MAIL;?>"><?php echo $ADMIN; ?></a>.</p>
-</div>
+		<h2>Senha incorreta</h2>
+		<p>O nome do usuário ou a senha utilizada para acessar a swiki estão incorretos. Por favor, volte à página anterior e tente novamente. Caso o problema se repita, entre em contato com o <a href="mailto:<?php echo $ADMIN_MAIL;?>">administrador da CoTeia (<?php echo $ADMIN; ?>)</a>.</p>
+<?php
+		break;
+?>
+
 
 <?php
-} else if ($st == 2) {
+	case 2:
 ?>
+<h2>Um erro foi encontrado na estrutura XML de seu documento</h2>
 
-<h2>Falha na estrutura XML</h2>
-
-<p>Lembre-se: <b>Sempre</b> utilize XML bem-formado, com elementos válidos.</p>
-<p>As tags (marcações) podem estar incorretas quanto a:</p
+<p>A CoTeia detectou um erro na estrutura do documento que você acabou de editar na CoTeia (toda página wiki é um documento XML bem-formado). Os erros mais mais comuns são:</p>
 <ul>
-	<li>sintaxe (com atributos sem aspas ou incorretamente fechadas),</li>
-	<li>aninhamento (não é permitido o uso de tags aninhadas).</li>
+	<li>Valores dos atributos de um elemento XML não estão delimitados por aspas. Por exemplo: &lt;img src=figura.jpg /&gt; <strong>(errado)</strong> e &lt;img src="figura.jpg" /&gt; <strong>(certo)</strong>.</li>
+	<li>As tags (marcações) não estão corretamente fechadas. Por exemplo: &lt;i&gt;texto <strong>errado</strong> &lt;i&gt;texto&lt;/i&gt;  <strong>(certo)</strong>, &lt;br&gt; <strong>(errado)</strong> e &lt;br /&gt; <strong>(certo)</strong>.</li>
+	<li>As tags (marcações) estão aninhadas de forma incorreta. Por exemplo: &lt;i&gt;&lt;b&gt;texto&lt;i&gt;&lt;b&gt; <strong>(errado)</strong> e &lt;i&gt;&lt;b&gt;texto&lt;b&gt;&lt;i&gt; <strong>(correto)</strong>.</li>
 </ul>
+
 <br />
-<p>Detalhamento dos erros encontrados:</p>
-<div align="center">
-<div style="background-color: #FEFBA7; border-width: 1; border-color: black; border-style: solid; width: 60%">
+
+<p>Abaixo estão as mensagens detalhadas sobre os erros encontrados no documento:</p>
+<div align="center" style="background-color: #FEFBA7; border-width: 1; border-color: black; border-style: solid; width: 60%">
 <?php
-foreach ( $result as $error_message ) {
-	echo "\n", $error_message, "<br />";
-}
+	foreach ( $result as $error_message ) {
+		echo "\n", $error_message, "<br />";
+	}
 ?>
 </div>
-</div>
+<?php
+		break;
+?>
+
 
 <?php
-} else if ( $st == 1 ) {
+	case 1:
+		 mail( $ADMIN_MAIL, "[CoTeia] - Erro no BD", $mysql_error( $dbh ) );
 ?>
-<h2>Erro na base de dados</h2>
+<h2>Erro na inserção dos dados na base</h2>
 
-<p>Ocorreu um erro quando inserindo os dados na base de dados. As seguinte mensagens de diagnóstico foram enviadas pelo SGBD</p>
+<p>Ocorreu um erro quando alterando os dados da página wiki na base de dados. O adminstrador da CoTeia está sendo informado (automaticamente) sobre o problema ocorrido. Caso considere necessário, entre em contato com ele pelo email <a href="mailto:<?php echo $ADMIN_MAIL;?>">(<?php echo $ADMIN; ?>)</a> ou relate a falha no Caso prefira, relate o problema diretamente no <a href="http://www.magsilva.dynalias.net/webTools/BugzillaSAFE/enter_bug.cgi?product=CoTeia">Bugzilla</a>. Abaixo estão informações mais detalhadas sobre o problema encontrado:</p>
 
 <div style="background-color: #FEFBA7; border-width: 1; border-color: black; border-style: solid; width:
 60%">
@@ -76,22 +88,32 @@ foreach ( $result as $error_message ) {
   echo "\n", $mysql_error( $dbh );
 ?>
 </div>
+<?php
+		break;
+?>
+
 
 <?php
-} else if ($st == 0 ) {
+	case 0:
 ?>
-<h2>Falha na estrutura de edição/criação de wikipage</h2>
 
-<p>Possíveis problemas:</p>
-<ul>
-	<li>Identificador inválido</li>
-	<li>Página já existente (e que não pode ser recriada)</li>
-</ul>
+<h2>A CoTeia não entendeu sua requisição</h2>
+
+<p>A CoTeia detectou um problema quando tentando atender sua requisição. As possíveis causas são:</p>
+<ol>
+	<li>Página wiki inexistente (provavelmente mudou de endereço)</li>
+	<li>Algum problema do programa sendo utilizado para acessar a CoTeia</li>
+	<li>Algum erro interno da CoTeia</li>
+</ol>
+
+<p>Provavelmente o erro teve como razão o primeiro item. Mas caso você ache que se trata de uma falha da CoTeia, envie um email para o <a href="mailto:<?php echo $ADMIN_MAIL;?>">administrador da CoTeia (<?php echo $ADMIN; ?>)</a> e detalhe o problema ocorrido. Caso prefira, relate o problema diretamente no <a href="http://www.magsilva.dynalias.net/webTools/BugzillaSAFE/enter_bug.cgi?product=CoTeia">Bugzilla</a>.</p>
+<?php
+		break;
+?>
 
 <?php
 }
 ?>
-
 
 <br />
 <br />
