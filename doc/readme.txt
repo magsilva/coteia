@@ -19,6 +19,9 @@ a diretiva "register_globals".
 - Execute os esquemas SQL gerados no diretório "tables/" (arquivos com extensão ".sql"). Observe que alguns dos banco de dados utilizados, em especial o de base de usuários compartilhada e cursos do eClass, podem estar disponibilizados na rede. Nesse caso, não é necessário executar os scripts para criar as respectivas bases de dados.
 - Tenha certeza de que existe um módulo no repositório CVS conforme especificado no "config.php.inc". O mesmo vale para o usuário, sua senha e permissões.
 
+Sobre o serviço de chat:
+- O serviço de chat (chat.php) utiliza os recursos de outro servidor (o chatserver).
+
 
 Copyright:
 Este software inclui o software XML Parser de James Clark cujo copyright pode ser encontrado em libs/copyright-xp.txt. Mais informações sobre esse software podem ser encontradas em http://www.jclark.com/xml/xp/index.html.

@@ -9,14 +9,6 @@ $dbuser = "";
 $dbpass = "";
 
 /**
-* Configuração da base de dados do serviço de chat suportada pelo CoTeia.
-*/
-$cs_dbhost = "";
-$cs_dbname = "";
-$cs_dbuser = "";
-$cs_dbpword = "";
-
-/**
 * Configuração da base de dados do serviço de anotações suportado pela CoTeia.
 */
 $anota_dbhost = "";
