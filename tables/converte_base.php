@@ -3,10 +3,11 @@
 include_once( "../function.inc" );
 
 // Conexão ao sgbd.
-$dbh = coteia_connect();
+$dbh = db_connect();
+mysql_select_db($dbname,$dbh);
 
 // Recupera todos os dados das wikipages.
-$query = "SELECT ident,pass FROM paginas";
+$query = "SELECT ident,pass FROM paginas order by ident";
 $result = mysql_query( $query, $dbh );
 
 // Começa a geração do dump propriamente dito, alterando tupla por tupla e gravando em arquivo.
