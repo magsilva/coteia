@@ -18,39 +18,42 @@
 	<title><xsl:apply-templates select="tit"/></title>
 </head>
 <body>
-	<img src="$URL_IMG/viewbw.png" />
+	<img src="$URL_IMG/viewbw.png" alt="View this Page (disabled)" />
 
 	<xsl:if test="lock='1'">
-		<a href="edit.php?ident={id}"><img src="$URL_IMG/editlock.png" /></a>
+		<a href="edit.php?ident={id}"><img src="$URL_IMG/editlock.png" alt="Edit this Page (password protected)" /></a>
 	</xsl:if>
 	<xsl:if test="lock != '1'">
-		<a href="edit.php?ident={id}"><img src="$URL_IMG/edit.png" /></a>
+		<a href="edit.php?ident={id}"><img src="$URL_IMG/edit.png" alt="Edit this Page" /></a>
 	</xsl:if>
 
-	<a href="history.php?ident={id}"><img src="$URL_IMG/history.png" /></a>
+	<a href="history.php?ident={id}"><img src="$URL_IMG/history.png" alt="Edit this Page" /></a>
 
 	<xsl:if test="id != sw_id">
-		<a href="mostra.php?ident={sw_id}"><img src="$URL_IMG/indice.png" /></a>
+		<a href="mostra.php?ident={sw_id}"><img src="$URL_IMG/indice.png" alt="Top of the Swiki" /></a>
 	</xsl:if>
 
 	<xsl:if test="id = sw_id">
-		<img src="$URL_IMG/indicebw.png" />
+		<img src="$URL_IMG/indicebw.png" alt="Top of the Swiki (disabled)" />
 	</xsl:if>
 
-	<a href="JavaScript:AbreMapa({sw_id})">	<img src="$URL_IMG/map.png" /></a>
+	<a href="JavaScript:AbreMapa({sw_id})">	<img src="$URL_IMG/map.png" alt="Mapa do Site" /></a>
 
-	<a href="changes.php?ident={id}"><img src="$URL_IMG/changes.png" /></a>
+	<a href="changes.php?ident={id}"><img src="$URL_IMG/changes.png" alt="Recent Changes" /></a>
 
-	<a href="upload.php?ident={id}"><img src="$URL_IMG/upload.png" /></a>
+	<a href="upload.php?ident={id}"><img src="$URL_IMG/upload.png" alt="File Attachments" /></a>
 
-	<a href="search.php?ident={id}"><img src="$URL_IMG/search.png" /></a>
+	<a href="search.php?ident={id}"><img src="$URL_IMG/search.png" alt="Search the Swiki" /></a>
 
-	<a href="help.php"><img src="$URL_IMG/help.png" /></a>
+	<a href="help.php"><img src="$URL_IMG/help.png" alt="Search the Swiki" /></a>
 
-	<a href="JavaScript:AbreChat({chat_folder})"><img src="$URL_IMG/chat.png" /></a>
+	<a href="JavaScript:AbreChat({chat_folder})"><img src="$URL_IMG/chat.png" alt="ChatServer" /></a>
 
-	<img src="$URL_IMG/notebw.png" />
-	<a href="JavaScript:Imprime()"><img src="$URL_IMG/print.png" /></a>
+	<a href="JavaScript:AbreAnotacao('{/page/id}{@id}','{/page/id}','{/page/ann_folder}')">
+		<img src="$URL_IMG/note.png" alt="GroupNote" />
+	</a>
+
+	<a href="JavaScript:Imprime()"><img src="$URL_IMG/print.png" alt="GroupNote" /></a>
 
 	<h2><xsl:apply-templates select="tit"/></h2>
 
