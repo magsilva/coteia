@@ -80,7 +80,7 @@ foreach (glob("*.raw") as $raw_squema) {
 echo "Ok";
 
 @copy( "coteia.xsl", "../coteia.xsl" );
-
+@copy( "htaccess", $PATH_UPLOAD . "/.htaccess" );
 
 echo "\nFinished.\n";
 
