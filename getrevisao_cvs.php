@@ -37,6 +37,7 @@ if ( $comparar == 1 ) {
 
 <?php
 	$tmp = cvs_checkout_file( $filename, "HEAD" );
+	$tmp = eregi_replace( "<html>.*<h2>", "<h2>", $tmp );
 
 	$original = "'(\s)'";
 	$conteudo = preg_replace( $original, "\\1", $tmp );
