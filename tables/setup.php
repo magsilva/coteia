@@ -81,7 +81,6 @@ echo "Ok";
 
 echo "\nCopying files to proper places...";
 @copy( "coteia.xsl", $PATH_COWEB . "/coteia.xsl" );
-@copy( "htaccess", $PATH_UPLOAD . "/.htaccess" );
 @copy( "coteia.js", $PATH_COWEB . "/coteia.js" );
 echo "\nFinished.\n";
 
