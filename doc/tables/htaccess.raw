@@ -1,0 +1,8 @@
+<Directory $PATH_UPLOAD>
+	Order deny,allow
+	Deny from all
+  Options -ExecCGI
+  AllowOverride None
+  RemoveHandler .jsp .php .html .htm
+</Directory>
+
