@@ -10,10 +10,7 @@ $get_swiki = explode(".",$ident);
 $id_swiki = $get_swiki[0];
 
 // Conecta com BD
-$dbh = db_connect();
-
-// Seleciona base de dados
-mysql_select_db($dbname,$dbh);
+$dbh = coteia_connect();
 
 $sql = mysql_query("SELECT status FROM swiki WHERE id='$id_swiki'");
 $tupla = mysql_fetch_array($sql);

@@ -3,20 +3,26 @@
 include_once( "config.php.inc" );
 
 /*
- * NOME:		db_connect
- * DESCRICAO:		Realiza a conexao com o DBMS MySQL
- * PAR. ENTRADA:	--
- * PAR. SAIDA:		--
- * RETORNO:		Retorna o handler da base de dados
- * OBSERVACOES:		
- */
-function db_connect(){
+* Connects in the SGBD and selects the CoTeia's database.
+*/
+function coteia_connect()
+{
+	global $dbhost, $dbuser, $dbpass, $dbname;
 
-	global $dbhost, $dbuser, $dbpass;
+	$db_handler = mysql_pconnect( $dbhost, $dbuser, $dbpass );
+	if ( !$db_handler ) {
+		show_error( 1 );
+	}
 
-	return(mysql_connect($dbhost, $dbuser, $dbpass));
+	$ok = mysql_select_db( $dbname, $db_handler );
+	if ( !$ok ) {
+		show_error( 1 );
+	}
 
+	return $db_handler;
 }
+
+
 
 /*
  * NOME:		autentica

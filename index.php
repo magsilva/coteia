@@ -41,9 +41,8 @@ echo "<b>Semestre Atual: $semester&ordm; de $year</b><br /><ul>\n";
 $sem_atual = $semester . '_' . $year;
 
 // Conexao com BD
-$dbh = db_connect();
+$dbh = coteia_connect();
 # seleciona base de dados
-mysql_select_db($dbname,$dbh);
 $sql = mysql_query("SELECT id,status,titulo,id_chat,admin,admin_mail,visivel FROM swiki where (semestre='$sem_atual' || semestre='T') order by titulo",$dbh);	
 while ($tupla = mysql_fetch_array($sql)) {
 	if ($tupla["visivel"]=='S') {

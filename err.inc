@@ -32,7 +32,7 @@ fputs( $fp, $log );
 fclose( $fp );
 
 
-//st = 1 => erro de identificador ao criar nova pagina
+//st = 1 => Erro no BD.
 //st = 2 => nao criou arquivo fisico
 //st = 3 => erro de indexador ao criar nova pagina
 //st = 4 => senha incorreta

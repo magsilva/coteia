@@ -2,8 +2,7 @@
 include_once( "../function.inc" );
 
 // Faz a conexao com o SGBD e recupera o conteúdo de todas as wikipages.
-$dbh = db_connect();
-mysql_select_db( $dbname, $dbh );
+$dbh = coteia_connect();
 $query =  "select * from paginas";
 $query_result = mysql_query( $query, $dbh );
 

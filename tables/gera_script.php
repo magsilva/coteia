@@ -3,8 +3,7 @@
 include_once( "../function.inc" );
 
 // Conexão ao sgbd.
-$dbh = db_connect();
-mysql_select_db( $dbname, $dbh);
+$dbh = coteia_connect();
 
 // Criação do arquivo com o dump da base.
 $arquivo = "script.sql";

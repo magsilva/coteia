@@ -21,9 +21,7 @@ include( "../../toolbar.inc" );
 $get_swiki = explode( ".", $ident );
 $id_swiki = $get_swiki[0];  
 
-$dbh = db_connect();
-# seleciona base de dados
-mysql_select_db( $dbname, $dbh );
+$dbh = coteia_connect();
 
 if ( $submit_btn == "submit" ) {
 	if ( $changes_select == 0 ) {

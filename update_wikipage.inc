@@ -8,8 +8,7 @@
 
 require_once( "function.inc" );
 
-$dbh = db_connect();
-mysql_select_db( $dbname, $dbh );
+$dbh = coteia_connect();
 
 $parent_related_query = "select * from paginas where ident='$parent_id'";  
 $parent_related_result = mysql_query( $parent_related_query, $dbh );

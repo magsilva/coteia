@@ -15,8 +15,7 @@
 <?php
 include_once("function.inc");
 
-$dbh = db_connect();
-mysql_select_db( $dbname, $dbh );
+$dbh = coteia_connect();
 
 $maxlevel=0;
 $cnt=0;

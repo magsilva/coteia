@@ -23,13 +23,8 @@ $id_swiki = $get_swiki[0];
 include( "toolbar.inc" );
 
 if ($submit_btn=="submit") {
-	global $dbname;
+	$dbh = coteia_connect();
 
-	$dbh = db_connect();
-
-	# seleciona base de dados
-	mysql_select_db($dbname,$dbh);
-   
 	$src[1] = $tit;
 	$src[2] = $con;
 	$src[3] = $pch;
@@ -103,11 +98,7 @@ if ($submit_btn=="submit") {
 <select name="search_select">
 	<option value="0">Em todas as Swikis</option>
 	<?php
-		global $dbname;
-
-		$dbh = db_connect();
-		# seleciona base de dados
-		mysql_select_db($dbname,$dbh);
+		$dbh = coteia_connect();
 
 		$sql = mysql_query("SELECT id,titulo FROM swiki order by titulo",$dbh);
 		while ($tupla = mysql_fetch_array($sql)){

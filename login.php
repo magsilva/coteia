@@ -14,7 +14,7 @@ if ( isset( $_REQUEST[ "login" ] ) {
 		show_error( 0 );
 	}
 
-	$dbh = db_connect();
+	$dbh = coteia_connect();
 	$result = login_swiki( $_REQUEST[ "username" ], $_REQUEST[ "password" ], $_REQUEST[ "id" ], $dbh );
 
 	if ( $result ) {

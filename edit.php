@@ -9,8 +9,7 @@
 include_once("function.inc");
 include_once("cvs/function_cvs.inc");
 
-$dbh = db_connect();
-mysql_select_db( $dbname, $dbh );
+$dbh = coteia_connect();
 
 // Check if the ident is valid (and extract the swiki id if it's valid).
 $id_swiki = extract_swiki_id( $_REQUEST[ "ident" ] );

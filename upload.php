@@ -1,7 +1,7 @@
 <html>
 
 <head>
-	<title>Upload - CoTeia</title>
+	<title>Repositório de arquivos</title>
 	<script type="text/javascript" src="coteia.js"></script>
 	<link href="coteia.css" rel="stylesheet" type="text/css" />
 </head>
@@ -11,10 +11,7 @@
 <?php
 include_once("function.inc");
 
-$dbh = db_connect();
-
-# seleciona base de dados
-mysql_select_db($dbname,$dbh);
+$dbh = coteia_connect();
 
 $ok = 0;
 if ( $act == "upload" ) {

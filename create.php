@@ -9,8 +9,7 @@
 include_once("function.inc");
 include_once("cvs/function_cvs.inc");
 
-$dbh = db_connect();
-mysql_select_db( $dbname, $dbh );
+$dbh = coteia_connect();
   
 if ( isset( $_REQUEST[ "save" ] ) ) {
 	$id_swiki = extract_swiki_id( $_REQUEST[ "ident" ] );

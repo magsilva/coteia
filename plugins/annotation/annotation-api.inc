@@ -898,12 +898,7 @@ function note($conteudo) {
  * OBSERVACOES:		
  */
 function annotationLogin($id)  {
-	global $dbname;
-
-	$dbh = db_connect();
-
-	# seleciona base de dados
-	mysql_select_db( $dbname, $dbh );
+	$dbh = coteia_connect();
 
 	$comando_sql = "SELECT annotation_login FROM swiki WHERE id=$id";
 	$resultado = mysql_query( $comando_sql, $dbh );
