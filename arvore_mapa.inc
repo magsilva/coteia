@@ -8,13 +8,13 @@ include_once("function.inc");
 	  $script	=  $SCRIPT_NAME;
   }
 
-  $img_expand   = "$PATH_IMG/tree_expand.gif";
-  $img_collapse = "$PATH_IMG/tree_collapse.gif";
-  $img_line     = "$PATH_IMG/tree_vertline.gif";  
-  $img_split	= "$PATH_IMG/tree_split.gif";
-  $img_end      = "$PATH_IMG/tree_end.gif";
-  $img_leaf     = "$PATH_IMG/tree_leaf.gif";
-  $img_spc      = "$PATH_IMG/tree_space.gif";
+  $img_expand   = "$URL_IMG/tree_expand.gif";
+  $img_collapse = "$URL_IMG/tree_collapse.gif";
+  $img_line     = "$URL_IMG/tree_vertline.gif";  
+  $img_split	= "$URL_IMG/tree_split.gif";
+  $img_end      = "$URL_IMG/tree_end.gif";
+  $img_leaf     = "$URL_IMG/tree_leaf.gif";
+  $img_spc      = "$URL_IMG/tree_space.gif";
 
   for ($i=0; $i<count($tree); $i++) {
      $expand[$i]=0;

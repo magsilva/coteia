@@ -25,18 +25,18 @@ echo "<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">
 <title>Falhou !!</title>
 </head>
 <BODY text=#000000 vLink=#000000 aLink=#ffff00 link=#000080 bgColor=#ffffff>
-<img src=\"$PATH_IMG/viewbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/editbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/historybw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/indicebw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/mapbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/changesbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/uploadbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/searchbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/helpbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/chatbw.gif\" border=\"0\">
-<img src=\"$PATH_IMG/notebw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/printbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/viewbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/editbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/historybw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/indicebw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/mapbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/changesbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/uploadbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/searchbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/helpbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/chatbw.gif\" border=\"0\">
+<img src=\"$URL_IMG/notebw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/printbw.gif\" border=\"0\"/>
 <br><br>
 <br><center>
 <font FACE=\"Arial\" size=\"3\">";

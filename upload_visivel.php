@@ -63,18 +63,18 @@ return true;
 <center>
 <table BORDER CELLSPACING=0 CELLPADDING=0 WIDTH=760 BGCOLOR=#E1F0FF bordercolor=#C0C0C0 bordercolordark=#C0C0C0 bordercolorlight=#C0C0C0>
 <tr>
-<td colspan=2 bgcolor=#A8BAC3><img src=\"$PATH_IMG/Manager.gif\" width=24 height=24> 
+<td colspan=2 bgcolor=#A8BAC3><img src=\"$URL_IMG/Manager.gif\" width=24 height=24> 
 <font color=#000088><font face=arial,helvetica><font size=+2>CoTeia
 </font></font></font>
 </td></tr>
-<tr><td colspan=2 WIDTH=50% BGCOLOR=#C0C0C0><img src=\"$PATH_IMG/Dir_open.gif\" width=24 height=24>
+<tr><td colspan=2 WIDTH=50% BGCOLOR=#C0C0C0><img src=\"$URL_IMG/Dir_open.gif\" width=24 height=24>
 <font color=#000080><font face=arial,helvetica><font size=+1>&nbsp;Swiki:&nbsp; $titulo 
 </font></font></font>
 </td></tr>
 <tr><td>
 <table BORDER WIDTH=100% bgcolor=#E1F0FF>
 <tr><td>
-<img src=\"$PATH_IMG/Cvs.gif\" width=24 height=24>&nbsp;&nbsp;<b>Lista de Arquivos</b>
+<img src=\"$URL_IMG/Cvs.gif\" width=24 height=24>&nbsp;&nbsp;<b>Lista de Arquivos</b>
 <form name=checkout>
 <center>
 <p><select name=lista_arquivos size=5>";
@@ -103,7 +103,7 @@ echo "<option>---------------------------------------------------------</option>
 <p><center><input type=button name=abrir_arquivo value=Abrir&nbsp;Arquivo OnClick=AbreArq();></center><p>
 </form>
 </td></tr>
-<tr><td><img src=\"$PATH_IMG/files2upload.gif\"><b>&nbsp;&nbsp;Upload</b>
+<tr><td><img src=\"$URL_IMG/files2upload.gif\"><b>&nbsp;&nbsp;Upload</b>
 <form enctype=multipart/form-data method=POST action=\"upload_visivel.php?ident=$ident&act=upload\" target=\"base\"> 
 <input type=hidden name=coursename value=$PATH_UPLOAD/$id_sw> 
 <input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"10000000\">
@@ -132,7 +132,7 @@ echo "</td></tr>
 <tr><td>
 <table border width=100% bgcolor=#C0C0C0>
 <tr><td colspan=2 bgcolor=#C0C0C0>
-<p><center><a href=\"mostra.php?ident=$ident\" target=\"_parent\"><img src=\"$PATH_IMG/back.gif\" border=0  width=30  height=20></a>
+<p><center><a href=\"mostra.php?ident=$ident\" target=\"_parent\"><img src=\"$URL_IMG/back.gif\" border=0  width=30  height=20></a>
 <font color=#000088><font face=arial,helvetica><fontsize=+2>&nbsp;&nbsp;&nbsp;Back
 </font></font></font>
 </td></tr> 

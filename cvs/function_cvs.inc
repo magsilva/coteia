@@ -4,10 +4,8 @@
  * Variaveis Globais                                                        *
  ****************************************************************************/
 
-//caminho completo do arquivo 
-$PATH_FILES = "/var/www/html/coweb/files/";
 //IP do servidor
-$host = "143.107.231.206";
+$CVS_HOST = "143.107.231.206";
 //caminho do repositorio no servidor
 $caminho_repositorio = "/usr/local/coweb";
 //username no repositorio
@@ -28,7 +26,7 @@ $parent = "/coteia/";
  */
 function update_cvs($id,$ModuloCheckout) {
 
-global $PATH_ARQUIVOS, $host, $caminho_repositorio, $username, $parent;
+global $PATH_ARQUIVOS, $CVS_HOST, $caminho_repositorio, $username, $parent;
 
 //caminho completo do arquivo a ser feito checkout
 $path_arquivo = $PATH_ARQUIVOS . $id . ".html";
@@ -45,7 +43,7 @@ $caminho = cria_dir($parent);
 $caminho .= "/";
 chdir($caminho);
 
-$comando_checkout = "cvs -d :pserver:".$username."@".$host.":".$caminho_repositorio." co ".$ModuloCheckout;
+$comando_checkout = "cvs -d :pserver:".$username."@".$CVS_HOST.":".$caminho_repositorio." co ".$ModuloCheckout;
 exec($comando_checkout);
 
 $caminho_checkout = $caminho.$ModuloCheckout;
@@ -58,7 +56,7 @@ chdir($caminho_checkout);
 exec("cp ".$path_arquivo." ".$caminho_checkout);
 
 //faz commit do arquivo
-exec("cvs -d :pserver:".$username."@".$host.":".$caminho_repositorio." commit -m \"\" ".$arquivo);
+exec("cvs -d :pserver:".$username."@".$CVS_HOST.":".$caminho_repositorio." commit -m \"\" ".$arquivo);
 
 apaga_dir($caminho);
 
@@ -76,7 +74,7 @@ return true;
  */
 function add_cvs($ident,$ModuloCheckout) {
 
-global $PATH_ARQUIVOS, $host, $caminho_repositorio, $username, $parent;
+global $PATH_ARQUIVOS, $CVS_HOST, $caminho_repositorio, $username, $parent;
 
 //caminho completo do arquivo a ser feito checkout
 $path_arquivo = $PATH_ARQUIVOS.$ident.".html";
@@ -93,7 +91,7 @@ $caminho = cria_dir($parent);
 $caminho .= "/";
 chdir($caminho);
 
-$comando_checkout = "cvs -d :pserver:".$username."@".$host.$caminho_repositorio." co ".$ModuloCheckout;
+$comando_checkout = "cvs -d :pserver:".$username."@".$CVS_HOST.$caminho_repositorio." co ".$ModuloCheckout;
 exec($comando_checkout);
 
 $caminho_checkout = $caminho.$ModuloCheckout;
@@ -106,10 +104,10 @@ chdir($caminho_checkout);
 exec("cp ".$path_arquivo." ".$caminho_checkout);
 
 //adiciona o arquivo ao repositorio
-exec("cvs -d :pserver:".$username."@".$host.$caminho_repositorio." add -kb ".$arquivo);
+exec("cvs -d :pserver:".$username."@".$CVS_HOST.$caminho_repositorio." add -kb ".$arquivo);
 
 //faz commit do arquivo
-exec("cvs -d :pserver:".$username."@".$host.$caminho_repositorio." commit -m \"\" ".$arquivo);
+exec("cvs -d :pserver:".$username."@".$CVS_HOST.$caminho_repositorio." commit -m \"\" ".$arquivo);
  
 apaga_dir($caminho);
 

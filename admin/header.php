@@ -111,16 +111,16 @@ include_once("function.inc");
 <body>
 <center><table width="760" border="0" cellspacing="0" cellpadding="2">
     <tr><td>
-    <img src="<?echo $PATH_IMG?>/viewbw.gif" border="0"/>
-    <img src="<?echo $PATH_IMG?>/editbw.gif" border="0"/>   
-    <img src="<?echo $PATH_IMG?>/historybw.gif" border="0"/>  
-    <img src="<?echo $PATH_IMG?>/indicebw.gif" border="0"/>
-    <img src="<?echo $PATH_IMG?>/mapbw.gif" border="0"/>
-    <img src="<?echo $PATH_IMG?>/changesbw.gif" border="0"/>
-    <img src="<?echo $PATH_IMG?>/uploadbw.gif" border="0"/>
-    <img src="<?echo $PATH_IMG?>/searchbw.gif" border="0"/>
-    <img src="<?echo $PATH_IMG?>/helpbw.gif" border="0"/>
-    <img src="<?echo $PATH_IMG?>/chatbw.gif" border="0"/>
-    <img src="<?echo $PATH_IMG?>/notebw.gif" border="0"/>
-    <img src="<?echo $PATH_IMG?>/printbw.gif" border="0"/></td></tr>
+    <img src="<?echo $URL_IMG?>/viewbw.gif" border="0"/>
+    <img src="<?echo $URL_IMG?>/editbw.gif" border="0"/>   
+    <img src="<?echo $URL_IMG?>/historybw.gif" border="0"/>  
+    <img src="<?echo $URL_IMG?>/indicebw.gif" border="0"/>
+    <img src="<?echo $URL_IMG?>/mapbw.gif" border="0"/>
+    <img src="<?echo $URL_IMG?>/changesbw.gif" border="0"/>
+    <img src="<?echo $URL_IMG?>/uploadbw.gif" border="0"/>
+    <img src="<?echo $URL_IMG?>/searchbw.gif" border="0"/>
+    <img src="<?echo $URL_IMG?>/helpbw.gif" border="0"/>
+    <img src="<?echo $URL_IMG?>/chatbw.gif" border="0"/>
+    <img src="<?echo $URL_IMG?>/notebw.gif" border="0"/>
+    <img src="<?echo $URL_IMG?>/printbw.gif" border="0"/></td></tr>
     </table></center><br>

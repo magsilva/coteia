@@ -251,20 +251,20 @@ function validar() {
 </HEAD>
 <BODY text=#000000 vLink=#0000cc aLink=#ffff00 link=#cc0000 bgColor=#ffffff>
 		<A href="mostra.php?ident=<?echo $ident?>">
-		<IMG src="<?echo $PATH_IMG?>/view.gif" border=0></A>
-		<IMG src="<?echo $PATH_IMG?>/editbw.gif" border=0>
-		<IMG src="<?echo $PATH_IMG?>/historybw.gif" border=0>
-		<IMG src="<?echo $PATH_IMG?>/indicebw.gif" border=0>
-		<img src="<?echo $PATH_IMG?>/mapbw.gif" border="0"/>
-		<IMG src="<?echo $PATH_IMG?>/changesbw.gif" border=0>
-		<IMG src="<?echo $PATH_IMG?>/uploadbw.gif" border=0>
-		<IMG src="<?echo $PATH_IMG?>/searchbw.gif" border=0>
+		<IMG src="<?echo $URL_IMG?>/view.gif" border=0></A>
+		<IMG src="<?echo $URL_IMG?>/editbw.gif" border=0>
+		<IMG src="<?echo $URL_IMG?>/historybw.gif" border=0>
+		<IMG src="<?echo $URL_IMG?>/indicebw.gif" border=0>
+		<img src="<?echo $URL_IMG?>/mapbw.gif" border="0"/>
+		<IMG src="<?echo $URL_IMG?>/changesbw.gif" border=0>
+		<IMG src="<?echo $URL_IMG?>/uploadbw.gif" border=0>
+		<IMG src="<?echo $URL_IMG?>/searchbw.gif" border=0>
 		<A href="help.php">
-		<IMG src="<?echo $PATH_IMG?>/help.gif" border=0></A>
-		<IMG src="<?echo $PATH_IMG?>/chatbw.gif" border=0>
-		<img src="<?echo $PATH_IMG?>/notebw.gif" border="0"/>
+		<IMG src="<?echo $URL_IMG?>/help.gif" border=0></A>
+		<IMG src="<?echo $URL_IMG?>/chatbw.gif" border=0>
+		<img src="<?echo $URL_IMG?>/notebw.gif" border="0"/>
 		<A href="JavaScript:Imprime()">
-		<img src="<?echo $PATH_IMG?>/print.gif" border="0"/></A>
+		<img src="<?echo $URL_IMG?>/print.gif" border="0"/></A>
 <br><br>
 <FORM method="POST" name="edit" ACTION="edit.php" onSubmit="return validar();">
 <table width="760" border="0">

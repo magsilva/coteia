@@ -8,18 +8,18 @@
 <?		
 include_once("function.inc");
 
-echo "<img src=\"$PATH_IMG/viewbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/editbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/historybw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/indicebw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/mapbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/changesbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/uploadbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/searchbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/helpbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/chatbw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/notebw.gif\" border=\"0\"/>
-<img src=\"$PATH_IMG/printbw.gif\" border=\"0\"/>";
+echo "<img src=\"$URL_IMG/viewbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/editbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/historybw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/indicebw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/mapbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/changesbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/uploadbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/searchbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/helpbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/chatbw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/notebw.gif\" border=\"0\"/>
+<img src=\"$URL_IMG/printbw.gif\" border=\"0\"/>";
 ?>
 <br><br>
 <br><center>
