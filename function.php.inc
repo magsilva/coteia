@@ -216,6 +216,17 @@ function replace_chars( $text )
 */
 function prepare_for_anything( $wikipage_raw )
 {
+	// Strip slashes if magic_quotes_gpc (auto adding slashes) is active.
+	if ( get_magic_quotes_gpc() == 1 ) {
+		$wikipage_raw[ "indexador" ] = stripslashes( $wikipage_raw[ "indexador" ] );
+		$wikipage_raw[ "conteudo" ] = stripslashes( $wikipage_raw[ "conteudo" ] );
+		$wikipage_raw[ "titulo" ] = stripslashes( $wikipage_raw[ "titulo" ] );
+		$wikipage_raw[ "autor" ] = stripslashes( $wikipage_raw[ "autor" ] );
+		$wikipage_raw[ "kwd1" ] = stripslashes( $wikipage_raw[ "kwd1" ] );
+		$wikipage_raw[ "kwd2" ] = stripslashes( $wikipage_raw[ "kwd2" ] );
+		$wikipage_raw[ "kwd3" ] = stripslashes( $wikipage_raw[ "kwd3" ] );
+	}
+
 	$wikipage_raw[ "indexador" ] = trim( $wikipage_raw[ "indexador" ] );
 	$wikipage_raw[ "conteudo" ] = trim( $wikipage_raw[ "conteudo" ] );
 	$wikipage_raw[ "titulo" ] = trim( $wikipage_raw[ "titulo" ] );
