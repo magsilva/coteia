@@ -38,7 +38,8 @@ $CVS_ROOT = $PATH_COWEB . "/" . $FILES_DIR . "/cvs/repository";
 * The cvs's module to be used.
 * Default value: "html"
 */
-$CVS_MODULE = "html";
+$CVS_WIKIPAGE_MODULE = "html";
+$CVS_UPLOAD_MODULE = "uploads";
 
 /**
 * The username to be used to access the repository.

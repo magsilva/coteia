@@ -25,6 +25,20 @@ $cvs_crypt_table = array(
   243,233,253,240,194,250,191,155,142,137,245,235,163,242,178,152
 );
 
+
+/**
+* Translate wikipage_id to a CVS filename.
+*/
+function wikipage2cvs( $wikipage_id )
+{
+	global $PATH_COWEB, $XHTML_DIR;
+
+	$filename = $PATH_COWEB . "/" . $XHTML_DIR . "/" . $id . ".html";
+
+	return $filename;	
+}
+
+
 /*
 * Code based upon jhbuild (Copyright (C) 2001-2003  James Henstridge)
 */
@@ -37,6 +51,7 @@ function cvs_password_scramble( $password ) {
 	}
 	return $scrambled_password;
 }
+
 
 /*
 * Code based upon jhbuild (Copyright (C) 2001-2003  James Henstridge)
@@ -78,6 +93,7 @@ function cvs_login()
 	return true;
 }
 
+
 /**
 * Build the CVS_ROOT's string required by CVS.
 *
@@ -108,6 +124,7 @@ function cvs_get_root()
 	return $result;
 }
 
+
 /**
 * Check if the repository has been checked out. If not, do it now. If it's
 * checked out and <code>$update</code> is <code>true</code>, update the local
@@ -117,94 +134,65 @@ function cvs_get_root()
 *          or updated
 * @returns <code>false</code> if the module couldn't be checked out or updated.
 */
-function cvs_check( $module, $update = false )
+function cvs_checkout( $module, $filename )
 {
 	global $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_BIN;
 
-	$output = array();
-	$retval = 0;
-
-	if ( !is_dir( $CVS_CHECKOUT_DIR ) ) {
-		return false;
-	}
-
 	$old_dir = getcwd();
 	chdir( $CVS_CHECKOUT_DIR );
+	$cvs_root = cvs_get_root();
 
-	if ( !is_dir( $CVS_CHECKOUT_DIR . "/" . $module ) ) {
-		// Checkout if needed.
-		$result = cvs_checkout_module( $module );
-		if ( $result === false ) {
-			trigger_error( "cvs: " .  __FILE__ . ": " .  __FUNCTION__ . ": " . implode( "", $output), E_USER_WARNING );
-			chdir( $old_dir );
-			return false;
-		}
-	} else if ( $update ) {
-		// Update the local repository.
-		$cvs_root = cvs_get_root();
-		$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' update 2>&1";
+	if ( !is_filename( $CVS_CHECKOUT_DIR . "/" . $module . "/" . $filename ) ) {
+		// Checkout the module, if necessary
+		$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' checkout '$module/$filename' 2>&1";
 		exec( $cmdline, $output, $retval );
-		if ( $retval != 0 ) {
-			trigger_error( "cvs: " .  __FILE__ . ": " .  __FUNCTION__ . ": " . implode( "", $output), E_USER_WARNING );
-			chdir( $old_dir );
-			return false;
-		}
+	} else {
+		// Update the local repository.
+		$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' update '$module/$filename' 2>&1";
+		exec( $cmdline, $output, $retval );
 	}
-		
+
+	if ( $retval != 0 ) {
+		$result = false;
+	} else {
+		$result = true;
+	}
+
 	chdir( $old_dir );
-	return true;
+	return $result;
 }
 
 
 /**
 * Update a file.
 *
-* First it updates the wikipage in the local repository. If successful, it copies the newest
-* HTML file to the local repository and then commits the change. 
+* First it updates the wikipage in the local repository. If successful, it
+* copies the newest HTML file to the local repository and then commits the
+* change. 
 *
 * @returns <code>false</code> if it cannot update the file.
 * @returns <code>true</code> if the update is sucessful.
 */
-function cvs_update( $id, $module, $comment = " " )
+function cvs_update( $module, $filename, $comment = " " )
 {
-	global $PATH_COWEB, $XHTML_DIR, $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_BIN;
+	global $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_BIN;
 
-	$filename = $PATH_COWEB . "/" . $XHTML_DIR . "/" . $id . ".html";
-	$output = array();
-	$retval = 0;
-
-	$cvs_root = cvs_get_root();
-
-	if ( cvs_check( $module ) == false ) {
-		return false;
-	}
-	
-	$old_dir = getcwd();
-	chdir( $CVS_CHECKOUT_DIR . "/" . $module );
-
-	// Update the local repository.
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' update '" . basename( $filename ) . "' 2>&1";
-	exec( $cmdline, $output, $retval );
-	if ( $retval != 0 ) {
-		trigger_error( "cvs: " .  __FILE__ . ": " .  __FUNCTION__ . ": " . implode( "", $output), E_USER_WARNING );
-		chdir( $old_dir );
-		return false;
-	}
-
- 	// The file exists (if, after updating, the file isn't here, it simply doesn't exists in the repository).
-	if ( !is_file( $CVS_CHECKOUT_DIR . "/" . $module . "/" . basename( $filename ) ) ) {
+	if ( cvs_check( $filename ) == false ) {
 		return false;
 	}
 
 	// Add the file to the local repository.
-	copy( $filename, $CVS_CHECKOUT_DIR . "/" . $module . "/" . basename( $filename ) );
+	copy( $filename, $CVS_CHECKOUT_DIR . "/" . $module . "/" . $filename );
 
 	// Commit the changes made in $filename within the local repository.
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' commit -m '$comment' '" . basename( $filename ) . "' 2>&1";
-	unset( $output );
+	$cvs_root = cvs_get_root();
+	$old_dir = getcwd();
+	chdir( $CVS_CHECKOUT_DIR );
+	$output = array();
+	$retval = 0;
+	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' commit -m '$comment' '$module/$filename' 2>&1";
 	exec( $cmdline, $output, $retval );
 	if ( $retval != 0 ) {
-		trigger_error( "cvs: " .  __FILE__ . ": " .  __FUNCTION__ . ": " . implode( "", $output), E_USER_WARNING );
 		chdir( $old_dir );
 		return false;
 	}
@@ -212,6 +200,7 @@ function cvs_update( $id, $module, $comment = " " )
 	chdir( $old_dir );
 	return true;
 }
+
 
 /**
 * Add a new file to the CVS repository.
@@ -220,46 +209,37 @@ function cvs_update( $id, $module, $comment = " " )
 * @returns <code>false</code> if the file wasn't successfully added. The root cause can be:
 *          the file already exists in the repository; another error happened.
 */
-function cvs_add( $id, $module, $comment = " " )
+function cvs_add( $module, $filename, $comment = " " )
 {
 	global $PATH_COWEB, $XHTML_DIR, $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_BIN;
 
-	$filename = $PATH_COWEB . "/" . $XHTML_DIR . "/" . $id . ".html";
 	$output = array();
 	$retval = 0;
-
 	$cvs_root = cvs_get_root();
 
-	if ( cvs_check( $module ) === false ) {
-		return false;
-	}
-
-	// The file already exists.
-	if ( is_file( $CVS_CHECKOUT_DIR . "/" . $module . "/" . basename( $filename ) ) ) {
+	if ( cvs_checkout( $module, $filename ) == true ) {
 		return false;
 	}
 
 	$old_dir = getcwd();
-	chdir( $CVS_CHECKOUT_DIR . "/" . $module );
+	chdir( $CVS_CHECKOUT_DIR );
 
 	// Copy the file to the local repository.
-	copy( $filename, $CVS_CHECKOUT_DIR . "/" . $module . "/" . basename( $filename ) );
+	copy( $filename, $CVS_CHECKOUT_DIR . "/" . $module . "/" . $filename );
 
 	// Mark the file as added.
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' add '" . basename( $filename ) . "' 2>&1";
+	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' add '$module/$filename' 2>&1";
 	exec( $cmdline, $output, $retval );
 	if ( $retval != 0 ) {
-		trigger_error( "cvs: " .  __FILE__ . ": " .  __FUNCTION__ . ": " . implode( "", $output ), E_USER_WARNING );
 		chdir( $old_dir );
 		return false;
 	}
 
 	// Commit the changes.
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' commit -m '$comment' '" . basename( $filename ) . "' 2>&1";
+	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' commit -m '$comment' '$module/$filename' 2>&1";
 	unset( $output );
 	exec( $cmdline, $output, $retval );
 	if ( $retval != 0 ) {
-		trigger_error( "cvs: " .  __FILE__ . ": " .  __FUNCTION__ . ": " . implode( "", $output ), E_USER_WARNING );
 		chdir( $old_dir );
 		return false;
 	}
@@ -268,108 +248,33 @@ function cvs_add( $id, $module, $comment = " " )
 	return true;
 }
 
+
 /**
-* Checkout the module.
+* Retrieve the revisions for a file in the CVS repository.
 *
-* @returns <code>false</code> if the checkout directory doesn't exist or the
-*          request "module" is invallid.
-* @returns <code>true</code> if the module was sucessfully checked out.
+* @param revision [string] CVS revision
+* @return The revisions if the file exists, "false" otherwise.
 */
-function cvs_checkout_module( $module )
+function cvs_get_revisions( $module, $filename )
 {
-	global $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_BIN;
+	global $CVS_PASSFILE, $CVS_BIN;
+
+	if ( cvs_checkout( $module, $filename ) === false ) {
+		return false;
+	}
 
 	$cvs_root = cvs_get_root();
-	$output = array();
 	$retval = 0;
-
-	if ( !is_dir( $CVS_CHECKOUT_DIR ) ) {
-		return false;
-	}
-
-	$old_dir = getcwd();
-	chdir( $CVS_CHECKOUT_DIR );
-
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' checkout '$module' 2>&1";
-	exec( $cmdline, $output, $retval );
+	$revisions = array();
+	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' log -l '$module/$filename' | grep ^revision | cut -f 2 -d ' '";
+	exec( $cmdline, $revisions, $retval );
 	if ( $retval != 0 ) {
-		trigger_error( "cvs: " .  __FILE__ . ": " .  __FUNCTION__ . ": " . implode( "", $output ), E_USER_WARNING );
-		chdir( $old_dir );
 		return false;
 	}
 
-	chdir( $old_dir );
-	return true;
+	return $revisions;
 }
 
-/**
-* Update the module.
-*
-* @returns <code>false</code> if the "module" is invallid.
-* @returns <code>true</code> if the module was sucessfully updated.
-*/
-function cvs_update_module( $module )
-{
-	global $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_BIN;
-
-	$cvs_root = cvs_get_root();
-	$output = array();
-	$retval = 0;
-
-	if ( !is_dir( $CVS_CHECKOUT_DIR ) ) {
-		return false;
-	}
-
-	$old_dir = getcwd();
-	chdir( $CVS_CHECKOUT_DIR );
-
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' update '$module' 2>&1";
-	exec( $cmdline, $output, $retval );
-	if ( $retval != 0 ) {
-		trigger_error( "cvs: " .  __FILE__ . ": " .  __FUNCTION__ . ":" . implode( "", $output ), E_USER_WARNING );
-		chdir( $old_dir );
-		return false;
-	}
-
-	chdir( $old_dir );
-	return true;
-}
-
-/**
-* Get the content of a given file's release number.
-*
-* @returns <code>false</code> if the file couldn't be checked out.
-* @returns the file's content if it could be sucessfully checked out.
-*/
-function cvs_checkout_file( $file, $release )
-{
-	global $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_BIN;
-
-	$cvs_root = cvs_get_root();
-	if ( !is_dir( $CVS_CHECKOUT_DIR ) ) {
-		return false;
-	}
-
-	$old_dir = getcwd();
-	chdir( $CVS_CHECKOUT_DIR );
-	
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' checkout -p -l -r '$release' '$file'";
-	$pipe = popen( $cmdline, "r" );
-	if ( $pipe === false ) {
-		trigger_error( "cvs: " .  __FILE__ . ": " .  __FUNCTION__ . ": $file ", E_USER_WARNING );
-		chdir( $old_dir );
-		return false;
-	}
-
-	$content = "";
-	while( $buffer = fgets( $pipe, 1024 ) ) {
-		$content .= $buffer; 
-	}
-	pclose( $pipe );
-
-	chdir( $old_dir );
-	return $content;
-}
 
 /**
 * Retrieve the versions of the requested file.
@@ -377,35 +282,22 @@ function cvs_checkout_file( $file, $release )
 * @returns An array with the files's versions, indexed by their dates.
 * @returns <code>false</code> if the the cvs's log isn't available.
 */
-function cvs_get_revisions( $file )
+function cvs_get_indexed_revisions( $module, $filename )
 {
-	global $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_MODULE, $CVS_BIN;
+	global $CVS_PASSFILE, $CVS_BIN;
+
+
+	$revisions = cvs_get_revisions( $module, $filename );
+	if ( $revisions === false ) {
+		return false;
+	}
 
 	$cvs_root = cvs_get_root();
 	$retval = 0;
-
-	if ( cvs_check( $CVS_MODULE ) === false ) {
-		return false;
-	}
-
-	$old_dir = getcwd();
-	chdir( $CVS_CHECKOUT_DIR );
-
-	$revisions = array();
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' log -l '$file' | grep ^revision | cut -f 2 -d ' '";
-	exec( $cmdline, $revisions, $retval );
-	if ( $retval != 0 ) {
-		trigger_error( "cvs: " .  __FILE__ . ": " .  __FUNCTION__ . ": " . implode( "", $revisions ), E_USER_WARNING );
-		chdir( $old_dir );
-		return false;
-	}
-
-	$daters = array();
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' log -l '$file' | grep ^date | cut -f 2-3 -d ' '";
+	$dates = array();
+	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' log -l '$module/$filename' | grep ^date | cut -f 2-3 -d ' '";
 	exec( $cmdline, $dates, $retval );
 	if ( $retval != 0 ) {
-		trigger_error( "cvs: " .  __FILE__ . ": " .  __FUNCTION__ . ": " . implode( "", $dates ), E_USER_WARNING );
-		chdir( $old_dir );
 		return false;
 	}
 
@@ -415,7 +307,6 @@ function cvs_get_revisions( $file )
 		$output[ $revisions[ $i ] ] = $dates[ $i ];
 	}
 
-	chdir( $old_dir );
 	return $output;
 }
 
@@ -426,26 +317,10 @@ function cvs_get_revisions( $file )
 * @param revision [string] CVS revision
 * @return The revision if it's valid, "false" otherwise.
 */
-function cvs_check_revision( $file, $revision )
+function cvs_has_revision( $module, $filename, $revision )
 {
-	global $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_MODULE, $CVS_BIN;
-
-	$cvs_root = cvs_get_root();
-	$retval = 0;
-
-	if ( cvs_check( $CVS_MODULE ) === false ) {
-		return false;
-	}
-
-	$old_dir = getcwd();
-	chdir( $CVS_CHECKOUT_DIR );
-
-	$revisions = array();
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' log -l '$file' | grep ^revision | cut -f 2 -d ' '";
-	exec( $cmdline, $revisions, $retval );
-	if ( $retval != 0 ) {
-		trigger_error( "cvs: " .  __FILE__ . ": " .  __FUNCTION__ . ": " . implode( "", $revisions ), E_USER_WARNING );
-		chdir( $old_dir );
+	$revisions = cvs_get_revisions( $module, $filename );
+	if ( $revisions === false ) {
 		return false;
 	}
 
@@ -457,5 +332,37 @@ function cvs_check_revision( $file, $revision )
 
 	return false;
 }
+
+
+/**
+* Get the content of a given file's revision number.
+*
+* @returns <code>false</code> if the file couldn't be checked out.
+* @returns the file's content if it could be sucessfully checked out.
+*/
+function cvs_checkout_revision( $module, $filename, $revision )
+{
+	global $CVS_PASSFILE, $CVS_BIN;
+
+	if ( cvs_has_revision( $module, $filename, $revision ) ) {
+		return false;
+	}
+
+	$cvs_root = cvs_get_root();
+	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' checkout -p -l -r '$revision' '$module/$filename'";
+	$pipe = popen( $cmdline, "r" );
+	if ( $pipe === false ) {
+		return false;
+	}
+
+	$content = "";
+	while( $buffer = fgets( $pipe, 1024 ) ) {
+		$content .= $buffer; 
+	}
+	pclose( $pipe );
+
+	return $content;
+}
+
 
 ?>
