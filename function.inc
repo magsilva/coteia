@@ -1229,44 +1229,35 @@ while (($tupla = mysql_fetch_array($result_comp))  && ($find==false))
 
 //encontra a posicao correta na variavel, mesmo depois de inserir a linkagem
 
-$texto_pos_inicio = strpos($conteudo,"<lnk>$partes_texto[$n]</lnk>");
-$texto_inicio = $texto_pos_inicio + 5 ;
-$texto_pos_final = $texto_inicio + $texto_tam;
+		$texto_pos_inicio = strpos($conteudo,"<lnk>$partes_texto[$n]</lnk>");
+		$texto_inicio = $texto_pos_inicio + 5 ;
+		$texto_pos_final = $texto_inicio + $texto_tam;
 
-if ($find==true)
-        {
-        $cont1 = substr_replace($conteudo,"</a>",$texto_pos_final,0);
-        $cont2 = substr_replace($cont1,"<a href=\"mostra.php?ident=$pagina\" onmouseover=\"window.status='&Uacute;ltima Vers&atilde;o: $data_formato_correto'; return true\">",$texto_inicio,0);
-        $texto_final = $cont2;
-                                
-	}//if
-	else
-        {
-        $num =1;
-	//procura por novo indice
-        $query_search="select count(*) as CONTADOR from paginas where ((ident like '$id.%') and (ident not like '$id.%.%')) ORDER by ident asc";
-        $result_search = mysql_query("$query_search",$dbh);
-	$tupla_cont=mysql_fetch_array($result_search);
-	$nro_pages=$tupla_cont[CONTADOR];
+			if ( $find == true ) {
+				$cont1 = substr_replace($conteudo,"</a>",$texto_pos_final,0);
+				$cont2 = substr_replace($cont1,"<a href=\"mostra.php?ident=$pagina\" onMouseOver=\"window.status='Última Versão: $data_formato_correto'; return true\">",$texto_inicio,0);
+				$texto_final = $cont2;
+			} else {
+				$num = 1;
 
-        $num = $nro_pages + 1;
-	//indice de novas paginas
-        $partes_texto[$n] = rawurlencode($partes_texto[$n]);
-        $cont1 = substr_replace($conteudo,"[create]</a>",$texto_pos_final,0);
-        $cont2 =substr_replace($cont1,"<a href=\"create.php?ident=$id.$num&index=$partes_texto[$n]\" onmouseover=\"window.status='CoTeia'; return true\">",$texto_inicio+$texto_tam,0);
-        $texto_final = $cont2;
-                                
-        }//else
- 
-                $n++; //incrementa a variavel de links
-		$conteudo = $texto_final;
-        
-                }//else
-        
-    }//while
+				// Procura por novo indice
+				$query_search="select count(*) as CONTADOR from paginas where ((ident like '$id.%') and (ident not like '$id.%.%')) ORDER by ident asc";
+				$result_search = mysql_query("$query_search",$dbh);
+				$tupla_cont=mysql_fetch_array($result_search);
+				$nro_pages = $tupla_cont[ "CONTADOR" ];
 
+				$num = $nro_pages + 1;
+				//indice de novas paginas
+				$partes_texto[$n] = rawurlencode($partes_texto[$n]);
+				$cont1 = substr_replace($conteudo,"[create]</a>",$texto_pos_final,0);
+				$cont2 =substr_replace($cont1,"<a href=\"create.php?ident=$id.$num&amp;index=$partes_texto[$n]\">",$texto_inicio+$texto_tam,0);
+				$texto_final = $cont2;
+			}
+			$n++; //incrementa a variavel de links
+			$conteudo = $texto_final;
+		}
+	}
 	return trim($texto_final);
-
 }//function link_interno
 
 
