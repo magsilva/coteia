@@ -986,9 +986,6 @@ function replace( $text ) {
 	foreach ( $replace_vars as $i => $value ) {
 		$text = eregi_replace( $i, $value, $text );
 	}
-
-	$text = nl2br( $text );
-
 	return $text;
 }
 
@@ -1023,7 +1020,7 @@ function tratamento($index,$conteudo,$titulo,$autor,$kwd) {
  * RETORNO:		--
  * OBSERVACOES:         --
 */
-function arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml) {
+function arq($id, $xmlfile, $arq_xsl, $path_html, $path_xml ) {
 	global $PATH_JAVA, $PATH_XT;
 
 	$arq_xml = $path_xml . "/wikipage" . "$id" . ".xml";
@@ -1036,9 +1033,10 @@ function arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml) {
 
 	// Uso do XT = [path_java] -classpath [classpath_xt] com.jclark.xsl.sax.Driver [xml] [xsl] [html]
 	$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver  com.jclark.xsl.sax.Driver $arq_xml $arq_xsl $path_html/$id.html 2>&1";
+#	$cmd_line = "$PATH_JAVA org.apache.xalan.xslt.Process -in $arq_xml -xsl $arq_xsl -out $path_html/$id.html 2>&1";
 	exec( $cmd_line, $var_array, $status );
-	if ( empty( $var_array ) ) {
-		return $status;
+	if ( $status == 0 ) {
+		return true;
 	} else {
 		return $var_array;
 	}
@@ -1105,13 +1103,8 @@ $keyword
 </$node>
 END;
 
-	$feedback = (arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml));
-
-	if ( is_numeric( $feedback ) ) {
-		return TRUE;
-	} else {
-		return $feedback;
-	}
+	$feedback = arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml);
+	return $feedback;
 }
 
 /*
@@ -1223,7 +1216,8 @@ while (($tupla = mysql_fetch_array($result_comp))  && ($find==false))
 	if (!strcmp(trim($partes_texto[$n]),trim($tupla[indexador])))
 	{
 	//procura por identificador da pagina encontrada
-        $query_find =  "select ident,data_ultversao from paginas where ((indexador='$tupla[indexador]') and ((ident like '$swiki.%')  or (ident='$swiki')))";
+	$indexador = mysql_escape_string( $tupla[ "indexador" ] );
+        $query_find =  "select ident,data_ultversao from paginas where ((indexador='$indexador') and ((ident like '$swiki.%')  or (ident='$swiki')))";
 	$result_find = mysql_query($query_find,$dbh);
 	$tupla_find = mysql_fetch_array($result_find); 	 	
 	$pagina = $tupla_find[ident];

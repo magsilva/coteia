@@ -47,7 +47,7 @@ CREATE TABLE swiki (
 
 CREATE TABLE gets (
 	id_pag varchar(20) not null ,
-	id_sw int not null ,
+	id_sw int not null,
 	data datetime,
 	primary key (id_pag,id_sw)
 );
