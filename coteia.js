@@ -1,3 +1,27 @@
+function StatusUpload( ok ) {
+	if (ok == 1) {
+		alert('O arquivo foi transferido com sucesso !');
+	}	elseif (ok == 2) {
+		alert('Erro ao gravar arquivo (Tamanho Máximo = 10 Mb) !');
+	} elseif (ok == 3) {
+		alert('Este arquivo já existe !');
+	}
+}
+
+function AbreArq() {
+	if (document.checkout.lista_arquivos) {
+		var IndiceArq = document.checkout.lista_arquivos.options.selectedIndex;
+	}
+	if (IndiceArq >=0) {
+		window.open("checkout.php?swiki=$id_sw&arq="+document.checkout.lista_arquivos.options[IndiceArq].value,"janela","toolbar=no,directories=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=500,height=430");
+		return true;
+	}
+	if (IndiceArq == -1) {
+		alert("Por favor, selecione um arquivo !");
+		return false;
+	}
+}
+
 function check(id) {
     window.opener.document.location.replace('mostra.php?ident='+id);
     window.close();
