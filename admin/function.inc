@@ -688,7 +688,6 @@ function create_folder($name, $id_father, $id_owner, $id_group, $access_permissi
     // Verifica se o usuario pode criar a pasta
 
     $aux = test_user_can_writes_folder($id_father, $id_owner, $id_group,$dbh);
-		echo "Aux é $aux";
     if ($aux == -2) { // id user inexistente
 			return -2;
 		} else if ($aux == -3) { // id group inexistente
@@ -714,7 +713,6 @@ function create_folder($name, $id_father, $id_owner, $id_group, $access_permissi
 
 	// Verifica se ja existe uma pasta com o mesmo nome no mesmo nivel e filho do mesmo pai
 	$aux = folder_name_exists($id_owner, $id_group, $id_father, $name, $dbh);
-	echo "Aux é $aux";
 	if ($aux == -2) {
 		return -2;  // usuario inexistente
 	} else if ($aux == -3) { // grupo inexistente
