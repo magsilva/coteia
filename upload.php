@@ -86,7 +86,7 @@ $titulo = $tupla1[titulo];
 			?>
 			</select>
 			<br />
-			<input type="button" name="abrir_arquivo" value="Abrir arquivo" onClick="return AbreArq(document.checkout.lista_arquivos);" />
+			<input type="button" name="abrir_arquivo" value="Abrir arquivo" onClick="return AbreArq(<?php echo $id_sw;?>, document.checkout.lista_arquivos);" />
 			</form>
 		</div>
 	</td>

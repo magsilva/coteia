@@ -16,10 +16,10 @@ function StatusUpload( ok ) {
 *
 * Recebe como parâmetro um elemento SELECT do DOM.
 */
-function AbreArq( arquivos ) {
+function AbreArq( swiki, arquivos ) {
 	IndiceArq = arquivos.options.selectedIndex;
 	if ( IndiceArq >= 0 ) {
-		window.open( "checkout.php?swiki=$id_sw&amp;arq="+arquivos.options[IndiceArq].value,"janela","toolbar=no,directories=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=500,height=430" );
+		window.open( "checkout.php?swiki=" + swiki + "&amp;arq=" + arquivos.options[IndiceArq].value,"janela","toolbar=no,directories=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=500,height=430" );
 		return true;
 	}
 	if ( IndiceArq == -1 ) {

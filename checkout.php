@@ -5,7 +5,7 @@ include_once("function.inc");
 <html>
 
 <head>
-	<title>$arq</title>
+	<title><?php echo $arq;?></title>
 	<link href="coteia.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -18,7 +18,7 @@ include_once("function.inc");
 <hr />
 <br />
 
-<a href="<?php echo $DIR_UPLOAD . "/" . $swiki . "/" . $arq;?>">$arq</a>
+<a href="<?php echo $DIR_UPLOAD . "/" . $swiki . "/" . $arq;?>"><?php echo $arq;?></a>
 
 </body>
  

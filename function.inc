@@ -1435,37 +1435,29 @@ function make_seed() {
 }
 
 function note($conteudo) {
-        
-$continua=true;
-$texto = " ".$conteudo;
-$p1_ini = "0";        
-$texto = eregi_replace("<note />","<note/>",$texto);
+	$continua=true;
+	$texto = " " . $conteudo;
+	$p1_ini = "0";
+	$texto = eregi_replace( "<note />", "<note/>", $texto );
 
-// cria a semente
-srand(make_seed());
-
-while ($continua == true)
-        {
-        $texto_pos_ini = strpos($texto,"<note/>");
-        if (!$texto_pos_ini)
-                {       
-                $continua=false ;
-                } else
-                {
-			$antes_note = substr($texto,$p1_ini,$texto_pos_ini);
-                        $texto_fim = $texto_pos_ini + 5;
-			$str = substr($texto,$texto_pos_ini,5);
-	                $var = rand(1,1000);
+	// cria a semente
+	srand( make_seed() );
+	while ($continua == true) {
+		$texto_pos_ini = strpos( $texto, "<note/>" );
+		if ( !$texto_pos_ini ) {
+			$continua = false;
+		} else {
+			$antes_note = substr( $texto, $p1_ini, $texto_pos_ini );
+			$texto_fim = $texto_pos_ini + 5;
+			$str = substr( $texto, $texto_pos_ini, 5 );
+			$var = rand( 1,1000 );
 			$str .= " id=\"@$var\"";
-			$depois_note = substr($texto,$texto_fim); 
-			$texto = $antes_note.$str.$depois_note;
-
-                }
+			$depois_note = substr( $texto, $texto_fim );
+			$texto = $antes_note . $str . $depois_note;
+		}
+	}
+	return trim($texto);
 }
-                        
-        return trim($texto);
-                        
-}//function note
 
 /*
  * NOME:		annotationLogin
@@ -1476,25 +1468,25 @@ while ($continua == true)
  * OBSERVACOES:		
  */
 function annotationLogin($id)  {
+	global $dbname;
 
-    global $dbname;
+	$dbh = db_connect();
 
-    $dbh = db_connect();
+	# seleciona base de dados
+	mysql_select_db( $dbname, $dbh );
 
-    # seleciona base de dados
-    mysql_select_db($dbname,$dbh);
+	$comando_sql = "SELECT annotation_login FROM swiki WHERE id=$id";
+	$resultado = mysql_query( $comando_sql, $dbh );
 
-    $comando_sql = "SELECT annotation_login FROM swiki WHERE id=$id";
-    $resultado = mysql_query($comando_sql,$dbh);
-   
-    while ($tupla = mysql_fetch_array($resultado)) {
-      $login = $tupla[annotation_login];
-    }   
-    
-    if ($login == 'S')
-      return TRUE;
-    else
-      return FALSE;
+	while ( $tupla = mysql_fetch_array( $resultado ) ) {
+		$login = $tupla[annotation_login];
+	}   
+
+	if ($login == 'S') {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
 }
 
 /*
