@@ -1,5 +1,5 @@
 <?
-include_once("function.inc");
+	include_once( "function.inc" );
 ?>
 <title>Administrador - CoTeia</title>
 <style>
@@ -108,19 +108,24 @@ include_once("function.inc");
         
 </style>
 </head>
+
 <body>
-<center><table width="760" border="0" cellspacing="0" cellpadding="2">
-    <tr><td>
-    <img src="<?echo $URL_IMG?>/viewbw.png" border="0"/>
-    <img src="<?echo $URL_IMG?>/editbw.png" border="0"/>   
-    <img src="<?echo $URL_IMG?>/historybw.png" border="0"/>  
-    <img src="<?echo $URL_IMG?>/indicebw.png" border="0"/>
-    <img src="<?echo $URL_IMG?>/mapbw.png" border="0"/>
-    <img src="<?echo $URL_IMG?>/changesbw.png" border="0"/>
-    <img src="<?echo $URL_IMG?>/uploadbw.png" border="0"/>
-    <img src="<?echo $URL_IMG?>/searchbw.png" border="0"/>
-    <img src="<?echo $URL_IMG?>/helpbw.png" border="0"/>
-    <img src="<?echo $URL_IMG?>/chatbw.png" border="0"/>
-    <img src="<?echo $URL_IMG?>/notebw.png" border="0"/>
-    <img src="<?echo $URL_IMG?>/printbw.png" border="0"/></td></tr>
-    </table></center><br>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="2">
+<tr>
+	<td>
+		<img src="<?echo $URL_IMG?>/viewbw.png" border="0"/>
+		<img src="<?echo $URL_IMG?>/editbw.png" border="0"/>   
+		<img src="<?echo $URL_IMG?>/historybw.png" border="0"/>  
+		<img src="<?echo $URL_IMG?>/indicebw.png" border="0"/>
+		<img src="<?echo $URL_IMG?>/mapbw.png" border="0"/>
+		<img src="<?echo $URL_IMG?>/changesbw.png" border="0"/>
+		<img src="<?echo $URL_IMG?>/uploadbw.png" border="0"/>
+		<img src="<?echo $URL_IMG?>/searchbw.png" border="0"/>
+		<img src="<?echo $URL_IMG?>/helpbw.png" border="0"/>
+		<img src="<?echo $URL_IMG?>/chatbw.png" border="0"/>
+		<img src="<?echo $URL_IMG?>/notebw.png" border="0"/>
+		<img src="<?echo $URL_IMG?>/printbw.png" border="0"/>
+	</td>
+</tr>
+</table>

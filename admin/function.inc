@@ -11,11 +11,9 @@ include_once( "../config.php.inc" );
  * OBSERVACOES:		
  */
 function cs_db_pconnect(){
-
         global $cs_dbhost, $cs_dbuser, $cs_dbpword;
 
         return(mysql_pconnect($cs_dbhost, $cs_dbuser, $cs_dbpword));
-
 }
 
 /*
@@ -929,7 +927,7 @@ function autentica($usuario,$senha,$dbh){
 
 }
 
-class session {
+class coweb_session {
 
 var $key;
 var $timeout;

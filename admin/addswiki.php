@@ -2,7 +2,7 @@
 
 include_once( "function.inc" );
 
-$sess = new session;
+$sess = new coweb_session;
 
 $sess->read();
 

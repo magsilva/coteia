@@ -16,7 +16,7 @@
 
     if ($retorno) {
 
-		$sess = new session;
+		$sess = new coweb_session;
 
                 $sess->start(900);
 
