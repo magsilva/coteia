@@ -58,7 +58,7 @@ $title = $tuple[ "title" ];
 		<div align="center">
 			<form name="checkout" method="post" action="checkout.php">
 			<br />
-			<select name="repository" size="10" style="width: 60%">
+			<select name="filename" size="10" style="width: 60%">
 			<?php
 				// Abre lista_arquivos
 				$repository_filenames = array();
@@ -78,7 +78,7 @@ $title = $tuple[ "title" ];
 			</select>
 			<br />
 			<input type="hidden" name="swiki_id" value="<?php echo $swiki_id;?>" />
-			<input type="submit" name="submit" value="Pegar arquivo" onClick="return CheckChoosenFile( document.checkout.repository );" />
+			<input type="submit" name="submit" value="Pegar arquivo" onClick="return CheckChoosenFile( document.checkout.filename );" />
 			</form>
 		</div>
 	</td>

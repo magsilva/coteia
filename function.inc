@@ -278,7 +278,8 @@ function prepare_links( $id, $conteudo, $dbh ) {
 				//compara link do textarea com uma pagina do banco de dados
 				if ( !strcmp( trim( $partes_texto[ $n ] ), $tupla[ "indexador" ] ) ) {
 					// Procura por identificador da pagina encontrada
-					$query_find =  "select ident,data_ultversao from paginas where ((indexador='" . $tupla[ "indexador" ] . "') and ((ident like '$swiki.%')  or (ident='$swiki')))";
+					$indexador = mysql_escape_string( $tupla[ "indexador" ] );
+					$query_find =  "select ident,data_ultversao from paginas where indexador='$indexador' and (ident like '$swiki.%'  or ident='$swiki')";
 					$result_find = mysql_query( $query_find, $dbh );
 					$tupla_find = mysql_fetch_array( $result_find );
 					$pagina = $tupla_find[ "ident" ];

@@ -4,6 +4,7 @@ Remover session*register
 Verificar o porquê das anotações não funcionarem.
 Alterar o INSERT para UPDATE nos scripts SQL (criação de usuário).
 Alterar o código, removendo a necessidade de uso de "register_globals = on".
+Criar um DTD ou XML Schema para as wikipages.
 
 Ócio
 ====
