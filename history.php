@@ -1,48 +1,31 @@
-<?
+<?php
 /*
-* history.php
-*
-* Funcionalidade: Interface de historico das paginas.
-*
+* Interface de historico das paginas.
 */
 ?>
-<HTML>
-<HEAD>
-<TITLE> Hist&oacute;rico </TITLE>
-<META http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\"/>
-<META content=\"MSHTML 5.50.4134.600\" name=\"GENERATOR\"/>
-<script language="JavaScript">
-function AbreMapa(id)
-	{
-	window.open('map.php?id='+id,'janelamap','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=520,height=480');
-	}
-function AbreChat(swiki)
-	{
-	window.open('chat.php?swiki='+swiki,'janela_chat','toolbar=no,directories=no,location=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=700,height=500');
-	}
-function Imprime()
-	{
-	window.print();  
-	}
-</script> 
-</HEAD>
-<?
+
+<html>
+
+<head>
+	<title>Histórico</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+	<script type="text/javascript" src="coteia.js"></script>
+</head>
+
+<?php
 include_once("function.inc");
 include_once("cvs/function_cvs.inc");
 
-                //encontra id_swiki
-                $get_swiki = explode(".",$ident);
-                $id_swiki = $get_swiki[0];
+// Encontra id_swiki
+$get_swiki = explode(".",$ident);
+$id_swiki = $get_swiki[0];
   
 //arquivo a ser feito checkout
-$arquivo = $ident.".html";
+$arquivo = $ident . ".html";
 
 //arquivo de log
-//Juninho, mudei o nome do arquivo de log, ok?
-$arquivo_log = $ident.".log";
+$arquivo_log = $ident . ".log";
 
-//quando chamado atraves do php (que provavelmente nao enxerga as
-//variaveis globais quando instalado via RPMS
 //$comando_login = "cvs -d :pserver:".$username."::@".$host.":".$caminho_repositorio." login";
 
 $ModuloCheckout = "html/"; //se quiser separar conteudos no repositorio (ex. paginas html e arquivos de upload,
@@ -129,7 +112,7 @@ else { //abriu o arquivo. ler linha a linha ate encontrar "revision"
 apaga_dir($caminho);
 
 ?>
-<BODY text=#000000 vLink=#0000cc aLink=#ffff00 link=#cc0000 bgColor=#ffffff>
+<body>
                 <A href="mostra.php?ident=<?echo $ident?>">
 		<IMG src="<?echo $URL_IMG?>/view.png" border=0></A>
 		<IMG src="<?echo $URL_IMG?>/editbw.png" border=0>

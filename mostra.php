@@ -18,11 +18,10 @@ mysql_select_db($dbname,$dbh);
 $sql = mysql_query("SELECT status FROM swiki WHERE id='$id_swiki'");
 $tupla = mysql_fetch_array($sql);
 $status = $tupla[status];
-
 if ($status == '1') {
 	session_start("login");
 	if( !(session_is_registered("namuser") AND session_is_registered("coduser"))) {
-		echo "Essa é uma <b>área restrita</b>.<br>Você não tem permissão para acessá-la.";
+		echo "Essa é uma <b>área restrita</b>.<br />Você não tem permissão para acessá-la.";
 		exit;
 	}
 }
@@ -39,6 +38,7 @@ if (!$sucesso) {
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<title>Página Não Encontrada</title>
+	<link href="coteia.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>

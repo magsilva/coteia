@@ -211,7 +211,7 @@ $cont = eregi_replace("<br />","","$conteudo");
 </a>
 <br />
 
-<form method="POST" name="edit" ACTION="edit.php" onSubmit="return validar();">
+<form method="POST" name="edit" ACTION="edit.php" onSubmit="return validar(this);">
 <div class="lock">
   Lock
   <br /><input type="checkbox" name="lock" value="locked" <?php if ($senha) echo CHECKED; ?> />

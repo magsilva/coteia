@@ -174,7 +174,7 @@ if ($salva) {
 
 <br />
 
-<form method="post" action="create.php" name="create" onSubmit="return validar();">
+<form method="post" action="create.php" name="create" onSubmit="return validar(this);">
 <div class="lock">
 	Lock
 	<br /><input type="checkbox" name="lock" value="locked" />
