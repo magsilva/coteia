@@ -34,7 +34,7 @@ if ( $salva ) {
 
 	// Check password (if there is one to check against).
 	if ( $senha != NULL ) {
-		if ( (strcasecmp($senha, $passwd)) != "0" ) {
+		if ( (strcasecmp( $senha, md5( $passwd ) ) ) != "0" ) {
 			header("Location:senha_incorreta.php");
 			exit();
 		}
@@ -151,7 +151,7 @@ if ( $salva ) {
 		if ( $flag_lock == 0 ) {
 			$passwd = "NULL";
 		} else {
-			$passwd = "'" . $passwd . "'";
+			$passwd = md5( $passwd );
 		}
  		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass=$passwd where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
 		$sql = mysql_query("$query",$dbh);
