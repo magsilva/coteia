@@ -2,13 +2,11 @@ Para agora
 ==========
 Documentar melhor sobre como expandir a CoTeia.
 Criar uma página específica para a CoTeia (self-hosted?).
-Revisar o Javascript.
+Verificar o porquê das anotações não funcionarem.
 
 Ócio
 ====
 Mudar as variáveis globais para constantes.
-Reescrever o getrevisao_cvs.php e history.php para utilizar as funções prontas do function_cvs.
 Retirar código redundante de admin/
-Remover códigos redundantes de Javascript (colocar em um arquivo separado).
 Alterar a chamada xml_xsl para receber os parâmetros a serem aplicados via uma array associativa.
 Colocar os arquivos enviados (upload) e xml em controle de versão.

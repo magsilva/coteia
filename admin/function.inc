@@ -688,68 +688,71 @@ function create_folder($name, $id_father, $id_owner, $id_group, $access_permissi
     // Verifica se o usuario pode criar a pasta
 
     $aux = test_user_can_writes_folder($id_father, $id_owner, $id_group,$dbh);
-    if ($aux == -2) // id user inexistente
-	return -2;
-    else if ($aux == -3) // id group inexistente
-	return -3;
-    else if ($aux == -4) // erro provavel: pasta pai inexistente
-	return -4;
-    else if (!$aux) // usuario nao pode criar anotacao
-	return 0;
+		echo "Aux é $aux";
+    if ($aux == -2) { // id user inexistente
+			return -2;
+		} else if ($aux == -3) { // id group inexistente
+			return -3;
+		} else if ($aux == -4) { // erro provavel: pasta pai inexistente
+			return -4;
+		} else if (!$aux) { // usuario nao pode criar anotacao
+			return 0;
+		}
     
-    //Procura o nível da pasta pai
+		// Procura o nível da pasta pai
+		$level = get_folder_level( $id_father, $dbh );
+		if ($level == -2) {// erro provavel: pasta pai inexistente
+			return -4;
+		}
+		$level = $level + 1;
 
-    $level = get_folder_level($id_father,$dbh);
-    if ($level == -2) // erro provavel: pasta pai inexistente
-	return -4;
-    $level = $level + 1;
-    
-    //Procura o main da pasta pai
+		// Procura o main da pasta pai
+		$id_main = get_folder_main($id_father,$dbh);
+	} else {
+		$level = 0;
+	}
 
-    $id_main = get_folder_main($id_father,$dbh);
-    }
-    else $level = 0;
-          
-    // Verifica se ja existe uma pasta com o mesmo nome no mesmo nivel e filho do mesmo pai
+	// Verifica se ja existe uma pasta com o mesmo nome no mesmo nivel e filho do mesmo pai
+	$aux = folder_name_exists($id_owner, $id_group, $id_father, $name, $dbh);
+	echo "Aux é $aux";
+	if ($aux == -2) {
+		return -2;  // usuario inexistente
+	} else if ($aux == -3) { // grupo inexistente
+		return -3;
+	} else if ($aux == -4) {
+		return -4; // erro provavel: pasta pai nao existe
+	} else if ($aux == 1) {
+		return -5; // ja existe outra pasta com mesmo nome
+	}
 
-    $aux = folder_name_exists($id_owner, $id_group, $id_father, $name, $dbh);
-    if ($aux == -2)
-       return -2;  // usuario inexistente
-    else if ($aux == -3) // grupo inexistente
-       return -3;
-    else if ($aux == -4)
-       return -4; // erro provavel: pasta pai nao existe
-    if ($aux == 1) // ja existe outra pasta com mesmo nome
-       return -5;
-       
-    // Verifica se permissao de acesso eh vetor ou inteiro
-    if (is_array($access_permission)) 
-
+	// Verifica se permissao de acesso eh vetor ou inteiro
+	if (is_array($access_permission)) {
     $access_permission = transform_accesspermission($access_permission);
+	}
 
-    $id_main = (int)$id_main;
-    
-    // Cria a pasta
-    $comando_sql = "INSERT INTO folder VALUES (NULL, '$name', $id_main, $id_father, $level, $id_owner, $id_group,NOW(), $id_owner, $id_group, NOW(), $access_permission)";
-    mysql_query($comando_sql,$dbh);
+	$id_main = (int)$id_main;
 
-    if (!mysql_affected_rows($dbh))
-        return -6;
-      
-    $id = mysql_insert_id($dbh);
-     
-    if (!$id_main) { // No caso de ser a primeira pasta a ser criada no nivel 0.
-	$comando_sql = "UPDATE folder SET id_main = $id WHERE id=$id";
-        mysql_query($comando_sql);
-    if (!mysql_affected_rows($dbh)) { // erro na atualizacao
-	// Apaga a pasta inserida
-	$comando_sql = "DELETE FROM folder WHERE id=$id";
-        mysql_query($comando_sql);
-        return -6;
-       }
-    }
-        
-    return $id;
+	// Cria a pasta
+	$comando_sql = "INSERT INTO folder VALUES (NULL, '$name', $id_main, $id_father, $level, $id_owner, $id_group,NOW(), $id_owner, $id_group, NOW(), $access_permission)";
+	mysql_query($comando_sql,$dbh);
+
+	if (!mysql_affected_rows($dbh)) {
+		return -6;
+	}
+
+	$id = mysql_insert_id($dbh);
+
+	if (!$id_main) { // No caso de ser a primeira pasta a ser criada no nivel 0.
+		$comando_sql = "UPDATE folder SET id_main = $id WHERE id=$id";
+		mysql_query($comando_sql);
+		if (!mysql_affected_rows($dbh)) { // erro na atualizacao
+			// Apaga a pasta inserida
+			$comando_sql = "DELETE FROM folder WHERE id=$id";
+			mysql_query($comando_sql);
+			return -6;
+		}
+	}
+	return $id;
 } 
 
 /*
