@@ -129,7 +129,7 @@ function cvs_checkout_file( $file, $release ) {
 	chdir( $CVS_CHECKOUT_DIR );
 
 	// Normalmente isto seria desnecessário, o reposítorio não deveria ter tal arquivo.
-	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " -p -l -r " . $release . " checkout " . $file;
+	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " checkout -p -l -r " . $release . " " . $file;
 	$pipe = popen( $cvs_cmdline, "r" );
 	while( $buffer = fgets( $pipe, 1024 ) ) {
         $content .= $buffer; 
@@ -152,10 +152,10 @@ function cvs_get_revisions( $file ) {
 	chdir( $CVS_CHECKOUT_DIR );
 
 	// Normalmente isto seria desnecessário, o reposítorio não deveria ter tal arquivo.
-	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " -l log " . $file . "| grep ^revision | cut -f 2 -d ' '";
+	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " log -l " . $file . "| grep ^revision | cut -f 2 -d ' '";
 	exec( $cvs_cmdline, $revisions );
 
-	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " -l log " . $file . "| grep ^date | cut -f 2-3 -d ' '";
+	$cvs_cmdline = "CVS_PASSFILE=" . $CVS_PASSFILE . " cvs -d " . $cvs_root . " log -l " . $file . "| grep ^date | cut -f 2-3 -d ' '";
 	exec( $cvs_cmdline, $dates );
 
 	$output = array();

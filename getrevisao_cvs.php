@@ -36,7 +36,7 @@ if ( $comparar == 1 ) {
 
 <?php
 	$filename = $CVS_MODULE . "/" . $ident . ".html";
-  $tmp = cvs_checkout_file( $filename, "HEAD" );
+	$tmp = cvs_checkout_file( $filename, "HEAD" );
 
 	$original = "'(\s)'";
 	$conteudo = preg_replace( $original, "\\1", $tmp );
