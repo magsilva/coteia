@@ -41,12 +41,7 @@
 
 	<a href="changes.php?ident={id}"><img src="$URL_IMG/changes.png" /></a>
 
-	<xsl:if test="id != sw_id">
-		<a href="upload.php?ident={id}"><img src="$URL_IMG/upload.png" /></a>
-	</xsl:if>
-	<xsl:if test="id = sw_id">
-		<img src="$URL_IMG/uploadbw.png" />
-	</xsl:if>
+	<a href="upload.php?ident={id}"><img src="$URL_IMG/upload.png" /></a>
 
 	<a href="search.php?ident={id}"><img src="$URL_IMG/search.png" /></a>
 
