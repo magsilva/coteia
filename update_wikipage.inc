@@ -21,18 +21,21 @@ if ( $parent_swiki_id == false ) {
 	include( "err.inc" );
 }
 
-$parent_index = $parent_tuple[ "index" ];
-$parent_title = $parent_tuple[ "title" ];
-$parent_content = $parent_tuple[ "content" ];
-$parent_author = $parent_tuple[ "author" ];
-$parent_keywords = $parent_tuple[ "kwd1" ];
+$parent_index = $parent_tuple[ "indexador" ];
+$parent_title = $parent_tuple[ "titulo" ];
+$parent_content = $parent_tuple[ "conteudo" ];
+$parent_author = $parent_tuple[ "autor" ];
+$parent_keyword = array();
+$parent_keyword[0] = $parent_tuple[ "kwd1" ];
+$parent_keyword[1] = $parent_tuple[ "kwd2" ];
+$parent_keyword[2] = $parent_tuple[ "kwd3" ];
 mysql_free_result( $parent_related_result );
 
 // We need these vars sometimes, so let's keep it ready for using.
 $parent_index_db = mysql_escape_string( $parent_index );
 
 // Prepare data for xml processing.
-$parent_wikipage = prepare_for_web( $parent_index, $parent_content, $parent_title, $parent_author, $parent_keywords );
+$parent_wikipage = prepare_for_web( $parent_index, $parent_content, $parent_title, $parent_author, $parent_keyword );
 $parent_wikipage[ "id_swiki" ] = $parent_swiki_id;
 $parent_wikipage[ "ident" ] = $parent_id;
 

@@ -130,7 +130,7 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 			$wikipage_db[ "password" ] = md5( $wikipage_password );
 		}
 
-		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip,data_criacao,data_ultversao,pass,kwd1,kwd2,kwd3,autor) values ('$wikipage_db[ident]','$wikipage[index]','$wikipage[title]','$wikipage[content]','$nro_ip','$data','$data',$wikipage_db[password],'$wikipage_db[keyword1]','$wikipage_db[keyword2]','$wikipage_db[keyword3]','$wikipage_db[author]')";
+		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip,data_criacao,data_ultversao,pass,kwd1,kwd2,kwd3,autor) values ('$wikipage_db[ident]','$wikipage[index]','$wikipage[title]','$wikipage[content]','$nro_ip','$data','$data',$wikipage_db[password],'$wikipage_db[keyword0]','$wikipage_db[keyword1]','$wikipage_db[keyword2]','$wikipage_db[author]')";
 		$sql = mysql_query( $query, $dbh );
 		if ( $sql == false ) {
 			$st = 1;
@@ -207,9 +207,9 @@ include( "toolbar.php" );
 	<td>
 		Palavras-chave:
 		<br />
-		<input type="text" name="keywords[1]" size="15" />
-		<input type="text" name="keywords[2]" size="15" />
-		<input type="text" name="keywords[3]" size="15" />
+		<input type="text" name="keyword[0]" size="15" />
+		<input type="text" name="keyword[1]" size="15" />
+		<input type="text" name="keyword[2]" size="15" />
 	</td>
 </tr>
 </table>

@@ -145,11 +145,11 @@ function replace_html_entities( $text ) {
 /**
 * Prepare the data for database's processing.
 */
-function prepare_for_db( $index, $content, $title, $author, $keywords ) {
-	$data = prepare_for_web( $index, $content, $title, $author, $keywords );
+function prepare_for_db( $index, $content, $title, $author, $keyword ) {
+	$data = prepare_for_web( $index, $content, $title, $author, $keyword );
 
 
-	for ( $i = 0; $i < count( $keywords ); $i++ ) {
+	for ( $i = 0; $i < count( $keyword ); $i++ ) {
 		$data[ "keyword" . $i ] = mysql_escape_string( $data[ "keyword" . $i ] );
 	}
 	$data[ "content" ] = mysql_escape_string( $data[ "content" ] );
@@ -162,15 +162,15 @@ function prepare_for_db( $index, $content, $title, $author, $keywords ) {
 /**
 * Prepare the data for web.
 */
-function prepare_for_web( $index, $content, $title, $author, $keywords ) {
+function prepare_for_web( $index, $content, $title, $author, $keyword ) {
 	// Strip slashes if magic_quotes_gpc (auto adding slashes) is active.
 	if ( get_magic_quotes_gpc() == 1 ) {
 		$index = stripslashes( $index );
 		$content = stripslashes( $content );
 		$title = stripslashes( $title );
 		$author = stripslashes( $author );
-		for ( $i = 0; $i < count( $keywords ); $i++ ) {
-			$keywords[ $i ] = stripslashes( $keywords[ $i ] );
+		for ( $i = 0; $i < count( $keyword ); $i++ ) {
+			$keyword[ $i ] = stripslashes( $keyword[ $i ] );
 		}
 	}
 
@@ -178,8 +178,8 @@ function prepare_for_web( $index, $content, $title, $author, $keywords ) {
 	$data[ "title" ] = replace_html_entities( trim( $title ) );
 	$data[ "author" ] = replace_html_entities( trim( $author ) );
 	$data[ "content" ] = replace_html_entities( trim( $content ) );
-	for ( $i = 0; $i < count( $keywords ); $i++ ) {
-		$data[ "keywords" . $i ] = replace_html_entities( trim( $keywords[ $i ] ) );
+	for ( $i = 0; $i < count( $keyword ); $i++ ) {
+		$data[ "keyword" . $i ] = replace_html_entities( trim( $keyword[ $i ] ) );
 	}
 
 	return $data;

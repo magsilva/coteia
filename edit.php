@@ -27,7 +27,7 @@ if ( mysql_num_rows( $wikipage_result ) == 0 ) {
 	include( "err.inc" );
 }
 $wikipage_tuple = mysql_fetch_array( $wikipage_result );
-    
+
 if ( isset( $_REQUEST[ "save" ] ) ) {
 	// Check password (if there is one to check against).
 	$password = $wikipage_tuple[ "pass" ];
@@ -57,9 +57,9 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 	$update_wikipage_query = "update paginas set " .
 		"conteudo='" . $wikipage_db[ "content" ] . "'," .
 		"titulo='"   . $wikipage_db[ "title"]    . "'," .
-		"kwd1='"     . $wikipage_db[ "keyword1" ]. "'," .
-		"kwd2='"     . $wikipage_db[ "keyword2" ]. "'," .
-		"kwd3='"     . $wikipage_db[ "keyword3" ]. "'," .
+		"kwd1='"     . $wikipage_db[ "keyword0" ]. "'," .
+		"kwd2='"     . $wikipage_db[ "keyword1" ]. "'," .
+		"kwd3='"     . $wikipage_db[ "keyword2" ]. "'," .
 		"autor='"    . $wikipage_db[ "author" ]  . "'," .
 		"data_ultversao='$data'," .
 		"pass="      . $wikipage_db[ "password" ]. " "  .
@@ -142,7 +142,7 @@ include( "toolbar.php" );
 	<input type="reset" value="Limpar" onClick="return confirm('Are you sure? This will restore the original text\n(in another words, you will lose every change made to the text)')"; />
 	<input type="submit" name="save" value="Salvar" />
 	<br />
-	<textarea name="cria_conteudo" wrap=virtual rows="20" cols="100" style="width: 100%"><?php echo $wikipage_tuple[ "conteudo" ]; ?></textarea>
+	<textarea name="content" wrap=virtual rows="20" cols="100" style="width: 100%"><?php echo $wikipage_tuple[ "conteudo" ]; ?></textarea>
 </div>
 <input type="hidden" name="ident" value="<?php echo $wikipage_tuple[ "ident" ]; ?>" />
 </form>
