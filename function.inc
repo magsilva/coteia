@@ -168,7 +168,7 @@ function prepare_for_web( $index, $content, $title, $author, $keywords ) {
 		$index = stripslashes( $index );
 		$content = stripslashes( $content );
 		$title = stripslashes( $title );
-		$author = striplashes( $author );
+		$author = stripslashes( $author );
 		for ( $i = 0; $i < count( $keywords ); $i++ ) {
 			$keywords[ $i ] = stripslashes( $keywords[ $i ] );
 		}
