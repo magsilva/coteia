@@ -36,15 +36,11 @@
 	<img src="<?php echo $URL_IMG?>/help.png" alt="Help Guide" />
 </a>
 
-<a href="JavaScript:AbreChat(<?php echo $id_swiki?>)">
-	<img src="<?php echo $URL_IMG?>/chat.png" alt="ChatServer" />
-</a>
+<img src="<?php echo $URL_IMG?>/chatbw.png" alt="ChatServer" />
 
-<a href="JavaScript:AbreAnotacao(<?php echo "$id_swiki,$ident,$id_ann"?>">
-	<img src="<?php echo $URL_IMG?>/note.png" alt="GroupNote" />
-</a>
+<img src="<?php echo $URL_IMG?>/notebw.png" alt="GroupNote" />
 
-<a href="JavaScript:Imprime()">
+<a href="javascript:Imprime()">
 	<img src="<?php echo $URL_IMG?>/print.png" alt="Print this Page" />
 </a>
 
