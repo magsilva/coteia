@@ -4,7 +4,8 @@
 	<script type="text/javascript" src="coteia.js"></script>
 </head>
 
-<body onLoad="check(<?echo $id?>)">
+
+<body onLoad="check(<?php echo $id;?>)">
 
 </body>
 

@@ -13,7 +13,6 @@ include_once("function.inc");
 $dbh = db_connect();
 $retorno = login_swiki( $usuario, $passwd, $id, $dbh );
 
-
 if ( $retorno ) {
 	if ( $token == "1" ) {
 		header( "Location:ok.php?id=$id" ); //Redireciona para a interface inicial
