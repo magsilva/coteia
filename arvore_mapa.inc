@@ -3,9 +3,9 @@
 include_once("function.inc");
 
   if(isset($PATH_INFO)) {
-	  $script       =  $PATH_INFO; 
+	  $script = $PATH_INFO; 
   } else {
-	  $script	=  $SCRIPT_NAME;
+	  $script	= $SCRIPT_NAME;
   }
 
   $img_expand   = "$URL_IMG/tree_expand.png";
@@ -22,21 +22,22 @@ include_once("function.inc");
      $levels[$i]=0;
   }
 
-  /*********************************************/
-  /*  Obtem numero de nohs                     */
-  /*********************************************/
-  if ($p!="") $explevels = explode("|",$p);
+  /*
+  * Obtem número de nós.
+  */
+  if ($p!="") {
+		$explevels = explode( "|", $p );
+	}
   
-  $i=0;
-  while($i<count($explevels))
-  {
-    $expand[$explevels[$i]]=1;
-    $i++;
-  }
+  $i = 0;
+  while ( $i<count( $explevels ) ) {
+		$expand[ $explevels[ $i ] ] = 1;
+		$i++;
+	}
   
-  /*********************************************/
-  /*  Encontra ultimo noh da sub-arvore        */
-  /*********************************************/
+  /*
+  /* Encontra ultimo noh da sub-arvore.
+  */
   
   $lastlevel=$maxlevel;
   for ($i=count($tree)-1; $i>=0; $i--)

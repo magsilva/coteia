@@ -25,30 +25,29 @@ if ($ident_pai!="") {
 		//encontra id_swiki
  		$get_swiki = explode(".",$ident_pai);
 		$id_swiki = $get_swiki[0];
-	}
-	else {
+	} else {
 		$id_swiki = $ident_pai;
 	}
 
-	if (stristr($conteudo,"<lnk>")) {        
+	if (stristr($conteudo,"<lnk>")) {
 		$conteudo = link_interno($ident_pai,$conteudo,$dbh);
-        }   
-		
+	}
+
 	if (stristr($conteudo,"</table>")) {
-        	$conteudo = table_pre($conteudo,"table");  
-        }
-                
-        if (stristr($conteudo,"<pre>")) {
-        	$conteudo = table_pre($conteudo,"pre");
-        }
+		$conteudo = table_pre($conteudo,"table");
+	}
+
+	if (stristr($conteudo,"<pre>")) {
+		$conteudo = table_pre($conteudo,"pre");
+	}
 
 	if (stristr($conteudo,"</ul>")) {
-                $conteudo = table_pre($conteudo,"ul");
-        }
-                                                 
-        if (stristr($conteudo,"</ol>")) {
-                $conteudo = table_pre($conteudo,"ol");
-        }
+		$conteudo = table_pre($conteudo,"ul");
+	}
+
+	if (stristr($conteudo,"</ol>")) {
+		$conteudo = table_pre($conteudo,"ol");
+	}
 
 	if ($senha) {
 		$lock = "<lock>1</lock>";
@@ -92,14 +91,14 @@ if ($ident_pai!="") {
 	$body = "bdy";
 
 	$query_extra = mysql_query("select id_ann,id_chat,id_eclass from swiki where id='$id_swiki'");
-        $result = mysql_fetch_array($query_extra); 
-        $annotation = "<ann_folder>$result[id_ann]</ann_folder>";
-        $chat = "<chat_folder>$result[id_chat]</chat_folder>";
+	$result = mysql_fetch_array($query_extra);
+	$annotation = "<ann_folder>$result[id_ann]</ann_folder>";
+	$chat = "<chat_folder>$result[id_chat]</chat_folder>";
 	$eclass = "<id_eclass>$result[id_eclass]</id_eclass>";
 
 	$feedback = xml_xsl($ident_pai,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$tag_id,$lock,$annotation,$chat,$eclass,$others,$linksto_id_atua,$linksto_titulo_atua,$kwd,$aut,$tit,$body);
 
-        if ($feedback==0) {
+	if ($feedback==0) {
 		return TRUE;
 	} else {
 		return FALSE;

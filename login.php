@@ -1,23 +1,30 @@
 <html>
-<body bgcolor="#E1F0FF">
+
+<head>
+	<title>Login</title>
+	<link href="coteia.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
 <table width="100%">
-<form NAME="login" METHOD="POST" action="autentica.php">
-<tr valign="top">
-<td valign="top" colspan="2"><b>Login Obrigatório</b>&nbsp;</a><br><br></td>
-</tr>
-<tr valign="top">
-<td align="Right"><b>Usuário:</b>&nbsp;&nbsp;</td><td><input TYPE="text" Name="usuario" SIZE="16"></td>
-</tr>
-<tr valign="top">
-<td align="right"><b>&nbsp;Senha:</b>&nbsp;&nbsp;</td><td><input TYPE="password" NAME="passwd" SIZE="16">
-<br><br></td>
-</tr><tr valign="top">
-<td colspan="2" align="center"><input type=submit value="Login" name="login"></td>
-</tr>
-<input type="hidden" name="id" value="<?echo $id?>">
-<input type="hidden" name="token" value="<?echo $token?>">
-<input type="hidden" name="index" value="<?echo $index?>">
+
+<h1>Login Obrigatório</h1>
+
+<form name="login" METHOD="POST" action="autentica.php">
+	<br /><b>Usuário:</b>
+	<br /><input type="text" name="usuario" size="16" />
+
+	<br /><b>Senha:</b>
+	<br /><input type="password" name="passwd" size="16" />
+
+	<br /><input type=submit value="Login" name="login" />
+
+	<input type="hidden" name="id" value="<?php echo $id;?>" />
+	<input type="hidden" name="token" value="<?php echo $token;?>" />
+	<input type="hidden" name="index" value="<?php echo $index;?>" />
 </form>
-</table>
+
 </body>
+
 </html>

@@ -10,6 +10,7 @@ include_once("function.inc");
 <head>
 	<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1" />
 	<link rel="Shortcut icon" href="<?php echo $URL_IMG; ?>/Logo.ico" />
+	<link href="coteia.css" rel="stylesheet" type="text/css" />
 	<title>CoTeia</title>
 </head>
 
@@ -69,16 +70,16 @@ while ($tupla = mysql_fetch_array($sql)) {
 
 		if ($token==true) {
 			if ($status == '1') {
-				echo "<LI><a href=\"#\" onClick=\"window.open('login.php?id=$ident&token=1','login','top=50,left=100,menubar=no,resizable=no,width=300,height=200')\">$final</a> ($nro_paginas) p&aacute;gina(s):  (administrador: <A href=\"mailto:$admail\">$admin</A>)";
+				echo "\t<li><a href=\"#\" onClick=\"window.open('login.php?id=$ident&token=1','login','top=50,left=100,menubar=no,resizable=no,width=300,height=200')\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
 			} else {
-				echo "<LI><a href=\"mostra.php?ident=$ident\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) p&aacute;gina(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)\n";
+				echo "\t<li><a href=\"mostra.php?ident=$ident\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
 			}
 		} else {
 			$final_url = rawurlencode($final);
 			if ($status == '1') {
-				echo "<LI>$final<a href=\"#\" onClick=\"window.open('login.php?id=$ident&token=0&index=$final_url','login','top=50,left=100,menubar=no,resizable=no,width=300,height=200')\">[create]</a>";
+				echo "\t<li>$final<a href=\"#\" onClick=\"window.open('login.php?id=$ident&token=0&index=$final_url','login','top=50,left=100,menubar=no,resizable=no,width=300,height=200')\">[create]</a></li>\n";
 			} else {
-				echo "<LI>$final<a href=\"create.php?ident=$ident&index=$final_url\" onmouseover=\"window.status='$final'; return true\" onmouseout=\"window.status=' '; return true\">[create]</a>\n";
+				echo "\t<li>$final<a href=\"create.php?ident=$ident&index=$final_url\" onmouseover=\"window.status='$final'; return true\" onmouseout=\"window.status=' '; return true\">[create]</a></li>\n";
 			}
 		}
 	}
@@ -121,16 +122,16 @@ while ($tupla = mysql_fetch_array($sql)) {
 
 		if ($token==true) {
 			if ($status == '1') {
-				echo "<LI><a href=\"#\" onClick=\"window.open('login.php?id=$ident&token=1','login','top=50,left=100,menubar=no,resizable=no,width=300,height=200')\">$final</a> ($nro_paginas) p&aacute;gina(s):  (administrador: <A href=\"mailto:$admail\">$admin</A>)";
+				echo "\t<li><a href=\"#\" onClick=\"window.open('login.php?id=$ident&token=1','login','top=50,left=100,menubar=no,resizable=no,width=300,height=200')\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
 			} else {
-				echo "<LI><a href=\"mostra.php?ident=$ident\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) p&aacute;gina(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)\n";
+				echo "\t<li><a href=\"mostra.php?ident=$ident\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
 			}
 		} else {
 			$final_url = rawurlencode($final);
 			if ($status == '1') {
-				echo "<LI>$final<a href=\"#\" onClick=\"window.open('login.php?id=$ident&token=0&index=$final_url','login','top=50,left=100,menubar=no,resizable=no,width=300,height=200')\">[create]</a>";
+				echo "\t<li>$final<a href=\"#\" onClick=\"window.open('login.php?id=$ident&token=0&index=$final_url','login','top=50,left=100,menubar=no,resizable=no,width=300,height=200')\">[create]</a></li>\n";
 			} else {
-				echo "<LI>$final<a href=\"create.php?ident=$ident&index=$final_url\" onmouseover=\"window.status='$final'; return true\" onmouseout=\"window.status=' '; return true\">[create]</a>\n";
+				echo "\t<li>$final<a href=\"create.php?ident=$ident&index=$final_url\" onmouseover=\"window.status='$final'; return true\" onmouseout=\"window.status=' '; return true\">[create]</a></li>\n";
 			}
 		}
 	}
@@ -166,7 +167,7 @@ echo " $nro_pgs<br />";
 <b><a href="help.php" onmouseover="window.status='Ajuda - Coteia'; return true" onmouseout="window.status=' '; return true">Help</a></b>
 
 <br />
-<img alt="CoTeia" src="<?echo $URL_IMG?>/logo.png" />
+<img alt="CoTeia" src="<?php echo $URL_IMG;?>/logo.png" />
 <br /><i>CoTeia - Ferramenta de Edição Colaborativa Baseada na Web</i>
 
 </body>

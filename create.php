@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("function.inc");
 include_once("cvs/function_cvs.inc");
 
@@ -82,14 +82,14 @@ if ($salva) {
 	        	$i++;
 		}
 	} else {
-               	$linksto_id[1] = "0";
-               	$linksto_titulo[1] = "Lista de Swikis";
+		$linksto_id[1] = "0";
+		$linksto_titulo[1] = "Lista de Swikis";
 	}
 
 	//verifica travamento da pagina
-        if ($lock == locked) {
+	if ($lock == locked) {
 		$flag_lock = 1;
-        } else {
+	} else {
 		$flag_lock = 0;
 	}
 	
@@ -116,7 +116,7 @@ if ($salva) {
 
 	if (xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body)==TRUE) {
 		//adiciona arquivo no CVS
-                cvs_add($ident, $CVS_MODULE);
+		cvs_add($ident, $CVS_MODULE);
 
 		$nro_ip= getenv("REMOTE_ADDR"); 
 		$d = getdate();
@@ -140,11 +140,10 @@ if ($salva) {
 	if (stristr($ident,".")) {
 		$pos_lstdot = strrpos($ident,".");
 		$ident_pai = substr($ident,0,$pos_lstdot);
-                 
-	        include("atualiza.php");
+		include("atualiza.php");
 		//atualiza pagina pai
-       	        cvs_update($ident_pai, $CVS_MODULE);
-       }
+		cvs_update($ident_pai, $CVS_MODULE);
+	}
 
 	header("Location:mostra.php?ident=$ident");
 } else {
@@ -159,18 +158,9 @@ if ($salva) {
 </head>
 
 <body>
-<img src="<?php echo $URL_IMG; ?>/viewbw.png" />
-<img src="<?php echo $URL_IMG; ?>/editbw.png" />
-<img src="<?php echo $URL_IMG; ?>/historybw.png" />
-<img src="<?php echo $URL_IMG; ?>/indicebw.png" />
-<img src="<?php echo $URL_IMG; ?>/mapbw.png" />
-<img src="<?php echo $URL_IMG; ?>/changesbw.png" />
-<img src="<?php echo $URL_IMG; ?>/uploadbw.png" />
-<img src="<?php echo $URL_IMG; ?>/searchbw.png" />
-<a href="help.php"><img src="<?php echo $URL_IMG; ?>/helpbw.png" /></a>
-<img src="<?php echo $URL_IMG; ?>/chatbw.png" />
-<img src="<?php echo $URL_IMG; ?>/notebw.png" />
-<img src="<?php echo $URL_IMG; ?>/printbw.png" />
+<?php
+include( "toolbar.php" );
+?>
 
 <br />
 
@@ -191,7 +181,7 @@ if ($salva) {
 <table>
 <tr>
 	<td>
-        	Título
+		Título
 		<br /><input type="text" name="titulo" value="<?echo $index?>" SIZE="45" />
 	</td>
 </tr>
@@ -205,9 +195,9 @@ if ($salva) {
 	<td>
 		Palavras-chave:
 		<br />
-		<INPUT TYPE="text" NAME="key1" SIZE="15" />
-		<INPUT TYPE="text" NAME="key2" SIZE="15" />
-		<INPUT TYPE="text" NAME="key3" SIZE="15" />
+		<input type="text" name="key1" size="15" />
+		<input type="text" name="key2" size="15" />
+		<input type="text" name="key3" size="15" />
 	</td>
 </tr>
 </table>
@@ -220,8 +210,8 @@ if ($salva) {
 	<textarea name="cria_conteudo" wrap=virtual rows="20" cols="100" style="width: 100%"></textarea>
 </div>
  
-<input type="hidden" name="ident" value="<?echo $ident?>"  />
-<input type="hidden" name="indexador" value="<?echo $index?>"  />
+<input type="hidden" name="ident" value="<?php echo $ident;?>" />
+<input type="hidden" name="indexador" value="<?php echo $index;?>" />
 </form>
 
 </body>

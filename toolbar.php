@@ -28,7 +28,7 @@
 <a href="JavaScript:AbreChat(<?php echo $id_swiki?>)">
 	<img src="<?php echo $URL_IMG?>/chat.png" />
 </a>
-<img src="<?php echo $URL_IMG?>/notebw.png" />
+<img src="<?php echo $URL_IMG?>/note.png" />
 <a href="JavaScript:Imprime()">
 	<img src="<?php echo $URL_IMG?>/print.png"/>
 </a>

@@ -1,12 +1,11 @@
 <html>
+
 <head>
-<script LANGUAGE ="JavaScript">
-function check(id,index) {
-    window.opener.document.location.replace('create.php?ident='+id+'&index='+index);
-    window.close();
-}
-</script>
+	<script type="text/javascript" src="coteia.js"></script>
 </head>
+
 <body onLoad="check('<?echo $id?>','<?echo $index?>')">
+
 </body>
+
 </html>

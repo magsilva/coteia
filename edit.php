@@ -136,21 +136,21 @@ if ($salva){
 	$body = "bdy";
 
 	$query_extra = mysql_query("select id_ann,id_chat,id_eclass from swiki where id=\"$id_swiki\"");
-        $result = mysql_fetch_array($query_extra);
-        $annotation = "<ann_folder>$result[id_ann]</ann_folder>";
-        $chat = "<chat_folder>$result[id_chat]</chat_folder>";
+	$result = mysql_fetch_array($query_extra);
+	$annotation = "<ann_folder>$result[id_ann]</ann_folder>";
+	$chat = "<chat_folder>$result[id_chat]</chat_folder>";
 	$eclass = "<id_eclass>$result[id_eclass]</id_eclass>";
 
 	if (xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body)==TRUE) {
 		//atualiza arquivo no CVS
-                cvs_update($ident, $CVS_MODULE);
+		cvs_update($ident, $CVS_MODULE);
 
 		$nro_ip= getenv("REMOTE_ADDR"); 
 		$d = getdate();
 		$data=$d["year"]."-".$d["mon"]."-".$d["mday"]." ".$d["hours"].":".$d["minutes"].":".$d["seconds"];
 
 		//verifica travamento da pagina
-                if ($flag_lock == 1) {
+		if ($flag_lock == 1) {
 			$passwd="NULL";
 		}
  		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass='$passwd' where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
@@ -191,30 +191,14 @@ $cont = eregi_replace("<br />","","$conteudo");
 
 <body>
 
-<a href="mostra.php?ident=<?php echo $ident; ?>">
-	<img src="<?php echo $URL_IMG; ?>/view.png" />
-</a>
-<img src="<?php echo $URL_IMG; ?>/editbw.png" />
-<img src="<?php echo $URL_IMG; ?>/historybw.png" />
-<img src="<?php echo $URL_IMG; ?>/indicebw.png" />
-<img src="<?php echo $URL_IMG; ?>/mapbw.png" />
-<img src="<?php echo $URL_IMG; ?>/changesbw.png" />
-<img src="<?php echo $URL_IMG; ?>/uploadbw.png" />
-<img src="<?php echo $URL_IMG; ?>/searchbw.png" />
-<a href="help.php">
-	<img src="<?php echo $URL_IMG; ?>/help.png" />
-</a>
-<img src="<?php echo $URL_IMG; ?>/chatbw.png" />
-<img src="<?php echo $URL_IMG; ?>/notebw.png" />
-<a href="JavaScript:Imprime()">
-	<img src="<?php echo $URL_IMG; ?>/print.png" />
-</a>
-<br />
+<?php
+include( "toolbar.php" );
+?>
 
 <form method="POST" name="edit" ACTION="edit.php" onSubmit="return validar(this);">
 <div class="lock">
   Lock
-  <br /><input type="checkbox" name="lock" value="locked" <?php if ($senha) echo CHECKED; ?> />
+  <br /><input type="checkbox" name="lock" value="locked" <?php if ($senha) echo checked; ?> />
 
   <br />Password
   <br /><input type="password" size="10" name="passwd" onBlur="form.edit.lock.checked=true;return false;" />
@@ -259,9 +243,10 @@ $cont = eregi_replace("<br />","","$conteudo");
 <input type="hidden" name="ident" value="<?php echo $ident; ?>" />
 </form>
 
-</body>
-
-</html>
 <?php
 }
 ?>
+
+</body>
+
+</html>

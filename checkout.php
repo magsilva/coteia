@@ -1,14 +1,25 @@
 <?php 
-
 include_once("function.inc");
-
-echo "<!DOCTYPE HTML PUBLIC \"-//W3O//DTD W3 HTML 3.2//EN\">
-<html>
-<head><title>$arq</title></head>
-<body bgcolor=\"#FFFEEE\">
-<br><br><center>
-<h2>Arquivo para Download</h2></center><br><hr><br>
-<a href=\"$DIR_UPLOAD/$swiki/$arq\">$arq</a>
-</body> 
-</html>";
 ?>
+
+<html>
+
+<head>
+	<title>$arq</title>
+	<link href="coteia.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<br />
+
+<h2>Arquivo para Download</h2>
+
+<hr />
+<br />
+
+<a href="<?php echo $DIR_UPLOAD . "/" . $swiki . "/" . $arq;?>">$arq</a>
+
+</body>
+ 
+</html>

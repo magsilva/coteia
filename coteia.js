@@ -1,3 +1,13 @@
+function check(id) {
+    window.opener.document.location.replace('mostra.php?ident='+id);
+    window.close();
+}
+
+function check(id,index) {
+    window.opener.document.location.replace('create.php?ident='+id+'&index='+index);
+    window.close();
+}
+
 function Imprime() {
 	window.print();
 }

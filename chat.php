@@ -2,6 +2,7 @@
 
 <head>
 	<title>ChatServer - CoTeia</title>
+	<link href="coteia.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="coteia.js"></script>
 </head>
 
@@ -10,7 +11,7 @@
 <br />
 
 <div align="center">
-<table BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=330 BGCOLOR=#E1F0FF bordercolor=#C0C0C0 bordercolordark=#C0C0C0 bordercolorlight=#C0C0C0>
+<table border=0 width="100%" bgcolor=#E1F0FF bordercolor=#C0C0C0 bordercolordark=#C0C0C0 bordercolorlight=#C0C0C0>
 <tr>
 	<td bgcolor=#0099FF align="center">
 		<b>Chat Server & CoTeia</b>

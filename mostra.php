@@ -1,3 +1,14 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<title>Página Não Encontrada</title>
+	<link href="coteia.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
 <?php
 /*
 * Exibe no browser o arquivo que é passado como parametro.
@@ -25,36 +36,13 @@ if ($status == '1') {
 		exit;
 	}
 }
+include( "toolbar.php" );
 
 $sucesso = @include("$PATH_ARQUIVOS/$ident.html"); 
 
 if (!$sucesso) {
 ?>
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 
-<html>
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<meta http-equiv="Pragma" content="no-cache" />
-	<title>Página Não Encontrada</title>
-	<link href="coteia.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-<img src='<?php echo $URL_IMG; ?>/viewbw.png' />
-<img src='<?php echo $URL_IMG; ?>/editbw.png' />
-<img src='<?php echo $URL_IMG; ?>/historybw.png' />
-<img src='<?php echo $URL_IMG; ?>/indicebw.png' />
-<img src='<?php echo $URL_IMG; ?>/mapbw.png' />
-<img src='<?php echo $URL_IMG; ?>/changesbw.png' />
-<img src='<?php echo $URL_IMG; ?>/uploadbw.png' />
-<img src='<?php echo $URL_IMG; ?>/searchbw.png' />
-<img src='<?php echo $URL_IMG; ?>/helpbw.png' />
-<img src='<?php echo $URL_IMG; ?>/chatbw.png' >
-<img src='<?php echo $URL_IMG; ?>/notebw.png' />
-<img src='<?php echo $URL_IMG; ?>/printbw.png' />
-<br />
 
 <div align="center">
 	Desculpe! A página requisitada não foi encontrada.
@@ -63,11 +51,11 @@ if (!$sucesso) {
 	<br />
 	<a href="index.php"><img src="<?php echo $URL_IMG; ?>/home.png" /></a>
 </div>
+<?php
+}
+?>
 
 </body>
 
 </html>
-<?php
-}
-?>
 

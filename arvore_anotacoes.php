@@ -261,6 +261,3 @@ function getchild ($intchild, $level)
   }
   return($dataSub);
 }
-
-
-
