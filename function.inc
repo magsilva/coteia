@@ -203,9 +203,9 @@ function arq( $id, $xml_document, $path_xml, $path_xsl, $path_html )
 	fputs( $fp, $xml_document );
 	fclose( $fp );
 
-	$cmd_line = "$PATH_JAVA org.apache.xalan.xslt.Process -in $arq_xml -xsl $path_xsl -out path_html/$id.html 2>&1";
+	$cmd_line = "$PATH_JAVA org.apache.xalan.xslt.Process -in $arq_xml -xsl $path_xsl -out $path_html/$id.html 2>&1";
 	exec( $cmd_line, $var_array, $status );
-	if ( empty( $var_array ) ) {
+	if ( $status == 0 ) {
 		return true;
 	} else {
 		return $var_array;
