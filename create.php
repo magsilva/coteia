@@ -10,12 +10,11 @@ if ( (!isset($ident)) or (stristr($ident,";") ) ) {
 }
 
 $dbh = db_connect();
-                
 mysql_select_db($dbname,$dbh);
   
 if ($salva) {
+	// Encontra id_swiki
 	if (stristr($ident,".")) {
-		// Encontra id_swiki
 		$get_swiki = explode(".",$ident);
 		$id_swiki = $get_swiki[0];
 	} else {
@@ -124,14 +123,11 @@ if ($salva) {
     		$data=$d["year"]."-".$d["mon"]."-".$d["mday"]." ".$d["hours"].":".$d["minutes"].":".$d["seconds"];
 		
 		if ($flag_lock == 1) {
-			$query = "insert into paginas (ident,indexador,titulo,conteudo,ip, data_criacao,data_ultversao,pass, kwd1, kwd2, kwd3,autor) values ('$ident','$indexador','$titulo','$conteudo_puro','$nro_ip','$data','$data', '$passwd','$keyword[1]','$keyword[2]','$keyword[3]','$autor')" or die  ("Falha ao inserir no Banco de Dados");
-			$sql = mysql_query("$query",$dbh);
- 
-		} else {
-			$query = "insert into paginas (ident,indexador,titulo,conteudo,ip, data_criacao, data_ultversao ,pass, kwd1, kwd2, kwd3,autor) values ('$ident','$indexador','$titulo', '$conteudo_puro', '$nro_ip','$data','$data',NULL,'$keyword[1]','$keyword[2]','$keyword[3]','$autor')" or die ("Falha ao inserir no Banco de Dados");
-			$sql = mysql_query("$query",$dbh);
+			$passwd = "NULL";
 		}
-		
+		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip, data_criacao,data_ultversao,pass, kwd1, kwd2, kwd3,autor) values ('$ident','$indexador','$titulo','$conteudo_puro','$nro_ip','$data','$data', '$passwd','$keyword[1]','$keyword[2]','$keyword[3]','$autor')" or die  ("Falha ao inserir no Banco de Dados");
+		$sql = mysql_query("$query",$dbh);
+ 
 		$query = "insert into gets (id_pag,id_sw,data) values ('$ident','$id_swiki','$data')" or die ("Falha ao inserir no Banco de Dados");
 		$sql = mysql_query("$query",$dbh);
 	} else {
@@ -158,23 +154,7 @@ if ($salva) {
 <head>
 	<title>Formulário de Criação</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<script language="javascript">
-	function validar() {
-		// Verifica se o campo titulo foi preenchido
-		if (document.create.titulo.value == "") {
-			alert('O campo título é de preenchimento obrigatório!');
-			document.create.titulo.value = "";
-			document.create.titulo.focus();
-			return false;
-		}
-		if (document.create.passwd.value != document.create.repasswd.value) {
-			alert('As senhas digitadas não coincidem!');
-			document.create.passwd.focus();
-			return false;
-		}
-		return true;
-	}
-	</script>
+	<script type="text/javascript" src="coteia.js"></script>
 	<link href="coteia.css" rel="stylesheet" type="text/css" />
 </head>
 

@@ -27,6 +27,7 @@ if (mysql_num_rows($sql) == '0') {
 
     
 if ($salva){
+	// Verifica a senha.
 	while ($tupla = mysql_fetch_array($sql)) {
 		$senha = $tupla[pass];
 	}
@@ -81,11 +82,11 @@ if ($salva){
 		$conteudo = table_pre($conteudo,"ol");
 	}
 
-	// Encontra id_swiki
+	// Encontra identificar da swiki.
 	$get_swiki = explode(".", $ident);
 	$id_swiki = $get_swiki[0];  		
 		
-	//encontra indexador da pagina - utilizado no linksto
+	// Encontra indexador da pagina - utilizado no linksto
 	$query = "SELECT indexador FROM paginas where ident='$ident'";
 	$sql = mysql_query("$query",$dbh);
 	$tupla = mysql_fetch_array($sql);
@@ -150,12 +151,10 @@ if ($salva){
 
 		//verifica travamento da pagina
                 if ($flag_lock == 1) {
-	 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass='$passwd' where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
-			$sql = mysql_query("$query",$dbh);
-		} else {
-	 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass=NULL where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
-			$sql = mysql_query("$query",$dbh);
-		}	
+			$passwd="NULL";
+		}
+ 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass='$passwd' where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
+		$sql = mysql_query("$query",$dbh);
 	} else {
 		//nao criou arquivo fisico >> erro 
 		$st = 2;
@@ -186,45 +185,7 @@ $cont = eregi_replace("<br />","","$conteudo");
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 	<title>Formulário de Edição</title>
-	<script language="javascript">
-		function Imprime() {
-			window.print();
-		}
-		function validar() {
-			// Verifica se o campo titulo foi preenchido
-			if (document.edit.titulo.value == "") {
-				alert('O campo Título é de preenchimento obrigatório!');
-				document.edit.titulo.value = "";
-				document.edit.titulo.focus();
-				return false;
-			}
-
-			// Verifica se a textarea de conteudo foi preenchida
-			if (document.edit.cria_conteudo.value == "") {
-				alert('O campo de conteúdo é de preenchimento obrigatório!');
-				document.edit.cria_conteudo.value = "";
-				document.edit.cria_conteudo.focus();
-				return false;
-			}
-			// Verifica se o campo password foi preenchido quando existir senha
-<?php
-			if ($senha) {
-				echo "if (document.edit.passwd.value == \"\") {
-					alert('O campo de password é de preenchimento obrigatório!');
-					document.edit.passwd.value = \"\";
-					document.edit.passwd.focus();
-					return false;
-				}";
-			} else {
-				echo "if (document.edit.passwd.value != document.edit.repasswd.value) {	
-					alert ('As senhas digitadas não coincidem!');
-					document.edit.passwd.focus();
-					return false;
-				}";
-			}
-?>
-		}
-	</script>
+	<script type="text/javascript" src="coteia.js"></script>
 	<link href="coteia.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -256,11 +217,10 @@ $cont = eregi_replace("<br />","","$conteudo");
   <br /><input type="checkbox" name="lock" value="locked" <?php if ($senha) echo CHECKED; ?> />
 
   <br />Password
-  <br /><input type="password" size="10" name="passwd" onBlur="window.document.create.lock.checked=true;return
- false;" />
+  <br /><input type="password" size="10" name="passwd" onBlur="form.edit.lock.checked=true;return false;" />
 
   <br />Re-enter password
-  <br /><input type="password" size="10" name="repasswd" />
+  <br /><input type="password" size="10" name="repasswd" onBlur="form.edit.lock.checked=true;return false;" />
   <br />
 </div>
  
@@ -269,7 +229,7 @@ $cont = eregi_replace("<br />","","$conteudo");
 <tr>
 	<td>
 	Título
-	<br /><input type="text" name="titulo" value="<?php echo $tit;?>" SIZE="45" />
+	<br /><input type="text" name="titulo" value="<?php echo $tit;?>" size="45" />
 	</td>
 </tr>
 <tr>
