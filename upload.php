@@ -18,17 +18,32 @@ mysql_select_db($dbname,$dbh);
 
 $ok = 0;
 if ( $act == "upload" ) {
+	$filetypes = array();
+	$filetypes[] = "txt";
+	$filetypes[] = "pdf";
+	$filetypes[] = "ps";
+	$filetypes[] = "xml";
+	$filetypes[] = "zip";
+	$filetypes[] = "gz";
+	$filetypes[] = "bz2";
 	if ( is_uploaded_file($_FILES['uploads']['tmp_name'] ) ) {
 		$realname = $_FILES['uploads']['name'];
-		$path = $coursename . "/" . $realname;
-		if ( file_exists( $path ) ) {
-			// TODO: cvs update.
-			$ok = 3;
-		}	else {
-			// TODO: cvs add
-			copy( $_FILES['uploads']['tmp_name'], $path );
-			chmod( $path, 0444 );
-			$ok = 1;
+		foreach ( $filetypes as $filetype ) {
+			if ( preg_match( "/\." . $filetype . "$/", $content ) == 0 ) {
+				$ok = 4;
+			}
+		}
+		if ( $ok == 0 ) {
+			$path = $coursename . "/" . $realname;
+			if ( file_exists( $path ) ) {
+				// TODO: cvs update.
+				$ok = 3;
+			}	else {
+				// TODO: cvs add
+				copy( $_FILES['uploads']['tmp_name'], $path );
+				chmod( $path, 0444 );
+				$ok = 1;
+			}
 		}
 	} else {
 		$ok = 2;
