@@ -22,10 +22,10 @@ if ( $act == "upload" ) {
 		$realname = $_FILES['uploads']['name'];
 		$path = $coursename . "/" . $realname;
 		if ( file_exists( $path ) ) {
-			// cvs update.
+			// TODO: cvs update.
 			$ok = 3;
 		}	else {
-			// cvs add
+			// TODO: cvs add
 			copy( $_FILES['uploads']['tmp_name'], $path );
 			chmod( $path, 0444 );
 			$ok = 1;
@@ -38,12 +38,12 @@ if ( $act == "upload" ) {
 $query_swiki = "SELECT id_sw from gets where (id_pag='$ident')";
 $sql_swiki = mysql_query($query_swiki,$dbh);
 $tupla = mysql_fetch_array($sql_swiki);
-$id_sw = $tupla[id_sw];
+$id_sw = $tupla[ "id_sw" ];
 
 $query_swiki1 = "SELECT titulo from swiki where (id='$id_sw')";
 $sql_swiki1 = mysql_query($query_swiki1,$dbh);
 $tupla1 = mysql_fetch_array($sql_swiki1);
-$titulo = $tupla1[titulo];
+$titulo = $tupla1[ "titulo" ];
 
 ?>
 
@@ -95,9 +95,8 @@ $titulo = $tupla1[titulo];
 	<td>
 		<img src="<?php echo $URL_IMG;?>/files2upload.png" /><b>Upload</b>
 		<div align="center">
-			<form enctype="multipart/form-data" method="post" action="<?php echo "upload.php?ident=$ident&act=upload";?>" target="base">
+			<form enctype="multipart/form-data" method="post" action="<?php echo "upload.php?ident=$ident&act=upload";?>">
 				<input type="hidden" name="coursename" value="<?php echo "$PATH_UPLOAD/$id_sw";?>" />
-				<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
 				<br />
 				<input type="file" size="40" name="uploads" />
 				<br />
