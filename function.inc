@@ -1028,9 +1028,12 @@ function arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml) {
 
 	// Uso do XT = [path_java] -classpath [classpath_xt] com.jclark.xsl.sax.Driver [xml] [xsl] [html]
 	$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver  com.jclark.xsl.sax.Driver $arq_xml $arq_xsl $path_html/$id.html";
-	echo $cmd_line;
 	exec( $cmd_line, $var_array, $status );
-	return $status;
+	if ( is_null( $var_array ) {
+		return $status;
+	} else {
+		return $var_array;
+	}
 }
 
 /*
@@ -1095,10 +1098,10 @@ END;
 
 	$feedback = (arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml));
 
-	if ($feedback == 0) {
+	if ( is_numeric( $feedback ) ) {
 		return TRUE;
 	} else {
-		return FALSE;
+		return $feedback;
 	}
 }
 

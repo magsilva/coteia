@@ -57,6 +57,11 @@ include( "toolbar.php" );
 </ul>
 
 <br />
+<hr />
+<p>Erros encontrados:</p>
+<?php echo $error_message; ?>
+
+<br />
 <p><strong><a href="javascript:history.go(-1)">Voltar</a></strong></p>
 
 </div>
