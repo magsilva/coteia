@@ -1,3 +1,9 @@
+USE mysql;
+insert into user (host,user,password) values ('localhost','$dbuser', PASSWORD('$dbpass'));
+insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('localhost','$dbname','$dbuser','Y','Y','Y','Y','Y');
+FLUSH PRIVILEGES;
+
+
 USE $dbname;
 DELETE FROM `admin`
 DELETE FROM `gets` 
