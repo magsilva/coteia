@@ -48,7 +48,7 @@ $CVS_REPOSITORY = "/usr/local/coweb";
 // Nome do usuário a ser utilizado
 $CVS_USERNAME = "anonymous";
 // Senha do usuário do CVS
-$CVS_PASSWORD = ""
+$CVS_PASSWORD = "";
 // Caminho a ser utilizado para o checkout dos arquivos
 $CVS_CHECKOUT_PATH = "/coteia/";
 
@@ -61,6 +61,9 @@ $ADMIN = "Carlos Arruda Junior";
 
 // Email do administrador
 $ADMIN_MAIL = "credajun@icmc.usp.br";
+
+// Senha do administrador
+$ADMIN_PASSWORD = "";
 
 //ex. de $URL_IMG = "/coweb/imagem" 
 $URL_IMG = $URL_SERVER . "/images";
