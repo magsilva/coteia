@@ -1,12 +1,11 @@
--- MySQL dump 8.23
---
--- Host: coweb.icmc.usp.br    Database: groupnote
----------------------------------------------------------
--- Server version	3.23.58
+USE mysql;
+insert into user (host,user,password) values ('$HOST_COWEB','$anota_dbuser', PASSWORD('$anota_dbpword'));
+insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('$HOST_COWEB','$anota_dbname','$anota_dbuser','Y','Y','Y','Y','Y');
+FLUSH PRIVILEGES;
 
---
--- Table structure for table `annotation`
---
+CREATE DATABASE $anota_dbname;
+
+USE $anota_dbname;
 
 CREATE TABLE annotation (
   id int(11) NOT NULL auto_increment,
@@ -31,12 +30,8 @@ CREATE TABLE annotation (
   body text,
   token varchar(100) default NULL,
   version int(11) NOT NULL default '0',
-  PRIMARY KEY  (id)
-) TYPE=MyISAM;
-
---
--- Table structure for table `annotation_history`
---
+  PRIMARY KEY (id)
+);
 
 CREATE TABLE annotation_history (
   id_annotation int(11) NOT NULL default '0',
@@ -45,24 +40,16 @@ CREATE TABLE annotation_history (
   version int(11) NOT NULL default '0',
   msg varchar(50) default NULL,
   creation_date datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (id_annotation,id_user,id_group,version)
-) TYPE=MyISAM;
-
---
--- Table structure for table `event`
---
+  PRIMARY KEY (id_annotation,id_user,id_group,version)
+);
 
 CREATE TABLE event (
   id int(11) NOT NULL auto_increment,
   name varchar(50) NOT NULL default '',
   creation_date datetime NOT NULL default '0000-00-00 00:00:00',
   last_modified datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (id)
-) TYPE=MyISAM;
-
---
--- Table structure for table `folder`
---
+  PRIMARY KEY (id)
+);
 
 CREATE TABLE folder (
   id int(11) NOT NULL auto_increment,
@@ -77,29 +64,20 @@ CREATE TABLE folder (
   id_last_group int(11) NOT NULL default '0',
   last_modified datetime NOT NULL default '0000-00-00 00:00:00',
   access_permission int(11) NOT NULL default '0',
-  PRIMARY KEY  (id)
-) TYPE=MyISAM;
-
---
--- Table structure for table `rel_annotation_folder`
---
+  PRIMARY KEY (id)
+);
 
 CREATE TABLE rel_annotation_folder (
   id_folder int(11) NOT NULL default '0',
   id_annotation int(11) NOT NULL default '0',
   insertion_date datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (id_folder,id_annotation)
-) TYPE=MyISAM;
-
---
--- Table structure for table `rel_event_resource_user`
---
+  PRIMARY KEY (id_folder,id_annotation)
+);
 
 CREATE TABLE rel_event_resource_user (
   id_event int(11) NOT NULL default '0',
   id_resource int(11) NOT NULL default '0',
   id_user int(11) NOT NULL default '0',
   creation_date datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (id_event,id_resource,id_user)
-) TYPE=MyISAM;
-
+  PRIMARY KEY (id_event,id_resource,id_user)
+);

@@ -23,13 +23,13 @@ $cs_session_tbl = "session";
 
 // Configuração da base de dados do serviço de anotações (opcional)
 $anota_dbhost = "coweb.icmc.usp.br";
-$anota_dbname   = "groupnote";
+$anota_dbname = "groupnote";
 $anota_dbuser = "groupnote";
 $anota_dbpword = "groupnote";
 
 // Configuração da base de dados de usuários (opcional)
 $user_dbhost = "coweb.icmc.usp.br";
-$user_dbname   = "users";
+$user_dbname = "users";
 $user_dbuser = "users";
 $user_dbpword = "users";
 
@@ -56,8 +56,10 @@ $CVS_CHECKOUT_PATH = "/coteia/";
 // Arquivo que armazenará a senha do repositório CVS
 $CVS_PASSFILE = $PATH_COWEB . "/.cvspass";
 
+$HOST_COWEB = "coweb.icmc.usp.br";
+
 // Endereço (URL) da CoTeia
-$URL_COWEB = "http://coweb.icmc.usp.br/coweb";
+$URL_COWEB = "http://" . $HOST_COWEB . "/coweb";
 
 // Nome do administrador
 $ADMIN = "Carlos Arruda Junior";
