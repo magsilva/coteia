@@ -18,6 +18,13 @@ div.lock {
 	float: right;
 }
 
+div.optional {
+	position: relative;
+	text-align: left;
+	border-style: none;
+	float: center;
+}
+
 div.content {
 	position: relative;
 	border-style: none;
@@ -45,4 +52,17 @@ div.source2 {
 
 img {
 	border-style:none;
+}
+
+body {
+	background-color: white;
+}
+
+div.alert {
+  text-align: center;
+  background-color: #FEFBA7;
+  border-width: 1;
+  border-color: black;
+  border-style: solid;
+  width: 60%;
 }
