@@ -107,7 +107,7 @@ if ($salva) {
 		$d = getdate();
     		$data=$d["year"]."-".$d["mon"]."-".$d["mday"]." ".$d["hours"].":".$d["minutes"].":".$d["seconds"];
 		
-		if ($flag_lock == 1) {
+		if ($flag_lock == 0){
 			$passwd = "NULL";
 		} else {
 			$passwd = "'" . md5( $passwd ) . "'";
