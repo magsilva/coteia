@@ -36,10 +36,10 @@
 	</xsl:if>
 
 	<xsl:if test="id = sw_id">
-		<img src="$URL_IMG/indicebw.png" alt="Top of the Swiki (disabled)" />
+		<a href="index.php"><img src="$URL_IMG/indice.png" alt="CoTeia's Main Page" />
 	</xsl:if>
 
-	<a href="JavaScript:AbreMapa({sw_id})">	<img src="$URL_IMG/map.png" alt="Mapa do Site" /></a>
+	<a href="JavaScript:AbreMapa({sw_id})">	<img src="$URL_IMG/map.png" alt="Site's Map" /></a>
 
 	<a href="changes.php?ident={id}"><img src="$URL_IMG/changes.png" alt="Recent Changes" /></a>
 
