@@ -39,6 +39,8 @@ $ce_dbname = "eclassDB";
 $ce_dbuser = "eclass";
 $ce_dbpword = "qazxcde";
 
+// Local em que está armazenada a CoTeia.
+$PATH_COWEB = "/var/www/html/coweb";
 
 /********************************
 * Configurações relativas ao CVS.
@@ -69,9 +71,6 @@ $ADMIN_MAIL = "credajun@icmc.usp.br";
 
 // Senha do administrador
 $ADMIN_PASSWORD = "";
-
-// Local em que está armazenada a CoTeia.
-$PATH_COWEB = "/var/www/html/coweb";
 
 // Caminho do Java (o executável "java"). 
 $PATH_JAVA = "/opt/java/SUN-SDK-1.4.2_03/bin/java";
