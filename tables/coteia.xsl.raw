@@ -36,7 +36,7 @@
 	</xsl:if>
 
 	<xsl:if test="id = sw_id">
-		<a href="index.php"><img src="$URL_IMG/indice.png" alt="CoTeia's Main Page" />
+		<a href="index.php"><img src="$URL_IMG/indice.png" alt="CoTeia's Main Page" /></a>
 	</xsl:if>
 
 	<a href="JavaScript:AbreMapa({sw_id})">	<img src="$URL_IMG/map.png" alt="Site's Map" /></a>
