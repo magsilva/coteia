@@ -34,7 +34,7 @@ if ( $salva ) {
 
 	// Check password (if there is one to check against).
 	if ( $senha != NULL ) {
-		if ( (strcasecmp($senha,$passwd)) != "0" ) {
+		if ( (strcasecmp($senha, $passwd)) != "0" ) {
 			header("Location:senha_incorreta.php");
 			exit();
 		}
@@ -200,10 +200,6 @@ include( "toolbar.php" );
 
   <br />Password
   <br /><input type="password" size="10" name="passwd" onChange="form.edit.lock.checked=true;return false;" />
-
-  <br />Re-enter password
-  <br /><input type="password" size="10" name="repasswd" onChange="form.edit.lock.checked=true;return false;" />
-  <br />
 </div>
  
 <div class="metadata">

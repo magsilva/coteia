@@ -68,6 +68,7 @@ if ( !file_exists( $PATH_COWEB . "/log.txt" ) ) {
 	touch( $PATH_COWEB . "/log.txt" );
 }
 chmod( $PATH_COWEB . "/log.txt", 0777 );
+chmod( $PATH_COWEB . "/config.php.inc", 0440 );
 echo "Ok";
 
 echo "\nCreating CVS password...";
