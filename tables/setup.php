@@ -3,11 +3,11 @@
 include_once( "../config.php.inc" );
 include_once( "cvs_util.php.inc" );
 
-function recurse_chmod($path2dir, $mode){
-   $dir = new dir($path2dir);
+function recursive_chmod( $path2dir, $mode ) {
+   $dir = new dir( $path2dir );
    while( ( $file = $dir->read() ) !== false ) {
-       if( is_dir( $dir->path.$file ) ) {
-           recurse_chmod( $dir->path.$file, $mode );
+       if( is_dir( $dir->path . $file ) ) {
+           recursive_chmod( $dir->path.$file, $mode );
        } else {
            chmod( $file, $mode );
        }
@@ -41,6 +41,8 @@ setup_dir( $PATH_ARQUIVOS );
 if ( !file_exists( $PATH_COWEB . "/log.txt" ) ) {
 	touch( $PATH_COWEB . "/log.txt" );
 }
+
+login_cvs();
 
 $sql_squema_file = fopen( "coteia.sql", "w");
 $sql_squema = <<<END
