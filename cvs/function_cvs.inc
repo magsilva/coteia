@@ -1,21 +1,7 @@
 <?php
 
-/****************************************************************************
- * Variaveis Globais                                                        *
- ****************************************************************************/
+include_once( "../config.php.inc" );
 
-//IP do servidor
-$CVS_HOST = "143.107.231.206";
-//caminho do repositorio no servidor
-$caminho_repositorio = "/usr/local/coweb";
-//username no repositorio
-$username = "anonymous";
-//caminho dos arquivos para checkout
-$parent = "/coteia/";
-
-/****************************************************************************
- * Funcoes                                                                  *
- ****************************************************************************/
 /*
  * NOME:	        update_cvs
  * DESCRICAO:		-- 
@@ -25,43 +11,40 @@ $parent = "/coteia/";
  * OBSERVACOES:		
  */
 function update_cvs($id,$ModuloCheckout) {
+	global $PATH_ARQUIVOS, $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME, $CVS_CHECKOUT_PATH;
 
-global $PATH_ARQUIVOS, $CVS_HOST, $caminho_repositorio, $username, $parent;
+	//caminho completo do arquivo a ser feito checkout
+	$path_arquivo = $PATH_ARQUIVOS . $id . ".html";
 
-//caminho completo do arquivo a ser feito checkout
-$path_arquivo = $PATH_ARQUIVOS . $id . ".html";
+	//arquivo a ser feito checkout
+	$arquivo = $id.".html";
 
-//arquivo a ser feito checkout
-$arquivo = $id.".html";
+	// para adicionar um arquivo ao repositorio, deve-se primeiro fazer um checkout do local onde
+	// sera armazenado este arquivo. Para isso, eh utilizado um diretorio na maquina local. Podemos
+	// fazer uma pequena rotina pra verificar se o diretorio existe e para cria-lo automaticamente.
+	// Posteriormente ele deve ser excluido.
+	$caminho = cria_dir($CVS_CHECKOUT_PATH);
+	$caminho .= "/";
+	chdir($caminho);
 
-// para adicionar um arquivo ao repositorio, deve-se primeiro fazer um checkout do local onde
-// sera armazenado este arquivo. Para isso, eh utilizado um diretorio na maquina local. Podemos
-// fazer uma pequena rotina pra verificar se o diretorio existe e para cria-lo automaticamente.
-// Posteriormente ele deve ser excluido.
+	$comando_checkout = "cvs -d :pserver:".$CVS_USERNAME."@".$CVS_HOST.":".$CVS_REPOSITORY." co ".$ModuloCheckout;
+	exec($comando_checkout);
 
-$caminho = cria_dir($parent);
-$caminho .= "/";
-chdir($caminho);
+	$caminho_checkout = $caminho.$ModuloCheckout;
 
-$comando_checkout = "cvs -d :pserver:".$username."@".$CVS_HOST.":".$caminho_repositorio." co ".$ModuloCheckout;
-exec($comando_checkout);
+	chdir($caminho_checkout);
 
-$caminho_checkout = $caminho.$ModuloCheckout;
+	//observacao: esses comandos tambem podem ser executados com popen
+	//coloca o arquivo salvo (ou do qual foi feito um upload) dentro do diretorio de trabalho
 
-chdir($caminho_checkout);
+	exec("cp ".$path_arquivo." ".$caminho_checkout);
 
-//observacao: esses comandos tambem podem ser executados com popen
-//coloca o arquivo salvo (ou do qual foi feito um upload) dentro do diretorio de trabalho
+	//faz commit do arquivo
+	exec("cvs -d :pserver:".$CVS_USERNAME."@".$CVS_HOST.":".$CVS_REPOSITORY." commit -m \"\" ".$arquivo);
 
-exec("cp ".$path_arquivo." ".$caminho_checkout);
+	apaga_dir($caminho);
 
-//faz commit do arquivo
-exec("cvs -d :pserver:".$username."@".$CVS_HOST.":".$caminho_repositorio." commit -m \"\" ".$arquivo);
-
-apaga_dir($caminho);
-
-return true;
-
+	return true;
 }
 
 /*
@@ -74,7 +57,7 @@ return true;
  */
 function add_cvs($ident,$ModuloCheckout) {
 
-global $PATH_ARQUIVOS, $CVS_HOST, $caminho_repositorio, $username, $parent;
+global $PATH_ARQUIVOS, $CVS_HOST, $CVS_REPOSITORY, $CVS_USERNAME, $CVS_CHECKOUT_PATH;
 
 //caminho completo do arquivo a ser feito checkout
 $path_arquivo = $PATH_ARQUIVOS.$ident.".html";
@@ -87,11 +70,11 @@ $arquivo = $ident.".html";
 // fazer uma pequena rotina pra verificar se o diretorio existe e para cria-lo automaticamente.
 // Posteriormente ele deve ser excluido.
 
-$caminho = cria_dir($parent);
+$caminho = cria_dir($CVS_CHECKOUT_PATH);
 $caminho .= "/";
 chdir($caminho);
 
-$comando_checkout = "cvs -d :pserver:".$username."@".$CVS_HOST.$caminho_repositorio." co ".$ModuloCheckout;
+$comando_checkout = "cvs -d :pserver:".$CVS_USERNAME."@".$CVS_HOST.$CVS_REPOSITORY." co ".$ModuloCheckout;
 exec($comando_checkout);
 
 $caminho_checkout = $caminho.$ModuloCheckout;
@@ -104,10 +87,10 @@ chdir($caminho_checkout);
 exec("cp ".$path_arquivo." ".$caminho_checkout);
 
 //adiciona o arquivo ao repositorio
-exec("cvs -d :pserver:".$username."@".$CVS_HOST.$caminho_repositorio." add -kb ".$arquivo);
+exec("cvs -d :pserver:".$CVS_USERNAME."@".$CVS_HOST.$CVS_REPOSITORY." add -kb ".$arquivo);
 
 //faz commit do arquivo
-exec("cvs -d :pserver:".$username."@".$CVS_HOST.$caminho_repositorio." commit -m \"\" ".$arquivo);
+exec("cvs -d :pserver:".$CVS_USERNAME."@".$CVS_HOST.$CVS_REPOSITORY." commit -m \"\" ".$arquivo);
  
 apaga_dir($caminho);
 
