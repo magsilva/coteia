@@ -3,48 +3,48 @@
 /**
 * Configuração da base de dados principal da CoTeia.
 */
-$dbhost = "localhost";
-$dbname = "coteia";
-$dbuser = "coweb";
-$dbpass = "ajnusleilamnoa";
+$dbhost = "";
+$dbname = "";
+$dbuser = "";
+$dbpass = "";
 
 /**
 * Configuração da base de dados do serviço de anotações suportado pela CoTeia.
 */
-$anota_dbhost = $dbhost;
-$anota_dbname = "coteia_anotacoes";
-$anota_dbuser = $dbuser;
-$anota_dbpword = $dbpass;
+$anota_dbhost = "";
+$anota_dbname = "";
+$anota_dbuser = "";
+$anota_dbpword = "";
 
 /**
 * Configuração da base de dados do suporte à base de usuários compartilhadas
 * utilizável pela CoTeia.
 */
-$user_dbhost = $dbhost;
-$user_dbname = "coteia_users";
-$user_dbuser = $dbuser;
-$user_dbpword = $dbpass;
+$user_dbhost = "";
+$user_dbname = "";
+$user_dbuser = "";
+$user_dbpword = "";
 
 /**
 * Configuração da base de dados de cursos do eClass suportada pela CoTeia.
 */
-$ce_dbhost = $dbhost;
-$ce_dbname = "coteia_eclass";
-$ce_dbuser = $dbuser;
-$ce_dbpword = $dbpass;
+$ce_dbhost = "";
+$ce_dbname = "";
+$ce_dbuser = "";
+$ce_dbpword = "";
 
 /**
 * Diretório em que está instalada a CoTeia.
 */
-$PATH_COWEB = "/home/anselmo/public_html/CoTeia";
+$PATH_COWEB = "";
 
 /**
 * Configurações relativas ao servidor CVS utilizado.
 */
-$CVS_HOST = "vinho.intermidia.icmc.usp.br";
-$CVS_REPOSITORY = "srv/local/coweb-develop";
-$CVS_MODULE = "html";
-$CVS_USERNAME = "developer";
+$CVS_HOST = "";
+$CVS_REPOSITORY = "";
+$CVS_MODULE = "";
+$CVS_USERNAME = "";
 $CVS_PASSWORD = "";
 $CVS_CHECKOUT_DIR = $PATH_COWEB . "/repository"; // Esta variável geralmente não precisa ser reconfigurada.
 $CVS_PASSFILE = $CVS_CHECKOUT_DIR . "/.cvspass"; // Esta variável geralmente não precisa ser reconfigurada.
@@ -52,26 +52,29 @@ $CVS_PASSFILE = $CVS_CHECKOUT_DIR . "/.cvspass"; // Esta variável geralmente não
 /**
 * Host em que está hospedada a CoTeia.
 */
-$HOST_COWEB = "vinho.intermidia.icmc.usp.br";
+$HOST_COWEB = "";
 
 /**
 * Endereço (URL) da CoTeia.
 */
-$URL_COWEB = "http://" . $HOST_COWEB . "/~anselmo/CoTeia"; // Geralmente somente a última string deve ser alterada.
+$URL_COWEB = "http://" . $HOST_COWEB . "/coweb"; // Geralmente somente a última string deve ser alterada.
 
 /**
 * Informações sobre o administrador.
 */
-$ADMIN = "admin";
-$ADMIN_MAIL = "aemj@grad.icmc.usp.br";
-$ADMIN_PASSWORD = "teste";
+$ADMIN = "";
+$ADMIN_MAIL = "";
+$ADMIN_PASSWORD = "";
 
 /**
 * Caminho do Java (o executável "java").
 */
-$PATH_JAVA = "/home/silvana/j2sdk_nb/j2sdk1.4.2/bin/java";
+$PATH_JAVA = "";
 
-
+/**
+* Default role.
+*/
+$DEFAULT_ROLE = "guest";
 
 /****************************************************************************/
 /* Parâmetros que geralmente dispensam alteração                            */
@@ -80,7 +83,7 @@ $PATH_JAVA = "/home/silvana/j2sdk_nb/j2sdk1.4.2/bin/java";
 // Classpath dos bibliotecas para transformação XSLT.
 $PATH_XT = $PATH_COWEB . "/libs/xt.jar:" . $PATH_COWEB . "/libs/xp.jar";
 
-// Endereço das imagens
+// Endereço das imagens 
 $URL_IMG = $URL_COWEB . "/images";
 
 // URL para acesso aos arquivos enviados (upload)

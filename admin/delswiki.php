@@ -1,36 +1,35 @@
-<?
+<?php
    include_once("function.inc");
-
    $sess = new coweb_session;
-
    $sess->read();
-
 ?>
+
 <html>
 <head>
-<script LANGUAGE="JavaScript">
-function ValidaForm() 
-{
- 
-    if (document.formadmin.remove.value == 0) {
-        alert('Selecione uma Swiki para ser removida !');
-        document.formadmin.remove.focus();
-        return false;
-    }   
-    
-  return true;
+<script language="JavaScript">
+function ValidaForm() {
+	if ( document.formadmin.remove.value == 0 ) {
+		alert('Selecione uma swiki para ser removida!');
+		document.formadmin.remove.focus();
+		return false;
+	}
+	return true;
 }    
 </script>
-<?
-        include("header.php");
-	if ($erro == 3)
+
+<?php
+	include( "header.php" );
+	if ( $erro == 3 ) {
 		$mensagem = "Swiki removida com sucesso!";
+	}
 ?>
 <center>
+
+
+<h2><?php echo $mensagem; ?></h2>
+
 <form method="post" action="function.php" name="formadmin" onSubmit="return ValidaForm();">
-<FONT SIZE=+1 COLOR="#AAOOOO">
-<? echo $mensagem; ?>	
-</FONT>
+
 <table border="1" cellspacing="0" cellpadding="5" class="box-table">
     <tr>
     <td valign="middle" colspan="2" class="table-header">Remover Swiki</td>

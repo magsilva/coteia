@@ -51,7 +51,7 @@ while ($tupla = mysql_fetch_array($sql)) {
 		$status = $tupla["status"];
 		$sql_aux = mysql_query("SELECT id_sw FROM gets",$dbh);
 		
-		//$ident recebe o nÃºmero de paginas ja criadas na swiki (relacionadas na tabela GETS)
+		// $ident recebe o número de páginas ja criadas na swiki (relacionadas na tabela GETS)
 		$query_cont = "SELECT COUNT(*) as CONTADOR from gets where id_sw='$ident'";
 		$sql_cont = mysql_query("$query_cont",$dbh);
 		$tupla_cont = mysql_fetch_array($sql_cont);
@@ -102,7 +102,7 @@ while ($tupla = mysql_fetch_array($sql)) {
 		$status = $tupla["status"];
 		$sql_aux = mysql_query("SELECT id_sw FROM gets",$dbh);
 
-		//$ident recebe o nÃºmero de paginas ja criadas na swiki (relacionadas na tabela GETS)
+		//$ident recebe o número de páginas ja criadas na swiki (relacionadas na tabela GETS)
 		$query_cont = "SELECT COUNT(*) as CONTADOR from gets where id_sw='$ident'";
 		$sql_cont = mysql_query("$query_cont",$dbh);
 		$tupla_cont = mysql_fetch_array($sql_cont);
