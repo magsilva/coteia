@@ -56,7 +56,7 @@ if ( isset( $_REQUEST[ "swiki_id" ] ) || isset( $_REQUEST[ "index" ] ) ) {
 
 $format = $DEFAULT_OUTPUT_FORMAT;
 if ( isset( $_REQUEST[ "format" ] ) ) {
-	$format = $DEFAULT_OUTPUT_FORMAT;
+	$format = basename( $DEFAULT_OUTPUT_FORMAT );
 }
 
 
