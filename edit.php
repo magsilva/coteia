@@ -53,7 +53,6 @@ if ( $salva ) {
 	$keyword[2] = trim($coweb_tratamento["key2"]);
 	$keyword[3] = trim($coweb_tratamento["key3"]);
 
-	echo $conteudo;
 	if (stristr($conteudo,"<note/>")) {
 		$conteudo = note($conteudo);
 	}
