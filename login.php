@@ -81,7 +81,7 @@ if ( isset( $_REQUEST[ "login" ] ) ) {
 echo get_header( _( "Login" ) );
 include( "toolbar.php.inc" );
 ?>
-<body>
+<body onload="document.forms['login'].username.focus()">
 
 <h1><?php echo _( "Login" ); ?></h1>
 
