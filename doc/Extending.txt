@@ -1,0 +1,4 @@
+Os arquivos envolvidoa quando desejando fazer alterações - adicionar funcionalidades - na CoTeia aparentemente são os create.php e o coteia.xsl. Na verdade, o create.php é que invoca o coteia.xsl nos dados da wiki sendo editada.
+
+Todo:
+- Ver as diferenças entre a CoTeia original (tag v1_0_0) e a CoTeia modificada da Simone

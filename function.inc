@@ -94,7 +94,6 @@ function get_user_name($id,$dbh) {
     
     $comando_sql = "SELECT name FROM t_user WHERE id=$id";
     $resultado = mysql_query($comando_sql);
-    //echo $comando_sql;
     return mysql_result($resultado, 0, 'name');
     
 } 
@@ -1191,9 +1190,6 @@ function arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml) {
 	//Uso do XT = [path_java] -classpath [classpath_xt] com.jclark.xsl.sax.Driver [xml] [xsl] [html]
 	$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver  com.jclark.xsl.sax.Driver $arq_xml $arq_xsl $path_html/$id.html<br /><br />";
 	exec( $cmd_line, $var_array, $status );
-	echo $cmd_line . "<br />";
-	echo implode("\n",$var_array) . "<br />";
-	echo $status . "<br />";
 	return $status;
 }
 
