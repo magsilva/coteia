@@ -1,63 +1,6 @@
 <?php
 
-/****************************************************************************
- * Variaveis Globais                                                        *
- ****************************************************************************/
-
-// especificacoes da base de dados
-$dbhost = "localhost";
-$dbname = "cowebBD";
-$dbuser = "coweb";
-$dbpass = "coweb";
-
-// especificacoes da base de dados das anotacoes
-$anota_dbhost = "coweb.icmc.usp.br";
-$anota_dbname   = "groupnote";
-$anota_dbuser = "groupnote";
-$anota_dbpword = "groupnote";
-
-// especificacoes da base de dados de usuarios
-$user_dbhost = "coweb.icmc.usp.br";
-$user_dbname   = "users";
-$user_dbuser = "users";
-$user_dbpword = "users";
-
-//constantes
-
-$PATH_ARQUIVOS = "/var/www/html/coweb/files";
-//WIN:ex. de $PATH_ARQUIVOS = "files"
-//LINUX:ex. de $PATH_ARQUIVOS = "/xxx/files"
-$URL_SERVER = "http://coweb.icmc.usp.br/";
-//ex. de $URL_SERVER = "http://coweb.icmc.usp.br/"
-$ADMIN = "credajun@icmc.usp.br";
-//ex. de $ADMIN = "credajun@icmc.usp.br"
-$PATH_IMG = "/coweb/imagem";
-//WIN:ex. de $PATH_IMG = "imagem" 
-//LINUX:ex. de $PATH_IMG = "/xxx/imagem" 
-$DIR_UPLOAD = "/var/www/html/coweb/upload";
-//WIN:ex. de $DIR_UPLOAD = "upload"
-//LINUX:ex. de $DIR_UPLOAD = "/xxx/upload"
-$PATH_UPLOAD = "http://coweb.icmc.usp.br/coweb/upload";
-//ex. de $PATH_UPLOAD = "http://localhost/coteia/upload"
-$PATH_JAVA = "/usr/java/j2sdk1.4.0_01/bin/java";
-//WIN:ex. de $PATH_JAVA = "xt"
-//LINUX:ex. de $PATH_JAVA = "/usr/local/jdk1.2.2/bin/java"
-$PATH_XT = "/home/xt/xt.jar:/home/xt/sax.jar:/home/xp/xp.jar";
-//WIN:ex. de $PATH_XT = ""
-//LINUX:ex. de $PATH_XT = "/home/xt/xt.jar:/home/xt/sax.jar:/home/xp/xp.jar"
-$PATH_XHTML = "/var/www/html/coweb/files";
-//WIN:ex. de $PATH_XHTML = "C:\Arquiv~1\Apache~1\Apache2\htdocs\coteia\files";
-//LINUX:ex. de $PATH_XHTML = "/var/www/html/coweb/files"
-$PATH_XSL = "/var/www/html/coweb/coteia.xsl";
-//WIN:ex. de $PATH_XSL = "C:\Arquiv~1\Apache~1\Apache2\htdocs\coteia\coteia.xsl";
-//LINUX:ex. de $PATH_XSL = "/xxx/coteia.xsl"
-$PATH_XML = "/var/www/html/coweb/xml";
-//WIN:ex. de $PATH_XML = "C:\Arquiv~1\Apache~1\Apache2\htdocs\coteia\xml";
-//LINUX:ex. de $PATH_XML = "/xxx/xml"
-
-/****************************************************************************
- * Funcoes                                                                  *
- ****************************************************************************/
+include_once( "config.php.inc" )
 
 /*
  * NOME:		anota_db_pconnect
