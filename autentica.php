@@ -12,11 +12,20 @@ include_once("function.inc");
 
 $dbh = db_connect();
 
-$retorno = login_swiki($usuario,$passwd,$id,$dbh);
+$id = $_REQUEST[ "id" ];
+$token = $_REQUEST[ "token" ];
+$index = $_REQUEST[ "index" ];
+$retorno = login_swiki( $usuario, $passwd, $id, $dbh );
 
-if ($retorno) {
-	if ($token== '1')  {
-		header("Location:ok.php?id=$id"); //Redireciona para a interface inicial
+
+if ( $retorno ) {
+	if ( $token == "1" ) {
+		header( "Location:ok.php?id=$id" ); //Redireciona para a interface inicial
+		exit;
+	}
+
+	if ( $token == "0" ) {
+		header( "Location:login_create.php?id=$id&index=$index" );
 		exit;
 	} else {
 		if ($token == '0') {
@@ -24,5 +33,7 @@ if ($retorno) {
 			exit;
 		}
 	}
+} else {
+	echo '<br /><div align="center">Área Restrita.<br /><br /><a href="javascript:window.close()">Fechar janela</a></div>';
 }
 ?>

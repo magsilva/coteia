@@ -11,7 +11,7 @@
 
 <h1>Login Obrigatório</h1>
 
-<form name="login" METHOD="POST" action="autentica.php">
+<form name="login" method="post" action="autentica.php">
 	<br /><b>Usuário:</b>
 	<br /><input type="text" name="usuario" size="16" />
 

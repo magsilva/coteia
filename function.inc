@@ -911,20 +911,16 @@ function autentica($usuario,$senha,$dbh){
  */
 function login_swiki($usuario,$passwd,$id,$dbh) {
 
-global $dbname;
+	global $dbname;
 
-//sql que verifica se o usuário está cadastrado
-$sql  = "SELECT id,username FROM swiki WHERE username='$usuario' AND password=md5('$passwd') AND id='$id'";
+	// SQL que verifica se o usuário está cadastrado
+	$sql  = "SELECT id,username FROM swiki WHERE id='$id' AND username='$usuario' AND password=md5('$passwd')";
+	$select_db = mysql_select_db($dbname,$dbh);
+	$query = mysql_query($sql);
 
-$select_db = mysql_select_db($dbname,$dbh);
-
-//executa o sql
-$query = mysql_query($sql);
-
-//verifica se o usuário é valido
-if (mysql_num_rows($query) > 0) {
-
-	$result  = mysql_fetch_array($query);
+	// Verifica se o usuário é valido
+	if (mysql_num_rows($query) > 0) {
+		$result  = mysql_fetch_array($query);
         $coduser = $result["id"];
         $namuser = $result["username"];
                 
@@ -933,10 +929,9 @@ if (mysql_num_rows($query) > 0) {
         session_destroy();
         session_register("namuser","coduser"); //Registra as variáveis na sessão
                 
-	return true;
-        } else {
-	echo '<br /><center><font face="Verdana" color="#000000" size="+2">Área Restrita.</font><br><br>
-        <a href="javascript:window.close()">Fechar Janela</a></center>';
+		return true;
+	} else {
+		return false;
 	} 
 }
 

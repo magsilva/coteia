@@ -39,14 +39,7 @@ function ValidaForm()
         document.formadmin.new_swiki.focus();
         return false;
     }   
-    
-    if ((document.formadmin.admail.value.search("@") == -1 || document.formadmin.admail.value.search("[.*]") == -1)) {
-        alert( "Entre com um email válido !" );
-        document.formadmin.admail.focus();
-        return false ;
-    }
-     
-  return true;
+	return true;
 }    
 </script>
 <?
@@ -167,6 +160,7 @@ function ValidaForm()
 	<input type="hidden" name="parametro" value="3"> 
 	<input type="hidden" name="atualiza" value="<?echo $atualiza?>"> 
 	</table></form></center><br>
-<?
+
+<?php
         include("footer.php");
 ?>
