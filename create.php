@@ -16,7 +16,7 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 	$id_swiki = extract_swiki_id( $_REQUEST[ "ident" ] );
 	if ( $id_swiki == false ) {
 		$st = 0;
-		include( "erro.php" );
+		include( "err.inc" );
 	}
 
 	// We need these vars sometimes, so let's keep it ready for using.
@@ -36,7 +36,7 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 	$tuple = mysql_fetch_array( $result );
 	if ( intval( $tuple[ "counter" ] ) > 0 ) {
 		$st = 0;
-		include("erro.php");
+		include("err.inc");
 	}
 	mysql_free_result( $result );
 
@@ -134,7 +134,7 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 		$sql = mysql_query( $query, $dbh );
 		if ( $sql == false ) {
 			$st = 0;
-			include( "erro.php" );
+			include( "err.inc" );
 		}
 		mysql_free_result( $sql );
 
@@ -142,13 +142,13 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 		$sql = mysql_query( $query, $dbh );
 		if ( $sql == false ) {
 			$st = 0;
-			include( "erro.php" );
+			include( "err.inc" );
 		}
 		mysql_free_result( $sql );
 	} else {
 		// The XML transformation didn't work.
 		$st = 2;
-		include("erro.php" );
+		include("err.inc" );
 	}
 
 	foreach ( $linksto_id as $ident_pai ) {

@@ -1,158 +1,84 @@
 <?php
+/**
+* Copyright (C) 2001, 2002, 2003 Carlos Roberto E. de Arruda Jr
+* This code is licenced under the GNU General Public License (GPL).
+*/
+?>
+
+
+<?php
 /*
-* Edita páginas ja criadas.
+* Edit wikipages.
 */
 
-
-// Evita ; para concatenacao de comandos SQL
-if ((!isset($ident)) or (stristr($ident,";"))) {
-	$st = 1;
-	include( "erro.php" );
-	exit();
-}
-  
 include_once("function.inc");
 include_once("cvs/function_cvs.inc");
 
 $dbh = db_connect();
-mysql_select_db($dbname,$dbh);
+mysql_select_db( $dbname, $dbh );
 
-$query = "select ident,pass FROM paginas where ident='$ident'";
-$sql = mysql_query( "$query", $dbh );
-if (mysql_num_rows($sql) == '0') {
-	$st = 1;
+// Check if the ident is valid (and extract the swiki id if it's valid).
+$id_swiki = extract_swiki_id( $_REQUEST[ "ident" ] );
+if ( $id_swiki == false ) {
+	$st = 0;
+	include( "erro.php" );
+}
+
+// Check if there's a wikipage with the given "ident".
+$wikipage_query = "select * from paginas where ident='" . $_REQUEST[ "ident" ] . "'";
+$wikipage_result = mysql_query( $wikipage_query, $dbh );
+if ( mysql_num_rows( $wikipage_result ) == 0 ) {
+	$st = 0;
 	include("erro.php");
-	exit();
 }
     
 if ( $salva ) {
 	// Retrieve password.
-	while ($tupla = mysql_fetch_array($sql)) {
-		$senha = $tupla[ "pass" ];
+	while ( $wikipage_tuple = mysql_fetch_array( $wikipage_result ) ) {
+		$password = $wikipage_tuple[ "pass" ];
 	}
 
 	// Check password (if there is one to check against).
-	if ( $senha != NULL ) {
-		if ( ( strcasecmp( $senha, md5( $passwd ) ) ) != "0" ) {
-			header("Location:senha_incorreta.php");
-			exit();
+	if ( $password != NULL ) {
+		if ( strcasecmp( $password, md5( $_REQUEST[ "password" ]  != 0 ) {
+			$st = 4;
+			include( "erro.php" );
 		}
 	}
 
-	$k[1] = $key1;
-	$k[2] = $key2;
-	$k[3] = $key3;
-	
-	$coweb_tratamento = tratamento(0,$cria_conteudo,$titulo,$cria_autor,$k);
-		
-	$conteudo = trim($coweb_tratamento["content"]);
-	$titulo = trim($coweb_tratamento["title"]);
-	$autor = trim($coweb_tratamento["author"]);
-	$keyword[1] = trim($coweb_tratamento["key1"]);
-	$keyword[2] = trim($coweb_tratamento["key2"]);
-	$keyword[3] = trim($coweb_tratamento["key3"]);
+	// Prepare data for database insertion.
+	$wikipage_db = prepare_for_db( $wikipage_tuple[ "indexador" ], $_REQUEST[ "content" ], $_REQUEST[ "title" ], $_REQUEST[ "author" ], $_REQUEST[ "keyword" ] );
 
-
-	if (stristr($conteudo,"<note/>")) {
-		$conteudo = note($conteudo);
-	}
-
-	// Grava no BD sem modificacaoes de links
-	$conteudo_puro = $conteudo;
-
-	if (stristr($conteudo,"<lnk>")) {
-		$conteudo = link_interno($ident,$conteudo,$dbh);
-	}
-
-	if (stristr($conteudo,"</upl>")) {
-		$conteudo = img_upload($conteudo);
-	}
-
-	// Encontra identificar da swiki.
-	$get_swiki = explode(".", $ident);
-	$id_swiki = $get_swiki[0];  		
-		
-	// Encontra indexador da pagina - utilizado no linksto
-	$query = "SELECT indexador FROM paginas where ident='$ident'";
-	$sql = mysql_query("$query",$dbh);
-	$tupla = mysql_fetch_array($sql);
-	$indexador = $tupla["indexador"];
-
-	//linksto - estrutura inicial
-	if (($id_swiki) != ($ident)) {
-		$i = 1;
+	if ( $_REQUEST[ "lock" ] == false ) {
+		$wikipage_db[ "password" ] = "NULL";
 	} else {
-		$i = 2;
-		$linksto_id[1] = "0";
-		$linksto_titulo[1] = "Lista de Swikis";
-	}
-
-	$sql_swiki= "select ident,titulo from paginas where (((ident like '$id_swiki.%') or (ident='$id_swiki')) and (conteudo like '%<lnk>$indexador</lnk>%'))";
-	$query_swiki =  mysql_query($sql_swiki,$dbh);
-	while ($tupla = mysql_fetch_array($query_swiki)) {
-		$linksto_id[$i] = $tupla["ident"];
-		$linksto_titulo[$i] = $tupla["titulo"];
-		$i++;
-	}
-
-	// Verifica travamento da pagina
-	if ( $lock == "locked" ) {
-		$flag_lock = 1;
-	} else {
-		$flag_lock = 0;
-	}
-
-	$path_xml = $PATH_XML;
-	$arq_xsl = $PATH_XSL;
-	$path_html = $PATH_XHTML;
-	$dtd = "<!DOCTYPE coteia SYSTEM 'coteia.dtd'>";
-	$node = "page";
-	$id = "id";
-	$lock_xml = "<lock>$flag_lock</lock>";
-	$others = "<sw_id>$id_swiki</sw_id>";
-	$kwd[1] = "kwd1";
-	$kwd[2] = "kwd2";
-	$kwd[3] = "kwd3";
-	$aut = "aut";
-	$tit = "tit";
-	$body = "bdy";
-
-	$query_extra = mysql_query("select id_ann,id_chat,id_eclass from swiki where id=\"$id_swiki\"");
-	$result = mysql_fetch_array($query_extra);
-	$annotation = "<ann_folder>" . $result[ "id_ann" ] . "</ann_folder>";
-	$chat = "<chat_folder>" . $result["id_chat"] . "</chat_folder>";
-	$eclass = "<id_eclass>" . $result["id_eclass"] . "</id_eclass>";
-
-	$result = xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body);
-	if ( is_bool( $result ) && $result  == TRUE ) {
-		//atualiza arquivo no CVS
-		cvs_update($ident, $CVS_MODULE);
-
-		$nro_ip= getenv("REMOTE_ADDR"); 
-		$d = getdate();
-		$data=$d["year"]."-".$d["mon"]."-".$d["mday"]." ".$d["hours"].":".$d["minutes"].":".$d["seconds"];
-
-		// If the user has cleaned the wikipage's log flag, remove the password.
-		if ( $flag_lock == 0 ) {
-			$passwd = "NULL";
-		} else {
-			$passwd = "'" . md5( $passwd ) . "'";
+		$wikipage_db[ "password" ] = $_REQUEST[ "password" ];
+		if ( get_magic_quotes_gpc() == 1 ) {
+			$wikipage_db[ "password" ] = stripslashes( $wikipage_db[ "password" ] );
 		}
-
-		$conteudo_puro = addslashes( $conteudo_puro );
-		$titulo = addslashes( $titulo );
-		$keyword[ 1 ] = addslashes( $keyword[ 1 ] );
-		$keyword[ 2 ] = addslashes( $keyword[ 2 ] );
-		$keyword[ 3 ] = addslashes( $keyword[ 3 ] );
-		$autor = addslashes( $autor );
- 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass=$passwd where ident='$ident'";
-		$sql = mysql_query($query,$dbh) or die ("Falha ao inserir no Banco de Dados");
-	} else {
-		// Could not apply the XT, log the error.
-		$st = 2;
-		include("erro.php");
-		exit();
+		$wikipage_db[ "password" ] = md5( $wikipage_db[ "password" ] );
 	}
+
+	$d = getdate();
+	$data=$d["year"]."-".$d["mon"]."-".$d["mday"]." ".$d["hours"].":".$d["minutes"].":".$d["seconds"];
+
+	$update_wikipage_query = "update paginas set " .
+		"conteudo='" . $wikipage_db[ "content" ] . "'," .
+		"titulo='"   . $wikipage_db[ "title"]    . "'," .
+		"kwd1='"     . $wikipage_db[ "keyword1" ]. "'," .
+		"kwd2='"     . $wikipage_db[ "keyword2" ]. "'," .
+		"kwd3='"     . $wikipage_db[ "keyword3" ]. "'," .
+		"autor='"    . $wikipage_db[ "author" ]  . "'," .
+		"data_ultversao='$data'," .
+		"pass='"     . $wikipage_db[ "password" ]. "' " .
+		"where ident='". $_REQUEST[ "ident" ] . "'";
+	$update_wikipage_result = mysql_query( $update_wikipage_query, $dbh );
+	if ( $update_wikipage_result == false ) {
+		$st = 0;
+		include( "erro.php" );
+	}
+	mysql_free_result( $update_wikipage_result );
+
 	header("Location:mostra.php?ident=$ident");
 } else {
 	$query = "SELECT titulo,conteudo,kwd1,kwd2,kwd3,autor,pass FROM paginas where ident='" . $ident . "'";
@@ -190,22 +116,22 @@ include( "toolbar.php" );
 <tr>
 	<td>
 	Título
-	<br /><input type="text" name="titulo" value="<?php echo $tit;?>" size="45" />
+	<br /><input type="text" name="title" value="<?php echo $wikipage_tuple[ "titulo" ];?>" size="45" />
 	</td>
 </tr>
 <tr>
 	<td>
 	Autor
-	<br /><input type="text" name="cria_autor" value="<?php echo $autor; ?>" size="45" />
+	<br /><input type="text" name="author" value="<?php echo $wikipage_tuple[ "autor" ]; ?>" size="45" />
 	</td>
 </tr>
 <tr>
 	<td>
 	Palavras-chave:
 	<br />
-	<input type="text" name="key1" size="15" value="<?php echo $kwd1; ?>" />
-	<input type="text" name="key2" size="15" value="<?php echo $kwd2; ?>" />
-	<input type="text" name="key3" size="15" value="<?php echo $kwd3; ?>" />
+	<input type="text" name="keyword[0]" size="15" value="<?php echo $wikipage_tuple[ "kwd1" ]; ?>" />
+	<input type="text" name="keyword[1]" size="15" value="<?php echo $wikipage_tuple[ "kwd2 "]; ?>" />
+	<input type="text" name="keyword[2]" size="15" value="<?php echo $wikipage_tuple[ "kwd3 "]; ?>" />
 	</td>
 </tr>
 </table>
@@ -213,16 +139,16 @@ include( "toolbar.php" );
 
 <div class="lock">
   Lock
-  <br /><input type="checkbox" name="lock" value="locked" <?php if ( $senha != NULL ) echo checked; ?> />
+  <br /><input type="checkbox" name="lock" value="locked" <?php if ( $password != NULL ) echo checked; ?> />
 
   <br />Password
-  <br /><input type="password" size="10" name="passwd" onChange="window.document.edit.lock.checked=true;return false;" />
+  <br /><input type="password" size="10" name="password" onChange="window.document.edit.lock.checked=true;return false;" />
 
 <?php
-	if ( $senha == NULL ) {
+	if ( $password == NULL ) {
 ?>
   <br />Re-enter password
-  <br /><input type="password" size="10" name="repasswd" onChange="window.document.edit.lock.checked=true;return false;" />
+  <br /><input type="password" size="10" name="repassword" onChange="window.document.edit.lock.checked=true;return false;" />
 <?php
 	}
 ?>
@@ -231,11 +157,11 @@ include( "toolbar.php" );
 <br />
 <div class="content" >
 	<input type="reset" value="Limpa" onClick="return confirm('Are you sure? This will restore the original text\n(in another words, you will lose every change made to the text)')"; />
-	<input type="submit" name="salva" value="Salva" />
+	<input type="submit" name="save" value="Salvar" />
 	<br />
-	<textarea name="cria_conteudo" wrap=virtual rows="20" cols="100" style="width: 100%"><?php echo $conteudo; ?></textarea>
+	<textarea name="cria_conteudo" wrap=virtual rows="20" cols="100" style="width: 100%"><?php echo $wikipage_tuple{ "conteudo" ]; ?></textarea>
 </div>
-<input type="hidden" name="ident" value="<?php echo $ident; ?>" />
+<input type="hidden" name="ident" value="<?php echo $wikipage_tuple[ "ident" ]; ?>" />
 </form>
 
 <?php

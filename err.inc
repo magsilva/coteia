@@ -32,7 +32,15 @@ fclose( $fp );
 <?php
 include( "toolbar.php" );
 
-if ($st == 2) {
+if ($st == 4) {
+?>
+<div align="center">
+<b>Senha incorreta!</b>
+<p>Em caso de dúvidas, entre em contato com o <a href="mailto:<?php echo $ADMIN_MAIL;?>"><?php echo $ADMIN; ?></a>.</p>
+</div>
+
+<?php
+} else if ($st == 2) {
 ?>
 
 <h2>Falha na estrutura XML</h2>
@@ -56,7 +64,7 @@ foreach ( $result as $error_message ) {
 </div>
 
 <?php
-} else {
+} else if ($st == 0 ) {
 ?>
 <h2>Falha na estrutura de edição/criação de wikipage</h2>
 
