@@ -79,9 +79,10 @@ foreach (glob("*.raw") as $raw_squema) {
 }
 echo "Ok";
 
-@copy( "coteia.xsl", "../coteia.xsl" );
+echo "Copying files to proper places...";
+@copy( "coteia.xsl", $PATH_COWEB . "/coteia.xsl" );
 @copy( "htaccess", $PATH_UPLOAD . "/.htaccess" );
-
+@copy( "coteia.js", $PATH_COWEB . "/coteia.js" );
 echo "\nFinished.\n";
 
 ?>
