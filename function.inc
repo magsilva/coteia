@@ -1183,12 +1183,8 @@ function arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml) {
 	fputs($fp,$xmlfile);
 	fclose ($fp);
 
-	//$cp_java = classpath para executar java.
-	//Ex. de $cp_java =  "/usr/local/jdk1.2.2/bin/java"
-	//$cp_xt   = classpath para os arquivos: xt.jar, sax.jar e xp.jar
-	//Ex. de $cp_xt = "/home/xt/xt.jar:/home/xt/sax.jar:/home/xp/xp.jar"
-	//Uso do XT = [path_java] -classpath [classpath_xt] com.jclark.xsl.sax.Driver [xml] [xsl] [html]
-	$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver  com.jclark.xsl.sax.Driver $arq_xml $arq_xsl $path_html/$id.html<br /><br />";
+	// Uso do XT = [path_java] -classpath [classpath_xt] com.jclark.xsl.sax.Driver [xml] [xsl] [html]
+	$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver  com.jclark.xsl.sax.Driver $arq_xml $arq_xsl $path_html/$id.html";
 	exec( $cmd_line, $var_array, $status );
 	return $status;
 }
@@ -1205,26 +1201,26 @@ function xml_xsl($id,$conteudo,$titulo,$autor,$key,$arq_xsl,$path_html,$path_xml
 	trim($conteudo);  //elimina espaços em branco no começo e fim da variável
 	trim($titulo);    //elimina espaços em branco no começo e fim da variável
  
-	//resolve o problema do sinal de menor e maior - conflito com elementos XML
-	//para aceitar estas entidades tem que colocar na textarea como entidades
-        $conteudo = eregi_replace("&amp;lt;","&lt;",$conteudo);
-        $conteudo = eregi_replace("&amp;gt;","&gt;",$conteudo);
+	// Resolve o problema do sinal de menor e maior - conflito com elementos XML
+	// para aceitar estas entidades tem que colocar na textarea como entidades
+	$conteudo = eregi_replace("&amp;lt;","&lt;",$conteudo);
+	$conteudo = eregi_replace("&amp;gt;","&gt;",$conteudo);
 
 	//resolve o problema da entidade de branco- conflito com elementos XML
-        $conteudo = eregi_replace("&amp;nbsp;","&nbsp;",$conteudo);
+	$conteudo = eregi_replace("&amp;nbsp;","&nbsp;",$conteudo);
 
 	$titulo = eregi_replace("&amp;lt;","&lt;",$titulo);
-        $titulo = eregi_replace("&amp;gt;","&gt;",$titulo);
+	$titulo = eregi_replace("&amp;gt;","&gt;",$titulo);
 
 	$count = count($key);
 	$i = 1;
 
 	while($i <= $count) {
-        	$keyword = $keyword."<$kwd[$i]>$key[$i]</$kwd[$i]>";
+		$keyword = $keyword . "<$kwd[$i]>$key[$i]</$kwd[$i]>";
 		$i++;
-        }
+	}
 
-	if ($linksto_id[1]  == "0") { 
+	if ($linksto_id[1] == "0") { 
 		$links = $links . "<ref id=\"index.php\">$linksto_titulo[1]</ref>";
 		for ($i=2;$i <= count($linksto_id);$i++) {
 			$links = $links . "<ref id=\"mostra.php?ident=$linksto_id[$i]\">$linksto_titulo[$i]</ref>";
@@ -1250,7 +1246,7 @@ $keyword
 <$aut>$autor</$aut>
 <$tit>$titulo</$tit>
 <$body>$conteudo</$body>
-</$node>"
+</$node>
 END;
 
 	$feedback = (arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml));

@@ -333,7 +333,7 @@
 
 <xsl:template match="agenda">
 <a href="JavaScript:agenda('{@id}')">
-<font style="text-decoration: underline; color: blue;">Horários</font>
+<font style="text-decoration: underline; color: blue;">Horarios</font>
 <img src="$URL_IMG/iconenorisk.jpg" />
 </a>
 <xsl:apply-templates/>
