@@ -1,8 +1,6 @@
 Problemas críticos encontrados:
 - A CoTeia não funciona de primeira, problema com a definição da classe session (conflita com a "session" interna do PHP).
-- Todos os ícones relativos a anotação estão desabilitados.
-- Não existem chamadas para o Javascript que cria anotações.
-- O código de recuperação dos arquivos em CVS não funciona em nenhuma instância
+- O código de recuperação dos arquivos em CVS não funciona.
 - O código para armazenamento das versões em CVS (cvs/*) também parece não funcionar.
 - Ausência de uma folha de estilo (coteia.xsl), impedindo a realização de transformações XML. Foi recuperada uma folha da ramificação da CoTeia utilizada pela Simone.
 - Ausência de todos os esquemas SQL necessários para executar a ferramenta (na verdade, contém apenas o da CoTeia propriamente dito, sendo que são utilizados outras quatro bases de dados: groupnote, eclass, chatserver, coweb-users).
