@@ -1,3 +1,8 @@
+Para agora
+==========
+Realizar um novo deployment e documentar detalhadamente o processo.
+Documentar melhor sobre como expandir a CoTeia.
+
 Ócio
 ====
 Reescrever o getrevisao_cvs.php e history.php para utilizar as funções prontas do function_cvs.
