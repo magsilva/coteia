@@ -1,67 +1,29 @@
-<?
-	include_once("function.inc");
-?>
-<HTML>
-<HEAD>
-<TITLE> Search </TITLE>
-<META http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\"/>
-<META content=\"MSHTML 5.50.4134.600\" name=\"GENERATOR\"/>
-<script language="JavaScript">
-function AbreMapa(id)
-        {
-	window.open('map.php?id='+id,'janelamap','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=520,height=480');
-        }
-function AbreChat(swiki)
-{
-	window.open('chat.php?swiki='+swiki,'janela_chat','toolbar=no,directories=no,location=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=700,height=500');
-}
-function Imprime()
-{
-	window.print();  
-}
-</script> 
-</HEAD>
-<?
+<html>
 
-                //encontra id_swiki
-                $get_swiki = explode(".",$ident);
-                $id_swiki = $get_swiki[0];  
+<head>
+	<title>Search</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+`	<link href="coteia.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="coteia.js"></script>
+</head>
 
-?>
-<BODY text=#000000 vLink=#0000cc aLink=#ffff00 link=#cc0000 bgColor=#ffffff>
-	<IMG alt="View this Page" src="<?echo $URL_IMG?>/viewbw.png" border=0>
-	<IMG alt="Edit this Page" src="<?echo $URL_IMG?>/editbw.png" border=0>
-	<A href="history.php?ident=<?echo $ident?>">
-	<IMG alt="History of this Page" src="<?echo $URL_IMG?>/history.png" border=0></A>
-	<A href="mostra.php?ident=<?echo $id_swiki?>">
-	<IMG alt="Top of the Swiki" src="<?echo $URL_IMG?>/indice.png" border=0></A>
-	<A href="JavaScript:AbreMapa(<?echo $id_swiki?>)">
-	<img alt="Mapa do Site" src="<?echo $URL_IMG?>/map.png" border="0"/></A>
-	<A href="changes.php?ident=<?echo $ident?>">
-	<IMG alt="Recent Changes" src="<?echo $URL_IMG?>/changes.png" border=0></A>
-	<A href="upload.php?ident=<?echo $ident?>">
-	<IMG alt="File Attachments" src="<?echo $URL_IMG?>/upload.png" border=0></A>
-	<A href="search.php?ident=<?echo $ident?>">
-	<IMG alt="Search the Swiki" src="<?echo $URL_IMG?>/search.png" border=0></A>
-	<A href="help.php">
-	<IMG alt="Help Guide" src="<?echo $URL_IMG?>/help.png" border=0></A>
-	<A href="JavaScript:AbreChat(<?echo $id_swiki?>)">
-	<img alt="ChatServer" src="<?echo $URL_IMG?>/chat.png" border="0"/></A>
-	<img alt="GroupNote" src="<?echo $URL_IMG?>/notebw.png" border="0"/>
-	<A href="JavaScript:Imprime()">
-	<img alt="Print this Page" src="<?echo $URL_IMG?>/print.png" border="0"/></A>
-<br><br>
-<?
+<body>
+
+<?php
 /*
-* Search.php
-*
 * Funcionalidade: Pesquisa por paginas CoWeb.
-* Opcoes de Busca: Titulo, Conteudo e Palavra-Chave
-*
-*/   
-   if ($submit_btn=="submit") {
+* Opções de Busca: Titulo, Conteudo e Palavra-Chave.
+*/
+include_once("function.inc");
 
-   global $dbname;
+//encontra id_swiki
+$get_swiki = explode(".",$ident);
+$id_swiki = $get_swiki[0];  
+
+include( "toolbar.php" );
+
+if ($submit_btn=="submit") {
+	global $dbname;
 
    $dbh = db_connect();
 
