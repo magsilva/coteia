@@ -570,14 +570,14 @@ function get_annotation_xml($id_annotation)   {
                      xmlns:a="http://www.w3.org/2000/10/annotation-ns#"
                      xmlns:an="http://coweb.icmc.sc.usp.br/GroupNote-ns#"
                      id="$id_annotation" dc:format="text/xhtml">
-        <dc:title>'.encode($annotation_attributes[title]).'</dc:title>';
+        <dc:title>'.$annotation_attributes[title].'</dc:title>';
         if ($annotation_attributes["type"])
            $string_XML =  $string_XML.'
-        <dc:type>'.encode($annotation_attributes[type]).'</dc:type>';
+        <dc:type>'.$annotation_attributes[type].'</dc:type>';
         $i = 1;
         while ($annotation_attributes["kwd"."$i"] != ""){
            $string_XML = $string_XML.'
-        <dc:subject>'.encode($annotation_attributes["kwd"."$i"]).'</dc:subject>';
+        <dc:subject>'.$annotation_attributes["kwd"."$i"].'</dc:subject>';
            $i++;
         }
         $string_XML = $string_XML."
@@ -935,8 +935,8 @@ if (mysql_num_rows($query) > 0) {
                 
 	return true;
         } else {
-	echo '<br><center><font face="Verdana" color="#000000" size="+2">Área Restrita.</font><br><br>
-        <a href="javascript:window.close()">Fechar Janela</a></center><br>';
+	echo '<br /><center><font face="Verdana" color="#000000" size="+2">Área Restrita.</font><br><br>
+        <a href="javascript:window.close()">Fechar Janela</a></center>';
 	} 
 }
 
@@ -982,7 +982,6 @@ session_unregister("usermail");
  * OBSERVACOES:
  */
 function replace($texto) {
-
 	$open_bold = eregi_replace("<b>","<b>",$texto);
 	$close_bold = eregi_replace("</b>","</b>","$open_bold");
 
@@ -1010,46 +1009,41 @@ function replace($texto) {
 	$open_font = eregi_replace("<font","<font",$img);
 	$close_font = eregi_replace("</font>","</font>",$open_font);
 
-        $open_table = eregi_replace("<table","<table",$open_font);
-        $close_table = eregi_replace("</table>","</table>",$open_table);
-        
-        $open_td = eregi_replace("<td>","<td>",$close_table);
-        $close_td = eregi_replace("</td>","</td>",$open_td);
-        
-        $open_tr = eregi_replace("<tr>","<tr>",$close_td);
-        $close_tr = eregi_replace("</tr>","</tr>",$open_tr);
-        
-        $open_pre = eregi_replace("<pre>","<pre>",$close_tr);
-        $close_pre = eregi_replace("</pre>","</pre>",$open_pre);
+	$open_table = eregi_replace("<table","<table",$open_font);
+	$close_table = eregi_replace("</table>","</table>",$open_table);
 
-        $open_center = eregi_replace("<center>","<center>",$close_pre);
+	$open_td = eregi_replace("<td>","<td>",$close_table);
+	$close_td = eregi_replace("</td>","</td>",$open_td);
+
+	$open_tr = eregi_replace("<tr>","<tr>",$close_td);
+	$close_tr = eregi_replace("</tr>","</tr>",$open_tr);
+
+	$open_pre = eregi_replace("<pre>","<pre>",$close_tr);
+	$close_pre = eregi_replace("</pre>","</pre>",$open_pre);
+
+	$open_center = eregi_replace("<center>","<center>",$close_pre);
 	$close_center = eregi_replace("</center>","</center>",$open_center);
 
 	$open_link = eregi_replace("<lnk>","<lnk>",$close_center);
 	$close_link = eregi_replace("</lnk>","</lnk>",$open_link);
 
-        $file_upl = eregi_replace("<upl FILE","<upl file",$close_link);
-        $close_upl = eregi_replace("</upl>","</upl>",$file_upl);
+	$file_upl = eregi_replace("<upl FILE","<upl file",$close_link);
+	$close_upl = eregi_replace("</upl>","</upl>",$file_upl);
 
-        $agenda = eregi_replace("<agenda","<agenda",$close_upl);
+	$agenda = eregi_replace("<agenda","<agenda",$close_upl);
 
 	$open_href = eregi_replace("<a href","<a href",$agenda);
 	$close_href = eregi_replace("</a>","</a>",$open_href);
 
-	$string1 = nl2br($close_href);
 	$string2 = eregi_replace ("<br>","<br/>",$string1);
       
-	$trans = get_html_translation_table (HTML_ENTITIES);
-	$encoded = strtr ($string2, $trans);
-
-	$texto_single_quot = eregi_replace("'","`",$encoded);
+	$texto_single_quot = eregi_replace("'","`",$string2);
 	$texto_quot = eregi_replace("&quot;","\"",$texto_single_quot);
-        $texto_aux = eregi_replace("&lt;","<",$texto_quot);
-        $texto_final = eregi_replace("&gt;",">",$texto_aux);
-        
-        return $texto_final;
+	$texto_aux = eregi_replace("&lt;","<",$texto_quot);
+	$texto_final = eregi_replace("&gt;",">",$texto_aux);
 
-}//function replace
+	return $texto_final;
+}
 
 /*
  * NOME:		table_pre
@@ -1110,61 +1104,24 @@ while ($continua == true)
                         
 }//function 
 
-/*
- * NOME:		encode
- * DESCRICAO:		converte texto em entidades HTML
- * PAR. ENTRADA:        texto
- * PAR. SAIDA:		texto traduzido em entidades e XHTML
- * RETORNO:		--
- * OBSERVACOES:
-*/
-function encode($texto) {
-
-	$trans = get_html_translation_table (HTML_ENTITIES);
-	$encoded = strtr ($texto, $trans);
-
-	return $encoded;
-
-}//function encode
-
-/*
- * NOME:		tratamento
- * DESCRICAO:		--
- * PAR. ENTRADA:        --
- * PAR. SAIDA:		--
- * RETORNO:		--
- * OBSERVACOES:
+/**
+* Prepare the data for processing (trim data mainly).
 */
 function tratamento($index,$conteudo,$titulo,$autor,$kwd) {
+	$conteudo = stripslashes($conteudo);
+	$texto_final = replace($conteudo);
 
-		trim($conteudo);  //elimina espaços em branco no começo e fim da variável
-		trim($titulo);    //elimina espaços em branco no começo e fim da variável
+	$trat["index"] = $index;
+	$trat["content"] = trim( $texto );
+	$trat["title"] = trim( $titulo );
+	$trat["author"] = trim( $autor );
 
-		$conteudo = stripslashes($conteudo);
+	for ( $i = 1; $i <= count( $kwd ); $i++ ) {
+		$trat[ "key" . "$i" ] = trim( $kwd[ $i ] );
+	}
+	return $trat;
 
-		$texto_final = replace($conteudo);
-
-		$index_trans = encode($index);
-		$titulo_trans = encode($titulo);
-		$autor_trans = encode($autor);
-
-		$count = count($kwd);
-		for ($i=1;$i <= $count;$i++) {
-			$key[$i] = encode($kwd[$i]);
-		}
-
-		$trat["index"] = $index_trans;
-		$trat["content"] = $texto_final;
-		$trat["title"] = $titulo_trans;
-		$trat["author"] = $autor_trans;
-
-		for ($i=1;$i <= $count;$i++) {
-                        $trat["key"."$i"] = $key[$i];
-                }
-
-		return $trat;
-
-}//function tratamento
+}
 
 /*
  * NOME:		arq

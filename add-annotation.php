@@ -13,7 +13,7 @@
 include_once("function.inc");  
 
 function msg($str){
-	echo "<center><b>$str</b><br><a href=javascript:history.back()>Voltar</a></center>";
+	echo '<center><b>$str</b><br/><a href="javascript:history.back()">Voltar</a></center>';
 	echo "</body>";
 	echo "</html>";
 	exit();
