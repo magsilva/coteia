@@ -171,7 +171,7 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 
 <body>
 <?php
-include( "toolbar.php" );
+include( "toolbar.inc" );
 ?>
 
 <br />

@@ -28,15 +28,6 @@ function AbreArq( swiki, arquivos ) {
 	return false;
 }
 
-function check(id,index) {
-	if ( typeof( index ) ==  "undefined" ) {
-		window.opener.document.location.replace('mostra.php?ident=' + id);
-	} else {
-		window.opener.document.location.replace('create.php?ident='+id+'&index='+index);
-	}
-	window.close();
-}
-
 /**
 * Imprime a página atual.
 */

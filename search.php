@@ -20,7 +20,7 @@ include_once("function.inc");
 $get_swiki = explode(".",$ident);
 $id_swiki = $get_swiki[0];  
 
-include( "toolbar.php" );
+include( "toolbar.inc" );
 
 if ($submit_btn=="submit") {
 	global $dbname;

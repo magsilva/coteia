@@ -1,29 +1,31 @@
 <?php
 /*
- * NOME:                autentica
- * DESCRICAO:           Autentica administrador e cria variaveis de sessao
- * PAR. ENTRADA:        $usuario - usuario & $passwd - senha 
- * PAR. SAIDA:          --
- * RETORNO:             TRUE em caso de sucesso, FALSE em caso de erro
- * OBSERVACOES:         --
- */       
+* Authenticate users and set session variables.
+*
+* Copyright (c) 2001, 2002, 2003 Carlos E. Arruda Jr.
+* Modified by Marco Aurélio Graciotto Silva.
+*/
  
-include_once("function.inc");
+include_once( "function.inc" );
+
+if ( check_wikipage_id( $id ) == false ) {
+	show_error( 0 );
+}
 
 $dbh = db_connect();
 $retorno = login_swiki( $usuario, $passwd, $id, $dbh );
 
 if ( $retorno ) {
 	if ( $token == "1" ) {
-		header( "Location:ok.php?id=$id" ); //Redireciona para a interface inicial
+		header( "Location:mostra.php?ident=$id" ); 
 		exit;
 	}
 
 	if ( $token == "0" ) {
-		header( "Location:login_create.php?id=$id&index=$index" );
+		header( "Location:create.php?ident=$id&index=$index" );
 		exit;
 	}
 } else {
-	echo '<br /><div align="center">Área Restrita.<br /><br /><a href="javascript:window.close()">Fechar janela</a></div>';
+	echo '<br /><div align="center">Área Restrita.<br /><br /><a href="javascript:history.go(-1)">Voltar</a></div>';
 }
 ?>

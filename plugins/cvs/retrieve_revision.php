@@ -20,7 +20,7 @@ if ( check_wikipage_id( $ident ) == false ) {
 <body>
 
 <?php
-	include( "../../toolbar.php" );
+	include( "../../toolbar.inc" );
 ?>
 
 <?php

@@ -15,7 +15,7 @@ include_once( "../../function.inc" );
 
 <?php
 
-include( "../../toolbar.php" );
+include( "../../toolbar.inc" );
 
 // Encontra id_swiki
 $get_swiki = explode( ".", $ident );

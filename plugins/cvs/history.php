@@ -33,7 +33,7 @@ if ( $revision == false ) {
 <body>
 
 <?php
-include( "../../toolbar.php" );
+include( "../../toolbar.inc" );
 ?>
 
 <form method="post" action="retrieve_revision.php">

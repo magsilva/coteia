@@ -30,7 +30,7 @@ fclose( $fp );
 <body>
 
 <?php
-include( "toolbar.php" );
+include( "toolbar.inc" );
 
 if ($st == 4) {
 ?>

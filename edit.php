@@ -89,7 +89,7 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 <body>
 
 <?php
-include( "toolbar.php" );
+include( "toolbar.inc" );
 ?>
 
 <form method="post" name="edit" action="edit.php" onSubmit="return validar(this);">

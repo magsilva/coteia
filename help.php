@@ -13,7 +13,7 @@
 <body>
 
 <?php
-include( "toolbar.php" );
+include( "toolbar.inc" );
 ?>
 
 <br />

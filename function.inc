@@ -469,9 +469,11 @@ function match_tag( $content, $type, $cdata ) {
 	return ( preg_match( "/.*<$type\s.*>\s*$cdata\s*<\/$type\s*>.*/", $content ) > 0 ) ? true : false;
 }
 
+/**
+* Handle errors found.
+*/
 function show_error( $st, $message ) {
-  $st = 0;
-  include( "erro.inc" );
+  include( "err.inc" );
 }
 
 ?>
