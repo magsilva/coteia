@@ -64,6 +64,20 @@ foreach ( $result as $error_message ) {
 </div>
 
 <?php
+} else if ( $st == 1 ) {
+?>
+<h2>Erro na base de dados</h2>
+
+<p>Ocorreu um erro quando inserindo os dados na base de dados. As seguinte mensagens de diagnóstico foram enviadas pelo SGBD</p>
+
+<div style="background-color: #FEFBA7; border-width: 1; border-color: black; border-style: solid; width:
+60%">
+<?php
+  echo "\n", $mysql_error( $dbh );
+?>
+</div>
+
+<?php
 } else if ($st == 0 ) {
 ?>
 <h2>Falha na estrutura de edição/criação de wikipage</h2>

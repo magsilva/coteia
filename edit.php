@@ -1,14 +1,9 @@
 <?php
 /**
+* Edit wikipages.
+*
 * Copyright (C) 2001, 2002, 2003 Carlos Roberto E. de Arruda Jr
 * This code is licenced under the GNU General Public License (GPL).
-*/
-?>
-
-
-<?php
-/*
-* Edit wikipages.
 */
 
 include_once("function.inc");
@@ -70,11 +65,10 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 		"pass="      . $wikipage_db[ "password" ]. " "  .
 		"where ident='". $_REQUEST[ "ident" ] . "'";
 	$update_wikipage_result = mysql_query( $update_wikipage_query, $dbh );
-	if ( $update_wikipage_result == false ) {
-		$st = 0;
+	if ( $update_wikipage_result == false && mysql_affected_rows( $dbh ) != 1 ) {
+		$st = 1;
 		include( "err.inc" );
 	}
-	mysql_free_result( $update_wikipage_result );
 
 	$parent_id = $ident;
 	include( "update_wikipage.inc" );

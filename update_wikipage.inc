@@ -1,21 +1,18 @@
 <?php
 /**
+* Update the parent-page (actually, any relative wikipage).
+*
 * Copyright (C) 2001, 2002, 2003 Carlos Roberto E. de Arruda Jr
 * This code is licenced under the GNU General Public License (GPL).
 */
-?>
 
-<?php
-/**
-* Update the parent-page (actually, any relative wikipage).
-*/
 require_once( "function.inc" );
 
 $dbh = db_connect();
 mysql_select_db( $dbname, $dbh );
 
 $parent_related_query = "select * from paginas where ident='$parent_id'";  
-$parent_related_result = mysql_query( $query, $dbh );
+$parent_related_result = mysql_query( $parent_related_query, $dbh );
 $parent_tuple = mysql_fetch_array( $parent_related_result );
 
 $parent_swiki_id = extract_swiki_id( $parent_id );
@@ -29,6 +26,7 @@ $parent_title = $parent_tuple[ "title" ];
 $parent_content = $parent_tuple[ "content" ];
 $parent_author = $parent_tuple[ "author" ];
 $parent_keywords = $parent_tuple[ "kwd1" ];
+mysql_free_result( $parent_related_result );
 
 // We need these vars sometimes, so let's keep it ready for using.
 $parent_index_db = mysql_escape_string( $parent_index );
@@ -80,7 +78,7 @@ for ( ; $i < count( $parent_linksto_id ); $i++ ) {
 $parent_wikipage[ "links" ] = $parent_links;
 
 // Augment page with data for CoTeia's third-party components.
-$parent_components_query = "select id_ann, id_chat, id_eclass from swiki where id='$parent_swiki_id'";
+$parent_components_query = "select id_ann,id_chat,id_eclass from swiki where id='$parent_swiki_id'";
 $parent_components_result = mysql_query( $parent_components_query, $dbh );
 $parent_components_tuple = mysql_fetch_array( $parent_components_result );
 $parent_wikipage[ "annotation "] = $parent_components_tuple[ "id_ann"];
@@ -90,7 +88,7 @@ mysql_free_result( $parent_components_result );
 
 // Variables needed for XML transformation.
 $path_xml = $PATH_XML;
-$arq_xsl = $PATH_XSL;
+$path_xsl = $PATH_XSL;
 $path_html = $PATH_XHTML;
 
 // The XML transformation.
@@ -98,12 +96,11 @@ $parent_result = xml_xsl( $parent_wikipage, $path_xml, $path_dtd, $path_xsl, $pa
 
 // Check if everything has gone ok.
 if ( is_bool( $parent_result ) && $parent_result == TRUE ) {
-	cvs_update( $parent_ident, $CVS_MODULE );
+	cvs_update( $parent_id, $CVS_MODULE );
 } else {
 	// The XML transformation didn't work.
 	$st = 2;
 	include( "err.inc" );
 }
-mysql_free_result( $parent_related_result );
 
 ?>

@@ -468,7 +468,7 @@ function match_empty_tag( $content, $type ) {
 * Check if the content holds a element type with the specified character data.
 */
 function match_tag( $content, $type, $cdata ) {
-	return ( preg_match( "/.*<$type\s.*>\s*$cdata\s*<\/$type\s*>.*/" ) > 0 ) ? true : false;
+	return ( preg_match( "/.*<$type\s.*>\s*$cdata\s*<\/$type\s*>.*/", $content ) > 0 ) ? true : false;
 }
 
 ?>

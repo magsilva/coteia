@@ -133,18 +133,16 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip,data_criacao,data_ultversao,pass,kwd1,kwd2,kwd3,autor) values ('$wikipage_db[ident]','$wikipage[index]','$wikipage[title]','$wikipage[content]','$nro_ip','$data','$data',$wikipage_db[password],'$wikipage_db[keyword1]','$wikipage_db[keyword2]','$wikipage_db[keyword3]','$wikipage_db[author]')";
 		$sql = mysql_query( $query, $dbh );
 		if ( $sql == false ) {
-			$st = 0;
+			$st = 1;
 			include( "err.inc" );
 		}
-		mysql_free_result( $sql );
 
  		$query = "insert into gets (id_pag,id_sw,data) values ('$wikipage_db[ident]','$id_swiki','$data')";
 		$sql = mysql_query( $query, $dbh );
 		if ( $sql == false ) {
-			$st = 0;
+			$st = 1;
 			include( "err.inc" );
 		}
-		mysql_free_result( $sql );
 	} else {
 		// The XML transformation didn't work.
 		$st = 2;
