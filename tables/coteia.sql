@@ -1,11 +1,11 @@
 USE mysql;
-insert into user (host,user,password) values ('[COTEIA_HOST]','[COTEIA_USER]', PASSWORD('[COTEIA_PASSWORD]'));
-insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('[COTEIA_HOST]','[COTEIA_DATABASE]',[COTEIA_USER]','Y','Y','Y','Y','Y');
+insert into user (host,user,password) values ('$dbhost','$dbuser', PASSWORD('$dbpass'));
+insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('$dbhost','$dbname','$dbuser','Y','Y','Y','Y','Y');
 FLUSH PRIVILEGES;
 
-CREATE DATABASE [COTEIA_DATABASE];
+CREATE DATABASE $dbname;
 
-USE [COTEIA_DATABASE];
+USE $dbname;
 
 CREATE TABLE admin (
 	id int not null auto_increment,
@@ -38,7 +38,7 @@ CREATE TABLE swiki (
 	admin varchar(40),
 	admin_mail varchar(60),
 	data datetime,
-	annotation_login enum('S','N') default 'N' 
+	annotation_login enum('S','N') default 'N',
 	id_chat int,
 	id_ann int,
 	id_eclass int default 0,
@@ -68,18 +68,4 @@ CREATE TABLE paginas (
 	primary key (ident)
 );
 
-CREATE TABLE backup (
-	ident varchar(20),
-	indexador varchar(80),
-	titulo varchar(80),
-	conteudo text,
-	ip varchar(15),
-	data datetime,
-	pass text,
-	kwd1 varchar(30),
-	kwd2 varchar(30),
-	kwd3 varchar(30),
-	autor text
-);
-
-insert into admin values (NULL, 'admin' , '[COTEIA_ADMIN_EMAIL]' ,'admin', MD5('[COTEIA_ADMIN_PASSWORD]'));
+insert into admin values (NULL, 'admin' , '$ADMIN_MAIL' ,'admin', MD5('$ADMIN_PASSWORD'));
