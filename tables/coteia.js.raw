@@ -73,7 +73,7 @@ function validar( form ) {
 
 
 function abre(name_file,swiki) {
-	window.open('$URL_COWEB/checkout.php?arq='+name_file+'&amp;swiki='+swiki,'janelachk','toolbar=no,directories=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=500,height=430');
+	window.open('$URL_COWEB/checkout.php?arq='+name_file+'&swiki='+swiki,'janelachk','toolbar=no,directories=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=500,height=430');
 }
 
 function AbreChat(chat_folder) {
