@@ -75,6 +75,10 @@
 </body>
 </xsl:template>
 
+<xsl:template match="div">
+<div><xsl:apply-templates/></div>
+</xsl:template>
+
 <xsl:template match="br">
 <br/><xsl:apply-templates/>
 </xsl:template>
