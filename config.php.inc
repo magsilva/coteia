@@ -85,7 +85,7 @@ $PATH_XT = $PATH_COWEB . "/libs/xt.jar:" . $PATH_COWEB . "/libs/xp.jar";
 /****************************************************************************/
 
 // Endereço das imagens 
-$URL_IMG = "http://coweb.icmc.usp.br/coweb" . "/images";
+$URL_IMG = $URL_COWEB . "/images";
 
 // Local em que estão armazenados os arquivos
 $PATH_ARQUIVOS = $PATH_COWEB . "/files";

@@ -47,11 +47,11 @@ if ($mode=='main') {
 
 echo "<html><head><title>Chamada Eletrônica - $cursoSigla $cursoSemestre</title></head><body>\n";
 echo "<font size=2 face=Verdana>
-<a href='http://coweb.icmc.usp.br/coweb/freq/chamada.php?curso_id=$curso_id'><b>Fazer 
+<a href='$URL_COWEB/freq/chamada.php?curso_id=$curso_id'><b>Fazer 
 chamada</b></a>&nbsp;&nbsp;&nbsp;
-<a href='http://coweb.icmc.usp.br/coweb/freq/freq.php?curso_id=$curso_id'><b>Freq&uuml;&ecirc;ncia 
+<a href='$URL_COWEB/freq/freq.php?curso_id=$curso_id'><b>Freq&uuml;&ecirc;ncia 
 Total</b></a>&nbsp;&nbsp;&nbsp;
-<a href='http://coweb.icmc.usp.br/coweb/freq/freq_detalhada.php?curso_id=$curso_id'><b>Freq&uuml;&ecirc;ncia Aula a
+<a href='$URL_COWEB/freq/freq_detalhada.php?curso_id=$curso_id'><b>Freq&uuml;&ecirc;ncia Aula a
 Aula</b></a>
 <br><br>";
 
@@ -164,9 +164,9 @@ if (autentica($curso_id, $senha)){
 
 echo "<html><head><title>Chamada Eletrônica - $cursoSigla $cursoSemestre </title></head><body>\n";
 echo "<font size=2 face=Verdana>    
-<a href='http://coweb.icmc.usp.br/coweb/freq/chamada.php?curso_id=$curso_id'><b>Fazer chamada</b></a>            
-<a href='http://coweb.icmc.usp.br/coweb/freq/freq.php?curso_id=$curso_id'><b>Freq&uuml;&ecirc;ncia Total</b></a>            
-<a href='http://coweb.icmc.usp.br/coweb/freq/freq_detalhada.php?curso_id=$curso_id'><b>Freq&uuml;&ecirc;ncia Aula a            
+<a href='$URL_COWEB/freq/chamada.php?curso_id=$curso_id'><b>Fazer chamada</b></a>            
+<a href='$URL_COWEB/freq/freq.php?curso_id=$curso_id'><b>Freq&uuml;&ecirc;ncia Total</b></a>            
+<a href='$URL_COWEB/freq/freq_detalhada.php?curso_id=$curso_id'><b>Freq&uuml;&ecirc;ncia Aula a            
 Aula</b></a>
 <br><br>";
 
