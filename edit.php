@@ -159,7 +159,7 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 	// Handle the case the wikipage's content is sent via an upload file.
 	if ( isset( $_FILES[ "filename" ] ) ) {
 		if ( is_uploaded_file( $_FILES['filename']['tmp_name'] ) ) {
-			$_REQUEST[ "content" ] =  file_get_contents( $_FILES["filename"] );
+			$_REQUEST[ "content" ] =  file_get_contents( $_FILES["filename"]["tmp_name"] );
 		}
 	}
 
@@ -256,8 +256,6 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 		}
 	}
 
-	update_wikipage( $wikipage_id );
-
 	header("Location: show.php?wikipage_id=$wikipage_id");
 } else {
 
@@ -278,7 +276,7 @@ include( "toolbar.php.inc" );
 ?>
 
 
-<form method="post" name="edit" action="edit.php" onSubmit="return validar(this);">
+<form method="post" name="edit" action="edit.php" onSubmit="return validar(this);" enctype="multipart/form-data">
  
 <div class="metadata">
 <table>

@@ -10,7 +10,7 @@
 <xsl:template match="page">
 
 <xsl:for-each select="bdy">
- <p><xsl:apply-templates select="."/></p>
+ <xsl:apply-templates select="."/>
 </xsl:for-each>
 </xsl:template>
 </xsl:stylesheet>

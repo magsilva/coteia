@@ -7,7 +7,7 @@
 */
 
 
-include_once( dirname(__FILE__) . "/../config.php" );
+include_once( dirname(__FILE__) . "/config.php" );
 
 /**
 * Customize PHP's error output (a shorter message, without HTML tags).

@@ -56,9 +56,8 @@ if ( isset( $_REQUEST[ "swiki_id" ] ) || isset( $_REQUEST[ "index" ] ) ) {
 
 $format = $DEFAULT_OUTPUT_FORMAT;
 if ( isset( $_REQUEST[ "format" ] ) ) {
-	$format = basename( $DEFAULT_OUTPUT_FORMAT );
+	$format = basename( $_REQUEST[ "format" ] );
 }
-
 
 /**
 * Start to process the request.
@@ -117,4 +116,4 @@ if ( $result !== true ) {
 	show_error( _( "An error was found in this wikipage. Please, contact the system administrator." ) );
 }
 
-@include( $OUTPUT_DIR . "/" . $format . "/" . $wikipage_id . "." . $format );
+readfile( $OUTPUT_DIR . "/" . $format . "/" . $wikipage_id . "." . $format );

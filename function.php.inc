@@ -314,6 +314,7 @@ function process_xml_document( $id, $xml_document, $xsl_names, $format )
 
 	$xsl_names[] = $format;
 	$xml_temp = $xml;
+
 	foreach ( $xsl_names as $xsl ) {
 		$result = apply_xsl( $xml_temp, $XSL_DIR . "/" . $xsl . ".xsl" );
 		if ( is_array( $result ) ) {
@@ -367,7 +368,7 @@ function apply_xsl( $xml, $xsl )
 		@define( "XSLT_SABOPT_DISABLE_STRIPPING", 1 );
 		@define( "XSLT_SABOPT_DISABLE_ADDING_META", 1 ); 
 		$result = @xslt_process( $xh, $xml, $xsl, $output );
-		if ( xslt_errno( $xh ) > 0 ) {
+		if ( !$result && xslt_errno( $xh ) > 0 ) {
 			$result[] = xslt_error( $xh );
 		} else {
 			$result = $output;
@@ -626,7 +627,7 @@ function compile_wikipage( $wikipage_id, $format )
 	$xml_document = prepare_xml_document( $wikipage_xml );
 
 	$result = process_xml_document( $wikipage_id, $xml_document, $STYLESHEETS, $format );
-
+/*
 	if ( $result === true ) {
 		//atualiza arquivo no CVS
 		$result = false;
@@ -638,6 +639,7 @@ function compile_wikipage( $wikipage_id, $format )
 	} else {
 		return $result;
 	}
+*/
 	return $result;
 }
 
@@ -871,7 +873,7 @@ function update_wikipage( $wikipage_id, $format )
 			$update = true;
 		}
 	}
-
+	
 	if ( $update === true ) {
 		$result = compile_wikipage( $wikipage_id, $format );
 	}
