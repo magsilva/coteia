@@ -1232,7 +1232,7 @@ function xml_xsl($id,$conteudo,$titulo,$autor,$key,$arq_xsl,$path_html,$path_xml
 	}
 
 	$xmlfile =  <<<END
-<?xml version='1.0'?>
+<?xml version='1.0' encoding="ISO-8859-1"?>
 $dtd
 <$node>
 <$ident>$id</$ident>
