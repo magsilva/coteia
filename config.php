@@ -146,3 +146,15 @@ set_magic_quotes_runtime( 0 );
 * Version. Please, do not change.
 */
 $COTEIA_VERSION = "2.0";
+
+// I18N support information here
+$language = "en";
+// $language = "pt_BR";
+putenv( "LANG=$language" ); 
+setlocale( LC_ALL, $language );
+
+// Set the text domain as 'messages'
+$domain = "coteia";
+bindtextdomain( $domain, "$PATH_COWEB/locale" ); 
+textdomain( $domain );
+?>
