@@ -29,7 +29,7 @@ if ($salva) {
 			$st = 3;
 			include("erro.php");
 			exit();
-	        }
+		}
 	}
 	$k[1] = $key1;
 	$k[2] = $key2;
@@ -58,18 +58,18 @@ if ($salva) {
 
 	if (stristr($conteudo,"<pre>")) {
 		$conteudo = table_pre($conteudo,"pre");  
-        }
+	}
 
 	if (stristr($conteudo,"</ul>")) {
         	$conteudo = table_pre($conteudo,"ul");  
-        }
+	}
 
 	if (stristr($conteudo,"</ol>")) {
-               $conteudo = table_pre($conteudo,"ol");  
-        }
+		$conteudo = table_pre($conteudo,"ol");  
+	}
 
 	if (stristr($conteudo,"<lnk>")) {
-               $conteudo = link_interno($ident,$conteudo,$dbh);
+		$conteudo = link_interno($ident,$conteudo,$dbh);
 	}
 
 	if (stristr($ident,".")) {
@@ -87,7 +87,7 @@ if ($salva) {
 	}
 
 	//verifica travamento da pagina
-	if ($lock == locked) {
+	if ( $lock == "locked" ) {
 		$flag_lock = 1;
 	} else {
 		$flag_lock = 0;
@@ -124,8 +124,10 @@ if ($salva) {
 		
 		if ($flag_lock == 1) {
 			$passwd = "NULL";
+		} else {
+			$passwd = "'" . $passwd . "'";
 		}
-		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip, data_criacao,data_ultversao,pass, kwd1, kwd2, kwd3,autor) values ('$ident','$indexador','$titulo','$conteudo_puro','$nro_ip','$data','$data', '$passwd','$keyword[1]','$keyword[2]','$keyword[3]','$autor')" or die  ("Falha ao inserir no Banco de Dados");
+		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip, data_criacao,data_ultversao,pass, kwd1, kwd2, kwd3,autor) values ('$ident','$indexador','$titulo','$conteudo_puro','$nro_ip','$data','$data', $passwd,'$keyword[1]','$keyword[2]','$keyword[3]','$autor')" or die ("Falha ao inserir no Banco de Dados");
 		$sql = mysql_query("$query",$dbh);
  
 		$query = "insert into gets (id_pag,id_sw,data) values ('$ident','$id_swiki','$data')" or die ("Falha ao inserir no Banco de Dados");
