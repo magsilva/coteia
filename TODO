@@ -1,6 +1,8 @@
 Para agora
 ==========
 Verificar o porquê das anotações não funcionarem.
+Alterar o INSERT para UPDATE nos scripts SQL (criação de usuário).
+Alterar o código, removendo a necessidade de uso de "register_globals = on".
 
 Ócio
 ====
