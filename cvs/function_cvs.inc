@@ -1,6 +1,6 @@
 <?php
 
-include_once( "../config.php.inc" );
+include_once( "config.php.inc" );
 
 /*
  * NOME:	        update_cvs
