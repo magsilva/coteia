@@ -1,0 +1,148 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+
+\usepackage{url}
+
+\title{CoTeia}
+\author{Marco Aurélio Graciotto Silva}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+
+A CoTeia é uma ferramenta de edição colaborativa e assíncrona amplamente empregada no ICMC para armazenar material das disciplinas dos cursos, sendo desenvolvida por Creda Junior \cite{creda:2001}. Sua primeira versão pública foi lançada em janeiro, sob a licença GPL.
+
+A ferramenta, em si, é uma Wiki \cite{kunnigham:2000}. Desenvolvida em AMP (Apache, MySQL, PHP), também utiliza Java para realizar transformações XSLT nos documentos gerados, CVS para controle de versões, Chat-Server para serviço de conversação em tempo real e GroupNote para criar anotações nos documentos:
+
+A CoTeia é um programa relativamente simples quanto ao seu propósito e mecanismo, porém com uma escassa documentação, dificultando a manutenção do sistema. Recentemente começou-se a utilizar uma ferramenta para registro dos erros encontrados (Bugzilla). Atualmente existe 29 erros registrados (infelizmente vários erros encontrados na versão original não foram registrados),  mas é fácil observar que a quantidade de erros na versão em desenvolvimento é consideravelmente ele elevada se comparado com a versão estável. Como a documentação é escassa, prejudicando a compreensão da ferramenta e da clareza das conseqüências de alterações do código, a correção de algum erro levava a inserção de outro.
+
+A documentação a seguir complementa material já disponível sobre a CoTeia: o relatório técnico \cite{creda:2001}, a dissertação de Simone \cite{francisco:2003}. Em especial, mostra que a CoTeia está relacionada com outros sistemas, mais do que geralmente se imagina, e como alguns desses estão relacionados às swikis e wikipages.
+
+
+\section{Componentes}
+
+A CoTeia possui três componentes principais: swiki, páginas wiki (wikipages) e upload. As swikis são grupos de wikipages. Por exemplo, em uma empresa de software, cada software desenvolvido teria uma respectiva swiki. Uma swiki possui uma wikipage, com o mesmo nome (identificador) da swiki, como página principal. A wikipage, por sua vez, é um texto que segue as normas de um documento XML (desse só não contém os cabeçalhos e o elemento raiz declarados). Finalmente, uploads são arquivos enviados ao servidor e que podem ser recuperados por meio de wikipages.
+
+
+\subsection{Interação básica entre os componentes}
+
+Um caso de uso simples seria:
+
+\begin{itemize}
+	\item Criação de uma swiki (via parta administrativa da CoTeia).
+	\item Acessar o link inicial, para a swiki recém criada, na página principal da CoTeia.
+	\item Editar o conteúdo da página e salvar.
+\end{itemize}
+
+A criação de uma swiki (admin/addswiki.php) insere seus dados na base de dados e configura os componentes utilizados pela CoTeia (GroupNote e ChatServer).
+
+A partir do momento em que a swiki foi criada, ela estará disponível na página principal da CoTeia (index.php) com um sufixo "[create]". Ao seguir o link, terá início a criação da página principal da swiki (por meio do create.php).
+
+Após as devidas alterações no conteúdo da página e selecionando a opção para salvar, os dados da página serão inseridos na base de dados (pages e gets), a página pai será atualizada (removendo o [create]) e, finalmente, o arquivo será adicionado ao controle de versão (CVS).
+
+Toda página wiki pode ser alterada (edit.php). Cada alteração atualiza a base de dados e a cópia no CVS.
+
+Uma página wiki não pode ser apagada. Uma swiki pode ser removida da lista de swikis (mas suas páginas ainda são guardadas no sistema).
+
+
+\subsection{Ciclo de vida de uma swiki}
+
+\begin{description}
+	\item{Criada}
+	\begin{description}
+		\item Visível
+		\item Invisível
+	\end{description}
+	\item{Eliminada}
+\end{description}
+
+\subsection{Ciclo de vida de uma wikpage}
+
+\begin{description}
+	\item{Apontada}
+	\item{Criada}
+	\begin{description}
+		\item{Alcançavel}
+		\item{Inalcançavel}
+	\end{description}
+\end{description}
+
+
+\section{Módulos}
+
+\subsection{index.php}
+
+O \texttt{index.php} é a página de entrada da CoTeia, responsável por mostrar todas as swikis visíveis e controlar a autenticação dos usuários quando no acesso de swikis restritas.
+
+\begin{enumerate}
+	\item Obtém todas as swikis visíveis no semestre atual ou sempre visíveis.
+	\item Para cada swiki visível:
+	\begin{enumerate}
+		\item Recupera os dados.
+		\item Se for uma página nova (estado Criada), cria uma ligação para create.php. Senão, para edit.php.
+		\item Se for uma página de login, cria a ligação anterior usando javascript, abrindo uma página para login.
+	\end{enumerate}
+	\item Mostra as swikis restantes ("não-visíveis").
+	\item Mostra total de swikis e páginas no sistema.
+\end{enumerate}
+
+\subsection{mostra.php}
+
+O mostra.php é responsável por disponibilizar as páginas wiki requisitadas
+
+\begin{itemize}
+	\item Verifica se a página wiki requisita exige autenticação (login).
+	\item Caso a página exija autenticação, verifique se o usuário efetuou login (variáveis de sessão). Se não efetuou, mostra uma página de erro e finaliza.
+	\item Recupera o conteúdo da página wiki requisitada e envia ao usuário. Se ocorrer um erro na recuperação desse arquivo, mostra uma mensagem de erro e finaliza.
+\end{itemize}
+
+Essa abordagem possui um problema. Atualmente nada impede o usuário de indicar diretamente o arquivo a ser recuperado, ignorando o esquema de proteção. Devido ao \texttt{include} utilizado para pegar o arquivo, não é possível restringir as opções de acesso ao diretório. Uma possível solução seria impedir o método GET ou o acesso a arquivos .html no diretório em que são armazenadas as páginas: isso impediria o GET direto e o mostra.php ainda conseguiria incluir o arquivo em questão.
+
+
+\subsection{create.php}
+
+\begin{enumerate}
+	\item Verifica se a página wiki sendo criada existe.
+	\item Trata o conteúdo recebido (parâmetros).
+	\item Passa o conteúdo por diversos filtros (tratamento de anotações e links para outras wikipages).
+	\item Prepara o linksto (páginas que esta wikipage referencia).
+	\item Prepara o documento XML a ser processado (conteúdo da wikipage, identificador das anotações, do iChat e eClass).
+	\item Processa o documento XML.
+	\item Adiciona o arquivo gerado ao CVS.
+	\item Configura a senha de proteção a edição da página.
+	\item Insere o conteúdo da wikipage no bando de dados.
+	\item Atualiza página-pai.
+\end{enumerate}
+
+
+\subsection{edit.php}
+
+\begin{enumerate}
+	\item Verifica se a página wiki sendo criada existe.
+	\item Verifica a senha.
+	\item Trata o conteúdo recebido (parâmetros).
+	\item Passa o conteúdo por diversos filtros (tratamento de anotações e links para outras wikipages).
+	\item Prepara o linksto (páginas que esta wikipage referencia).
+	\item Prepara o documento XML a ser processado (conteúdo da wikipage, identificador das anotações, do iChat e eClass).
+	\item Processa o documento XML.
+	\item Atualiza o arquivo no CVS com base no arquivo gerado.
+	\item Configura a senha de proteção a edição da página.
+	\item Atualiza o conteúdo da wikipage no bando de dados.
+\end{enumerate}
+
+	
+\section{Conclusão}
+
+A documentação possui algumas lacunas. Alguns trabalhos recentes tentam expandir a CoTeia ou integrá-las com outros sistemas. O trabalho de Simone \cite{frascisco:2003} utiliza a CoTeia como parte da ferramenta DocRationale, empregando um mecanismo de tradução entre ambos. O GroupNote, atualmente integrado a CoTeia, na verdade era um sistema externo, o WebNote. Documentar como expandir ou integrar a CoTeia, com exemplos simples, é interessante.
+
+Uma análise do sistema mais profunda talvez demonstre algumas deficiências da CoTeia quanto ao tratamento dos documentos XML gerados e ao próprio mecanismo "wiki" da mesma. Na verdade, a CoTeia tem nessa simplicidade seu ponto forte. Se por um lado ela não dispõe de recursos encontrados em Wikis avançadas, ela atende às necessidades de uma ampla classe de problemas. Por exemplo, atualmente, no ICMC, ela é utilizada, com sucesso, para disponibilizar material de aula nas disciplinas da graduação e pós-graduação. Pequenos projetos de software podem ser mantidos, como no caso da DocRationale e alguns sites mantidos manualmente (como \url{http://www.magsilva.dynalias.net/webTools/CoTeia}).
+
+A partir do momento em que a documentação da CoTeia se tornar mais sólida, é possível mantê-la e desenvolver outras ferramentas que, tendo como base essas experiências, permitem suprir novas necessidades além daquelas atendidas pela CoTeia, como no caso da Wiki/RE \cite{silva:2003}. Somente através desse aprendizado é que o sucesso de futuras ferramentas pode ser alcançado.
+
+
+
+\end{document}
