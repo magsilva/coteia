@@ -71,7 +71,7 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 	$parent_id = $ident;
 	include( "update_wikipage.inc" );
 
-	header("Location:show.php?ident=$ident");
+	header("Location: $URL_COWEB/show.php?ident=$ident");
 } else {
 ?>
 

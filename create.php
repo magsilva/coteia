@@ -152,7 +152,9 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 		include( "update_wikipage.inc" );
 	}
 
-	header("Location:show.php?ident=" . $wikipage_web["ident"] );
+	header("Location: $URL_COWEB/show.php?ident=" . $wikipage_web["ident"] );
+
+
 } else {
 	$wikipage_index = $_REQUEST[ "index" ];
 	if ( get_magic_quotes_gpc() == 1 ) {

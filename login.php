@@ -18,12 +18,12 @@ if ( isset( $_REQUEST[ "login" ] ) {
 
 	if ( $result ) {
 		if ( $token == "1" ) {
-			header( "Location:show.php?ident=$id" ); 
+			header( "Location: $URL_COWEB/show.php?ident=$id" ); 
 			exit;
 		}
 
 		if ( $token == "0" ) {
-			header( "Location:create.php?ident=$id&index=" . rawurlencode( $index ) );
+			header( "Location: $URL_COWEB/create.php?ident=$id&index=" . rawurlencode( $index ) );
 			exit;
 		}
 	} else {
