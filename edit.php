@@ -138,8 +138,9 @@ if ( $salva ) {
 		} else {
 			$passwd = "'" . md5( $passwd ) . "'";
 		}
+		$conteudo_puro = addslashes( $conteudo_puro );
  		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass=$passwd where ident='$ident'";
-		$sql = mysql_query("$query",$dbh) or die ("Falha ao inserir no Banco de Dados");
+		$sql = mysql_query($query,$dbh) or die ("Falha ao inserir no Banco de Dados");
 	} else {
 		// Could not apply the XT, log the error.
 		$st = 2;
