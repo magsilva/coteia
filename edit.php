@@ -21,7 +21,7 @@ mysql_select_db( $dbname, $dbh );
 $id_swiki = extract_swiki_id( $_REQUEST[ "ident" ] );
 if ( $id_swiki == false ) {
 	$st = 0;
-	include( "erro.php" );
+	include( "err.inc" );
 }
 
 // Check if there's a wikipage with the given "ident".
@@ -29,20 +29,17 @@ $wikipage_query = "select * from paginas where ident='" . $_REQUEST[ "ident" ] .
 $wikipage_result = mysql_query( $wikipage_query, $dbh );
 if ( mysql_num_rows( $wikipage_result ) == 0 ) {
 	$st = 0;
-	include("erro.php");
+	include( "err.inc" );
 }
+$wikipage_tuple = mysql_fetch_array( $wikipage_result );
     
 if ( $salva ) {
-	// Retrieve password.
-	while ( $wikipage_tuple = mysql_fetch_array( $wikipage_result ) ) {
-		$password = $wikipage_tuple[ "pass" ];
-	}
-
 	// Check password (if there is one to check against).
+	$password = $wikipage_tuple[ "pass" ];
 	if ( $password != NULL ) {
 		if ( strcasecmp( $password, md5( $_REQUEST[ "password" ]  != 0 ) {
 			$st = 4;
-			include( "erro.php" );
+			include( "err.inc" );
 		}
 	}
 
@@ -75,23 +72,15 @@ if ( $salva ) {
 	$update_wikipage_result = mysql_query( $update_wikipage_query, $dbh );
 	if ( $update_wikipage_result == false ) {
 		$st = 0;
-		include( "erro.php" );
+		include( "err.inc" );
 	}
 	mysql_free_result( $update_wikipage_result );
 
+	$parent_id = $ident;
+	include( "update_wikipage.inc" );
+
 	header("Location:mostra.php?ident=$ident");
 } else {
-	$query = "SELECT titulo,conteudo,kwd1,kwd2,kwd3,autor,pass FROM paginas where ident='" . $ident . "'";
-	$sql = mysql_query($query,$dbh);
-	while ($tupla = mysql_fetch_array($sql)) {
-		$conteudo = $tupla[ "conteudo" ];
-		$kwd1 = $tupla[ "kwd1" ];
-		$kwd2 = $tupla[ "kwd2" ];
-		$kwd3 = $tupla[ "kwd3" ];
-		$autor = $tupla[ "autor" ];
-		$tit = $tupla[ "titulo" ];
-		$senha = $tupla[ "pass" ];
-	}
 ?>
 
 <html>
@@ -139,13 +128,13 @@ include( "toolbar.php" );
 
 <div class="lock">
   Lock
-  <br /><input type="checkbox" name="lock" value="locked" <?php if ( $password != NULL ) echo checked; ?> />
+  <br /><input type="checkbox" name="lock" value="locked" <?php if ( $wikipage_tuple[ "password" != "NULL" ) echo checked; ?> />
 
   <br />Password
   <br /><input type="password" size="10" name="password" onChange="window.document.edit.lock.checked=true;return false;" />
 
 <?php
-	if ( $password == NULL ) {
+	if ( $wikipage_tuple[ "password" ] == "NULL" ) {
 ?>
   <br />Re-enter password
   <br /><input type="password" size="10" name="repassword" onChange="window.document.edit.lock.checked=true;return false;" />
@@ -156,10 +145,10 @@ include( "toolbar.php" );
 
 <br />
 <div class="content" >
-	<input type="reset" value="Limpa" onClick="return confirm('Are you sure? This will restore the original text\n(in another words, you will lose every change made to the text)')"; />
+	<input type="reset" value="Limpar" onClick="return confirm('Are you sure? This will restore the original text\n(in another words, you will lose every change made to the text)')"; />
 	<input type="submit" name="save" value="Salvar" />
 	<br />
-	<textarea name="cria_conteudo" wrap=virtual rows="20" cols="100" style="width: 100%"><?php echo $wikipage_tuple{ "conteudo" ]; ?></textarea>
+	<textarea name="cria_conteudo" wrap=virtual rows="20" cols="100" style="width: 100%"><?php echo $wikipage_tuple[ "conteudo" ]; ?></textarea>
 </div>
 <input type="hidden" name="ident" value="<?php echo $wikipage_tuple[ "ident" ]; ?>" />
 </form>
