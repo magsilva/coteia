@@ -25,7 +25,7 @@ function replace_vars( $squema ) {
 	$sql_squema .= "END;\n";
 	eval( $sql_squema );
 
-	$sql_squema_file = fopen( $squema . ".sql", "w" );
+	$sql_squema_file = fopen( str_replace( ".raw", "" , $squema ), "w" );
 	fwrite( $sql_squema_file, $translated_squema );
 	fclose( $sql_squema_file );
 }
