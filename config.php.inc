@@ -54,7 +54,8 @@ $CVS_REPOSITORY = "";
 $CVS_MODULE = "";
 $CVS_USERNAME = "";
 $CVS_PASSWORD = "";
-$CVS_PASSFILE = $PATH_COWEB . "/.cvspass"; // Esta variável geralmente não precisa ser reconfigurada.
+$CVS_CHECKOUT_DIR = $PATH_COWEB . "/repository"; // Esta variável geralmente não precisa ser reconfigurada.
+$CVS_PASSFILE = $CVS_CHECKOUT_DIR . "/.cvspass"; // Esta variável geralmente não precisa ser reconfigurada.
 
 /**
 * Host em que está hospedada a CoTeia.

@@ -60,6 +60,7 @@ setup_dir( $PATH_XML );
 setup_dir( $PATH_XHTML );
 setup_dir( $PATH_UPLOAD );
 setup_dir( $PATH_ARQUIVOS );
+setup_dir( $CVS_CHECKOUT_DIR );
 echo "Ok";
 
 echo "\nSetting files permissions...";
