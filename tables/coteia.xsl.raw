@@ -13,6 +13,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 	<meta name ="Author" content="{aut}"/>
 	<meta name ="Keywords" content="{kwd1},{kwd2},{kwd3}"/>
+	<link href="coteia.css" rel="stylesheet" type="text/css" />
 	<script language="JavaScript">
 	function abre(name_file,swiki) {
 		window.open('$URL_COWEB/checkout.php?arq='+name_file+'&amp;swiki='+swiki,'janelachk','toolbar=no,directories=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=500,height=430');
