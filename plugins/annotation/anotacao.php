@@ -10,7 +10,7 @@
 <body>
 
 <?php
-include_once("function.inc");
+require_once("annotation-api.inc");
 include_once("arvore_anotacoes.php");
 
 if ( $mostra == "true" ) {

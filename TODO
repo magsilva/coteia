@@ -8,5 +8,4 @@ Alterar o código, removendo a necessidade de uso de "register_globals = on".
 ====
 Mudar as variáveis globais para constantes.
 Retirar código redundante de admin/
-Alterar a chamada xml_xsl para receber os parâmetros a serem aplicados via uma array associativa.
 Colocar os arquivos enviados (upload) e xml em controle de versão.

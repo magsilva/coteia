@@ -2,9 +2,6 @@
 
 include_once( "config.php.inc" );
 
-require_once( "annotation-api.inc" );
-
-
 /*
  * NOME:		db_connect
  * DESCRICAO:		Realiza a conexao com o DBMS MySQL

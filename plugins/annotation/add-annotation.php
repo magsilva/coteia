@@ -10,7 +10,7 @@
 <body>
 
 <?php
-include_once("function.inc");  
+include_once("annotation-api.inc");  
 
 function msg($str){
 	echo '<center><b>$str</b><br/><a href="javascript:history.back()">Voltar</a></center>';

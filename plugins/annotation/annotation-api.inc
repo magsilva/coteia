@@ -1,5 +1,7 @@
 <?php
 
+require_once( "../../function.inc" );
+
 /*
  * NOME:		anota_db_pconnect
  * DESCRICAO:		Realiza a conexao da anotacao com o DBMS MySQL 
