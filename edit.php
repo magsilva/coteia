@@ -182,13 +182,13 @@ include( "toolbar.php" );
   <br /><input type="checkbox" name="lock" value="locked" <?php if ( $senha != NULL ) echo checked; ?> />
 
   <br />Password
-  <br /><input type="password" size="10" name="passwd" onChange="form.edit.lock.checked=true;return false;" />
+  <br /><input type="password" size="10" name="passwd" onChange="window.document.edit.lock.checked=true;return false;" />
 
 <?php
 	if ( $senha == NULL ) {
 ?>
   <br />Re-enter password
-  <br /><input type="password" size="10" name="repasswd" onChange="form.edit.lock.checked=true;return false;" />
+  <br /><input type="password" size="10" name="repasswd" onChange="window.document.edit.lock.checked=true;return false;" />
 <?php
 	}
 ?>
