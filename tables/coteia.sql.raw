@@ -7,22 +7,12 @@ CREATE DATABASE $dbname;
 
 USE $dbname;
 
-CREATE TABLE admin (
+CREATE TABLE users (
 	id int not null auto_increment,
-	nome varchar(100),
-	email varchar(25),
-	login varchar(20) not null,
+	fullname text,
+	email text,
+	loginname text not null,
 	pass text,
-	primary key (id)
-);
-
-CREATE TABLE sessions (
-	id int(10) not null auto_increment, 
-	sess_key varchar(6) not null,
-	val varchar(250) not null,
-	ip varchar(35) not null,
-	sec_expire varchar(50),
-	access int(25) not null default '0',
 	primary key (id)
 );
 

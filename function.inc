@@ -23,125 +23,145 @@ function coteia_connect()
 }
 
 /*
-*	Authenticate the administrator and sets session variable.
-*/
-function autentica( $username, $password )
-{
-	$db_handler = coteia_connect();
-
-
-	$query = "select login,email from admin where login='$username' AND pass=md5('$password')";
-	$result = mysql_query( $query );
-
-	if ( mysql_num_rows( $query ) == 0 ) {
-		return false;
-	}
-	
-  $tuple = mysql_fetch_array( $result ); 
-	$valid_user = $result[ "login" ];
-	$valid_email = $result[ "email" ];
-
-	session_start();
-	session_register( "valid_user", "valid_email" );
-	return true;
-}               
-
-/*
 * Authenticate a user into a given swiki.
+* Wikipage 0 (zero) is special, is the admin "wikipage".
 */
-function login_swiki( $username, $password, $swiki_id )
+function coteia_login( $username, $password, $wikipage )
 {
 	$db_handler = coteia_connect();
+	@session_start();
 
-	// SQL que verifica se o usuário está cadastrado
-	$query  = "select id,username from swiki where id='$id' and username='$usuario' and password=md5('$passwd')";
-	$result = mysql_query( $query );
-
-	// Verifica se o usuário é valido
-	if ( mysql_num_rows( $result ) == 0 ) {
-		return false;
+	// Authenticate the user (if needed).
+	if ( ! $_SESSION[ "authenticated" ] ) {
+		$auth_query  = "select id from users where username='$username' and password=md5('$password')";
+		$auth_result = mysql_query( $auth_query );
+		if ( mysql_num_rows( $auth_result ) == 0 ) {
+			return false;
+		}
+		$auth_tuple = mysql_fetch_array( $auth_result );
+		$_SESSION[ "authenticated" ] = true;
+		$_SESSION[ "user_id" ] = $tuple[ "id" ];
+		mysql_free_result( $auth_result );
 	}
 
-	$tuple = mysql_fetch_array( $result );
-	$valid_userid = $result["id"];
-	$valid_username = $result["username"];
+	$role_query = "select role from roles where userid='" . $_SESSION[ "user_id" ] . "' and wikipage='$wikipage'";
+	$role_result = mysql_query( $role_query );
+	// If no specific role was assigned, enter as "guest".
+	if ( mysql_num_rows( $role_result ) == 0 ) {
+		$_SESSION[ "role" ] = "guest";
+	} else {
+		$role_tuple = mysql_fetch_array( $role_result );
+		$_SESSION[ "role" ] = $role_tuple[ "role" ]
+	}
+	mysql_free_result( $role_result );
 
-	session_start( "login" );
-	session_name();
-	session_destroy();
-	session_register( "valid_userid", "valid_username" );
 	return true;
 }
 
 /*
- * NOME:		verifica_session
- * DESCRICAO:		Verifica se as variaveis de sessao estao ativas
- * PAR. ENTRADA:	--
- * PAR. SAIDA:		--
- * RETORNO:		Continua em caso de sucesso, Msg de erro e saida do script em caso de erro
- * OBSERVACOES:		
- */
-function verifica_session() {
-	session_start();
-
-	if (!(session_is_registered("usuario") AND session_is_registered("usermail"))) {
-		show_error( 0 );
-	}
+* Logout an user from CoTeia.
+*/
+function logout()
+{
+	session_commit();
+	session_unset();
+	session_destroy()
 }
 
 /*
- * NOME:		logout
- * DESCRICAO:		destroi variaveis de sessao
- * PAR. ENTRADA:	--
- * PAR. SAIDA:		--
- * RETORNO:		--
- * OBSERVACOES:
- */
-function logout() {
+* Replace special chars by their respective HTML entity.
+*/
+function replace_chars( $text ) {
+  $inside_tag = false;
 
-session_start();
-session_unregister("usuario");
-session_unregister("usermail");
+	$new_text = "";
+  for ( $i = 0; $i < strlen( $text ); $i++ ) {
+    // Detects the possible start of a tag.
+    if ( $inside_tag == false && $text[ $i ] == "<" ) {
+      // Check if it's a element's start tag or tag of empty element or if it's an end tag.
+      if ( strlen( trim( $text{ $i + 1 } ) ) || $text{ $i + 1 } == "/" ) {
+        $inside_tag = true;
+				$new_text = $new_text . $text{ $i };
+				continue;
+      }
+    }
+    // Detects the possible end of a tag.
+    if ( $inside_tag == true && $text{ $i } == ">" ) {
+      $inside_tag = false;
+			$new_text = $new_text . $text{ $i };
+			continue;
+    }
 
+    // Replace chars.
+    if ( ! $inside_tag ) {
+      $new_text = $new_text . htmlspecialchars( $text{ $i } );
+    } else {
+			$new_text = $new_text . $text{ $i };
+		}
+  }
+  return $new_text;
 }
 
 /*
- * NOME:		replace
- * DESCRICAO:	Converte tags para minusculo(XHTML) e converte caracteres especias em entidades HTML.
- * PAR. ENTRADA: texto
- * PAR. SAIDA: texto traduzido em entidades e XHTML
- */
+* Replace special chars by their respective HTML entity.
+*/
 function replace_html_entities( $text ) {
-// TODO: Alterar apenas os cdata, não as tags.
-	$replace_vars = array(
-//		"&" => "&amp;",
-//		"`" => "'",
-//		"\"" => "&quot;",
-//		"<" => "&lt;",
-//		">" => "&gt;"
-	);
+  $inside_tag = false;
 
+  $new_text = "";
+  $cdata = "";
+  for ( $i = 0; $i < strlen( $text ); $i++ ) {
+    // Detects the possible start of a tag.
+    if ( $inside_tag == false && $text[ $i ] == "<" ) {
+      // Check if it's a element's start tag or tag of empty element or if it's an end tag.
+      if ( strlen( trim( $text{ $i + 1 } ) ) || $text{ $i + 1 } == "/" ) {
+        $inside_tag = true;
+        $new_text = $new_text . html_entity_decode( $cdata ) . $text{ $i };
+        $cdata = "";
+        continue;
+      }
+    }
+    // Detects the possible end of a tag.
+    if ( $inside_tag == true && $text{ $i } == ">" ) {
+      $inside_tag = false;
+      $new_text = $new_text . $text{ $i };
+      continue;
+    }
 
-	foreach ( $replace_vars as $i => $value ) {
-		$text = eregi_replace( $i, $value, $text );
-	}
-	return $text;
+    // Replace chars.
+    if ( ! $inside_tag ) {
+      $cdata = $cdata . $text{ $i };
+    } else {
+      $new_text = $new_text . $text{ $i };
+    }
+  }
+  $new_text = $new_text . html_entity_decode( $cdata );
+  return $new_text;
 }
 
 /**
 * Prepare the data for database's processing.
 */
 function prepare_for_db( $index, $content, $title, $author, $keyword ) {
-	$data = prepare_for_web( $index, $content, $title, $author, $keyword );
-
-
-	for ( $i = 0; $i < count( $keyword ); $i++ ) {
-		$data[ "keyword" . $i ] = mysql_escape_string( $data[ "keyword" . $i ] );
+	/ Strip slashes if magic_quotes_gpc (auto adding slashes) is active.
+	if ( get_magic_quotes_gpc() == 1 ) {
+		$index = stripslashes( $index );
+		$content = stripslashes( $content );
+		$title = stripslashes( $title );
+		$author = stripslashes( $author );
+		for ( $i = 0; $i < count( $keyword ); $i++ ) {
+			$keyword[ $i ] = stripslashes( $keyword[ $i ] );
+		}
 	}
-	$data[ "content" ] = mysql_escape_string( $data[ "content" ] );
-	$data[ "title" ] = mysql_escape_string( $data[ "title" ] );
-	$data[ "author" ] = mysql_escape_string( $data[ "author" ] );
-	
+
+	$data[ "index" ] = mysql_escape_string( trim( $index ) );
+  $data[ "content" ] = mysql_escape_string( trim( $content ) );
+  $data[ "title" ] = mysql_escape_string( trim( $title ) );
+  $data[ "author" ] = mysql_escape_string( trim( $author ) );
+  for ( $i = 0; $i < count( $keyword ); $i++ ) {
+    $data[ "keyword" . $i ] = mysql_escape_string( trim( $keyword[ $i ] ) );
+  }
+
 	return $data;
 }
 
@@ -160,12 +180,12 @@ function prepare_for_web( $index, $content, $title, $author, $keyword ) {
 		}
 	}
 
-	$data[ "index" ] = replace_html_entities( trim( $index ) );
-	$data[ "title" ] = replace_html_entities( trim( $title ) );
-	$data[ "author" ] = replace_html_entities( trim( $author ) );
-	$data[ "content" ] = replace_html_entities( trim( $content ) );
+	$data[ "index" ] = replace_chars( trim( $index ) );
+	$data[ "title" ] = replace_chars( trim( $title ) );
+	$data[ "author" ] = replace_chars( trim( $author ) );
+	$data[ "content" ] = replace_chars( trim( $content ) );
 	for ( $i = 0; $i < count( $keyword ); $i++ ) {
-		$data[ "keyword" . $i ] = replace_html_entities( trim( $keyword[ $i ] ) );
+		$data[ "keyword" . $i ] = replace_chars( trim( $keyword[ $i ] ) );
 	}
 
 	return $data;

@@ -71,7 +71,10 @@ $ADMIN_PASSWORD = "";
 */
 $PATH_JAVA = "";
 
-
+/**
+* Default role.
+*/
+$DEFAULT_ROLE = "guest";
 
 /****************************************************************************/
 /* Parâmetros que geralmente dispensam alteração                            */
