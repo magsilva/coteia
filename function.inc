@@ -976,11 +976,11 @@ session_unregister("usermail");
  */
 function replace( $text ) {
 	$replace_vars = array(
+		"&" => "&amp;",
 		"`" => "'",
 		"\"" => "&quot;",
 		"<" => "&lt;",
-		">" => "&gt;",
-		"&" => ""
+		">" => "&gt;"
 	);
 
 	foreach ( $replace_vars as $i => $value ) {
