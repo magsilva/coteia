@@ -1,6 +1,7 @@
 <?php
-include_once("function.inc");
-include_once("cvs/function_cvs.inc");
+clearstatcache();
+include_once("./function.inc");
+include_once("./cvs/function_cvs.inc");
 
 // Evita ; para concatenacao de comandos SQL
 if ( (!isset($ident)) or (stristr($ident,";") ) ) {
@@ -11,7 +12,6 @@ if ( (!isset($ident)) or (stristr($ident,";") ) ) {
 
 $dbh = db_connect();
 mysql_select_db($dbname,$dbh);
-  
 if ($salva) {
 	// Encontra id_swiki
 	if (stristr($ident,".")) {
@@ -22,8 +22,7 @@ if ($salva) {
 	}
 
 	$query =  "select indexador from paginas where ((indexador='$indexador') and ((ident like '$id_swiki.%')  or (ident='$id_swiki')))";
-	$result = mysql_query($query,$dbh);
-
+	$result = mysql_query($query, $dbh);
 	while ($tupla = mysql_fetch_array($result)) {
 		if (!strcmp(trim($indexador),trim($tupla["indexador"]))) {
 			$st = 3;
@@ -35,8 +34,11 @@ if ($salva) {
 	$k[2] = $key2;
 	$k[3] = $key3;
 
+	if (!$anexo)
+		$anexo = 'N';
+
 	$coweb_tratamento = tratamento($indexador,$cria_conteudo,$titulo,$cria_autor,$k);
-	
+
 	$indexador = $coweb_tratamento["index"];
 	$conteudo = trim($coweb_tratamento["content"]);
 	$titulo = trim($coweb_tratamento["title"]);
@@ -44,7 +46,7 @@ if ($salva) {
 	$keyword[1] = trim($coweb_tratamento["key1"]);
 	$keyword[2] = trim($coweb_tratamento["key2"]);
 	$keyword[3] = trim($coweb_tratamento["key3"]);
-		
+
 	if (stristr($conteudo,"<note/>")) {
 		$conteudo = note($conteudo);
 	}
@@ -76,7 +78,7 @@ if ($salva) {
 	} else {
 		$flag_lock = 0;
 	}
-	
+
 	$path_xml = $PATH_XML;
 	$arq_xsl = $PATH_XSL;
 	$path_html = $PATH_XHTML;
@@ -93,7 +95,7 @@ if ($salva) {
 	$body = "bdy";
 
 	$query_extra = mysql_query("select id_ann,id_chat,id_eclass from swiki where id='$id_swiki'");
- 	$result = mysql_fetch_array($query_extra); 
+ 	$result = mysql_fetch_array($query_extra);
  	$annotation = "<ann_folder>$result[id_ann]</ann_folder>";
  	$chat = "<chat_folder>$result[id_chat]</chat_folder>";
 	$eclass = "<id_eclass>$result[id_eclass]</id_eclass>";
@@ -119,7 +121,7 @@ if ($salva) {
 		$keyword[ 2 ] = addslashes( $keyword[ 2 ] );
 		$keyword[ 3 ] = addslashes( $keyword[ 3 ] );
 		$autor = addslashes( $autor );
-		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip, data_criacao,data_ultversao,pass, kwd1, kwd2, kwd3,autor) values ('$ident','$indexador','$titulo','$conteudo_puro','$nro_ip','$data','$data',$passwd,'$keyword[1]','$keyword[2]','$keyword[3]','$autor')";
+		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip, data_criacao,data_ultversao,pass, kwd1, kwd2, kwd3,autor,anexo) values ('$ident','$indexador','$titulo','$conteudo_puro','$nro_ip','$data','$data',$passwd,'$keyword[1]','$keyword[2]','$keyword[3]','$autor','$anexo')";
 		$sql = mysql_query($query,$dbh) or die ("Falha ao inserir no Banco de Dados");
 
  		$query = "insert into gets (id_pag,id_sw,data) values ('$ident','$id_swiki','$data')" or die ("Falha ao inserir no Banco de Dados");
@@ -188,6 +190,13 @@ include( "toolbar.php" );
 		<input type="text" name="key1" size="15" />
 		<input type="text" name="key2" size="15" />
 		<input type="text" name="key3" size="15" />
+	</td>
+</tr>
+<tr>
+	<td>
+		Anexo
+		<br />
+		<input type="checkbox" name="anexo" value="S" checked>
 	</td>
 </tr>
 </table>

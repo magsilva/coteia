@@ -22,6 +22,15 @@ if ( isset( $parametro ) ) {
 	mysql_select_db($dbname,$dbh);
 
 	if ( $parametro == "1" ) {
+		
+		$query = "select alias from swiki where (alias='$alias')";
+                $sql = mysql_query($query, $dbh);
+                if (mysql_num_rows($sql)!= 0) {
+			$erro=2;
+			include("addswiki.php");
+			exit;
+		}
+			
 		$d = getdate();
 		$data = $d["year"] . "-" . $d["mon"] . "-" . $d["mday"] . " " . $d["hours"] . ":" . $d["minutes"] . ":" . $d["seconds"];
 		//-obtem sessao de chat-
@@ -38,7 +47,7 @@ if ( isset( $parametro ) ) {
 		$folder_id = create_folder( $new_swiki, 0, 14, 9, 255 );
 		// fim [pasta de anotacao] 
 
-		$query = "insert into swiki (id,status,visivel,titulo,log_adm,admin,admin_mail,data,annotation_login,id_chat,id_ann,semestre,id_eclass) values (NULL,'$status','$vis','$new_swiki','$sess_val','$admin','$admail','$data','$ann_log','$session_id','$folder_id','$sem','$eclass')" or die ("Falha ao inserir no Banco de Dados");
+		$query = "insert into swiki (id,status,visivel,titulo,log_adm,admin,admin_mail,data,annotation_login,id_chat,id_ann,semestre,id_eclass,alias) values (NULL,'$status','$vis','$new_swiki','$sess_val','$admin','$admail','$data','$ann_log','$session_id','$folder_id','$sem','$eclass','$alias')" or die ("Falha ao inserir no Banco de Dados");
 		$sql = mysql_query($query,$dbh);
 
 		if (mysql_affected_rows($dbh) > 0) {
@@ -54,18 +63,37 @@ if ( isset( $parametro ) ) {
 		$oldumask = umask( 0 );
 		mkdir( $PATH_UPLOAD . "/" . $id, 0777);
 		umask( $oldumask );
-		
-		header("Location:addswiki.php");
+
+		if ($alias != "") {
+			// Cria diretorio para o alias
+			$oldumask = umask( 0 );
+			mkdir( $PATH_COWEB . "/" . $alias, 0777);
+			umask( $oldumask);
+			$arquivo = fopen( $PATH_COWEB . "/$alias/index.html", "w");
+			$instrucoes =  "<html>
+<title>CoTeia</title>
+<head>
+<META HTTP-EQUIV=\"Refresh\" Content=\"0; URL=$URL_COWEB/mostra.php?ident=$id\">
+</head>
+<body></body>
+</html>";
+			fwrite($arquivo, $instrucoes );
+			fclose($arquivo);			
+		}	
+			$erro = 1;
+			include("addswiki.php");
+			exit;
 	} else if ( $parametro == "2" ) {
-		$query_chat_ann = "select id_chat, id_ann from swiki where (id='$remove')";
+		$query_chat_ann = "select id_chat, id_ann, alias from swiki where (id='$remove')";
 		$sql_chat_ann = mysql_query("$query_chat_ann");
 		$tupla_chat_ann = mysql_fetch_array($sql_chat_ann);
-		
+		if ($tupla_chat_ann[alias] != "") {
+			unlink( $PATH_COWEB . "/" . $tupla_chat_ann[alias] . "/index.html");
+			rmdir( $PATH_COWEB . "/" . $tupla_chat_ann[alias]);
+		}
 		$query = "delete from swiki where (id='$remove')" or die ("Falha ao inserir no Banco de Dados");
 		$sql = mysql_query($query,$dbh);
-		
-		$query = "delete from tem where (id_sw='$remove')" or die ("Falha ao inserir no Banco de Dados");
-		$sql = mysql_query($query,$dbh);
+			
 		
 		//pegar id_sw e achar id_pag para deletar paginas
 		
@@ -81,12 +109,33 @@ if ( isset( $parametro ) ) {
 		//-obtem id da pasta de anotacao
 		$delete_id = delete_folder($tupla_chat_ann["id_ann"], 14, 9);
 		//-fim [pasta de anotacao]
-		header("Location:delswiki.php"); 
+		$erro = 3;
+		include("delswiki.php");
+		exit; 
 	} else if ( $parametro == "3" ) {
+		
+		$query = "SELECT alias FROM swiki where ((alias='$alias') && (id!='$atualiza'))";
+		$sql = mysql_query($query, $dbh);
+		if (mysql_num_rows($sql)!=0){
+			$erro = 2;
+			include("atualiza_swiki.php");
+			exit;
+		}
+
+		$query = "SELECT alias FROM swiki where (id='$atualiza')";
+		$sql = mysql_query($query, $dbh);
+		$tupla = mysql_fetch_array($sql);
+		if ($alias != $tupla[alias]) {
+			if ($alias != "") {
+        		        rename( $PATH_COWEB . "/" . $tupla[alias], $PATH_COWEB . "/" . $alias);
+			}
+
+		}
+
 		if ($passwd == "") {
-			$query = "update swiki set titulo='$new_swiki',admin='$admin',admin_mail='$admail',username='$usuario',password=NULL,status='$status',visivel='$vis',semestre='$sem',id_eclass='$eclass',annotation_login='$ann_log' where (id='$atualiza')" or die ("Falha ao inserir no Banco de Dados");
+			$query = "update swiki set titulo='$new_swiki',admin='$admin',admin_mail='$admail',username='$usuario',password=NULL,status='$status',visivel='$vis',semestre='$sem',id_eclass='$eclass',annotation_login='$ann_log', alias='$alias' where (id='$atualiza')" or die ("Falha ao inserir no Banco de Dados");
 		} else {
-			$query = "update swiki set titulo='$new_swiki',admin='$admin',admin_mail='$admail',username='$usuario',password=md5('$passwd'),status='$status',visivel='$vis',semestre='$sem',id_eclass='$eclass',annotation_login='$ann_log' where (id='$atualiza')" or die ("Falha ao inserir no Banco de Dados");
+			$query = "update swiki set titulo='$new_swiki',admin='$admin',admin_mail='$admail',username='$usuario',password=md5('$passwd'),status='$status',visivel='$vis',semestre='$sem',id_eclass='$eclass',annotation_login='$ann_log', alias='$alias' where (id='$atualiza')" or die ("Falha ao inserir no Banco de Dados");
 		}
 
 		$sql = mysql_query($query,$dbh);
@@ -96,7 +145,7 @@ if ( isset( $parametro ) ) {
 		$tupla_ann = mysql_fetch_array($sql_ann);
 
 		//-obtem id da pasta de anotacao-	
-        $folder_name = set_folder_name(14,9,$tupla_ann["id_ann"],$tupla_ann["titulo"]);
+        	$folder_name = set_folder_name(14,9,$tupla_ann["id_ann"],$tupla_ann["titulo"]);
 		//-fim [pasta de anotacao]
 
 		header("Location:setswiki.php");

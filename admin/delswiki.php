@@ -23,9 +23,14 @@ function ValidaForm()
 </script>
 <?
         include("header.php");
+	if ($erro == 3)
+		$mensagem = "Swiki removida com sucesso!";
 ?>
 <center>
 <form method="post" action="function.php" name="formadmin" onSubmit="return ValidaForm();">
+<FONT SIZE=+1 COLOR="#AAOOOO">
+<? echo $mensagem; ?>	
+</FONT>
 <table border="1" cellspacing="0" cellpadding="5" class="box-table">
     <tr>
     <td valign="middle" colspan="2" class="table-header">Remover Swiki</td>

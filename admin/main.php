@@ -21,6 +21,7 @@
     <a href="addswiki.php">Incluir Nova Swiki</a><br>
     <a href="delswiki.php">Remover Swiki</a><br>
     <a href="useradmin.php">Usu&aacute;rios</a><br>
+    <a href="./index_coweb.php">Coweb do Administrador</a><br>
     <a href="erros.php">Verificar Erros</a><br>
     <a href="logout.php">Logout</a><br>
     </td>

@@ -27,7 +27,12 @@ if ($status == '1') {
 }
 
 $sucesso = @include("$PATH_ARQUIVOS/$ident.html"); 
-
+if ($sucesso){
+	$sql2 = mysql_query("SELECT anexo FROM paginas WHERE ident='$ident'");
+	$tupla2 = mysql_fetch_array($sql2);
+	if ($tupla2[ "anexo" ] == 'S')
+		include("add.php");
+}
 if (!$sucesso) {
 ?>
 

@@ -43,6 +43,9 @@ if ( $salva ) {
 	$k[2] = $key2;
 	$k[3] = $key3;
 	
+	if (!$anexo)
+		$anexo = 'N';
+	
 	$coweb_tratamento = tratamento(0,$cria_conteudo,$titulo,$cria_autor,$k);
 		
 	$conteudo = trim($coweb_tratamento["content"]);
@@ -145,7 +148,7 @@ if ( $salva ) {
 		$keyword[ 2 ] = addslashes( $keyword[ 2 ] );
 		$keyword[ 3 ] = addslashes( $keyword[ 3 ] );
 		$autor = addslashes( $autor );
- 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass=$passwd where ident='$ident'";
+ 		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass=$passwd,anexo='$anexo' where ident='$ident'";
 		$sql = mysql_query($query,$dbh) or die ("Falha ao inserir no Banco de Dados");
 	} else {
 		// Could not apply the XT, log the error.
@@ -155,7 +158,7 @@ if ( $salva ) {
 	}
 	header("Location:mostra.php?ident=$ident");
 } else {
-	$query = "SELECT titulo,conteudo,kwd1,kwd2,kwd3,autor,pass FROM paginas where ident='" . $ident . "'";
+	$query = "SELECT titulo,conteudo,kwd1,kwd2,kwd3,autor,pass,anexo FROM paginas where ident='" . $ident . "'";
 	$sql = mysql_query($query,$dbh);
 	while ($tupla = mysql_fetch_array($sql)) {
 		$conteudo = $tupla[ "conteudo" ];
@@ -165,6 +168,7 @@ if ( $salva ) {
 		$autor = $tupla[ "autor" ];
 		$tit = $tupla[ "titulo" ];
 		$senha = $tupla[ "pass" ];
+		$add = $tupla[ "anexo" ];
 	}
 ?>
 
@@ -201,11 +205,19 @@ include( "toolbar.php" );
 </tr>
 <tr>
 	<td>
-	Palavras-chave:
+	Palavras-chave
 	<br />
 	<input type="text" name="key1" size="15" value="<?php echo $kwd1; ?>" />
 	<input type="text" name="key2" size="15" value="<?php echo $kwd2; ?>" />
 	<input type="text" name="key3" size="15" value="<?php echo $kwd3; ?>" />
+	</td>
+</tr>
+<tr>
+	<td>
+	Anexo
+	<br /><input type="checkbox" name="anexo" value="S" 
+	<?php if ($add == 'S')
+		echo " checked"; ?>>
 	</td>
 </tr>
 </table>

@@ -25,6 +25,8 @@ function verifica_campos(admin) {
 </script>
 
 <form name="form_admin" method="post" action="autentica.php" onSubmit="return verifica_campos(document.form_admin);">
+<br />
+<br />
 	<div align="center">
 	<table border="1" cellspacing="0" cellpadding="2" class="box-table">
 	<tr>

@@ -42,7 +42,8 @@ CREATE TABLE swiki (
 	id_chat int,
 	id_ann int,
 	id_eclass int default 0,
-	primary key (id)
+	primary key (id),
+	alias varchar(80)
 );
 
 CREATE TABLE gets (
@@ -65,7 +66,8 @@ CREATE TABLE paginas (
 	kwd2 varchar(30),
 	kwd3 varchar(30),
 	autor text,
-	primary key (ident)
+	primary key (ident),
+	anexo enum('S','N') default 'S'
 );
 
 insert into admin values (NULL, 'admin' , '$ADMIN_MAIL' ,'admin', MD5('$ADMIN_PASSWORD'));
