@@ -6,7 +6,7 @@ $dbh = db_connect();
 mysql_select_db( $dbname, $dbh );
   
 if ( isset( $_REQUEST[ "save" ] ) ) {
-	$id_swiki = extract_swiki_id( $ident );
+	$id_swiki = extract_swiki_id( $_REQUEST[ "ident" ] );
 	if ( $id_swiki == false ) {
 		$st = 0;
 		include( "erro.php" );
@@ -70,6 +70,7 @@ if ( isset( $_REQUEST[ "save" ] ) ) {
 	}
 
 	$wikipage_web[ "id_swiki" ] = $id_swiki;
+	$wikipage_web[ "ident" ] = $_REQUEST[ "ident" ];
 	
 	$path_xml = $PATH_XML;
 	$arq_xsl = $PATH_XSL;
