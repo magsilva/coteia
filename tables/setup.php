@@ -40,13 +40,17 @@ function setup_dir( $dir ) {
 }
 
 function login_cvs() {
-  global $PATH_COWEB, $CVS_USERNAME, $CVS_HOST, $CVS_REPOSITORY, $CVS_PASSWORD, $CVS_PASSFILE;
+	global $PATH_COWEB, $CVS_USERNAME, $CVS_HOST, $CVS_REPOSITORY, $CVS_PASSWORD, $CVS_PASSFILE;
 
-  $pass_file = fopen( $CVS_PASSFILE, "w" );
-  fwrite( $pass_file, ":pserver:".$CVS_USERNAME."@".$CVS_HOST.":".$CVS_REPOSITORY );
-  fwrite( $pass_file, " " );
-  fwrite( $pass_file, scramble( $CVS_PASSWORD ) );
-  fclose( $pass_file );
+	$pass_file = fopen( $CVS_PASSFILE, "w" );
+	fwrite( $pass_file, ":pserver:".$CVS_USERNAME."@".$CVS_HOST.":".$CVS_REPOSITORY );
+	fwrite( $pass_file, " " );
+	fwrite( $pass_file, scramble( $CVS_PASSWORD ) );
+	fclose( $pass_file );
+
+	$htaccess_file = fopen( $PATH_COWEB . "/.htaccess", "w" );
+	fwrite( $htaccess_file, "<FilesMatch \\" . basename( $CVS_PASSFILE ) . "\$>\n\tDeny from all\n</FilesMatch>" );
+	fclose( $htaccess_file );
 }
 
 echo "\nSettings directories permissions...";
