@@ -204,8 +204,7 @@ function arq( $id, $xml_document, $path_xml, $path_xsl, $path_html )
 	fputs( $fp, $xml_document );
 	fclose( $fp );
 
-	// Uso do XT = [path_java] -classpath [classpath_xt] com.jclark.xsl.sax.Driver [xml] [xsl] [html]
-	$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver  com.jclark.xsl.sax.Driver $arq_xml $path_xsl $path_html/$id.html 2>&1";
+	$cmd_line = "$PATH_JAVA org.apache.xalan.xslt.Process -in $arq_xml -xsl $path_xsl -out path_html/$id.html 2>&1";
 	exec( $cmd_line, $var_array, $status );
 	if ( empty( $var_array ) ) {
 		return true;
