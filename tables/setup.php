@@ -4,7 +4,6 @@ include_once( "../config.php.inc" );
 include_once( "cvs_util.php.inc" );
 
 function recursive_chmod( $path2dir, $mode ) {
-	echo $path2dir;
 	$dir = dir( $path2dir );
 	while( ( $file = $dir->read() ) !== false ) {
 		$full_file = $dir->path . "/" . $file;
@@ -91,7 +90,7 @@ CREATE TABLE swiki (
 	admin varchar(40),
 	admin_mail varchar(60),
 	data datetime,
-	annotation_login enum('S','N') default 'N' 
+	annotation_login enum('S','N') default 'N',
 	id_chat int,
 	id_ann int,
 	id_eclass int default 0,
