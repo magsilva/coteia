@@ -18,11 +18,10 @@ if ($retorno) {
 	if ($token== '1')  {
 		header("Location:ok.php?id=$id"); //Redireciona para a interface inicial
 		exit;
-	}	else {
-			if ($token == '0') {
-				header("Location:login_create.php?id=$id&index=$index");
-				exit;
-			}
+	} else {
+		if ($token == '0') {
+			header("Location:login_create.php?id=$id&index=$index");
+			exit;
 		}
 	}
 }
