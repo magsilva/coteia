@@ -13,11 +13,7 @@
 include_once( dirname(__FILE__) . "/setup.php.inc" );
 
 
-// Run the setup.php found at each plugin's directory.
-
-
 set_error_handler( "console_error_handler" );
-
 
 echo "\nSettings directories permissions...";
 printf( "\nThe current umask is %o", umask() );
@@ -69,6 +65,8 @@ if ( $DEFAULT_GROUP !== "" ) {
 	recursive_chown( $PATH_COWEB, -1, $DEFAULT_GROUP );
 	echo "\nOk\n";
 }
+
+// Run the setup.php found at each plugin's directory.
 
 
 ?>
