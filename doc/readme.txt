@@ -17,6 +17,7 @@ a diretiva "register_globals".
 - Modifique o arquivo "config.php.inc" da CoTeia, configurando as variáveis aplicáveis. Existe um exemplo em "doc/config.php.inc.eg".
 - Execute o script "tables/setup.php".
 - Execute os esquemas SQL gerados no diretório "tables/" (arquivos com extensão ".sql"). Observe que alguns dos banco de dados utilizados, em especial o de base de usuários compartilhada e cursos do eClass, podem estar disponibilizados na rede. Nesse caso, não é necessário executar os scripts para criar as respectivas bases de dados.
+- Copie o conteúdo do arquivo "tables/htaccess" para o arquivo de configuração do servidor Apache.
 - Tenha certeza de que existe um módulo no repositório CVS conforme especificado no "config.php.inc". O mesmo vale para o usuário, sua senha e permissões.
 
 Sobre o serviço de chat:
