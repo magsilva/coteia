@@ -24,7 +24,6 @@ if (mysql_num_rows($sql) == '0') {
 	include("erro.php");
 	exit();
 }
-
     
 if ( $salva ) {
 	// Retrieve password.
@@ -34,7 +33,7 @@ if ( $salva ) {
 
 	// Check password (if there is one to check against).
 	if ( $senha != NULL ) {
-		if ( (strcasecmp( $senha, md5( $passwd ) ) ) != "0" ) {
+		if ( ( strcasecmp( $senha, md5( $passwd ) ) ) != "0" ) {
 			header("Location:senha_incorreta.php");
 			exit();
 		}
@@ -149,21 +148,21 @@ if ( $salva ) {
 	}
 	header("Location:mostra.php?ident=$ident");
 } else {
+	$query = "SELECT titulo,conteudo,kwd1,kwd2,kwd3,autor,pass FROM paginas where ident='" . $ident . "'";
+	$sql = mysql_query($query,$dbh);
+	while ($tupla = mysql_fetch_array($sql)) {
+		$conteudo = $tupla[ "conteudo" ];
+		$kwd1 = $tupla[ "kwd1" ];
+		$kwd2 = $tupla[ "kwd2" ];
+		$kwd3 = $tupla[ "kwd3" ];
+		$autor = $tupla[ "autor" ];
+		$tit = $tupla[ "titulo" ];
+		$senha = $tupla[ "pass" ];
+	}
 ?>
+
 <html>
-<?php
-$query = "SELECT titulo,conteudo,kwd1,kwd2,kwd3,autor,pass FROM paginas where ident='" . $ident . "'";
-$sql = mysql_query($query,$dbh);
-while ($tupla = mysql_fetch_array($sql)) {
-	$conteudo = $tupla[ "conteudo" ];
-	$kwd1 = $tupla[ "kwd1" ];
-	$kwd2 = $tupla[ "kwd2" ];
-	$kwd3 = $tupla[ "kwd3" ];
-	$autor = $tupla[ "autor" ];
-	$tit = $tupla[ "titulo" ];
-	$senha = $tupla[ "pass" ];
-}
-?>
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 	<title>Formulário de Edição</title>
@@ -177,13 +176,24 @@ while ($tupla = mysql_fetch_array($sql)) {
 include( "toolbar.php" );
 ?>
 
-<form method="POST" name="edit" action="edit.php" onSubmit="return validar(this);">
+<form method="post" name="edit" action="edit.php" onSubmit="return validar(this);">
 <div class="lock">
   Lock
-  <br /><input type="checkbox" name="lock" value="locked" <?php if ($senha) echo checked; ?> />
+  <br /><input type="checkbox" name="lock" value="locked" <?php if ( $senha != NULL ) echo checked; ?> />
 
   <br />Password
   <br /><input type="password" size="10" name="passwd" onChange="form.edit.lock.checked=true;return false;" />
+
+<?php
+	if ( $senha == NULL ) {
+?>
+  <br />Re-enter password
+  <br /><input type="password" size="10" name="repasswd" onChange="form.edit.lock.checked=true;return false;" />
+<?php
+	}
+?>
+
+
 </div>
  
 <div class="metadata">
