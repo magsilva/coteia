@@ -43,7 +43,7 @@ if ( $salva ) {
 	$k[1] = $key1;
 	$k[2] = $key2;
 	$k[3] = $key3;
-		
+	
 	$coweb_tratamento = tratamento(0,$cria_conteudo,$titulo,$cria_autor,$k);
 		
 	$conteudo = trim($coweb_tratamento["content"]);
@@ -154,7 +154,7 @@ if ( $salva ) {
  		$query = "update paginas SET conteudo='$conteudo_puro',titulo='$titulo',kwd1='$keyword[1]',kwd2='$keyword[2]', kwd3='$keyword[3]',autor='$autor',data_ultversao='$data',pass='$passwd' where ident='$ident'" or die ("Falha ao inserir no Banco de Dados");
 		$sql = mysql_query("$query",$dbh);
 	} else {
-		//nao criou arquivo fisico >> erro 
+		// Could not apply the XT, log the error.
 		$st = 2;
 		include("erro.php");
 		exit();
@@ -225,8 +225,8 @@ include( "toolbar.php" );
 	Palavras-chave:
 	<br />
 	<input type="text" name="key1" size="15" value="<?php echo $kwd1; ?>" />
-	<input type="text" name="key2" size="15" value="<?php echo $kwd1; ?>" />
-	<input type="text" name="key3" size="15" value="<?php echo $kwd1; ?>" />
+	<input type="text" name="key2" size="15" value="<?php echo $kwd2; ?>" />
+	<input type="text" name="key3" size="15" value="<?php echo $kwd3; ?>" />
 	</td>
 </tr>
 </table>
