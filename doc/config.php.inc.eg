@@ -91,14 +91,14 @@ $PATH_XT = $PATH_COWEB . "/libs/xt.jar:" . $PATH_COWEB . "/libs/xp.jar";
 // Endereço das imagens 
 $URL_IMG = $URL_COWEB . "/images";
 
+// URL para acesso aos arquivos enviados (upload)
+$URL_UPLOAD = $URL_COWEB . "/upload";
+
 // Local em que estão armazenados os arquivos
 $PATH_ARQUIVOS = $PATH_COWEB . "/files";
 
 // Local em que estão armazenados os arquivos enviados (upload)
 $PATH_UPLOAD = $PATH_COWEB . "/upload";
-
-// URL para acesso aos arquivos enviados (upload)
-$URL_UPLOAD = $URL_SERVER . "/upload";
 
 // Diretório das páginas geradas pela wiki
 $PATH_XHTML = $PATH_COWEB . "/files";
