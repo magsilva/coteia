@@ -34,6 +34,8 @@ if ( $act == "upload" ) {
 		$ok = 2;
 	}
 }
+echo "<script>StatusUpload( $ok )</script>";
+
 
 $query_swiki = "SELECT id_sw from gets where (id_pag='$ident')";
 $sql_swiki = mysql_query($query_swiki,$dbh);
