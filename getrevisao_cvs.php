@@ -27,6 +27,7 @@ include( "toolbar.php" );
 $ident = $_REQUEST[ "ident" ];
 $comparar = $_REQUEST[ "compara" ];
 $revisao = $_REQUEST[ "revisao" ];
+$filename = $CVS_MODULE . "/" . $ident . ".html";
 
 // Se a opção "Comparar com versão atual" estiver ativada, mostrar a versão atual.
 if ( $comparar == 1 ) {
@@ -35,7 +36,6 @@ if ( $comparar == 1 ) {
 	<p><b>Versão Atual</b></p>
 
 <?php
-	$filename = $CVS_MODULE . "/" . $ident . ".html";
 	$tmp = cvs_checkout_file( $filename, "HEAD" );
 
 	$original = "'(\s)'";
@@ -49,7 +49,11 @@ if ( $comparar == 1 ) {
 	echo "</div>";
 }
 
-echo '<div class="source2">';
+if ( $comparar ) {
+	echo '<div class="source2">';
+} else {
+	echo '<div class="source2" style="width: 100%">';
+}
 echo "<p><b>Versão $revisao</b></p>";
 $tmp = cvs_checkout_file( $filename, $revisao );
 

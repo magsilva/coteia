@@ -25,6 +25,7 @@ div.source1 {
 	text-align= left;
 	border-style: none;
 	float: left;
+	width: 50%;
 }
 
 div.source2 {
@@ -32,6 +33,7 @@ div.source2 {
 	text-align= left;
 	border-style: none;
 	float: right;
+	width: 50%;
 }
 
 img {
