@@ -1,6 +1,43 @@
 <?php
 
 include_once( "../config.php.inc" );
+include_once( "cvs_utils.php.inc" );
+
+function recurse_chmod($path2dir, $mode){
+   $dir = new dir($path2dir);
+   while( ( $file = $dir->read() ) !== false ) {
+       if( is_dir( $dir->path.$file ) ) {
+           recurse_chmod( $dir->path.$file, $mode );
+       } else {
+           chmod( $file, $mode );
+       }
+   }
+   $dir->close();
+}
+
+function setup_dir( $dir ) {
+	if ( !file_exists( $dir ) ) {
+		mkdir( $dir, 0777 );
+	}
+	chmod( $dir, 0777 );
+	recursive_chmod( $dir, 0777 );
+}
+
+function login_cvs() {
+  global $PATH_COWEB, $CVS_USERNAME, $CVS_HOST, $CVS_REPOSITORY, $CVS_PASSWORD, $CVS_PASSFILE;
+
+  $pass_file = fopen( $CVS_PASSFILE, "w" );
+  fwrite( $pass_file, ":pserver:".$CVS_USERNAME."@".$CVS_HOST.":".$CVS_REPOSITORY );
+  fwrite( " " );
+  fwrite( scramble( $CVS_PASSWORD ) );
+  fclose( $passfile );
+}
+
+setup_dir( $PATH_XML );
+setup_dir( $PATH_XHTML );
+setup_dir( $PATH_UPLOAD );
+setup_dir( $PATH_ARQUIVOS );
+
 
 print <<<END
 USE mysql;

@@ -1,19 +1,6 @@
 <?php
 
 include_once( "../config.php.inc" );
-include_once( "cvs_util.inc" );
-
-function login_cvs() {
-	global $PATH_COWEB, $CVS_USERNAME, $CVS_HOST, $CVS_REPOSITORY, $CVS_PASSWORD, $CVS_PASSFILE;
-
-	$pass_file = fopen( $CVS_PASSFILE, "w" );
-	fwrite( $pass_file, ":pserver:".$CVS_USERNAME."@".$CVS_HOST.":".$CVS_REPOSITORY );
-	fwrite( " " );
-	fwrite( scramble( $CVS_PASSWORD ) );
-	fclose( $passfile );
-  $comando_checkout = "CVS_PASSFILE=".$CVS_PASSFILE." cvs -d :pserver:".$CVS_USERNAME."@".$CVS_HOST.":".$CVS_REPOSITORY." login";
-  exec($comando_checkout);
-}
 
 /*
  * NOME:	        update_cvs
@@ -39,8 +26,6 @@ function update_cvs($id,$ModuloCheckout) {
 	$caminho = cria_dir($CVS_CHECKOUT_PATH);
 	$caminho .= "/";
 	chdir($caminho);
-
-	login_cvs();
 
 	$comando_checkout = "CVS_PASSFILE=".$CVS_PASSFILE." cvs -d :pserver:".$CVS_USERNAME."@".$CVS_HOST.":".$CVS_REPOSITORY." co ".$ModuloCheckout;
 	exec($comando_checkout);
@@ -87,8 +72,6 @@ function add_cvs($ident,$ModuloCheckout) {
 	$caminho = cria_dir($CVS_CHECKOUT_PATH);
 	$caminho .= "/";
 	chdir($caminho);
-
-	cvs_login();
 
 	$comando_checkout = "CVS_PASSFILE=".$CVS_PASSFILE." cvs -d :pserver:".$CVS_USERNAME."@".$CVS_HOST.$CVS_REPOSITORY." co ".$ModuloCheckout;
 	exec($comando_checkout);

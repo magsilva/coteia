@@ -54,7 +54,7 @@ $CVS_PASSWORD = "";
 // Caminho a ser utilizado para o checkout dos arquivos
 $CVS_CHECKOUT_PATH = "/coteia/";
 // Arquivo que armazenará a senha do repositório CVS
-$CVS_PASSFILE = $PATH_COWEB . "/.cvspass" );
+$CVS_PASSFILE = $PATH_COWEB . "/.cvspass";
 
 // Endereço (URL) da CoTeia
 $URL_COWEB = "http://coweb.icmc.usp.br/coweb/";
