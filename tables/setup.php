@@ -7,14 +7,12 @@ function recursive_chmod( $path2dir, $mode ) {
 	$dir = dir( $path2dir );
 	while( ( $file = $dir->read() ) !== false ) {
 		$full_file = $dir->path . "/" . $file;
-		echo "\n" . $full_file;
+		chmod( $full_file, $mode );
 		if ( is_dir( $full_file ) ) {
 			if ( $file != "." && $file != ".." ) {
 				recursive_chmod( $full_file, $mode );
 			}
-		} else {
-			chmod( $full_file, $mode );
-		}
+		} 
 	}
 	$dir->close();
 }

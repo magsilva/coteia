@@ -5,15 +5,10 @@ include_once( "config.php.inc" );
 /*
  * NOME:		anota_db_pconnect
  * DESCRICAO:		Realiza a conexao da anotacao com o DBMS MySQL 
- * PAR. ENTRADA:	--
- * PAR. SAIDA:		--
  * RETORNO:		Retorna o handler da base de dados
- * OBSERVACOES:		
  */
 function anota_db_pconnect() {
-
         global $anota_dbhost, $anota_dbuser, $anota_dbpword;
-
         return(mysql_pconnect($anota_dbhost, $anota_dbuser, $anota_dbpword));
 
 }
@@ -1180,26 +1175,27 @@ function tratamento($index,$conteudo,$titulo,$autor,$kwd) {
  * RETORNO:		--
  * OBSERVACOES:         --
 */
-function arq($id,$xmlfile,$arq_xsl,$cp_xt,$cp_java,$path_html,$path_xml) {
+function arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml) {
+	global $PATH_JAVA, $PATH_XT;
 
-$arq_xml = tempnam("$path_xml","coweb");
-chmod("$arq_xml",0755);
-$fp = fopen("$arq_xml","w+");
-fputs($fp,$xmlfile);
-fclose ($fp);
+	$arq_xml = tempnam( "$path_xml", "coweb" );
+	chmod( "$arq_xml", 0755 );
+	$fp = fopen("$arq_xml","w+");
+	fputs($fp,$xmlfile);
+	fclose ($fp);
 
-//$cp_java = classpath para executar java.
-//Ex. de $cp_java =  "/usr/local/jdk1.2.2/bin/java"
-//$cp_xt   = classpath para os arquivos: xt.jar, sax.jar e xp.jar
-//Ex. de $cp_xt = "/home/xt/xt.jar:/home/xt/sax.jar:/home/xp/xp.jar"
-//Uso do XT = [path_java] -classpath [classpath_xt] com.jclark.xsl.sax.Driver [xml] [xsl] [html]
-
-exec("$cp_java -classpath $cp_xt com.jclark.xsl.sax.Driver $arq_xml $arq_xsl $path_html/$id.html",$var_array,$status);
-//For Win: exec("$cp_java $arq_xml $arq_xsl $path_html/$id.html",$var_array,$status);
-
-return $status;
-
-}//function file
+	//$cp_java = classpath para executar java.
+	//Ex. de $cp_java =  "/usr/local/jdk1.2.2/bin/java"
+	//$cp_xt   = classpath para os arquivos: xt.jar, sax.jar e xp.jar
+	//Ex. de $cp_xt = "/home/xt/xt.jar:/home/xt/sax.jar:/home/xp/xp.jar"
+	//Uso do XT = [path_java] -classpath [classpath_xt] com.jclark.xsl.sax.Driver [xml] [xsl] [html]
+	$cmd_line = "$PATH_JAVA -cp \"$PATH_XT\" -Dcom.jclark.xsl.sax.parser=com.jclark.xml.sax.CommentDriver  com.jclark.xsl.sax.Driver $arq_xml $arq_xsl $path_html/$id.html<br /><br />";
+	exec( $cmd_line, $var_array, $status );
+	echo $cmd_line . "<br />";
+	echo implode("\n",$var_array) . "<br />";
+	echo $status . "<br />";
+	return $status;
+}
 
 /*
  * NOME:		xml_xsl
@@ -1209,11 +1205,10 @@ return $status;
  * RETORNO:		--
  * OBSERVACOES:
 */
-function xml_xsl($id,$conteudo,$titulo,$autor,$key,$arq_xsl,$cp_xt,$cp_java,$path_html,$path_xml,$dtd,$node,$ident,$lock,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body) {
-
+function xml_xsl($id,$conteudo,$titulo,$autor,$key,$arq_xsl,$path_html,$path_xml,$dtd,$node,$ident,$lock,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body) {
 	trim($conteudo);  //elimina espaços em branco no começo e fim da variável
 	trim($titulo);    //elimina espaços em branco no começo e fim da variável
-  
+ 
 	//resolve o problema do sinal de menor e maior - conflito com elementos XML
 	//para aceitar estas entidades tem que colocar na textarea como entidades
         $conteudo = eregi_replace("&amp;lt;","&lt;",$conteudo);
@@ -1234,17 +1229,18 @@ function xml_xsl($id,$conteudo,$titulo,$autor,$key,$arq_xsl,$cp_xt,$cp_java,$pat
         }
 
 	if ($linksto_id[1]  == "0") { 
-	$links = $links."<ref id=\"index.php\">$linksto_titulo[1]</ref>";
+		$links = $links . "<ref id=\"index.php\">$linksto_titulo[1]</ref>";
 		for ($i=2;$i <= count($linksto_id);$i++) {
-			$links = $links."<ref id=\"mostra.php?ident=$linksto_id[$i]\">$linksto_titulo[$i]</ref>";
+			$links = $links . "<ref id=\"mostra.php?ident=$linksto_id[$i]\">$linksto_titulo[$i]</ref>";
 		}
 	} else {
 		for ($i=1;$i <= count($linksto_id);$i++) {
-			$links = $links."<ref id=\"mostra.php?ident=$linksto_id[$i]\">$linksto_titulo[$i]</ref>";
+			$links = $links . "<ref id=\"mostra.php?ident=$linksto_id[$i]\">$linksto_titulo[$i]</ref>";
 		}
 	}
 
-$xmlfile =  "<?xml version='1.0'?>
+	$xmlfile =  <<<END
+<?xml version='1.0'?>
 $dtd
 <$node>
 <$ident>$id</$ident>
@@ -1258,18 +1254,17 @@ $keyword
 <$aut>$autor</$aut>
 <$tit>$titulo</$tit>
 <$body>$conteudo</$body>
-</$node>";
-	
-$feedback = (arq($id,$xmlfile,$arq_xsl,$cp_xt,$cp_java,$path_html,$path_xml));
+</$node>"
+END;
 
-if ($feedback==0) {
-	return TRUE;
-	}
-	else {
-	return FALSE;
-	}
+	$feedback = (arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml));
 
-}//function xml_xsl
+	if ($feedback == 0) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+}
 
 /*
  * NOME:		img_upload

@@ -32,7 +32,6 @@ if ($salva) {
 			exit();
 	        }
 	}
-  
 	$k[1] = $key1;
 	$k[2] = $key2;
 	$k[3] = $key3;
@@ -95,8 +94,6 @@ if ($salva) {
 		$flag_lock = 0;
 	}
 	
-	$cp_java = $PATH_JAVA;
-	$cp_xt = $PATH_XT;
 	$path_xml = $PATH_XML;
 	$arq_xsl = $PATH_XSL;
 	$path_html = $PATH_XHTML;
@@ -118,7 +115,7 @@ if ($salva) {
        	$chat = "<chat_folder>$result[id_chat]</chat_folder>";
 	$eclass = "<id_eclass>$result[id_eclass]</id_eclass>";
 
-	if (xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$cp_xt,$cp_java,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body)==TRUE) {
+	if (xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body)==TRUE) {
 		//adiciona arquivo no CVS
                 add_cvs($ident,"html/");
 
@@ -143,7 +140,7 @@ if ($salva) {
 		include("erro.php" );
 		exit();
 	}
-
+	
 	if (stristr($ident,".")) {
 		$pos_lstdot = strrpos($ident,".");
 		$ident_pai = substr($ident,0,$pos_lstdot);
@@ -159,7 +156,7 @@ if ($salva) {
 <html>
 
 <head>
-	<title>Formulario de Criação</title>
+	<title>Formulário de Criação</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<script language="javascript">
 	function validar() {
