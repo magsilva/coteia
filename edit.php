@@ -61,6 +61,9 @@ if ( $action == "create" ) {
 	if ( ! is_string( $index ) ) {
 		show_error( _( "The parameter 'index' is invalid." ) );
 	}
+	if ( get_magic_quotes_gpc() == 1 ) {
+		$index = stripslashes( $index );
+	}
 }
 
 if ( $action == "edit" ) {
