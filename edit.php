@@ -33,7 +33,7 @@ if ( mysql_num_rows( $wikipage_result ) == 0 ) {
 }
 $wikipage_tuple = mysql_fetch_array( $wikipage_result );
     
-if ( $salva ) {
+if ( isset( $_REQUEST[ "save" ] ) {
 	// Check password (if there is one to check against).
 	$password = $wikipage_tuple[ "pass" ];
 	if ( $password != NULL ) {
@@ -49,7 +49,7 @@ if ( $salva ) {
 	if ( $_REQUEST[ "lock" ] == false ) {
 		$wikipage_db[ "password" ] = "NULL";
 	} else {
-		$wikipage_db[ "password" ] = $_REQUEST[ "password" ];
+		$wikipage_db[ "password" ] = "" . $_REQUEST[ "password" ];
 		if ( get_magic_quotes_gpc() == 1 ) {
 			$wikipage_db[ "password" ] = stripslashes( $wikipage_db[ "password" ] );
 		}
@@ -67,7 +67,7 @@ if ( $salva ) {
 		"kwd3='"     . $wikipage_db[ "keyword3" ]. "'," .
 		"autor='"    . $wikipage_db[ "author" ]  . "'," .
 		"data_ultversao='$data'," .
-		"pass='"     . $wikipage_db[ "password" ]. "' " .
+		"pass="      . $wikipage_db[ "password" ]. " "  .
 		"where ident='". $_REQUEST[ "ident" ] . "'";
 	$update_wikipage_result = mysql_query( $update_wikipage_query, $dbh );
 	if ( $update_wikipage_result == false ) {
@@ -128,16 +128,16 @@ include( "toolbar.php" );
 
 <div class="lock">
   Lock
-  <br /><input type="checkbox" name="lock" value="locked" <?php if ( $wikipage_tuple[ "password" ] != "NULL" ) echo checked; ?> />
+	<br /><input type="checkbox" name="lock" value="locked" <?php if ( $wikipage_tuple[ "password" ] != NULL ) echo checked; ?> />
 
-  <br />Password
-  <br /><input type="password" size="10" name="password" onChange="window.document.edit.lock.checked=true;return false;" />
+	<br />Password
+	<br /><input type="password" size="10" name="password" onChange="window.document.edit.lock.checked=true;return false;" />
 
 <?php
-	if ( $wikipage_tuple[ "password" ] == "NULL" ) {
+	if ( $wikipage_tuple[ "password" ] == NULL ) {
 ?>
-  <br />Re-enter password
-  <br /><input type="password" size="10" name="repassword" onChange="window.document.edit.lock.checked=true;return false;" />
+	<br />Re-enter password
+	<br /><input type="password" size="10" name="repassword" onChange="window.document.edit.lock.checked=true;return false;" />
 <?php
 	}
 ?>
