@@ -120,16 +120,16 @@ while ($tupla = mysql_fetch_array($sql)) {
 
 		if ($token==true) {
 			if ($status == '1') {
-				echo "\t<li><a href=\"#\" onClick=\"window.open('login.php?id=$ident&amp;token=1','login','top=50,left=100,menubar=no,resizable=no,width=300,height=200')\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
+				echo "\t<li><a href=\"#\" onClick=\"window.open('login.php?id=$ident&token=1','login','top=50,left=100,menubar=no,resizable=no,width=300,height=200')\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
 			} else {
 				echo "\t<li><a href=\"mostra.php?ident=$ident\" onMouseOver=\"window.status='$final'; return true\" onMouseOut=\"window.status=' '; return true\">$final</a> ($nro_paginas) página(s):  (administrador: <a href=\"mailto:$admail\">$admin</a>)</li>\n";
 			}
 		} else {
 			$final_url = rawurlencode($final);
 			if ($status == '1') {
-				echo "\t<li>$final<a href=\"#\" onClick=\"window.open('login.php?id=$ident&amp;token=0&amp;index=$final_url','login','top=50,left=100,menubar=no,resizable=no,width=300,height=200')\">[create]</a></li>\n";
+				echo "\t<li>$final<a href=\"#\" onClick=\"window.open('login.php?id=$ident&token=0&index=$final_url','login','top=50,left=100,menubar=no,resizable=no,width=300,height=200')\">[create]</a></li>\n";
 			} else {
-				echo "\t<li>$final<a href=\"create.php?ident=$ident&amp;index=$final_url\" onmouseover=\"window.status='$final'; return true\" onmouseout=\"window.status=' '; return true\">[create]</a></li>\n";
+				echo "\t<li>$final<a href=\"create.php?ident=$ident&index=$final_url\" onmouseover=\"window.status='$final'; return true\" onmouseout=\"window.status=' '; return true\">[create]</a></li>\n";
 			}
 		}
 	}
