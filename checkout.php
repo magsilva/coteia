@@ -30,19 +30,3 @@ $filename = basename( $_REQUEST[ "arq" ] );
 </body>
  
 </html>
-
-include_once( "function.inc" );
-
-
-header( "Pragma: public" );
-header( "Expires: 0" );
-header( "Cache-Control: must-revalidate, post-check=0, pre-check=0" );
-header( "Pragma: no-cache" );
-header( "Content-Transfer-Encoding: none" );
-header( "Content-Type: application/force-download" );
-header( "Content-Disposition: attachment; filename=" . basename( $_REQUEST[ "arq" ] ) );
-header( "Content-Description: File Transfer");
-header( "Content-length: " . filesize( $checked_file );
-readfile( $checked_file );
-
-?>
