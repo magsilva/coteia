@@ -8,6 +8,8 @@ function StatusUpload( ok ) {
 		alert( "Erro ao gravar arquivo (tamanho máximo permitido = 10 MiB)" );
 	} else if (ok == 3) {
 		alert( "O arquivo já existe." );
+	} else if (ok == 4) {
+		alert( "Extensão de arquivo inválida.\nExtensões válidas: .bz2, .gz, .pdf, .ps, .txt, .xml" );
 	}
 }
 
