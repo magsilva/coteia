@@ -993,6 +993,11 @@ function replace( $text ) {
 * Prepare the data for processing (trim data mainly).
 */
 function tratamento($index,$conteudo,$titulo,$autor,$kwd) {
+	stripslashes( $index );
+	stripslashes( $conteudo );
+	stripslashes( $titulo );
+	stripslashes( $autor );
+
 	$texto = replace($conteudo);
 
 	$trat["index"] = $index;
@@ -1001,6 +1006,7 @@ function tratamento($index,$conteudo,$titulo,$autor,$kwd) {
 	$trat["author"] = trim( $autor );
 
 	for ( $i = 1; $i <= count( $kwd ); $i++ ) {
+		$kwd[ $i ] = stripslashes( $kwd[ $i ] );
 		$trat[ "key" . "$i" ] = trim( $kwd[ $i ] );
 	}
 	return $trat;
@@ -1044,6 +1050,7 @@ function arq($id,$xmlfile,$arq_xsl,$path_html,$path_xml) {
  * OBSERVACOES:
 */
 function xml_xsl($id,$conteudo,$titulo,$autor,$key,$arq_xsl,$path_html,$path_xml,$dtd,$node,$ident,$lock,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body) {
+
 	trim($conteudo);  //elimina espaços em branco no começo e fim da variável
 	trim($titulo);    //elimina espaços em branco no começo e fim da variável
  

@@ -90,9 +90,9 @@ if ($salva) {
 	$body = "bdy";
 
 	$query_extra = mysql_query("select id_ann,id_chat,id_eclass from swiki where id='$id_swiki'");
-       	$result = mysql_fetch_array($query_extra); 
-       	$annotation = "<ann_folder>$result[id_ann]</ann_folder>";
-       	$chat = "<chat_folder>$result[id_chat]</chat_folder>";
+ 	$result = mysql_fetch_array($query_extra); 
+ 	$annotation = "<ann_folder>$result[id_ann]</ann_folder>";
+ 	$chat = "<chat_folder>$result[id_chat]</chat_folder>";
 	$eclass = "<id_eclass>$result[id_eclass]</id_eclass>";
 
 	$result = xml_xsl($ident,$conteudo,$titulo,$autor,$keyword,$arq_xsl,$path_html,$path_xml,$dtd,$node,$id,$lock_xml,$annotation,$chat,$eclass,$others,$linksto_id,$linksto_titulo,$kwd,$aut,$tit,$body);
@@ -111,12 +111,12 @@ if ($salva) {
 		}
 
 		$conteudo_puro = addslashes( $conteudo_puro );
-    $titulo = addslashes( $titulo );
-    $keyword[ 1 ] = addslashes( $keyword[ 1 ] );
-    $keyword[ 2 ] = addslashes( $keyword[ 2 ] );
-    $keyword[ 3 ] = addslashes( $keyword[ 3 ] );
-    $autor = addslashes( $autor );
-    $passwd = addslashes( $passwd );
+		$titulo = addslashes( $titulo );
+		$keyword[ 1 ] = addslashes( $keyword[ 1 ] );
+		$keyword[ 2 ] = addslashes( $keyword[ 2 ] );
+		$keyword[ 3 ] = addslashes( $keyword[ 3 ] );
+		$autor = addslashes( $autor );
+		$passwd = addslashes( $passwd );
 		$query = "insert into paginas (ident,indexador,titulo,conteudo,ip, data_criacao,data_ultversao,pass, kwd1, kwd2, kwd3,autor) values ('$ident','$indexador','$titulo','$conteudo_puro','$nro_ip','$data','$data',$passwd,'$keyword[1]','$keyword[2]','$keyword[3]','$autor')";
 		$sql = mysql_query("$query",$dbh) or die ("Falha ao inserir no Banco de Dados");
 

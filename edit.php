@@ -52,6 +52,7 @@ if ( $salva ) {
 	$keyword[2] = trim($coweb_tratamento["key2"]);
 	$keyword[3] = trim($coweb_tratamento["key3"]);
 
+
 	if (stristr($conteudo,"<note/>")) {
 		$conteudo = note($conteudo);
 	}
@@ -137,6 +138,7 @@ if ( $salva ) {
 		} else {
 			$passwd = "'" . md5( $passwd ) . "'";
 		}
+
 		$conteudo_puro = addslashes( $conteudo_puro );
 		$titulo = addslashes( $titulo );
 		$keyword[ 1 ] = addslashes( $keyword[ 1 ] );
