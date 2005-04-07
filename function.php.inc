@@ -962,6 +962,7 @@ function get_header( $title )
 */
 function validate_wikipage( $wikipage_id, $wikipage_raw )
 {
+	$wikipage_raw[ "conteudo_original" ] = "<![CDATA[" . $wikipage_raw[ "conteudo" ] . "]]>";
 	$wikipage_raw[ "conteudo" ] = prepare_links( $wikipage_id, $wikipage_raw[ "conteudo" ] );
 	$wikipage_raw[ "conteudo" ] = plugin_upload( $wikipage_raw[ "conteudo" ] );
 
