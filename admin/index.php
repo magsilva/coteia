@@ -26,8 +26,8 @@ echo get_header( _( "Main menu" ) );
 </tr>
 <tr>
 	<td valign="middle" nowrap="nowrap">
-		<a href="setswiki.php"><?php echo _( "Update swiki" ); ?></a><br />
-		<a href="addswiki.php"><?php echo _( "Add swiki" ); ?></a><br />
+		<a href="updateswiki.php"><?php echo _( "Update swiki" ); ?></a><br />
+		<a href="swiki.php"><?php echo _( "Add swiki" ); ?></a><br />
 		<a href="delswiki.php"><?php echo _( "Remove swiki" ); ?></a><br />
 		<a href="useradmin.php"><?php echo _( "Users" ); ?></a><br />
 		<a href="wikipageadmin.php"><?php echo _( "Wikipages" ); ?></a><br />
