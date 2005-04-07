@@ -627,13 +627,12 @@ function compile_wikipage( $wikipage_id, $format )
 	$wikipage_xml[ "chat" ] = $tuple[ "id_chat" ];
 	$wikipage_xml[ "eclass" ] = $tuple[ "id_eclass" ];
 
-
 	$xml_document = prepare_xml_document( $wikipage_xml );
 
 	$result = process_xml_document( $wikipage_id, $xml_document, $STYLESHEETS, $format );
 
 	if ( $result === true ) {
-		//atualiza arquivo no CVS
+		// Update CVS (this is not critical, so we don't return the cvs result.
 		$result = false;
 		$filename = wikipage2cvs( $wikipage_id );
 		$result = cvs_update( $CVS_WIKIPAGE_MODULE, $filename );
@@ -641,8 +640,7 @@ function compile_wikipage( $wikipage_id, $format )
 		if ( $result === false ) {
 			$result = cvs_add( $CVS_WIKIPAGE_MODULE, $filename );
 		}
-	} else {
-		return $result;
+		return true;
 	}
 
 	return $result;

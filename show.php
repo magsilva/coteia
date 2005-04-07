@@ -101,11 +101,19 @@ if ( $status == "1" ) {
 $query = "select id_pag from gets where id_sw='$swiki_id' and id_pag='$wikipage_id'";
 $result = mysql_query( $query );
 if ( mysql_num_rows( $result ) == 0 ) {
+	if ( $swiki_id == $wikipage_id ) {
+		$query = "select titulo from swiki where id='$swiki_id'";
+		$result = mysql_query( $query );
+		$tuple = mysql_fetch_array( $result );
+		$index = $tuple[ "titulo" ];
+		header( "Location: edit.php?wikipage_id=$swiki_id&swiki_id=$swiki_id&index=" . rawurlencode( $index ) );
+		exit();
+	}
 	if ( isset( $index ) ) {
-		header( "Location: edit.php?wikipage_id=0&amp;swiki_id=$swiki_id&amp;index=" . rawurlencode( $index ) );
+		header( "Location: edit.php?wikipage_id=0&swiki_id=$swiki_id&index=" . rawurlencode( $index ) );
 		exit();
 	} else {
-		show_error( _( "Wikipage doesn't exist" ) );
+		show_error( _( "Wikipage could not be created." ) );
 	}
 }
 mysql_free_result( $result );
