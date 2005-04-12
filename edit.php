@@ -89,6 +89,32 @@ if ( $action == "edit" ) {
 coteia_connect();
 
 
+// Find the swiki the swiki the wikipage belongs to
+$query = "select status from swiki where id='$swiki_id'";
+$result = mysql_query( $query );
+if ( mysql_num_rows( $result ) == 0 ) {
+	show_error( _( "The swiki the wikipage will belong to couldn't be found." ) );
+}
+$tuple = mysql_fetch_array( $result );
+$status = $tuple[ "status" ];
+mysql_free_result( $result );
+
+
+// Check if the user is allowed to access the requested swiki and redirect to login
+// if required.
+if ( $status == "1" ) {
+	session_name( "coteia" );
+	session_start();
+	if ( ! isset( $_SESSION[ "swiki_" . $swiki_id ] ) ) {
+		$url = "login.php?wikipage_id=$wikipage_id";
+		if ( isset( $index ) ) {
+			$url .= "&amp;swiki_id=$swiki_id&amp;index=" . rawurlencode( $index );
+		}
+		header( "Location: $url" );
+		exit();
+	}
+}
+
 /**
 * After futher checking the paremeters for each action, the skeleton of a
 * wikipage must be createn (wikipage_raw). If creating a new wikipage, it
