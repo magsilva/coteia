@@ -21,7 +21,7 @@ function msg($str){
 
 // No caso de anotacoes internas  
 $array_temp = explode( ".", $swiki_id );
-$sw_id = $array_temp[ 0 ];
+$swiki_id = $array_temp[ 0 ];
 $is_login = annotationLogin( $swiki_id );
 
 if ( $add_an ) {

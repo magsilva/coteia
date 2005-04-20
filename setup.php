@@ -45,13 +45,6 @@ fclose( $htaccess );
 echo "\nOk\n";
 
 
-echo "\nCreating the database schemas...";
-foreach (glob("*.raw") as $raw_squema) {
-	replace_vars( $raw_squema );
-}
-echo "\nOk\n";
-
-
 if ( $DEFAULT_USER !== "" ) {
 	echo "\nChanging file's owner to $DEFAULT_USER...";
 	chown( $PATH_COWEB, $DEFAULT_USER );
@@ -67,6 +60,32 @@ if ( $DEFAULT_GROUP !== "" ) {
 }
 
 // Run the setup.php found at each plugin's directory.
+foreach ( glob( $PLUGINS_DIR . "/*" ) as $plugin ) {
+	if ( is_dir( $plugin ) ) {
+		echo "\nSetting up " . $plugin . "/setup.php...";
+		if ( is_file( $plugin . "/setup.php" ) ) {
+			include( $plugin . "/setup.php" );
+			echo "\nOk";
+		} else {
+			echo "No configuration needed";
+		}
+	}
+}
+
+// Load the plugin's configuration (may be needed to create the
+// database schemas)
+foreach (glob( $PLUGINS_DIR . "/*" ) as $plugin ) {
+	if ( is_file( $plugin . "/config.php" ) ) {
+		include( $plugin . "/config.php" );
+	}
+}
+
+echo "\nCreating the database schemas...";
+foreach (glob("*.raw") as $raw_squema) {
+	replace_vars( $raw_squema );
+}
+echo "\nOk\n";
+
 
 
 ?>
