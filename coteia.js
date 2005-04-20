@@ -62,7 +62,7 @@ function AbreChat(chat_folder) {
 }
 
 function AbreAnotacao(id,sw_id,ann_folder) {
-	window.open('anottation.php?p=0&sw_id='+sw_id+'&annotates=show.php?wikipage_id='+id+'&id_pasta='+ann_folder+'&mostra=false','janelaann','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=700,height=480');
+	window.open('annotation.php?p=0&sw_id='+sw_id+'&annotates=show.php?wikipage_id='+id+'&id_pasta='+ann_folder+'&mostra=false','janelaann','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=700,height=480');
 }
 
 function frequencia(id_eclass) {
