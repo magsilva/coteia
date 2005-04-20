@@ -1,11 +1,11 @@
 USE mysql;
-insert into user (host,user,password) values ('$user_dbhost','$user_dbuser', PASSWORD('$user_dbpword'));
-insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('$user_dbhost','$user_dbname','$user_dbuser','Y','Y','Y','Y','Y');
+insert into user (host,user,password) values ('$groupnodeusers_dbhost','$groupnodeusers_dbuser', PASSWORD('$groupnodeusers_dbpass'));
+insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('$groupnodeusers_dbhost','$groupnodeusers_dbname','$groupnodeusers_dbuser','Y','Y','Y','Y','Y');
 FLUSH PRIVILEGES;
 
-CREATE DATABASE $user_dbname;
+CREATE DATABASE $groupnodeusers_dbname;
 
-USE $user_dbname;
+USE $groupnodeusers_dbname;
 
 CREATE TABLE t_group (
   id int(11) NOT NULL auto_increment,

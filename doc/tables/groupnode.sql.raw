@@ -1,11 +1,11 @@
 USE mysql;
-insert into user (host,user,password) values ('$anota_dbhost','$anota_dbuser', PASSWORD('$anota_dbpword'));
-insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('$anota_dbhost','$anota_dbname','$anota_dbuser','Y','Y','Y','Y','Y');
+insert into user (host,user,password) values ('$groupnode_dbhost','$groupnode_dbuser', PASSWORD('$groupnode_dbpass'));
+insert into db (host,db,user,select_priv,insert_priv,update_priv,delete_priv,alter_priv) values ('$groupnode_dbhost','$groupnode_dbname','$groupnode_dbuser','Y','Y','Y','Y','Y');
 FLUSH PRIVILEGES;
 
-CREATE DATABASE $anota_dbname;
+CREATE DATABASE $groupnode_dbname;
 
-USE $anota_dbname;
+USE $groupnode_dbname;
 
 CREATE TABLE annotation (
   id int(11) NOT NULL auto_increment,
