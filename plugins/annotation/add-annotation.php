@@ -50,7 +50,7 @@ if ( $add_an ) {
 	$ret = create_annotation( $id_pasta, $id_father, $id_usuario, $id_grupo, "text/xhtml", "0", "", $form_titulo, $kwd, $annotates, "", $form_texto );
 
 	if ( $ret > 0 ) {
-		include_once( "anotacao.php" );
+		include_once( "anotation.php" );
 	} else {
 		msg( "Erro na criação da anotação!" );
 	}

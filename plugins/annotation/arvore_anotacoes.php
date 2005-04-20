@@ -201,10 +201,10 @@ cellspacing=0 cellpadding=0 border=0 cols=".($maxlevel+3).">\n";
 
             $id_anot = $tree[$cnt][2];
             if ($expand[$cnt]==0)
-                echo "<td><a href=\"anotacao.php".$params."&mostra=false&id_pasta=$id_pasta&sw_id=$sw_id&id_usuario=$id_usuario&id_grupo=$id_grupo&annotates=$annotates&id_anotacao=$id_anot\"><img src=\"".$img_expand."\" border=no></a></td>";
+                echo "<td><a href=\"annotation.php".$params."&mostra=false&id_pasta=$id_pasta&sw_id=$sw_id&id_usuario=$id_usuario&id_grupo=$id_grupo&annotates=$annotates&id_anotacao=$id_anot\"><img src=\"".$img_expand."\" border=no></a></td>";
             else{
                 if ($tree[$cnt][1] != "Main")
-                echo "<td><a href=\"anotacao.php".$params."&mostra=false&id_pasta=$id_pasta&sw_id=$sw_id&id_usuario=$id_usuario&id_grupo=$id_grupo&annotates=$annotates&id_anotacao=$id_anot\"><img src=\"".$img_collapse."\" border=no></a></td>";
+                echo "<td><a href=\"annotation.php".$params."&mostra=false&id_pasta=$id_pasta&sw_id=$sw_id&id_usuario=$id_usuario&id_grupo=$id_grupo&annotates=$annotates&id_anotacao=$id_anot\"><img src=\"".$img_collapse."\" border=no></a></td>";
             }
           }
           else
@@ -223,7 +223,7 @@ cellspacing=0 cellpadding=0 border=0 cols=".($maxlevel+3).">\n";
           $grupo = get_group_name($tree[$cnt][8], "");
 
           echo '<td  colspan='.($maxlevel-$tree[$cnt][0]+1).'>';
-          echo '&nbsp;<a href="anotacao.php?p='.$p.'&annotates='.$annotates.'&id_pasta='.$id_pasta.'&id_usuario='.$id_usuario.'&id_grupo='.$id_grupo.'&sw_id='.$sw_id.'&mostra=true'.'&id_anotacao='.$tree[$cnt][2].'">'.$tree[$cnt][1].' by '.$nome.' ('.$grupo.')</a></i>';
+          echo '&nbsp;<a href="annotation.php?p='.$p.'&annotates='.$annotates.'&id_pasta='.$id_pasta.'&id_usuario='.$id_usuario.'&id_grupo='.$id_grupo.'&sw_id='.$sw_id.'&mostra=true'.'&id_anotacao='.$tree[$cnt][2].'">'.$tree[$cnt][1].' by '.$nome.' ('.$grupo.')</a></i>';
           echo "</td>";
 
              /****************************************/
