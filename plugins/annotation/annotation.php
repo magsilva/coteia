@@ -1,27 +1,47 @@
-<html>
+<?php
+include_once( dirname(__FILE__) . "/annotation-api.inc" );
+include_once( dirname(__FILE__) . "/annotation_tree.php" );
+include_once( dirname(__FILE__) . "/../../function.php.inc" );
+?>
 
-<head>
-	<title>GroupNote - CoTeia</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<script type="text/javascript" src="coteia.js"></script>
-	<link href="coteia.css" rel="stylesheet" type="text/css" />
+<?php
+if ( ! isset( $_REQUEST[ "action" ]  ) ) {
+	$action = "create";
+} else {
+	$action = $_REQUEST[ "action" ];
+}
+
+/**
+* Check parameters.
+*/
+$p = $_REQUEST[ "p" ];
+$id_pasta = $_REQUEST[ "id_pasta" ];
+$annotates = $_REQUEST[ "annotates" ];
+$id_father = $_REQUEST[ "id_father" ];
+$id_usuario = $_REQUEST[ "id_usuario" ];
+$id_grupo = $_REQUEST[ "id_grupo" ];
+$swiki_id = $_REQUEST[ "swiki_id" ];
+?>
+
+
+<?php
+echo get_header( _( "CoTeia - Annotations" ) );
+?>
 </head>
 
 <body>
 
 <?php
-require_once("annotation-api.inc");
-include_once("annotation_tree.php");
-
-if ( $mostra == "true" ) {
-	// apresenta a anotação
+if ( $action == "view" ) {
 	// Busca dados da anotação
 	$XSL_path = "http://coweb.icmc.sc.usp.br/webnote/annotation";
-	$aux = get_annotation_xml($id_anotacao, $XSL_path);
-	$pos_ini = strpos($aux, "<dc:title>")+10;
-	$pos_end = strpos($aux, "</dc:title>");
- 	$titulo = substr($aux,$pos_ini,$pos_end-$pos_ini);
-	$pos_ini = strpos($aux, "<an:owner>")+10;
+	$aux = get_annotation_xml( $id_anotacao, $XSL_path );
+
+	// TODO: Use "preg_replace".
+	$pos_ini = strpos( $aux, "<dc:title>") + 10;
+	$pos_end = strpos( $aux, "</dc:title>" );
+ 	$titulo = substr( $aux, $pos_ini, $pos_end - $pos_ini );
+	$pos_ini = strpos($aux, "<an:owner>") + 10;
 	$pos_end = strpos($aux, "</an:owner>");
  	$owner = substr($aux,$pos_ini,$pos_end-$pos_ini);
 	$pos_ini = strpos($aux, "<an:group>")+10;
@@ -47,7 +67,7 @@ if ( $mostra == "true" ) {
 	echo "<input name='id_grupo' type='hidden' value='$id_grupo' />\n";
 	echo "<input name='annotates' type='hidden' value='$annotates' />\n";
 	echo "<input name='id_father' type='hidden' value='$id_anotacao' />\n";
-	echo "<input name='sw_id' type='hidden' value='$sw_id' />\n";
+	echo "<input name='swiki_id' type='hidden' value='$swiki_id' />\n";
 	echo "<input name='reply' type='submit' value='Responder' />\n";
 	echo "</form>\n</br>";
 }
@@ -59,19 +79,17 @@ if ( $mostra == "true" ) {
 	<input name="id_father" type="hidden" value="<?php echo $id_father;?>" />
 	<input name="id_usuario" type="hidden" value="<?php echo $id_usuario;?>" />
 	<input name="id_grupo" type="hidden" value="<?php echo $id_grupo;?>" />
-	<input name="sw_id" type="hidden" value="<?php echo $sw_id;?>" />
-	<input name="enviar" type="submit" value="Criar Nova Anotação" />
+	<input name="swiki_id" type="hidden" value="<?php echo $swiki_id;?>" />
+	<input name="submit" type="submit" value="<?php echo _( "Create new annotation" ); ?>" />
 </form>
 
-<h2>Anotações</h2>
+<h2><?php echo _( "Annotations" ); ?></h2>
 <?
-  if ( $p == '' ) {
+	if ( $p == '' ) {
 		$p = "0";
 	}
-  init( $p, $annotates, $id_pasta, $id_usuario, $id_grupo, $sw_id );
+	init( $p, $annotates, $id_pasta, $id_usuario, $id_grupo, $swiki_id );
 ?>
-
-<br />
 
 </body>
 

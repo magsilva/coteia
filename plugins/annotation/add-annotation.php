@@ -20,9 +20,9 @@ function msg($str){
 }
 
 // No caso de anotacoes internas  
-$array_temp = explode( ".", $sw_id );
+$array_temp = explode( ".", $swiki_id );
 $sw_id = $array_temp[ 0 ];
-$is_login = annotationLogin( $sw_id );
+$is_login = annotationLogin( $swiki_id );
 
 if ( $add_an ) {
 	if ( $is_login == TRUE ) {
@@ -81,7 +81,7 @@ if ( $add_an ) {
 	<input name="pasta" type="hidden" value="<?php echo $pasta?>" />
 	<input name="annotates" type="hidden" value="<?php echo $annotates?>" />
 	<input name="id_father" type="hidden" value="<?php echo $id_father?>" />
-	<input name="sw_id" type="hidden" value="<?php echo $sw_id?>" />
+	<input name="swiki_id" type="hidden" value="<?php echo $swiki_id?>" />
 </form>
 
 </body>

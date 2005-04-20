@@ -61,8 +61,8 @@ function AbreChat(chat_folder) {
 	window.open('chat.php?id='+chat_folder,'janelachat','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=360,height=250');
 }
 
-function AbreAnotacao(id,sw_id,ann_folder) {
-	window.open('annotation.php?p=0&sw_id='+sw_id+'&annotates=show.php?wikipage_id='+id+'&id_pasta='+ann_folder+'&mostra=false','janelaann','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=700,height=480');
+function AbreAnotacao(id,swiki_id,ann_folder) {
+	window.open('plugins/annotation/annotation.php?p=0&swiki_id='+swiki_id+'&annotates=show.php?wikipage_id='+id+'&id_pasta='+ann_folder+'&mostra=false','janelaann','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=700,height=480');
 }
 
 function frequencia(id_eclass) {

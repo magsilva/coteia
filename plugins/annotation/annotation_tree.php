@@ -1,48 +1,50 @@
-<?
- /**
- / Script: arvore_anotacoes.php
- / Descricao: Desenha a arvore de anotacoes
- / Criador: Claudia Akemi Izeki (baseado em um script obtido na Internet) 
- **/
+<?php
+/**
+* Draw the annotation tree.
+*
+* Author: Claudia Akemi Izeki (based upon a script found in Internet) 
+*/
 
-function init($p, $annotates, $id_pasta, $id_usuario, $id_grupo, $sw_id)
+include_once( dirname(__FILE__) . "/../../config.php" );
+
+function init($p, $annotates, $id_pasta, $id_usuario, $id_grupo, $swiki_id)
 {
-  global $data;
-  $img_expand   = $URL_IMG . "/tree_expand.png";
-  $img_collapse = $URL_IMG . "/tree_collapse.png";
-  $img_line     = $URL_IMG . "/tree_vertline.png";
-  $img_split    = $URL_IMG . "/tree_split.png";
-  $img_end      = $URL_IMG . "/tree_end.png";
-  $img_leaf     = $URL_IMG . "/tree_leaf.png";
-  $img_spc      = $URL_IMG . "/tree_space.png";
+  global $data, $IMAGES_DIR;
 
-  $maxlevel =0;
-  $cnt      = 0;
+	$img_expand   = $IMAGES_DIR . "/tree_expand.png";
+	$img_collapse = $IMAGES_DIR . "/tree_collapse.png";
+	$img_line     = $IMAGES_DIR . "/tree_vertline.png";
+	$img_split    = $IMAGES_DIR . "/tree_split.png";
+	$img_end      = $IMAGES_DIR . "/tree_end.png";
+	$img_leaf     = $IMAGES_DIR . "/tree_leaf.png";
+	$img_spc      = $IMAGES_DIR . "/tree_space.png";
 
-  // Procura as pastas do nível 0 do usuário em um dado grupo
-  $dataMain = get_annotations_level_zero_annotates($annotates);
+	$maxlevel = 0;
+	$cnt      = 0;
 
-  $tree[0][0] = 1;
-  $tree[0][1] ='Main'; // nome da pasta
-  $tree[0][2] = '';    // cfgid
-  $tree[0][3] = '';
-  $tree[0][4] = 0;
+	$dataMain = get_annotations_level_zero_annotates( $annotates );
 
-  if (!empty($dataMain)){
-      $cnt=1;
-    while ($cnt < count($dataMain)){
-      $intchild = $dataMain[$cnt]["id_father"];
-      $d = count($data)+1;
-      $data[$d]["id_main"] = $dataMain[$cnt]["id_main"];
-      $data[$d]["level"] = $dataMain[$cnt]["level"]+1;
-      $data[$d]["id_father"] = $dataMain[$cnt]["id_father"];
-      $data[$d]["id"] = $dataMain[$cnt]["id"];
-      getchild($dataMain[$cnt]["id"], "");
-      $cnt++;
-    }
+	$tree[0][0] = 1;
+	$tree[0][1] ='Main'; // Folder name
+	$tree[0][2] = '';    // Configuration id (cfgid)
+	$tree[0][3] = '';
+	$tree[0][4] = 0;
 
-    $cnt=1;
-     while ($cnt <= count($data)) {
+	if ( ! empty( $dataMain ) ) {
+		$cnt = 1;
+		while ( $cnt < count( $dataMain ) ) {
+			$intchild = $dataMain[ $cnt ][ "id_father" ];
+			$d = count( $data ) + 1;
+			$data[ $d ][ "id_main" ] = $dataMain[ $cnt ][ "id_main" ];
+			$data[ $d ][ "level" ] = $dataMain[ $cnt ][ "level" ] + 1;
+			$data[ $d ][ "id_father" ] = $dataMain[ $cnt ][ "id_father" ];
+			$data[ $d ][ "id" ] = $dataMain[ $cnt ][ "id" ];
+			getchild( $dataMain[ $cnt ][ "id" ], "" );
+			$cnt++;
+		}
+
+		$cnt = 1;
+		while ($cnt <= count($data)) {
        $tree[$cnt][0] = $data[$cnt]["level"]+1;
        $id = $data[$cnt]["id"];
        $attr_annotation = get_annotation_attributes($id);
@@ -201,10 +203,10 @@ cellspacing=0 cellpadding=0 border=0 cols=".($maxlevel+3).">\n";
 
             $id_anot = $tree[$cnt][2];
             if ($expand[$cnt]==0)
-                echo "<td><a href=\"annotation.php".$params."&mostra=false&id_pasta=$id_pasta&sw_id=$sw_id&id_usuario=$id_usuario&id_grupo=$id_grupo&annotates=$annotates&id_anotacao=$id_anot\"><img src=\"".$img_expand."\" border=no></a></td>";
+                echo "<td><a href=\"annotation.php".$params."&mostra=false&id_pasta=$id_pasta&swiki_id=$swiki_id&id_usuario=$id_usuario&id_grupo=$id_grupo&annotates=$annotates&id_anotacao=$id_anot\"><img src=\"".$img_expand."\" border=no></a></td>";
             else{
                 if ($tree[$cnt][1] != "Main")
-                echo "<td><a href=\"annotation.php".$params."&mostra=false&id_pasta=$id_pasta&sw_id=$sw_id&id_usuario=$id_usuario&id_grupo=$id_grupo&annotates=$annotates&id_anotacao=$id_anot\"><img src=\"".$img_collapse."\" border=no></a></td>";
+                echo "<td><a href=\"annotation.php".$params."&mostra=false&id_pasta=$id_pasta&swiki_id=$swiki_id&id_usuario=$id_usuario&id_grupo=$id_grupo&annotates=$annotates&id_anotacao=$id_anot\"><img src=\"".$img_collapse."\" border=no></a></td>";
             }
           }
           else
@@ -223,7 +225,7 @@ cellspacing=0 cellpadding=0 border=0 cols=".($maxlevel+3).">\n";
           $grupo = get_group_name($tree[$cnt][8], "");
 
           echo '<td  colspan='.($maxlevel-$tree[$cnt][0]+1).'>';
-          echo '&nbsp;<a href="annotation.php?p='.$p.'&annotates='.$annotates.'&id_pasta='.$id_pasta.'&id_usuario='.$id_usuario.'&id_grupo='.$id_grupo.'&sw_id='.$sw_id.'&mostra=true'.'&id_anotacao='.$tree[$cnt][2].'">'.$tree[$cnt][1].' by '.$nome.' ('.$grupo.')</a></i>';
+          echo '&nbsp;<a href="annotation.php?p='.$p.'&annotates='.$annotates.'&id_pasta='.$id_pasta.'&id_usuario='.$id_usuario.'&id_grupo='.$id_grupo.'&swiki_id='.$swiki_id.'&mostra=true'.'&id_anotacao='.$tree[$cnt][2].'">'.$tree[$cnt][1].' by '.$nome.' ('.$grupo.')</a></i>';
           echo "</td>";
 
              /****************************************/
@@ -236,28 +238,28 @@ cellspacing=0 cellpadding=0 border=0 cols=".($maxlevel+3).">\n";
          }
          echo "</table>\n";
   }
-} // fim function init
+}
+
 
 function getchild ($intchild, $level)
 {
-  global $data;
+	global $data;
 
-  include_once("function.inc");
+	$dataSub = get_annotation_children( $intchild );
 
-  $dataSub = get_annotation_children($intchild);
+	if ( ! empty( $dataSub ) ) {
+		$cnt = 1;
+		while ( $cnt < count( $dataSub ) ) {
+			$d = count( $data ) + 1;
+			$data[$d]["id_main"]   = $dataSub[$cnt]["id_main"];
+			$data[$d]["level"]     = $dataSub[$cnt]["level"] + 1;
+			$data[$d]["id_father"] = $dataSub[$cnt]["id_father"];
+			$data[$d]["id"]        = $dataSub[$cnt]["id"];
 
-  if (!empty($dataSub)){
-    $cnt=1;
-    while ($cnt < count($dataSub)){
-      $d = count($data)+1;
-      $data[$d]["id_main"]   = $dataSub[$cnt]["id_main"];
-      $data[$d]["level"]     = $dataSub[$cnt]["level"]+1;
-      $data[$d]["id_father"] = $dataSub[$cnt]["id_father"];
-      $data[$d]["id"]        = $dataSub[$cnt]["id"];
+			getchild($dataSub[$cnt]["id"], "");
+			$cnt++;
+		}
+	}
 
-      getchild($dataSub[$cnt]["id"], "");
-      $cnt++;
-    }
-  }
-  return($dataSub);
+  return $dataSub;
 }
