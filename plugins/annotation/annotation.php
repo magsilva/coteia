@@ -11,7 +11,7 @@
 
 <?php
 require_once("annotation-api.inc");
-include_once("arvore_anotacoes.php");
+include_once("annotation_tree.php");
 
 if ( $mostra == "true" ) {
 	// apresenta a anotação
