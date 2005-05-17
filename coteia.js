@@ -33,9 +33,9 @@ function Imprime() {
 * Valida os dados da página wiki sendo editada/criada.
 */
 function validar( form ) {
-	if ( form.titulo.value == "" ) {
+	if ( form.title.value == "" ) {
 		alert('O campo título é de preenchimento obrigatório!');
-		form.titulo.focus();
+		form.title.focus();
 		return false;
 	}
 	
