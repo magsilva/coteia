@@ -3,8 +3,8 @@
 <?php
 
 
-include_once( dirname(__FILE__) . "/setup.php.inc" );
-include_once( dirname(__FILE__) . "/../plugins/cvs/cvs-api.php.inc" );
+include_once( dirname(__FILE__) . "/config.php" );
+include_once( dirname(__FILE__) . "/cvs-api.php.inc" );
 
 function setup_cvs() {
 	global $PATH_COWEB, $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_USERNAME, $CVS_PASSWORD, $CVS_METHOD, $CVS_ROOT, $CVS_MODULE, $CVS_BIN;
@@ -25,8 +25,6 @@ function setup_cvs() {
 			if ( !is_dir( "$CVS_ROOT/$CVS_MODULE" ) ) {
 				mkdir( "$CVS_ROOT/$CVS_MODULE" );
 			}
-			echo "Checking out for the first time...";
-			cvs_check( $CVS_MODULE, true );
 		}
 	}
 

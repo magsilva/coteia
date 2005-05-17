@@ -98,6 +98,11 @@ $PATH_XT = $PATH_COWEB . "/libs/xt.jar:" . $PATH_COWEB . "/libs/xp.jar";
 $FILES_DIR = "data";
 
 /**
+* Directory with the plugins.
+*/
+$PLUGINS_DIR = "plugins";
+
+/**
 * Directory with the uploaded files.
 */
 $UPLOADS_DIR = $PATH_COWEB . "/" . $FILES_DIR . "/upload";
