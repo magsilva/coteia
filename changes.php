@@ -18,23 +18,18 @@ echo get_header( _( "Recent changes" ) );
 
 include( "toolbar.php.inc" );
 
-$swiki_id = $_REQUEST[ "swiki_id" ];
-if ( check_swiki_id( $swiki_id ) === false ) {
-	show_error( _( "The requested swiki is invalid. Please contact the system's administrator." ) );
-}
-
 
 coteia_connect();
 
-if ( isset( $_REQUEST[ "submit" ] ) ) {
-	$selected_swiki_id = $_REQUEST[ "selected_swiki_id" ];
-	if ( check_swiki_id( $selected_swiki_id ) === false ) {
-		show_error( _( "The selected swiki is invalid. Please contact the system's administrator." ) );
+if ( isset( $_REQUEST[ "swiki_id" ] ) ) {
+	$swiki_id = $_REQUEST[ "swiki_id" ];
+	if ( check_swiki_id( $swiki_id ) === false ) {
+		show_error( _( "The requested swiki is invalid. Please contact the system's administrator." ) );
 	}
-	
+
 	$query = "select id,titulo from swiki ";
-	if ( $selected_swiki_id !== "0" ) {
-		$query .= "where id=$selected_swiki_id ";
+	if ( $swiki_id !== "0" ) {
+		$query .= "where id=$swiki_id ";
 	}
 	$query .= "order by titulo";
 	$result = mysql_query( $query );
@@ -61,8 +56,8 @@ if ( isset( $_REQUEST[ "submit" ] ) ) {
 } else {
 ?>
 
-<form method="post" action="changes.php">
-	<select name="selected_swiki_id">
+<form method="get" action="changes.php">
+	<select name="swiki_id">
 		<option value="0"><?php echo _( "All the swikis" ); ?></option>
 		<?php
 			$query = "SELECT id,titulo FROM swiki order by titulo";
@@ -79,8 +74,7 @@ if ( isset( $_REQUEST[ "submit" ] ) ) {
 			echo "\n";
 		?>
 	</select>
-	<input type="submit" name="submit" value="<?php echo _( "Search" ); ?>" />
-	<input type="hidden" name="swiki_id" value="<?php echo $swiki_id; ?>" />
+	<input type="submit" value="<?php echo _( "Search" ); ?>" />
 </form>
 <?php
 }
