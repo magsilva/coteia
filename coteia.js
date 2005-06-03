@@ -42,14 +42,14 @@ function validar( form ) {
 	if ( form.lock == true ) {
 		if ( form.password.value == "") {
 			alert('O campo de password é de preenchimento obrigatório!');
-			form.passwd.focus();
+			form.password.focus();
 			return false;
 		}
 	}
 
-	if ( form.passwd.value != form.repasswd.value ) {
+	if ( form.password.value != form.repassword.value ) {
 		alert('As senhas digitadas não coincidem!');
-		form.repasswd.focus();
+		form.repassword.focus();
 		return false;
 	}
 
