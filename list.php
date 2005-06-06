@@ -37,6 +37,13 @@ if ( $swiki_id == 0 ) {
 	show_error( _( "The parameter 'swiki_id' is invalid." ) );
 }
 
+$format = "html";
+if ( isset( $_REQUEST[ "format" ] ) ) {
+    $format = basename( $_REQUEST[ "format" ] );
+}
+
+
+
 // Find the swiki the wikipage belongs to
 coteia_connect();
 $query = "select status from swiki where id='$swiki_id'";
@@ -68,6 +75,20 @@ $tuple = mysql_fetch_array( $result );
 $swiki_title = $tuple[ "titulo" ];
 mysql_free_result( $result );
 
+$query = "select ident,titulo from paginas where ( ident='$swiki_id' or ident like '$swiki_id.%') order by titulo";
+$result = mysql_query( $query  );
+$wikipages = array();
+while ( $tuple = mysql_fetch_array( $result ) ) {
+	$wikipages[] = $tuple;	
+}
+mysql_free_result( $result );
+
+if ( $format == "csv" ) {
+	foreach ( $wikipages as $wikipage ) {
+		echo $wikipage[ "ident" ] . "," . $wikipage[ "titulo" ] . "\n";
+	}
+} else if ( $format == "html" ) {
+
 echo get_header( _( "$swiki_title index" ) );
 ?>
 
@@ -81,12 +102,9 @@ include( "toolbar.php.inc" );
 
 <ul>
 <?php
-$query = "select ident,titulo from paginas where ( ident='$swiki_id' or ident like '$swiki_id.%') order by titulo";
-$result = mysql_query( $query  );
-while ( $tuple = mysql_fetch_array( $result ) ) {
-	echo "\n\t<li><a href=\"show.php?wikipage_id=" . $tuple[ "ident" ] . "\">" .  $tuple[ "titulo" ] . "</a></li>";
+foreach ( $wikipages as $wikipage ) {
+	echo "\n\t<li><a href=\"show.php?wikipage_id=" . $wikipage[ "ident" ] . "\">" .  $wikipage[ "titulo" ] . "</a></li>";
 }
-mysql_free_result( $result );
 ?>
 </ul>
 
@@ -94,4 +112,8 @@ mysql_free_result( $result );
 
 </html>
 
-
+<?php
+} else {
+	show_error( _( "Output format not supported" ) );
+}
+?>
