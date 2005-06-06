@@ -277,7 +277,6 @@ function prepare_for_xml( $wikipage_raw )
 	$wikipage_xml[ "keyword2" ] = replace_chars( $wikipage_raw[ "kwd2" ] );
 	$wikipage_xml[ "keyword3" ] = replace_chars( $wikipage_raw[ "kwd3" ] );
 	$wikipage_xml[ "raw_content" ] = $wikipage_raw[ "conteudo_original" ];
-
 	return $wikipage_xml;
 }
 
@@ -331,8 +330,7 @@ function process_xml_document( $id, $xml_document, $xsl_names, $format )
 	@mkdir( $OUTPUT_DIR );
 	@mkdir( $OUTPUT_DIR . "/" . $format );
 	$output = $OUTPUT_DIR . "/" . $format . "/" . $id . "." . $format;
-	copy( $xml, $output );
-	unlink( $xml );
+	rename ( $xml, $output );
 
 	return true;
 }
@@ -474,47 +472,47 @@ function prepare_links_callback( $matches ) {
 */
 function find_wikipage_link()
 {
-  if ( func_num_args() < 2 || func_num_args() > 3 ) {
-    trigger_error( "Invalid number of arguments" );
-  }
+	if ( func_num_args() < 2 || func_num_args() > 3 ) {
+		trigger_error( "Invalid number of arguments" );
+	}
 
-  $wikipage_index = func_get_arg( 0 );
+	$wikipage_index = func_get_arg( 0 );
 	$swiki_id = extract_swiki_id( func_get_arg( 1 ) );
 	if ( $swiki_id == false ) {
 		return false;
 	}
 
 	coteia_connect();
-  if ( func_num_args() == 3 ) {
-    $swiki_name = func_get_arg( 2 );
+	if ( func_num_args() == 3 ) {
+    	$swiki_name = func_get_arg( 2 );
 		$swiki_name = mysql_escape_string( $swiki_name );
 		$query = "select id from swiki where titulo='$swiki_name'";
-	  $result = mysql_query( $query );
-  	if ( mysql_num_rows( $result ) == 0 ) {
-    	$swiki_id = 0;
-	  } else {
-	  	$tuple = mysql_fetch_array( $result );
-		  $swiki_id = $tuple[ "id" ];
+		$result = mysql_query( $query );
+		if ( mysql_num_rows( $result ) == 0 ) {
+    		$swiki_id = 0;
+	  	} else {
+	  		$tuple = mysql_fetch_array( $result );
+			$swiki_id = $tuple[ "id" ];
 		}
 		mysql_free_result( $result );
-  }
+	}
 
 	$wikipage_links = array();
 
-  $query = "select ident,indexador,titulo,data_ultversao,autor,id_sw FROM paginas,gets where binary indexador='" . mysql_escape_string( $wikipage_index ) . "' and paginas.ident=gets.id_pag";
+	$query = "select ident,indexador,titulo,data_ultversao,autor,id_sw FROM paginas,gets where binary indexador='" . mysql_escape_string( $wikipage_index ) . "' and paginas.ident=gets.id_pag";
 	if ( $swiki_id != 0 ) {
 		$query .= " and id_sw='$swiki_id'";
 	}
-  $result = mysql_query( $query );
+	$result = mysql_query( $query );
 
 	// This means it's a new wikipage.
-  if ( mysql_num_rows( $result ) == 0 ) {
+	if ( mysql_num_rows( $result ) == 0 ) {
 		$link = array();
 		$link[ "wikipage_id" ] = "0";
 		$link[ "index" ] = $wikipage_index;
 		$link[ "swiki_id" ] = $swiki_id;
 		$wikipage_links[] = $link;
-  }
+	}
 
 	// So we found some wikipages to link to.
 	while ( $tuple = mysql_fetch_array( $result ) ) {
