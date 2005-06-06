@@ -52,7 +52,8 @@ if ( $status == "1" ) {
   }
 }
 
-$filename = basename( $_REQUEST[ "filename" ] );
+$filename = utf8_decode( $_REQUEST[ "filename" ] );
+$filename = basename( $filename );
 $checked_file = $UPLOADS_DIR  . "/" . $swiki_id . "/" . $filename;
 if ( !is_file( $checked_file ) ) {
 	show_error( _( "The requested file couldn't be found." ) );
