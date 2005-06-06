@@ -56,7 +56,7 @@ if ( isset( $wikipage_id ) ) {
 <?php
 if ( isset( $wikipage_id ) ) {
 ?>
-<a href="mostra.php?wikipage_id=<?php echo $id_swiki?>"><img src="<?php echo $IMAGES_DIR; ?>/indice.png" alt="Top of the Swiki" title="Top page" /></a>
+<a href="show.php?wikipage_id=<?php echo $swiki_id?>"><img src="<?php echo $IMAGES_DIR; ?>/indice.png" alt="Top of the Swiki" title="Top page" /></a>
 <?php
 } else {
 ?>
