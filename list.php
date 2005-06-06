@@ -81,7 +81,7 @@ include( "toolbar.php.inc" );
 
 <ul>
 <?php
-$query = "select ident,titulo from paginas where ( ident='$swiki_id' or ident like '$swiki_id.%')";
+$query = "select ident,titulo from paginas where ( ident='$swiki_id' or ident like '$swiki_id.%') order by titulo";
 $result = mysql_query( $query  );
 while ( $tuple = mysql_fetch_array( $result ) ) {
 	echo "\n\t<li><a href=\"show.php?wikipage_id=" . $tuple[ "ident" ] . "\">" .  $tuple[ "titulo" ] . "</a></li>";
