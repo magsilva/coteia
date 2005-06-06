@@ -42,7 +42,7 @@ while ( $tuple = mysql_fetch_array( $result ) ) {
 		$email = $tuple[ "admin_mail" ];
 		$wikipage_id = $tuple[ "id" ];
 		
-		echo "\n\t<li><a href=\"show.php?wikipage_id=$wikipage_id\">$title</a>";
+		echo "\n\t<li><a href=\"show.php?wikipage_id=$wikipage_id\"><strong>$title</strong></a> <a href=\"list.php?swiki_id=$wikipage_id\">[" . _( "index" ) . "]</a>";
 		echo _( " (Admin: " ) . "<a href=\"mailto:$email\">$admin</a>)</li>";
 	}
 }
@@ -66,7 +66,8 @@ if ( mysql_num_rows( $result ) != 0 ) {
 			$email = $tuple[ "admin_mail" ];
 			$wikipage_id = $tuple[ "id" ];
 
-			echo "\n\t<li><a href=\"show.php?wikipage_id=$wikipage_id\">$title</a>";
+
+			echo "\n\t<li><a href=\"show.php?wikipage_id=$wikipage_id\"><strong>$title</strong></a> <a href=\"list.php?swiki_id=$wikipage_id\">[" . _( "index" ) . "]</a>";
 			echo _( " (Admin: " ) . "<a href=\"mailto:$email\">$admin</a>)</li>";
 		}
 	}
