@@ -410,6 +410,37 @@ function plugin_upload( $content )
 
 /**
 * Create automatically the links to another wikipages.
+*
+* @param wikipage_id [integer] Wikipage's identifier.
+* @param content [string] Wikipage's content.
+*
+* @return Content with links to wikipages.
+*/
+function prepare_camelcase_links( $wikipage_id, $content )
+{
+	$pattern = "/([A-Z][a-z]+[A-Z]\w*)/";
+
+	// Trick to pass a hint to the callback funtion.
+	$GLOBALS[ "callback_hint" ] = $wikipage_id;
+	$result = preg_replace_callback( $pattern, "prepare_camelcase_links_callback", $content );
+	unset( $GLOBALS[ "callback_hint" ] );
+
+	return $result;
+}
+
+function prepare_camelcase_links_callback( $matches )
+{
+	global $callback_hint;
+
+	$wikipage_index = trim( $matches[1] );
+	$links = find_wikipage_link( $wikipage_index, $callback_hint );
+	return prepare_wikipage_link( $links );
+}
+
+
+
+/**
+* Create automatically the links to another wikipages.
 * The algorithm is:
 *  - If id=$ident.x && titulo=tupla[titulo], then link
 *  - If the target hasn't been created, then add a [create] annotation.
@@ -447,7 +478,8 @@ function prepare_links_callback( $matches ) {
 }
 */
 
-function prepare_links_callback( $matches ) {
+function prepare_links_callback( $matches )
+{
 	global $callback_hint;
 
 	$wikipage_index = trim( $matches[2] );
@@ -541,11 +573,11 @@ function prepare_wikipage_link( $links )
 {
 	$i = $links[ 0 ];
 	if ( $i[ "wikipage_id" ] == "0" ) {
-		$result = '<a href="edit.php?wikipage_id=0&amp;swiki_id=' . $i[ "swiki_id" ] . '&amp;index=' . rawurlencode( $i[ "index" ] ) . '">' . $i[ "index" ] . '[create]</a>';
+		$result = ' <a href="edit.php?wikipage_id=0&amp;swiki_id=' . $i[ "swiki_id" ] . '&amp;index=' . rawurlencode( $i[ "index" ] ) . '">' . $i[ "index" ] . '[create]</a> ';
 	} else {
 		$ctime = strtotime( $i[ "ctime"  ] );
 		$ctime =  _( "Last modified in ") . date( "j/n/Y" , $ctime ) . _( " at " ) . date( "H:i", $ctime );
-		$result = '<a href="show.php?wikipage_id=' . $i[ "wikipage_id" ] . '" onMouseOver="window.status=\'' . $ctime . '; return true\'">' . $i[ "index" ] . '</a>';
+		$result = ' <a href="show.php?wikipage_id=' . $i[ "wikipage_id" ] . '" onMouseOver="window.status=\'' . $ctime . '; return true\'">' . $i[ "index" ] . '</a> ';
 	}
 
 	return $result;
@@ -586,6 +618,7 @@ function compile_wikipage( $wikipage_id, $format )
 	$wikipage_raw[ "conteudo_original" ] = "<![CDATA[" . $wikipage_raw[ "conteudo" ] . "]]>";
 
 	//	$tuple[ "conteudo" ] = note( $tuple[ "conteudo" ] );
+	$wikipage_raw[ "conteudo" ] = prepare_camelcase_links( $wikipage_id, $wikipage_raw[ "conteudo" ] );
 	$wikipage_raw[ "conteudo" ] = prepare_links( $wikipage_id, $wikipage_raw[ "conteudo" ] );
 	$wikipage_raw[ "conteudo" ] = plugin_upload( $wikipage_raw[ "conteudo" ] );
 
@@ -601,12 +634,23 @@ function compile_wikipage( $wikipage_id, $format )
 	if ( $wikipage_id == $swiki_id ) {
 		$linksto[ 0 ] = _( "List of swikis" );
 	}
+	// <lnk> links
 	$query = "select ident,titulo from paginas where ( ident='$swiki_id' or ident like '$swiki_id.%') and ident<>'$wikipage_id' and binary conteudo like '%<lnk%>" . mysql_escape_string( $wikipage_raw[ "indexador" ] ) . "</lnk%>%'";
 	$result = mysql_query( $query  );
 	while ( $tuple = mysql_fetch_array( $result ) ) {
 		$linksto[ $tuple[ "ident" ] ] =  $tuple[ "titulo" ];
 	}
 	mysql_free_result( $result );
+	// CamelCase links
+	if ( preg_match ( "/([A-Z]+[a-z]+[A-Z]\w*)/", $wikipage_raw[ "indexador" ] ) == 1 ) {
+		$query = "select ident,titulo from paginas where ( ident='$swiki_id' or ident like '$swiki_id.%') and ident<>'$wikipage_id' and binary conteudo like '%" . $wikipage_raw[ "indexador" ] . "%'";
+		$result = mysql_query( $query  );
+		while ( $tuple = mysql_fetch_array( $result ) ) {
+			$linksto[ $tuple[ "ident" ] ] =  $tuple[ "titulo" ];
+		}
+		mysql_free_result( $result );
+	}
+
 	$wikipage_xml[ "links" ] = $linksto;
 
 	// Set the page's lock status.
