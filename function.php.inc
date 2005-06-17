@@ -330,7 +330,8 @@ function process_xml_document( $id, $xml_document, $xsl_names, $format )
 	@mkdir( $OUTPUT_DIR );
 	@mkdir( $OUTPUT_DIR . "/" . $format );
 	$output = $OUTPUT_DIR . "/" . $format . "/" . $id . "." . $format;
-	rename ( $xml, $output );
+	copy( $xml, $output );
+	unlink( $xml );
 
 	return true;
 }
