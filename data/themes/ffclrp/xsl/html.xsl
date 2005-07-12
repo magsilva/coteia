@@ -11,7 +11,6 @@
 
 <xsl:template match="page">
 <head>
- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
  <meta name ="Author" content="{aut}" />
  <meta name ="Keywords" content="{kwd1},{kwd2},{kwd3}" />
  <link href="data/themes/ffclrp/css/coteia-media_screen.css" rel="stylesheet" type="text/css" />
