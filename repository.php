@@ -25,6 +25,11 @@ if ( check_wikipage_id( $wikipage_id ) === false ) {
 }
 $swiki_id = extract_swiki_id( $wikipage_id );
 
+$format = "html";
+if ( isset( $_REQUEST[ "format" ] ) ) {
+    $format = basename( $_REQUEST[ "format" ] );
+}
+
 // Prepare upload dir
 $path = $UPLOADS_DIR . "/" . $swiki_id;
 if ( !is_dir( $path ) ) {
@@ -59,6 +64,21 @@ if ( $status == "1" ) {
   }
 }
 
+if ( $format == "csv" ) {
+	$a = array();
+	$fd = opendir( $path );
+	while( $entry = readdir( $fd ) ) {
+		if ( ! eregi( "\.$", $entry ) ) {
+			array_push( $a, $entry );
+		}
+	}
+	closedir( $fd );
+	sort( $a );
+	reset( $a );
+	while ( list( $key, $val ) = each ( $a ) ) {
+		echo "$val\n";
+	}
+} else if ( $format == "html" ) {
 echo get_header( _( "Upload file" ) );
 ?>
 </head>
@@ -71,6 +91,7 @@ echo get_header( _( "Upload file" ) );
 $result = 4;
 if ( isset( $_FILES[ "filename" ] ) ) {
 	$filetypes = array();
+	$filetypes[] = "sh";
 	$filetypes[] = "txt";
 	$filetypes[] = "pdf";
 	$filetypes[] = "ps";
@@ -195,3 +216,9 @@ include( "toolbar.php.inc" );
 </body>
 
 </html>
+
+<?php
+} else {
+	show_error( _( "Output format not supported" ) );
+}
+?>

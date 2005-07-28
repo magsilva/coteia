@@ -92,7 +92,7 @@ function can_replace_chars_within( $xml_element )
 {
 	$result = true;
 	// RE: (<namespace>:)? "pre" ((\s)* <atribute>)* (\s)*
-  if ( preg_match( "/^(.*:)?pre((\s)*(.)*)*(\s)*$/i", $xml_element ) > 0 ) {
+	if ( preg_match( "/^(.*:)?pre((\s)*(.)*)*(\s)*$/i", $xml_element ) > 0 ) {
 		$result = false;
 	}
 	return $result;
@@ -199,6 +199,49 @@ function replace_chars( $text )
 
 		// Replace chars.
 		if ( ! $inside_tag ) {
+
+/*
+This heuristic is disabled not because it's broken. Unfortanetely, most browsers don't
+handle by the book ENTITY referencing, specially with data received from FORMs. I'm not
+against a world where the errors are forgiven, but championing the errors is something
+I _strongly_ disagree with.
+
+Actually, you can expect some browsers to even convert automatically to entity, what is
+damn wrong.
+
+To be honest, Konqueror's form handling must be throughly reviewed.
+
+			$is_entity = false;
+			// Maybe the text is an entity.
+			if ( $text{ $i } == "&" ) {
+				$is_entity = true;
+			}
+
+			// Is this really a ENTITY?
+			if ( $is_entity == true ) {
+				// TODO: How long can be an entity?
+				$j = 1;
+				for (; $j < 7 && strlen( $text ) < ( $i + $j ) && $text{ $i + $j } != ";"; $j++ ) {
+					if ( $text{ $i + $j } != htmlspecialchars( $text{ $i + $j } ) ) {
+						$is_entity = false;
+						break;
+					}
+				}
+
+				if ( $is_entity == true && $text{ $i + $j } != ";" ) {
+					$is_entity = false;
+				}
+			}
+			if ( ! $is_entity ) {
+				$new_text .= htmlspecialchars( $text{ $i } );
+			} else {
+				do {
+					$new_text .= $text{ $i };
+					$i++;
+				} while ( $text{ $i } != ";" );
+				$new_text .= $text{ $i };
+			}
+*/
 			$new_text .= htmlspecialchars( $text{ $i } );
 		} else {
 			$new_text .= $text{ $i };
@@ -348,10 +391,14 @@ function process_xml_document( $id, $xml_document, $xsl_names, $format )
 */
 function apply_xsl( $xml, $xsl )
 {
-	global $PATH_JAVA, $PATH_XT;
+	global $PATH_JAVA, $PATH_XT, $XSL_DIR;
 
 	$result = array();
 	$output = tempnam( "/tmp", "coteia" );
+
+	if ( str_replace( "$XSL_DIR/", "", $xsl ) == "xml.xsl" ) {
+		return $xml;
+	}
 
 	if ( ! function_exists( "xslt_create" ) ) {
 		// XT usage: [path_java] -classpath [classpath_xt] com.jclark.xsl.sax.Driver [xml] [xsl] [html]
