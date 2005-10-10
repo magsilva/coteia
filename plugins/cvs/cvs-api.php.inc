@@ -274,7 +274,7 @@ function cvs_get_revisions( $module, $filename )
 	$cvs_root = cvs_get_root();
 	$retval = 0;
 	$revisions = array();
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' log -l '$module/$filename' | grep ^revision | cut -f 2 -d ' '";
+	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' log -l '$module/$filename' | grep '^revision' | cut -f 2 -d ' '";
 	exec( $cmdline, $revisions, $retval );
 	if ( $retval != 0 ) {
 		return false;
@@ -303,7 +303,7 @@ function cvs_get_indexed_revisions( $module, $filename )
 	$cvs_root = cvs_get_root();
 	$retval = 0;
 	$dates = array();
-	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' log -l '$module/$filename' | grep ^date | cut -f 2-3 -d ' '";
+	$cmdline = "CVS_PASSFILE='$CVS_PASSFILE' $CVS_BIN -d '$cvs_root' log -l '$module/$filename' | grep '^date' | cut -f 2-3 -d ' '";
 	exec( $cmdline, $dates, $retval );
 	if ( $retval != 0 ) {
 		return false;
