@@ -1,6 +1,0 @@
-There are two types of swikis:
-1) Ordinary
-2) Login
-
-The "login" swiki requires an username and password to access the swiki and all
-its wikipages.

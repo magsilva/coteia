@@ -1,3 +1,6 @@
+
+A utilização da CoTeia original revelou vários problemas, de gravidades variadas, que prejudicavam a utilização da ferramenta:
+
 Problemas críticos encontrados:
 - A CoTeia não funciona de primeira, problema com a definição da classe session (conflita com a "session" interna do PHP).
 - O código de recuperação dos arquivos em CVS não funciona.

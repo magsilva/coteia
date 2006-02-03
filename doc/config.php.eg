@@ -75,7 +75,7 @@ $URL_COWEB = "http://" . $HOST_COWEB . "/"; // Geralmente somente a última strin
 * Informações sobre o administrador.
 */
 $ADMIN = "";
-$ADMIN_MAIL = "";
+$ADMIN_EMAIL = "";
 $ADMIN_PASSWORD = $dbpass;
 
 /**
