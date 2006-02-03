@@ -1,54 +1,33 @@
 <?php
 
-require_once( dirname(__FILE__) . "/config.php" );
-require_once( dirname(__FILE__) . "/../../function.php.inc" );
+require_once( "../../function.inc" );
 
-/**
-* Connect with the annotation database.
-*
-* @return The database handler.
-*/
-function anota_db_pconnect()
-{
-	global $groupnode_dbhost, $groupnode_dbuser, $groupnode_dbpass;
-        
-	$db_handler = mysql_pconnect( $anota_dbhost, $anota_dbuser, $anota_dbpword );
+/*
+ * NOME:		anota_db_pconnect
+ * DESCRICAO:		Realiza a conexao da anotacao com o DBMS MySQL 
+ * RETORNO:		Retorna o handler da base de dados
+ */
+function anota_db_pconnect() {
+        global $anota_dbhost, $anota_dbuser, $anota_dbpword;
+        return(mysql_pconnect($anota_dbhost, $anota_dbuser, $anota_dbpword));
 
-	if ( !$db_handler ) {
-		show_error( _( "Connection to the database has failed. Please, try again later (within some minutes). If the problem persits, contact the system's administrator." ), 1 );
-	}
-
-	$result = mysql_select_db( $groupnode_dbname, $db_handler );
-  if ( !$result ) {
-    show_error( _( "Connection to the database has failed. Please, try again later (within some minutes). If the problem persits, contact the system's administrator." ), 1 );
-  }
-
-  return $db_handler;
 }
 
-/**
-* Connect with the user database that Groupnode uses.
-*
-* @return The database handler.
-*/
-function user_db_pconnect()
-{
-	global $users_dbhost, $users_dbuser, $users_dbpass;
-        
-	$db_handler = mysql_pconnect( $users_dbhost, $users_dbuser, $users_dbpword );
+/*
+ * NOME:		user_db_pconnect
+ * DESCRICAO:		Realiza a conexao de usuarios com o DBMS MySQL 
+ * PAR. ENTRADA:	--
+ * PAR. SAIDA:		--
+ * RETORNO:		Retorna o handler da base de dados
+ * OBSERVACOES:		
+ */
+function user_db_pconnect() {
 
-	if ( !$db_handler ) {
-		show_error( _( "Connection to the database has failed. Please, try again later (within some minutes). If the problem persits, contact the system's administrator." ), 1 );
-	}
+        global $user_dbhost, $user_dbuser, $user_dbpword;
 
-	$result = mysql_select_db( $users_dbname, $db_handler );
-  if ( !$result ) {
-    show_error( _( "Connection to the database has failed. Please, try again later (within some minutes). If the problem persits, contact the system's administrator." ), 1 );
-  }
+        return(mysql_pconnect($user_dbhost, $user_dbuser, $user_dbpword));
 
-  return $db_handler;
 }
-
 
 /*
  * NOME:		user_id_exists
@@ -244,7 +223,6 @@ function get_annotations_level_zero_annotates($annotates)  {
     $select_db = mysql_select_db($anota_dbname, $dbh);
         
     $comando_sql = "SELECT id_main, level, id_father, id, title FROM annotation WHERE annotates = '$annotates' AND level = 0 ORDER BY creation_date";
-		echo $comando_sql;
     $resultado = mysql_query($comando_sql);
     $array = array();
     $array[0] = mysql_num_rows($resultado);

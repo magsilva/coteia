@@ -413,10 +413,10 @@ function apply_xsl( $xml, $xsl )
 		}
 	} else {
 		$xh = xslt_create();
-		xslt_set_encoding( $xh, "ISO-8859-1" );
+		xslt_set_encoding( $xh, "UTF-8" );
 		@define( "XSLT_SABOPT_DISABLE_STRIPPING", 1 );
 		@define( "XSLT_SABOPT_DISABLE_ADDING_META", 1 ); 
-		$result = @xslt_process( $xh, $xml, $xsl, $output );
+		$result = xslt_process( $xh, $xml, $xsl, $output );
 		if ( !$result && xslt_errno( $xh ) > 0 ) {
 			$result[] = xslt_error( $xh );
 		} else {
@@ -666,7 +666,7 @@ function compile_wikipage( $wikipage_id, $format )
 	$wikipage_raw[ "conteudo_original" ] = "<![CDATA[" . $wikipage_raw[ "conteudo" ] . "]]>";
 
 	//	$tuple[ "conteudo" ] = note( $tuple[ "conteudo" ] );
-	$wikipage_raw[ "conteudo" ] = prepare_camelcase_links( $wikipage_id, $wikipage_raw[ "conteudo" ] );
+	// $wikipage_raw[ "conteudo" ] = prepare_camelcase_links( $wikipage_id, $wikipage_raw[ "conteudo" ] );
 	$wikipage_raw[ "conteudo" ] = prepare_links( $wikipage_id, $wikipage_raw[ "conteudo" ] );
 	$wikipage_raw[ "conteudo" ] = plugin_upload( $wikipage_raw[ "conteudo" ] );
 
@@ -689,7 +689,9 @@ function compile_wikipage( $wikipage_id, $format )
 		$linksto[ $tuple[ "ident" ] ] =  $tuple[ "titulo" ];
 	}
 	mysql_free_result( $result );
+
 	// CamelCase links
+/*
 	if ( preg_match ( "/([A-Z]+[a-z]+[A-Z]\w*)/", $wikipage_raw[ "indexador" ] ) == 1 ) {
 		$query = "select ident,titulo from paginas where ( ident='$swiki_id' or ident like '$swiki_id.%') and ident<>'$wikipage_id' and binary conteudo like '%" . $wikipage_raw[ "indexador" ] . "%'";
 		$result = mysql_query( $query  );
@@ -698,7 +700,7 @@ function compile_wikipage( $wikipage_id, $format )
 		}
 		mysql_free_result( $result );
 	}
-
+*/
 	$wikipage_xml[ "links" ] = $linksto;
 
 	// Set the page's lock status.
@@ -994,7 +996,8 @@ function get_header( $title )
 {
 	global $CSS_DIR, $SKIN, $IMAGES_DIR;
 
-	$charset = "iso-8859-1";
+#	$charset = "iso-8859-1";
+#	$charset = "utf-8";
 
 	$css_files = glob( dirname(__FILE__) . "/" . $CSS_DIR . "/*.css" );
 
@@ -1139,7 +1142,7 @@ function check_xml_document( $xml_document )
 function prepare_xml_document( $wikipage )
 {
 	$xml_document =  <<<END
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coteia SYSTEM "coteia.dtd">
 <page>
 <id>{$wikipage[ "wikipage_id" ]}</id>

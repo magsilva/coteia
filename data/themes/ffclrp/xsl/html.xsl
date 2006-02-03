@@ -1,7 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <xsl:stylesheet version="1.0"
-        xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xt="http://www.jclark.com/xt"
-                extension-element-prefixes="xt">
+        xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template match="/">
  <html>
@@ -308,26 +307,26 @@
 </xsl:template>
 
 <xsl:template match="upl">
-<a href="checkout.php?wikipage_id={/page/id}&amp;filename={@file}">
-<xsl:apply-templates/>
-
+<a>
+<xsl:attribute name="href">checkout.php?wikipage_id=<xsl:value-of select="/page/id" />&amp;filename=<xsl:value-of select="@file" /></xsl:attribute>
+<xsl:apply-templates />
 <xsl:if test="@id = '1'">
-<img src="images/pdf.png" />
+	<img src="images/pdf.png" />
 </xsl:if>
 <xsl:if test="@id = '2'">
-<img src="images/web.png" />
+	<img src="images/web.png" />
 </xsl:if>
 <xsl:if test="@id = '3'">
-<img src="images/doc.png" />
+	<img src="images/doc.png" />
 </xsl:if>
 <xsl:if test="@id = '4'">
-<img src="images/ppt.png" />
+	<img src="images/ppt.png" />
 </xsl:if>
 <xsl:if test="@id = '5'">
-<img src="images/zip.png" />
+	<img src="images/zip.png" />
 </xsl:if>
 <xsl:if test="@id = '6'">
-<img src="images/download.png" />
+	<img src="images/download.png" />
 </xsl:if>
 </a>
 </xsl:template>
