@@ -1,8 +1,7 @@
-<Directory $PATH_UPLOAD>
+<Directory $UPLOADS_DIR>
 	Order deny,allow
 	Deny from all
-  Options -ExecCGI
-  AllowOverride None
-  RemoveHandler .jsp .php .html .htm
+	Options -ExecCGI
+	AllowOverride None
+	RemoveHandler .jsp .php .html .htm
 </Directory>
-

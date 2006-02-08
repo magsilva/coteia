@@ -82,7 +82,7 @@ foreach (glob( $PLUGINS_DIR . "/*" ) as $plugin ) {
 }
 
 echo "\nCreating the database schemas...";
-foreach (glob("*.raw") as $raw_squema) {
+foreach (glob("doc/tables/*.raw") as $raw_squema) {
 	replace_vars( $raw_squema );
 }
 echo "\nOk\n";

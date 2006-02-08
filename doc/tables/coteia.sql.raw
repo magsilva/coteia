@@ -68,4 +68,4 @@ CREATE TABLE paginas (
 	primary key (ident)
 );
 
-insert into admin values (NULL, 'admin' , '$ADMIN_MAIL' ,'admin', MD5('$ADMIN_PASSWORD'));
+insert into admin values (NULL, 'admin' , '$ADMIN_EMAIL' ,'admin', MD5('$ADMIN_PASSWORD'));
