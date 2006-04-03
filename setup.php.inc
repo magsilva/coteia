@@ -20,8 +20,12 @@ function console_error_handler( $errno, $errstr, $errfile, $errline ) {
 * Recursively change the files and directories' permissions.
 */
 function recursive_chmod( $path2dir, $mode_dir, $mode_file ) {
+	if ( ! is_dir( $path2dir ) ) {
+		return;
+	}
+		
 	$dir = dir( $path2dir );
-	while( ( $filename = $dir->read() ) !== false ) {
+	while ( ( $filename = $dir->read() ) !== false ) {
 		$full_filename = $dir->path . "/" . $filename;
 		if ( is_file( $full_filename ) ) {
 			echo "\n\t$full_filename";
@@ -30,8 +34,10 @@ function recursive_chmod( $path2dir, $mode_dir, $mode_file ) {
 		if ( is_dir( $full_filename ) ) {
 			if ( $filename != "." && $filename != ".." ) {
 				echo "\n$full_filename";
-				chmod( $full_filename, $mode_dir );
-				recursive_chmod( $full_filename, $mode_dir, $mode_file );
+				chmod( $full_filename, $mode_dir );	
+				if ( is_dir( $dir ) ) {
+					recursive_chmod( $full_filename, $mode_dir, $mode_file );
+				}
 			}
 		} 
 	}
