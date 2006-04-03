@@ -311,22 +311,22 @@
 <xsl:attribute name="href">checkout.php?wikipage_id=<xsl:value-of select="/page/id" />&amp;filename=<xsl:value-of select="@file" /></xsl:attribute>
 <xsl:apply-templates />
 <xsl:if test="@id = '1'">
-	<img src="images/pdf.png" />
+	<img src="data/themes/ffclrp/images/images/pdf.png" />
 </xsl:if>
 <xsl:if test="@id = '2'">
-	<img src="images/web.png" />
+	<img src="data/themes/ffclrp/images/images/web.png" />
 </xsl:if>
 <xsl:if test="@id = '3'">
-	<img src="images/doc.png" />
+	<img src="data/themes/ffclrp/images/images/doc.png" />
 </xsl:if>
 <xsl:if test="@id = '4'">
-	<img src="images/ppt.png" />
+	<img src="data/themes/ffclrp/images/images/ppt.png" />
 </xsl:if>
 <xsl:if test="@id = '5'">
-	<img src="images/zip.png" />
+	<img src="data/themes/ffclrp/images/images/zip.png" />
 </xsl:if>
 <xsl:if test="@id = '6'">
-	<img src="images/download.png" />
+	<img src="data/themes/ffclrp/images/images/download.png" />
 </xsl:if>
 </a>
 </xsl:template>
@@ -342,8 +342,8 @@
 
 <xsl:template match="freq">
 <a href="JavaScript:frequencia('{/page/id_eclass}')">
-<img src="images/useron.png" />
-<img src="images/useroff.png" />
+<img src="data/themes/ffclrp/images/useron.png" />
+<img src="data/themes/ffclrp/images/useroff.png" />
 </a>
 <xsl:apply-templates/>
 </xsl:template>
@@ -351,14 +351,14 @@
 <xsl:template match="note">
 <a href="JavaScript:AbreAnotacao('{/page/id}{@id}','{/page/id}','{/page/ann_folder}')">
 <xsl:apply-templates/>
-<img src="images/note_interno.png" align="middle"/>
+<img src="data/themes/ffclrp/images/note_interno.png" align="middle"/>
 </a>    
 </xsl:template>
 
 <xsl:template match="agenda">
 <a href="JavaScript:agenda('{@id}')">
-<font style="text-decoration: underline; color: blue;">Horarios</font>
-<img src="images/iconenorisk.jpg" />
+<font style="text-decoration: underline; color: blue;">Horários</font>
+<img src="data/themes/ffclrp/images/norisk.png" />
 </a>
 <xsl:apply-templates/>
 </xsl:template>

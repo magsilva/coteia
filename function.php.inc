@@ -391,7 +391,7 @@ function process_xml_document( $id, $xml_document, $xsl_names, $format )
 */
 function apply_xsl( $xml, $xsl )
 {
-	global $PATH_JAVA, $PATH_XT, $XSL_DIR;
+	global $PATH_JAVA, $PATH_XT, $XSL_DIR, $ENCODING;
 
 	$result = array();
 	$output = tempnam( "/tmp", "coteia" );
@@ -413,7 +413,7 @@ function apply_xsl( $xml, $xsl )
 		}
 	} else {
 		$xh = xslt_create();
-		xslt_set_encoding( $xh, "UTF-8" );
+		xslt_set_encoding( $xh, $ENCODING );
 		@define( "XSLT_SABOPT_DISABLE_STRIPPING", 1 );
 		@define( "XSLT_SABOPT_DISABLE_ADDING_META", 1 ); 
 		$result = xslt_process( $xh, $xml, $xsl, $output );
@@ -994,10 +994,9 @@ function update_wikipage( $wikipage_id, $format )
 */
 function get_header( $title )
 {
-	global $CSS_DIR, $SKIN, $IMAGES_DIR;
+	global $CSS_DIR, $SKIN, $IMAGES_DIR, $ENCODING;
 
-#	$charset = "iso-8859-1";
-#	$charset = "utf-8";
+	$charset = $ENCODING;
 
 	$css_files = glob( dirname(__FILE__) . "/" . $CSS_DIR . "/*.css" );
 
@@ -1141,8 +1140,10 @@ function check_xml_document( $xml_document )
 */
 function prepare_xml_document( $wikipage )
 {
+	global $ENCODING;
+
 	$xml_document =  <<<END
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="$ENCODING"?>
 <!DOCTYPE coteia SYSTEM "coteia.dtd">
 <page>
 <id>{$wikipage[ "wikipage_id" ]}</id>

@@ -151,6 +151,8 @@ $STYLESHEETS = array();
 
 $DEFAULT_OUTPUT_FORMAT = "html";
 
+$ENCODING = "ISO-8859-1";
+
 // I18N support information here
 $language = "en";
 // $language = "pt_BR";
@@ -161,6 +163,7 @@ setlocale( LC_ALL, $language );
 $domain = "coteia";
 bindtextdomain( $domain, "$PATH_COWEB/locale" ); 
 textdomain( $domain );
+
 
 
 /**
