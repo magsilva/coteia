@@ -1,0 +1,39 @@
+Visão geral
+---
+
+Atualmente, a criação de uma página wiki é realizada a partir da edição de uma wikipage, a inserção de um elemento "link" e a execução da referência gerada a partir desse elemento (na página wiki renderizada).
+
+Isto é muito lento para um sistema wiki. O ideial seria que a criação de uma nova página ocorresse diretamente a partir de uma página wiki, sem entrar no modo de edição da mesma (antes de entrar no modo de edição da nova página wiki).
+
+Há vários anos está disponível nos navegadores o recurso para obter o texto selecionado de uma página. Utilizando este recurso e serviços Web, provavelmente é possível tornar mais ágil o processo de criação de páginas na CoTeia.
+
+A criação de uma página na CoTeia exige um título (o identificador das páginas é criado automaticamente pela CoTeia). Ao selecionar um trecho de texto da página renderizada na CoTeia, um menu deve ser mostrado com o texto (truncado) da página cujo título seja igual ao texto selecionado (se essa página existir) ou uma opção para criar uma nova página deve ser mostrada.
+
+
+Requisitos
+---
+
+1. Um menu popup deve ser mostrado ao acionar o botão 2 (vulgo botão 'direito' do mouse) do mouse sobre o texto selecionado.
+
+2. O menu popup deve mostrar o texto da página (caso exista uma página cujo título seja o mesmo do texto selecionado).
+2.1. Caso o conteúdo da página seja muito grande para ser mostrado no menu popup, o conteúdo deve ser truncado para algo em torno de 15 palavras.
+
+3. Talvez existam páginas cujo título seja semelhante ao texto selecionado (gênero, número, grau, etc). O menu popup deve mostrar as páginas candidatas (com um percentual de similaridade) e as primeiras palavras do texto de cada página. Por exemplo, para o termo 'Linux', poderíamos ter:
+- Linus (90%) - Linus Torvalds é o criador do Linux. Nascido em...
+- GNU/Linux (70%) - O GNU/Linux é um sistema operacional livre, criado a partir do kernel Linux e softwares do projeto GNU. Atualmente existem...
+- Linux HowTo (50%) - O Linux é um sistema operacional livre. Este guia ensina os conceitos básicos...
+
+4. O menu popup deve mostrar a opção para criar uma nova página cujo título é o do texto selecionado. Ao selecionar a opção em questão, a página de edição da CoTeia deve ser aberta.
+
+5. Os termos da página que são ligações devem ser discretamente sublinhados e links devem ser oferecidos para cada termo.
+
+6. Um mesmo trecho de texto pode ter vários várias ligações. Por exemplo, em "GNU/Linux", GNU pode ser um link, Linux outro e GNU/Linux mais outro. Talvez seja possível utilizar algum artifício que permita identificar a existência de tais páginas (variar a intensidade da cor do sublinhado, sei lá).
+
+
+Projeto e implementação
+---
+
+- Criar uma função para verificar a existência de uma página wiki (de acordo com o título).
+- Criar uma função que, para um dado título, retorna um array de páginas wiki semelhantes. Esse array deve ser associativo, sendo o título da página a chave e o conteúdo a porcentagem de acerto.
+- Criar uma função que, para um dado título, retorna o conteúdo (truncado) da respectiva página.
+- Criar o código para gerar o menu popup com o texto selecionado. O texto em questão deve ser utilizado como argumento para as chamadas remotas.

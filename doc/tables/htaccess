@@ -1,7 +1,0 @@
-<Directory /home/magsilva/public_html/Tools/CoTeia/upload>
-	Order deny,allow
-	Deny from all
-  Options -ExecCGI
-  AllowOverride None
-  RemoveHandler .jsp .php .html .htm
-</Directory>
