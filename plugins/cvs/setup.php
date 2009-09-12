@@ -1,13 +1,11 @@
-#!/usr/bin/php
-
 <?php
 
 
-include_once( dirname(__FILE__) . "/setup.php.inc" );
-include_once( dirname(__FILE__) . "/../plugins/cvs/cvs-api.php.inc" );
+include_once( dirname(__FILE__) . "/../../config.php" );
+include_once( dirname(__FILE__) . "/cvs-api.inc.php" );
 
 function setup_cvs() {
-	global $PATH_COWEB, $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_USERNAME, $CVS_PASSWORD, $CVS_METHOD, $CVS_ROOT, $CVS_MODULE, $CVS_BIN;
+	global $PATH_COWEB, $CVS_CHECKOUT_DIR, $CVS_PASSFILE, $CVS_USERNAME, $CVS_PASSWORD, $CVS_METHOD, $CVS_ROOT, $CVS_WIKIPAGE_MODULE, $CVS_BIN;
 
 	cvs_login();
 
@@ -22,11 +20,9 @@ function setup_cvs() {
 			// TODO: Criar writers.v via rcs
 			fwrite( $writers, "$CVS_USERNAME:$CVS_PASSWORD" );
 			fclose( $writers );
-			if ( !is_dir( "$CVS_ROOT/$CVS_MODULE" ) ) {
-				mkdir( "$CVS_ROOT/$CVS_MODULE" );
+			if ( !is_dir( "$CVS_ROOT/$CVS_WIKIPAGE_MODULE" ) ) {
+				mkdir( "$CVS_ROOT/$CVS_WIKIPAGE_MODULE" );
 			}
-			echo "Checking out for the first time...";
-			cvs_check( $CVS_MODULE, true );
 		}
 	}
 

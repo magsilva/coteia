@@ -70,7 +70,7 @@ if ( $action == "create" ) {
 	/**
 	* Create the swiki.
 	*/
-	coteia_connect();
+	db_connect();
 	$query = "insert into swiki (id,status,visivel,titulo,log_adm,admin,admin_mail,data,annotation_login,id_chat,id_ann,semestre,id_eclass) values (NULL,'$type','$visible','$name','$login','$admin','$admin_email','$date','$annotation','$cs_session_id','$annotation_folder_id','$semester','$eclass')";
 	$result = mysql_query( $query );
 

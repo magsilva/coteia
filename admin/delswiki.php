@@ -40,7 +40,7 @@ function ValidaForm() {
 	<select name="remove">
 		<option value="0" selected>Escolha a swiki</option></font>
 		<?php
-			$dbh = db_connect();
+			db_connect();
 			mysql_select_db( $dbname, $dbh );
 			$sql = "SELECT id,titulo FROM swiki order by titulo";
 			$query = mysql_query( $sql );

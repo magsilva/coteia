@@ -38,8 +38,7 @@ $CVS_ROOT = $PATH_COWEB . "/" . $FILES_DIR . "/cvs/repository";
 * The cvs's module to be used.
 * Default value: "html"
 */
-$CVS_WIKIPAGE_MODULE = "html";
-$CVS_UPLOAD_MODULE = "uploads";
+$CVS_WIKIPAGE_MODULE = "coteia";
 
 /**
 * The username to be used to access the repository.
@@ -58,7 +57,7 @@ $CVS_PASSWORD = "";
 * The directory where a copy of the repository (checkout) will be kept.
 * Default value: $FILES_DIR . "cvs/localcopy"
 */
-$CVS_CHECKOUT_DIR = $PATH_COWEB . "/" . $FILES_DIR . "/cvs/localcopy";
+$CVS_CHECKOUT_DIR = $PATH_COWEB . "/" . $FILES_DIR . "/cvs/workcopy";
 
 /**
 * The name of the file that will hold the password for cvs access (needed when

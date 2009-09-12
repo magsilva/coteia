@@ -22,7 +22,7 @@ echo get_header( _( "Set swiki configuration" ) );
 <select name="swiki_id">
 	<option value="0" selected><?php echo _( "Choose a swiki" ); ?></option>
 	<?php
-		coteia_connect();
+		db_connect();
 		$query = "select id,titulo from swiki order by titulo"; 
 		$result = mysql_query( $query );
 		while ( $tuple = mysql_fetch_array( $result ) ) {

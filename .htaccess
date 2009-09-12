@@ -1,36 +1,10 @@
+RewriteEngine on
+RewriteRule ^(.*)$ $1/view [NE]
 
-<Files ".cvspass">
-	Deny from all
-</Files>
+RewriteRule ^(.*)/view$ view.php?id=$1 [NE]
 
-<Files "config.php">
-	Deny from all
-</Files>
+ErrorDocument 404 error.php
 
-<Files "config.php">
-	Deny from all
-</Files>
 
-<Files "config.php">
-	Deny from all
-</Files>
-
-<Files "config.php">
-	Deny from all
-</Files>
-
-<Files "config.php">
-	Deny from all
-</Files>
-
-<Files "config.php">
-	Deny from all
-</Files>
-
-<Files "config.php">
-	Deny from all
-</Files>
-
-<Files "config.php">
-	Deny from all
-</Files>
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteRule ^(.+)errata\.html?$ cgi-bin/errata/errata-html/$1

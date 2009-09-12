@@ -1,6 +1,6 @@
 <?php
 
-include_once( "../function.php.inc" );
+// include_once( "../function.php.inc" );
 
 /*
  * NOME:		cs_db_pconnect

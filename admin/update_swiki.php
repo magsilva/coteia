@@ -18,12 +18,12 @@ if ( ! isset( $_REQUEST[ "swiki_id" ] ) ) {
   show_error( _( "Missing parameter: 'swiki_id'" ), 0 );
 }
 $swiki_id = $_REQUEST[ "swiki_id" ];
-if ( check_swiki_id( $swiki_id ) === false ) {
+if ( swiki_check_id( $swiki_id ) === false ) {
   show_error( _( "The parameter 'swiki_id' is invalid." ) );
 }
 
 
-coteia_connect();
+db_connect();
 $query = "select * from swiki where id='$swiki_id'";
 $result = mysql_query( $query );
 if ( mysql_num_rows( $result ) == 0 ) {

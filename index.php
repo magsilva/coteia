@@ -1,82 +1,58 @@
 <?php
-/**
-* CoTeia's main page.
-*
-* Show the visible swikis and some usage statistics.
-*
-* Copyright (C) 2001, 2002, 2003 Carlos Roberto E. de Arruda Jr
-* Changed by Marco Aurélio Graciotto Silva (2004).
-*
-* This code is licenced under the GNU General Public License (GPL).
+/*
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+ 
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+ 
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ 
+Copyright (C) 2007 Marco Aurelio Graciotto Silva <magsilva@gmail.com>
 */
 
-include_once( "function.php.inc" );
+set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__));
+set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/libs/');
+set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/resources/');
 
-echo get_header( _( "CoTeia's Main Page" ) );
-?>
-<body>
+require_once('Config.class.php');
+require_once('ArrayUtil.class.php');
+require_once('ErrorHandler.class.php');
+require_once('aoPHP/RuntimeWeaver.class.php');
+require_once('ff-mvc/AutoMapping.class.php');
+require_once('ff-mvc/RequestProcessor.class.php');
 
-<h1><img src="<?php echo $IMAGES_DIR; ?>/logo.png" alt="<?php echo _( "CoTeia - Web Based Collaborative Edition Tool" ); ?>" /> CoTeia</h1>
-<hr align="right" />
+$config = Config::instance();
 
-<?php
-$today = getdate(); 
-$year = $today['year']; 
-if ( $today['mon'] <= '6') {
-	$semester = 1;
+$error_handler = new ErrorHandler();
+
+// $this->log = &Logging::instance();
+
+$weaver = new RuntimeWeaver(dirname(__FILE__) . '/aspects', dirname(__FILE__));
+$weaver->run();
+
+$mapper = new AutoMapping(dirname(__FILE__));
+$mapping = $mapper->getMapping();
+$defaultAction = 'Index';
+$request = array();
+$response = array();
+
+if (isset($_REQUEST['do'])) {
+	$action = $_REQUEST['do'];
+	$request = ArrayUtil::shallowCopy($_REQUEST, $request);
 } else {
-	$semester = 2;
+	$action = $defaultAction;
 }
 
-echo "\n<h2>" . sprintf( _( "Current semester: %d of %d" ), $semester, $year ) . "</h2>";
+$controller = new RequestProcessor();
+$controller->processRequest($request, $response, $action, $mapping);
 
-echo "\n<ul>";
-$dbh = coteia_connect();
-$sem_atual = $semester . '_' . $year;
-$query = "SELECT id,titulo,admin,admin_mail,visivel FROM swiki where (semestre='$sem_atual' || semestre='T') order by titulo";
-$result = mysql_query( $query );
-while ( $tuple = mysql_fetch_array( $result ) ) {
-	if ( $tuple[ "visivel" ] == 'S' ) {
-		$title = $tuple[ "titulo" ];
-		$admin = $tuple[ "admin" ];
-		$email = $tuple[ "admin_mail" ];
-		$wikipage_id = $tuple[ "id" ];
-		
-		echo "\n\t<li><a href=\"show.php?wikipage_id=$wikipage_id\"><strong>$title</strong></a> <a href=\"list.php?swiki_id=$wikipage_id\">[" . _( "index" ) . "]</a>";
-		echo _( " (Admin: " ) . "<a href=\"mailto:$email\">$admin</a>)</li>";
-	}
-}
-mysql_free_result( $result );
-echo "\n</ul>\n";
-
-
-
-$query = "SELECT id,titulo,admin,admin_mail,visivel FROM swiki where (semestre<>'$sem_atual' && semestre<>'T') order by titulo";
-$result = mysql_query( $query );
-
-if ( mysql_num_rows( $result ) != 0 ) {
-	echo "\n<h2>" . _( "Previous semesters" ) . "</h2>";
-	echo "\n<ul>";
-
-
-	while ( $tuple = mysql_fetch_array( $result ) ) {
-		if ( $tuple[ "visivel" ] == 'S' ) {
-			$title = $tuple[ "titulo" ];
-			$admin = $tuple[ "admin" ];
-			$email = $tuple[ "admin_mail" ];
-			$wikipage_id = $tuple[ "id" ];
-
-
-			echo "\n\t<li><a href=\"show.php?wikipage_id=$wikipage_id\"><strong>$title</strong></a> <a href=\"list.php?swiki_id=$wikipage_id\">[" . _( "index" ) . "]</a>";
-			echo _( " (Admin: " ) . "<a href=\"mailto:$email\">$admin</a>)</li>";
-		}
-	}
-	echo "\n</ul>";
-}
-mysql_free_result( $result );
-
+// TODO: Comment this out!
+$weaver->clean();
 ?>
-
-</body>
-
-</html>

@@ -1,7 +1,8 @@
 /**
 * Verifica o estado do envio de um arquivo.
 */
-function StatusUpload( ok ) {
+function StatusUpload( ok )
+{
 	if (ok == 1) {
 		alert( "O arquivo foi transferido com sucesso!" );
 	} else if (ok == 2) {
@@ -13,7 +14,8 @@ function StatusUpload( ok ) {
 	}
 }
 
-function check(id,index) {
+function check(id,index)
+{
 	if ( typeof( index ) ==  "undefined" ) {
 		window.opener.document.location.replace('mostra.php?ident=' + id);
 	} else {
@@ -25,14 +27,16 @@ function check(id,index) {
 /**
 * Imprime a página atual.
 */
-function Imprime() {
+function Imprime()
+{
 	window.print();
 }
 
 /**
 * Valida os dados da página wiki sendo editada/criada.
 */
-function validar( form ) {
+function validar( form )
+{
 	if ( form.title.value == "" ) {
 		alert('O campo título é de preenchimento obrigatório!');
 		form.title.focus();
@@ -57,22 +61,65 @@ function validar( form ) {
 }
 
 
-function AbreChat(chat_folder) {
+function AbreChat(chat_folder)
+{
 	window.open('chat.php?id='+chat_folder,'janelachat','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=360,height=250');
 }
 
-function AbreAnotacao(id,swiki_id,ann_folder) {
+function AbreAnotacao(id,swiki_id,ann_folder)
+{
 	window.open('plugins/annotation/annotation.php?p=0&swiki_id='+swiki_id+'&annotates=show.php?wikipage_id='+id+'&id_pasta='+ann_folder+'&mostra=false','janelaann','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=700,height=480');
 }
 
-function frequencia(id_eclass) {
+function frequencia(id_eclass)
+{
 	window.open('freq/index.php?curso_id='+id_eclass,'janelafreq','toolbar=no,directories=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=650,height=600');
 }
 
-function agenda(id) {
+function agenda(id)
+{
 	window.open('norisk/coweb_disciplina.php?user='+id,'jagenda','toolbar=no,directories=no,scrollbars=yes,menubars=no,status=no,resizable=yes,width=780,height=500');
 }
 
-function AbreMapa(id) {
+function AbreMapa(id)
+{
 	window.open('map.php?id='+id,'janelamap','toolbar=no,directories=no,location=no,scrollbars=yes,menubar=no,status=no,resizable=yes,width=520,height=480');
+}
+
+function replaceMode(buttonId, elementId)
+{
+	if (document.getElementById) {
+		var button = document.getElementById(buttonId);
+		if (button) {
+			if (button.value == 'Auto') {
+				replaceElementValue(elementId, 'template');
+				replaceElementValue(buttonId, 'Modelo');
+			} else {
+				if (button.value == 'Modelo') {
+    				replaceElementValue(elementId, 'manual');
+					replaceElementValue(buttonId, 'Manual');
+				} else { // if (button.value == 'Manual')
+					replaceElementValue(elementId, 'auto');
+					replaceElementValue(buttonId, 'Auto');
+				}
+			}
+		}
+	}
+}
+
+
+function replaceElementValue(elementId, value)
+{
+	if (document.getElementById) {
+		var element = document.getElementById(elementId);
+		if (element) {
+			if (element.childNodes[0]) {
+				element.childNodes[0].nodeValue = value;
+			} else if (element.value) {
+				element.value=value;
+			} else { //if (element.innerHTML)
+				element.innerHTML=value;
+			}
+		}
+	}
 }

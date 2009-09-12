@@ -7,12 +7,12 @@
 
     global $dbname;
 	
-    $dbh = db_connect();
+    db_connect();
 
     # seleciona base de dados
-    mysql_select_db($dbname,$dbh);
+    mysql_select_db($dbname);
  
-	$query = mysql_query("select nome,login,email from admin where id='$id'",$dbh);
+	$query = mysql_query("select nome,login,email from admin where id='$id'");
 	while ($tupla = mysql_fetch_array($query)) {
 		$euser_nome = $tupla["nome"];
 		$euser_login = $tupla["login"];
