@@ -1,0 +1,12 @@
+before(): exec(metadata_initialize($wikipage_id))
+{
+	session_start();
+	if ( $_SESSION == NULL || $_SESSION['vcard'] == NULL || ! isset($_SESSION['vcard']) ) {
+		$url = "login_user.php";
+		$url .= "?dest=" . $_SERVER["REQUEST_URI"];
+
+		session_write_close();
+		header( "Location: $url" );
+		exit();
+	}
+}

@@ -1,0 +1,31 @@
+around() : execr(update_wikipage($wikipage_id, $format))
+{
+	global $CVS_WIKIPAGE_MODULE;
+
+	$result = proceed($wikipage_id, $format);
+
+	if ( $result === true ) {
+	        $filename = cvs_wikipage2workcopy( $wikipage_id );
+		$result = cvs_update_file( $CVS_WIKIPAGE_MODULE, $filename );
+		// If we cannot update the file, try to add it.
+		if ( $result === false ) {
+			$result = cvs_add_file( $CVS_WIKIPAGE_MODULE, $filename );
+		}
+	}
+
+	return $result;
+
+}
+
+after() : execr(writeMetadataToRDFFile($file, $metadata))
+{
+	global $CVS_WIKIPAGE_MODULE, $PATH_COWEB, $XML_DIR, $wikipage_id;
+
+	$filename = cvs_wikipage2workcopy( 'metadata' . $wikipage_id );
+	$filename = $PATH_COWEB . '/' . $XML_DIR . '/' . basename($filename, '.html') . '.rdf';
+	$result = cvs_update_file( $CVS_WIKIPAGE_MODULE, $filename );
+	// If we cannot update the file, try to add it.
+	if ( $result === false ) {
+		$result = cvs_add_file( $CVS_WIKIPAGE_MODULE, $filename );
+	}
+}
