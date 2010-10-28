@@ -1,5 +1,0 @@
-Resource types:
-- Page
-- URL (full URL, usually for an external site)
-- Figure (jpg, png, etc)
-- Movie

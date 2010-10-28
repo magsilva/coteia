@@ -1,5 +1,0 @@
-O código-fonte dos arquivos deve ser enviado no corpo do email, como texto.
-
-Cada linha deve ter no máximo 80 caracteres (apesar de 76 ser preferível, já
-que permite a resposta do email, com comentários, sem que haja quebra das
-linhas do código (cada resposta acrescenta dois caracteres, "> ").
