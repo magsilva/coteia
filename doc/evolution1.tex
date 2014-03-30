@@ -1,0 +1,25 @@
+
+A utilização da CoTeia original revelou vários problemas, de gravidades variadas, que prejudicavam a utilização da ferramenta:
+
+Problemas críticos encontrados:
+- A CoTeia não funciona de primeira, problema com a definição da classe session (conflita com a "session" interna do PHP).
+- O código de recuperação dos arquivos em CVS não funciona.
+- O código para armazenamento das versões em CVS (cvs/*) também parece não funcionar.
+- Ausência de uma folha de estilo (coteia.xsl), impedindo a realização de transformações XML. Foi recuperada uma folha da ramificação da CoTeia utilizada pela Simone.
+- Ausência de todos os esquemas SQL necessários para executar a ferramenta (na verdade, contém apenas o da CoTeia propriamente dito, sendo que são utilizados outras quatro bases de dados: groupnote, eclass, chatserver, coweb-users).
+
+Problemas graves:
+- O código para armazenamento de versões em CVS (cvs/*) faz checkout da árvore inteira (html/*). Atualmente o repositório da CoTeia na vinho.intermidia.icmc.usp.br ocupa aproximadamente 28576 KiB. Isso explica a lentidão observada no servidor CVS (o processo CVS demorava muito para executar, vários processos ao mesmo tempo, efeito cascata de consumo da então escassa memória do servidor).
+- O código que utiliza o CVS, como um todo, é precário e mal organizado. Não existe preocupação em login, existe código redundante demais.
+- A documentaçào de instalação da ferramenta é ruim. Existem dezenas de variáveis a serem configuradas, em vários arquivos espalhados: function.inc, admin/function.inc, cvs/function_cvs.inc, freq/Constantes.inc. Observa-se que os dois últimos arquivos não são citados na documentação, tendo o usuário de descobrir que eles devem ser configurados. Existem muitas variáveis idênticas que devem ser configuradas em vários arquivos (principalmente relativo a banco de dados).
+- A instalação da CoTeia como um todo é pouco prática e, principalmente, muito sujeita a erros. Além da configuração manual das variáveis, deve-se editar manualmente os esquemas SQL.
+
+Problemas menores:
+- Redundância de código.
+- Não adequação às recomendações da W3C (HTML 4.01 ou XHTML 1.0 Transational, pelo menos).
+- Não utilização de folhas de estilo (CSS).
+- Uso desnecessário de tabelas.
+- Variáveis de configuração nem sempre utilizadas (caminho para figuras, por exemplo).
+- Variáveis de configuração hipoteticamente úteis não existem (relativo ao CVS, por exemplo).
+- Uso abusivo de variáveis globais (na verdade, todas elas são desnecessários, seria trivial converter tudo para constantes).
+- Exigência da ativação do "register_globals" do PHP.
